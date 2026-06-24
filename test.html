@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>GameNest World TEST</title>
+</head>
+<body>
+<h1 id="h">Loading...</h1>
+<button onclick="testBtn()">TEST BUTTON</button>
+<div id="result"></div>
+<script>
+document.getElementById("h").textContent = "JS WORKS! v" + Date.now();
+function testBtn() {
+  document.getElementById("result").textContent = "BUTTON WORKS! " + new Date();
+}
+console.log("TEST PAGE LOADED OK");
+</script>
+</body>
+</html>
