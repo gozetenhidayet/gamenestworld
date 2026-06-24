@@ -148,11 +148,41 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:10px 3
 .lb-my{text-align:center;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-size:12px;font-weight:700;color:var(--accent);}
 
 /* FILTER BAR */
-.filter-bar{position:sticky;top:53px;z-index:500;background:rgba(255,255,255,.98);border-bottom:1px solid var(--border);padding:8px 16px;backdrop-filter:blur(12px);box-shadow:0 2px 8px rgba(0,0,0,.04);}
-.filter-inner{display:flex;justify-content:center;gap:5px;flex-wrap:wrap;max-width:960px;margin:0 auto;}
-.flt{display:inline-flex;align-items:center;gap:4px;border:1.5px solid var(--border);background:#fff;color:var(--muted);border-radius:99px;padding:5px 12px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .22s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;}
-.flt:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);}
-.flt.active{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 3px 10px rgba(99,102,241,.3);}
+.filter-bar{position:sticky;top:53px;z-index:500;background:rgba(255,255,255,.98);border-bottom:1px solid var(--border);padding:10px 20px;backdrop-filter:blur(12px);box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.filter-inner{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;max-width:1100px;margin:0 auto;}
+.flt{display:inline-flex;align-items:center;gap:6px;border:2px solid var(--border);background:#fff;color:var(--muted);border-radius:99px;padding:8px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .25s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;letter-spacing:-.01em;}
+.flt:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,0,0,.1);}
+.flt.active{color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.18);}
+
+/* All Games */
+.flt:first-child{color:#6366f1;border-color:#a5b4fc;}
+.flt:first-child:hover{background:#eef2ff;border-color:#6366f1;}
+.flt:first-child.active{background:var(--accent);border-color:var(--accent);}
+
+/* Quiz */
+.flt-quiz{color:#7c3aed;border-color:#c4b5fd;}
+.flt-quiz:hover{background:#ede9fe;border-color:#7c3aed;}
+.flt-quiz.active{background:#7c3aed;border-color:#7c3aed;}
+
+/* Word */
+.flt-word{color:#16a34a;border-color:#86efac;}
+.flt-word:hover{background:#dcfce7;border-color:#16a34a;}
+.flt-word.active{background:#16a34a;border-color:#16a34a;}
+
+/* Math */
+.flt-math{color:#ea580c;border-color:#fdba74;}
+.flt-math:hover{background:#fff7ed;border-color:#ea580c;}
+.flt-math.active{background:#ea580c;border-color:#ea580c;}
+
+/* Classic */
+.flt-classic{color:#0891b2;border-color:#67e8f9;}
+.flt-classic:hover{background:#e0f2fe;border-color:#0891b2;}
+.flt-classic.active{background:#0891b2;border-color:#0891b2;}
+
+/* Memory */
+.flt-memory{color:#db2777;border-color:#f9a8d4;}
+.flt-memory:hover{background:#fdf2f8;border-color:#db2777;}
+.flt-memory.active{background:#db2777;border-color:#db2777;}
 .flt-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
 
 /* SECTION */
@@ -319,12 +349,12 @@ footer{background:var(--text);padding:36px 32px 28px;}
 <!-- FILTER BAR — STICKY -->
 <div class="filter-bar">
   <div class="filter-inner">
-    <button class="flt active" onclick="setFilter('all',this)"><span data-i18n-f="f_all">🎮 All (51)</span></button>
-    <button class="flt" onclick="setFilter('quiz',this)" style="color:#6366f1;">🧠 <span data-i18n-f="f_quiz">Quiz</span></button>
-    <button class="flt" onclick="setFilter('word',this)" style="color:#16a34a;">📝 <span data-i18n-f="f_word">Word</span></button>
-    <button class="flt" onclick="setFilter('math',this)" style="color:#ea580c;">🔢 <span data-i18n-f="f_math">Math</span></button>
-    <button class="flt" onclick="setFilter('classic',this)" style="color:#7c3aed;">🕹️ <span data-i18n-f="f_classic">Classic</span></button>
-    <button class="flt" onclick="setFilter('memory',this)" style="color:#db2777;">🧩 <span data-i18n-f="f_memory">Memory</span></button>
+    <button class="flt active" onclick="setFilter('all',this)">🎮 All Games</button>
+    <button class="flt flt-quiz" onclick="setFilter('quiz',this)">🧠 Quiz Games</button>
+    <button class="flt flt-word" onclick="setFilter('word',this)">📝 Word Games</button>
+    <button class="flt flt-math" onclick="setFilter('math',this)">🔢 Math Games</button>
+    <button class="flt flt-classic" onclick="setFilter('classic',this)">🕹️ Classic Games</button>
+    <button class="flt flt-memory" onclick="setFilter('memory',this)">🧩 Memory & Focus</button>
   </div>
 </div>
 
@@ -563,11 +593,11 @@ footer{background:var(--text);padding:36px 32px 28px;}
 
 <!-- FOOTER -->
 <footer>
-  <div class="foot-inner">
+  <div style="max-width:1160px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr;gap:40px;align-items:start;">
     <div class="foot-brand">
       <span class="foot-logo">GameNest World</span>
-      <p data-i18n="foot_desc">51 free browser games. No download, no signup, no ads. Play instantly.</p>
-      <div class="foot-soc">
+      <p data-i18n="foot_desc">51 free browser games. No download, no signup. Play instantly in your browser.</p>
+      <div class="foot-soc" style="margin-top:14px;">
         <a class="soc" href="#" title="X">𝕏</a>
         <a class="soc" href="#" title="TikTok">📱</a>
         <a class="soc" href="#" title="Discord">💬</a>
@@ -575,32 +605,19 @@ footer{background:var(--text);padding:36px 32px 28px;}
       </div>
     </div>
     <div class="foot-col">
-      <h4 data-i18n="fc_g">Games</h4>
-      <a href="#" onclick="setFilter('quiz',document.querySelector('.flt:nth-child(2)'));ss('games');return false;" data-i18n="quiz_ttl">Quiz Games</a>
-      <a href="#" onclick="setFilter('word',document.querySelector('.flt:nth-child(3)'));ss('games');return false;" data-i18n="word_ttl">Word Games</a>
-      <a href="#" onclick="setFilter('math',document.querySelector('.flt:nth-child(4)'));ss('games');return false;" data-i18n="math_ttl">Math Games</a>
-      <a href="#" onclick="setFilter('classic',document.querySelector('.flt:nth-child(5)'));ss('games');return false;" data-i18n="classic_ttl">Classic Games</a>
-      <a href="#" onclick="setFilter('memory',document.querySelector('.flt:nth-child(6)'));ss('games');return false;" data-i18n="mem_ttl">Memory Games</a>
-    </div>
-    <div class="foot-col">
-      <h4>GameNest</h4>
-      <a href="#" onclick="ss('games');return false;" data-i18n="lb_t">Leaderboard</a>
-      <a href="https://gozetenhidayet.github.io/gamenestworld/privacy.html" data-i18n="privacy">Privacy Policy</a>
-      <a href="https://gozetenhidayet.github.io/gamenestworld/terms.html" data-i18n="terms">Terms</a>
-      <a href="https://gozetenhidayet.github.io/gamenestworld/contact.html" data-i18n="contact">Contact</a>
-    </div>
-    <div class="foot-col">
-      <h4 data-i18n="fc_top">Top Games</h4>
-      <a href="#" onclick="openGame('g2048');return false;">2048</a>
-      <a href="#" onclick="openGame('sudoku');return false;">Sudoku</a>
-      <a href="#" onclick="openGame('snake');return false;">Snake</a>
-      <a href="#" onclick="openGame('tetris');return false;">Tetris</a>
-      <a href="#" onclick="openGame('wordle');return false;">Word Guess</a>
+      <h4>Info</h4>
+      <a href="privacy.html">🔒 Privacy Policy</a>
+      <a href="terms.html">📄 Terms of Use</a>
+      <a href="contact.html">✉️ Contact Us</a>
     </div>
   </div>
   <div class="foot-bottom">
     <span>© 2026 GameNestWorld.com · All games run in your browser · No data stored</span>
-    <div class="f-badges"><span class="f-badge">✓ Free</span><span class="f-badge">✓ No Signup</span><span class="f-badge">✓ Mobile OK</span></div>
+    <div class="f-badges">
+      <span class="f-badge">✓ 100% Free</span>
+      <span class="f-badge">✓ No Signup</span>
+      <span class="f-badge">✓ Mobile Friendly</span>
+    </div>
   </div>
 </footer>
 
