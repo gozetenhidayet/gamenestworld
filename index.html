@@ -37,7 +37,7 @@ html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:Inter,sans-serif;font-size:15px;line-height:1.6;min-height:100vh;overflow-x:hidden;}
 
 /* NAV */
-nav{display:flex;align-items:center;justify-content:space-between;padding:10px 32px;background:rgba(255,255,255,.97);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:500;backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--border),0 2px 8px rgba(0,0,0,.04);}
+nav{display:flex;align-items:center;justify-content:space-between;padding:10px 32px;background:rgba(255,255,255,.98);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:600;backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--border),0 2px 8px rgba(0,0,0,.04);}
 .logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:900;text-decoration:none;color:var(--accent);letter-spacing:-.5px;display:flex;align-items:center;gap:6px;}
 .logo-w{color:var(--green);font-size:12px;font-weight:700;background:var(--gl);padding:2px 8px;border-radius:99px;border:1px solid rgba(22,163,74,.2);}
 .nav-mid{display:flex;align-items:center;gap:8px;}
@@ -51,7 +51,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:10px 3
 .lang-s{background:var(--s2);border:1px solid var(--b2);color:var(--muted);border-radius:8px;padding:4px 8px;font-size:12px;font-family:inherit;cursor:pointer;outline:none;}
 
 /* HERO */
-.hero{text-align:center;padding:48px 20px 36px;background:linear-gradient(160deg,#fff 0%,#f0f4ff 55%,#f0fdf4 100%);border-bottom:1px solid var(--border);}
+.hero{text-align:center;padding:32px 20px 24px;background:linear-gradient(160deg,#fff 0%,#f0f4ff 55%,#f0fdf4 100%);border-bottom:1px solid var(--border);}
 .hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--al);border:1px solid rgba(99,102,241,.18);color:var(--accent);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 14px;border-radius:99px;margin-bottom:18px;}
 @keyframes bl{0%,100%{opacity:1;}50%{opacity:.3;}}
 .hero-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);animation:bl 2s infinite;}
@@ -67,12 +67,12 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:10px 3
 .hnum-l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:1px;}
 
 /* AD STRIP */
-.ad-strip{background:var(--s2);border-bottom:1px solid var(--border);padding:10px 16px;text-align:center;}
-.ad-lbl{font-size:9px;color:var(--muted2);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;}
-.ad-ph{display:flex;align-items:center;justify-content:center;height:70px;background:#fff;border:1.5px dashed var(--b2);border-radius:8px;max-width:728px;margin:0 auto;color:var(--muted2);font-size:12px;border-radius:8px;}
+.ad-strip{background:transparent;padding:8px 16px;text-align:center;}
+.ad-lbl{display:none;}
+.ad-ph{display:none;}
 
 /* GAMIFICATION STRIP */
-.gami-strip{background:#fff;border-bottom:1px solid var(--border);padding:10px 20px;}
+.gami-strip{background:#fff;border-bottom:1px solid var(--border);padding:8px 16px;}
 .gami-inner{max-width:1160px;margin:0 auto;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:center;}
 
 /* DAILY CHALLENGE */
@@ -148,7 +148,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:10px 3
 .lb-my{text-align:center;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-size:12px;font-weight:700;color:var(--accent);}
 
 /* FILTER BAR */
-.filter-bar{position:sticky;top:53px;z-index:400;background:rgba(255,255,255,.97);border-bottom:1px solid var(--border);padding:7px 16px;backdrop-filter:blur(12px);}
+.filter-bar{position:sticky;top:53px;z-index:500;background:rgba(255,255,255,.98);border-bottom:1px solid var(--border);padding:8px 16px;backdrop-filter:blur(12px);box-shadow:0 2px 8px rgba(0,0,0,.04);}
 .filter-inner{display:flex;justify-content:center;gap:5px;flex-wrap:wrap;max-width:960px;margin:0 auto;}
 .flt{display:inline-flex;align-items:center;gap:4px;border:1.5px solid var(--border);background:#fff;color:var(--muted);border-radius:99px;padding:5px 12px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .22s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;}
 .flt:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);}
@@ -156,8 +156,8 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:10px 3
 .flt-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
 
 /* SECTION */
-.section{max-width:1160px;margin:0 auto;padding:0 20px 40px;}
-.sec-hdr{display:flex;align-items:center;gap:10px;margin:28px 0 14px;}
+.section{max-width:1160px;margin:0 auto;padding:0 20px 28px;}
+.sec-hdr{display:flex;align-items:center;gap:10px;margin:18px 0 10px;}
 .sec-icon{font-size:16px;width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .sec-ttl{font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:800;color:var(--text);}
 .sec-badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:99px;text-transform:uppercase;letter-spacing:.06em;}
@@ -169,11 +169,11 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:10px 3
 
 /* GAME CARD */
 .game-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--r);padding:16px 12px 13px;cursor:pointer;text-align:center;position:relative;overflow:hidden;transition:all .26s cubic-bezier(.34,1.56,.64,1);user-select:none;}
-.game-card::before{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.8) 50%,transparent 60%);transform:translateX(-100%) skewX(-15deg);transition:transform .6s ease;}
-.game-card:hover::before{transform:translateX(250%) skewX(-15deg);}
+.game-card::before{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.75) 50%,transparent 65%);transform:translateX(-100%) skewX(-15deg);transition:transform .55s ease;pointer-events:none;}
+.game-card:hover::before{transform:translateX(260%) skewX(-15deg);}
 .game-card::after{content:'';position:absolute;bottom:0;left:15%;right:15%;height:2px;border-radius:2px 2px 0 0;background:var(--cg,var(--accent));opacity:0;transform:scaleX(0);transition:all .26s cubic-bezier(.34,1.56,.64,1);}
 .game-card:hover::after{opacity:1;transform:scaleX(1);}
-.game-card:hover{transform:translateY(-5px) scale(1.02);box-shadow:0 10px 28px rgba(0,0,0,.08);}
+.game-card:hover{transform:translateY(-6px) scale(1.03);box-shadow:0 14px 36px rgba(0,0,0,.1);}
 
 /* Category-colored cards */
 .c-quiz{--cg:var(--accent);}.c-quiz:hover{border-color:rgba(99,102,241,.3);box-shadow:0 10px 28px rgba(99,102,241,.1);}
@@ -316,12 +316,24 @@ footer{background:var(--text);padding:36px 32px 28px;}
     </select>
   </div>
 </nav>
+<!-- FILTER BAR — STICKY -->
+<div class="filter-bar">
+  <div class="filter-inner">
+    <button class="flt active" onclick="setFilter('all',this)"><span data-i18n-f="f_all">🎮 All (51)</span></button>
+    <button class="flt" onclick="setFilter('quiz',this)" style="color:#6366f1;">🧠 <span data-i18n-f="f_quiz">Quiz</span></button>
+    <button class="flt" onclick="setFilter('word',this)" style="color:#16a34a;">📝 <span data-i18n-f="f_word">Word</span></button>
+    <button class="flt" onclick="setFilter('math',this)" style="color:#ea580c;">🔢 <span data-i18n-f="f_math">Math</span></button>
+    <button class="flt" onclick="setFilter('classic',this)" style="color:#7c3aed;">🕹️ <span data-i18n-f="f_classic">Classic</span></button>
+    <button class="flt" onclick="setFilter('memory',this)" style="color:#db2777;">🧩 <span data-i18n-f="f_memory">Memory</span></button>
+  </div>
+</div>
+
 
 <!-- HERO -->
 <div class="hero">
   <div class="hero-badge"><span class="hero-dot"></span><span data-i18n="eyebrow">51 Free Games · No Download · No Signup · 100% Free</span></div>
   <h1><span class="hl" data-i18n="h1a">Play smarter,</span><br><span class="hl2" data-i18n="h1b">get better.</span></h1>
-  <p class="hero-sub" data-i18n="hero_sub">Brain games, arcade classics, daily challenges — all free, all instant.</p>
+  <p class="hero-sub" data-i18n="hero_sub">Brain games, arcade classics, daily challenges — all free, all instant, all in your browser.</p>
   <div class="cta-row">
     <a href="#games" class="btn-main" onclick="ss('games');return false;" data-i18n="cta1">🎮 Play Now — Free</a>
   </div>
@@ -337,7 +349,7 @@ footer{background:var(--text);padding:36px 32px 28px;}
 <div class="ad-strip">
   <div class="ad-lbl">Advertisement</div>
   <!-- ADSENSE: <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="AUTO" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script> -->
-  <div class="ad-ph">📢 Ad — 728×90 (AdSense burada görünecek)</div>
+  <!-- AdSense slot -->
 </div>
 
 <!-- GAMIFICATION STRIP -->
@@ -347,7 +359,7 @@ footer{background:var(--text);padding:36px 32px 28px;}
     <div class="daily-card">
       <div style="flex:1;min-width:140px;">
         <div class="daily-badge" data-i18n="daily_lbl">🔥 Daily Challenge</div>
-        <div class="daily-title" id="daily-name">Loading...</div>
+        <div class="daily-title" id="daily-name">Loading today's game...</div>
         <div style="font-size:11px;color:var(--muted);" data-i18n="daily_sub">New game every day!</div>
       </div>
       <div style="text-align:center;flex-shrink:0;">
@@ -365,7 +377,7 @@ footer{background:var(--text);padding:36px 32px 28px;}
         <div class="ava-stack"><span>🦁</span><span>🐯</span><span>🦊</span><span>🐺</span></div>
         <span class="t-cnt"><span id="t-cnt">1,247</span> <span data-i18n="playing">playing</span></span>
       </div>
-      <button class="tourney-btn" style="margin-top:8px;" onclick="openGame('g2048');earnXP(10,'Tournament')" data-i18n="join">Join →</button>
+      <button class="tourney-btn" style="margin-top:8px;" onclick="joinTournament()" data-i18n="join">Join Tournament →</button>
     </div>
     <!-- WATCH AD -->
     <div class="watch-card">
@@ -408,18 +420,6 @@ footer{background:var(--text);padding:36px 32px 28px;}
   </div>
 </div>
 
-<!-- FILTER BAR — STICKY -->
-<div class="filter-bar">
-  <div class="filter-inner">
-    <button class="flt active" onclick="setFilter('all',this)"><span data-i18n-f="f_all">🎮 All (51)</span></button>
-    <button class="flt" onclick="setFilter('quiz',this)" style="color:#6366f1;">🧠 <span data-i18n-f="f_quiz">Quiz</span></button>
-    <button class="flt" onclick="setFilter('word',this)" style="color:#16a34a;">📝 <span data-i18n-f="f_word">Word</span></button>
-    <button class="flt" onclick="setFilter('math',this)" style="color:#ea580c;">🔢 <span data-i18n-f="f_math">Math</span></button>
-    <button class="flt" onclick="setFilter('classic',this)" style="color:#7c3aed;">🕹️ <span data-i18n-f="f_classic">Classic</span></button>
-    <button class="flt" onclick="setFilter('memory',this)" style="color:#db2777;">🧩 <span data-i18n-f="f_memory">Memory</span></button>
-  </div>
-</div>
-
 <!-- GAMES -->
 <div class="section" id="games">
 
@@ -427,7 +427,7 @@ footer{background:var(--text);padding:36px 32px 28px;}
   <div class="ad-strip" style="border-radius:12px;margin:20px 0 6px;">
     <div class="ad-lbl">Advertisement</div>
     <!-- ADSENSE: <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="AUTO" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script> -->
-    <div class="ad-ph">📢 Ad Slot</div>
+    <!-- AdSense slot -->
   </div>
 
   <!-- 🧠 QUIZ -->
@@ -475,7 +475,7 @@ footer{background:var(--text);padding:36px 32px 28px;}
   <div class="ad-strip" style="border-radius:12px;margin:16px 0 6px;">
     <div class="ad-lbl">Advertisement</div>
     <!-- ADSENSE: <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="AUTO" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script> -->
-    <div class="ad-ph">📢 Ad Slot</div>
+    <!-- AdSense slot -->
   </div>
 
   <!-- 🔢 MATH -->
@@ -551,20 +551,12 @@ footer{background:var(--text);padding:36px 32px 28px;}
     <div style="font-size:40px;flex-shrink:0;">🎮</div>
   </div>
 
-  <!-- AFFILIATE -->
-  <div style="margin:16px 0 6px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:800;color:var(--text);" data-i18n="aff_t">🎯 Level Up Your Brain</div>
-  <div class="aff-grid">
-    <a class="aff-card" href="https://www.lumosity.com" target="_blank" rel="noopener"><div class="aff-icon">🧠</div><div><div class="aff-name">Lumosity</div><div class="aff-desc">Science-backed brain training. 100M+ users.</div><div class="aff-tag">↗ Try Free</div></div></a>
-    <a class="aff-card" href="https://www.chess.com" target="_blank" rel="noopener"><div class="aff-icon">♟️</div><div><div class="aff-name">Chess.com</div><div class="aff-desc">Play chess vs real players worldwide.</div><div class="aff-tag">↗ Play Free</div></div></a>
-    <a class="aff-card" href="https://www.coursera.org" target="_blank" rel="noopener"><div class="aff-icon">🎓</div><div><div class="aff-name">Coursera</div><div class="aff-desc">Top university courses online.</div><div class="aff-tag">↗ Explore</div></div></a>
-    <a class="aff-card" href="https://www.amazon.com/s?k=brain+puzzle+books" target="_blank" rel="noopener"><div class="aff-icon">📚</div><div><div class="aff-name">Puzzle Books</div><div class="aff-desc">Sudoku, crosswords & IQ books.</div><div class="aff-tag">↗ Shop Amazon</div></div></a>
-  </div>
 
   <!-- BOTTOM AD -->
   <div class="ad-strip" style="border-radius:12px;margin:8px 0;">
     <div class="ad-lbl">Advertisement</div>
     <!-- ADSENSE: <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="AUTO" data-ad-format="rectangle"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script> -->
-    <div class="ad-ph" style="height:200px;">📢 Ad Slot — 300×250</div>
+    <!-- AdSense slot -->
   </div>
 
 </div>
@@ -593,9 +585,9 @@ footer{background:var(--text);padding:36px 32px 28px;}
     <div class="foot-col">
       <h4>GameNest</h4>
       <a href="#" onclick="ss('games');return false;" data-i18n="lb_t">Leaderboard</a>
-      <a href="/privacy.html" data-i18n="privacy">Privacy Policy</a>
-      <a href="/terms.html" data-i18n="terms">Terms</a>
-      <a href="/contact.html" data-i18n="contact">Contact</a>
+      <a href="https://gozetenhidayet.github.io/gamenestworld/privacy.html" data-i18n="privacy">Privacy Policy</a>
+      <a href="https://gozetenhidayet.github.io/gamenestworld/terms.html" data-i18n="terms">Terms</a>
+      <a href="https://gozetenhidayet.github.io/gamenestworld/contact.html" data-i18n="contact">Contact</a>
     </div>
     <div class="foot-col">
       <h4 data-i18n="fc_top">Top Games</h4>
@@ -685,7 +677,33 @@ function showToast(name,pts){
   document.getElementById('t-pts').textContent='+'+pts+' XP';
   t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400);
 }
-function watchAd(){earnXP(30,'Watch Ad');alert('🎬 Thank you! +30 XP & +3 lives added!');}
+function watchAd(){
+  const box=document.getElementById('modal-box');
+  box.innerHTML='<button class="modal-close" onclick="closeGame()">✕</button><div id="gw" style="text-align:center;padding:20px;">'
+    +'<div style="font-size:48px;margin-bottom:16px;">📺</div>'
+    +'<h2 style="margin-bottom:8px;">Watch Ad</h2>'
+    +'<p style="color:var(--muted);font-size:14px;margin-bottom:20px;">Watch a short ad to earn +30 XP and +3 lives!</p>'
+    +'<div style="background:var(--s2);border:1.5px dashed var(--b2);border-radius:12px;height:160px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;color:var(--muted);font-size:13px;">📢 Ad plays here (AdSense Video)</div>'
+    +'<div id="ad-countdown" style="font-size:22px;font-weight:700;color:var(--accent);margin-bottom:16px;">5</div>'
+    +'<button class="btn" id="ad-claim-btn" disabled onclick="claimAdReward()" style="opacity:.5;">Claim Reward</button>'
+    +'</div>';
+  document.getElementById('overlay').classList.add('active');
+  document.body.style.overflow='hidden';
+  let t=5;
+  const interval=setInterval(()=>{
+    t--;
+    const el=document.getElementById('ad-countdown');
+    if(el)el.textContent=t;
+    if(t<=0){
+      clearInterval(interval);
+      const btn=document.getElementById('ad-claim-btn');
+      if(btn){btn.disabled=false;btn.style.opacity='1';}
+      const cd=document.getElementById('ad-countdown');
+      if(cd)cd.textContent='✅ Ready!';
+    }
+  },1000);
+}
+function claimAdReward(){earnXP(30,'Watch Ad');closeGame();alert('🎉 +30 XP and +3 lives added! Thank you for supporting GameNest World!');}
 function copyInv(){navigator.clipboard.writeText('https://gamenestworld.com/?ref=player').then(()=>alert('✅ Link copied! Share to earn XP.'));}
 
 /* STREAK */
@@ -768,7 +786,8 @@ const DC=['g2048','sudoku','snake','tetris','flappy','wordle','mines','spelling'
   const d=new Date(),k=DC[(d.getDate()+d.getMonth())%DC.length];
   const NM={g2048:'2048',sudoku:'Sudoku',snake:'Snake',tetris:'Tetris',flappy:'Flappy Bird',wordle:'Word Guess',mines:'Minesweeper',spelling:'Spelling Bee',chess:'Chess Puzzles',wordsearch:'Word Search'};
   const ne=document.getElementById('daily-name');if(ne)ne.textContent='Today: '+NM[k];
-  const be=document.getElementById('daily-btn');if(be)be.onclick=()=>{openGame(k);earnXP(50,'Daily Challenge');};
+  const be=document.getElementById('daily-btn');
+  if(be){be.onclick=()=>{openGame(k);earnXP(50,'Daily Challenge');};be.style.cursor='pointer';}
   function tick(){const now=new Date(),mid=new Date();mid.setHours(24,0,0,0);const diff=mid-now;
     const h=String(Math.floor(diff/3600000)).padStart(2,'0'),m=String(Math.floor(diff%3600000/60000)).padStart(2,'0'),s=String(Math.floor(diff%60000/1000)).padStart(2,'0');
     const te=document.getElementById('daily-timer');if(te)te.textContent=h+':'+m+':'+s;}
@@ -812,6 +831,20 @@ function changeLang(lang){applyL(lang);const el=document.getElementById('lang-se
   const mp={tr:'tr',es:'es',fr:'fr',de:'de',pt:'pt',it:'it',ru:'ru',ar:'ar',zh:'zh',ja:'ja',ko:'ko',hi:'hi',nl:'nl',pl:'pl'};
   const dt=mp[br]||'en';applyL(dt);const el=document.getElementById('lang-sel');if(el)el.value=dt;
 })();
+
+function joinTournament(){
+  openGame('g2048');
+  earnXP(25,'Weekly Tournament');
+  setTimeout(()=>{
+    const gw_el=document.getElementById('gw');
+    if(gw_el){
+      const badge=document.createElement('div');
+      badge.style.cssText='background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;margin-bottom:12px;text-align:center;';
+      badge.textContent='🏆 Tournament Mode — XP ×3! Score as high as possible!';
+      gw_el.insertBefore(badge,gw_el.firstChild);
+    }
+  },100);
+}
 
 /* INIT */
 (function(){
