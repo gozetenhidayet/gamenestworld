@@ -461,6 +461,68 @@ footer{background:var(--text);padding:36px 32px 28px;}
     <!-- AdSense slot -->
   </div>
 
+  <!-- EN POPULER TOP 10 -->
+  <div class="sec-hdr" id="top-section" style="margin-top:16px;">
+    <div class="sec-icon" style="background:#fef3c7;font-size:18px;">&#x1F525;</div>
+    <div class="sec-ttl">En Populer Oyunlar</div>
+    <span class="sec-badge" style="background:#fef3c7;color:#d97706;">Top 10</span>
+    <div class="sec-line"></div>
+  </div>
+  <div class="top10-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:20px;">
+    <div class="game-card c-classic" data-cat="classic" onclick="openGame('g2048');earnXP(30,'2048')" style="border:2px solid #fbbf24;">
+      <div style="position:absolute;top:6px;left:8px;font-size:10px;font-weight:800;color:#d97706;">#1</div>
+      <div class="g-iw" style="background:#fef3c7;"><span class="g-em">&#x1F522;</span></div>
+      <div class="g-name">2048</div><div class="g-desc">2.4M plays/day</div>
+    </div>
+    <div class="game-card c-classic" data-cat="classic" onclick="openGame('sudoku');earnXP(35,'Sudoku')">
+      <div style="position:absolute;top:6px;left:8px;font-size:10px;font-weight:800;color:#d97706;">#2</div>
+      <div class="g-iw" style="background:#eef2ff;"><span class="g-em">&#x1F532;</span></div>
+      <div class="g-name">Sudoku</div><div class="g-desc">1.9M plays/day</div>
+    </div>
+    <div class="game-card c-classic" data-cat="classic" onclick="openGame('snake');earnXP(20,'Snake')">
+      <div style="position:absolute;top:6px;left:8px;font-size:10px;font-weight:800;color:#d97706;">#3</div>
+      <div class="g-iw" style="background:#dcfce7;"><span class="g-em">&#x1F40D;</span></div>
+      <div class="g-name">Snake</div><div class="g-desc">1.6M plays/day</div>
+    </div>
+    <div class="game-card c-classic" data-cat="classic" onclick="openGame('tetris');earnXP(25,'Tetris')">
+      <div style="position:absolute;top:6px;left:8px;font-size:10px;font-weight:800;color:#d97706;">#4</div>
+      <div class="g-iw" style="background:#ede9fe;"><span class="g-em">&#x1F7E6;</span></div>
+      <div class="g-name">Tetris</div><div class="g-desc">1.4M plays/day</div>
+    </div>
+    <div class="game-card c-classic" data-cat="classic" onclick="openGame('mines');earnXP(20,'Minesweeper')">
+      <div style="position:absolute;top:6px;left:8px;font-size:10px;font-weight:800;color:#d97706;">#5</div>
+      <div class="g-iw" style="background:#fef2f2;"><span class="g-em">&#x1F4A3;</span></div>
+      <div class="g-name">Minesweeper</div><div class="g-desc">1.1M plays/day</div>
+    </div>
+    <div class="game-card c-word" data-cat="word" onclick="openGame('wordsearch');earnXP(25,'Word Search')">
+      <div style="position:absolute;top:6px;left:8px;font-size:10px;font-weight:800;color:#d97706;">#6</div>
+      <div class="g-iw" style="background:#dcfce7;"><span class="g-em">&#x1F520;</span></div>
+      <div class="g-name">Word Search</div><div class="g-desc">980K plays/day</div>
+    </div>
+    <div class="game-card c-word" data-cat="word" onclick="openGame('crossword');earnXP(25,'Crossword')">
+      <div style="position:absolute;top:6px;left:8px;font-size:10px;font-weight:800;color:#d97706;">#7</div>
+      <div class="g-iw" style="background:#fef3c7;"><span class="g-em">&#x1F4F0;</span></div>
+      <div class="g-name">Crossword</div><div class="g-desc">870K plays/day</div>
+    </div>
+    <div class="game-card c-classic" data-cat="classic" onclick="openGame('chess');earnXP(35,'Chess')">
+      <div style="position:absolute;top:6px;left:8px;font-size:10px;font-weight:800;color:#d97706;">#8</div>
+      <div class="g-iw" style="background:#f8faff;"><span class="g-em">&#x265F;&#xFE0F;</span></div>
+      <div class="g-name">Chess</div><div class="g-desc">760K plays/day</div>
+    </div>
+    <div class="game-card c-word" data-cat="word" onclick="openGame('hangman');earnXP(20,'Hangman')">
+      <div style="position:absolute;top:6px;left:8px;font-size:10px;font-weight:800;color:#d97706;">#9</div>
+      <div class="g-iw" style="background:#fef2f2;"><span class="g-em">&#x1FA9D;</span></div>
+      <div class="g-name">Hangman</div><div class="g-desc">640K plays/day</div>
+    </div>
+    <div class="game-card c-classic" data-cat="classic" onclick="openGame('ttt');earnXP(15,'Tic Tac Toe')">
+      <div style="position:absolute;top:6px;left:8px;font-size:10px;font-weight:800;color:#d97706;">#10</div>
+      <div class="g-iw" style="background:#ede9fe;"><span class="g-em">&#x2B55;</span></div>
+      <div class="g-name">Tic Tac Toe</div><div class="g-desc">590K plays/day</div>
+    </div>
+  </div>
+
+
+
   <!-- 🧠 QUIZ -->
   <div class="sec-hdr quiz-section">
     <div class="sec-icon" style="background:var(--al);">🧠</div>
@@ -654,35 +716,42 @@ function closeGame(){
 function closeIfOut(e){if(e&&e.target&&e.target.id==='overlay')closeGame();}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeGame();});
 function setFilter(f,btn){
+  /* Remove active from all buttons, set active on clicked */
   document.querySelectorAll('.flt').forEach(function(b){b.classList.remove('active');});
   if(btn)btn.classList.add('active');
-  document.querySelectorAll('.game-card').forEach(function(card){
-    card.style.display=(f==='all'||card.dataset.cat===f)?'':'none';
-  });
-  var secMap={quiz:'.quiz-section',word:'.word-section',math:'.math-section',classic:'.classic-section',memory:'.mem-section'};
-  ['.quiz-section','.word-section','.math-section','.classic-section','.mem-section'].forEach(function(cls){
-    var hdr=document.querySelector(cls);if(!hdr)return;
-    var grid=hdr.nextElementSibling;var vis=false;
-    if(grid){var cc=grid.querySelectorAll('.game-card');for(var i=0;i<cc.length;i++){if(cc[i].style.display!=='none'){vis=true;break;}}}
-    var show=(f==='all'||vis);
-    hdr.style.display=show?'':'none';
-    if(grid)grid.style.display=show?'':'none';
-  });
-  /* Scroll to first visible section */
-  if(f!=='all'&&secMap[f]){
-    var target=document.querySelector(secMap[f]);
+
+  /* DO NOT hide any cards - just scroll to the right section */
+  var sectionMap={
+    quiz:'.quiz-section',
+    word:'.word-section',
+    math:'.math-section',
+    classic:'.classic-section',
+    memory:'.mem-section'
+  };
+
+  if(f==='all'){
+    /* Scroll to top of games */
+    var gamesEl=document.getElementById('games');
+    if(gamesEl){
+      var nav=document.querySelector('nav');
+      var fb=document.querySelector('.filter-bar');
+      var offset=(nav?nav.offsetHeight:53)+(fb?fb.offsetHeight:48)+8;
+      window.scrollTo({top:gamesEl.getBoundingClientRect().top+window.scrollY-offset,behavior:'smooth'});
+    }
+  } else if(sectionMap[f]){
+    /* Scroll to that category section */
+    var target=document.querySelector(sectionMap[f]);
     if(target){
+      var nav2=document.querySelector('nav');
+      var fb2=document.querySelector('.filter-bar');
+      var offset2=(nav2?nav2.offsetHeight:53)+(fb2?fb2.offsetHeight:48)+8;
       setTimeout(function(){
-        var nav=document.querySelector('nav');
-        var fb=document.querySelector('.filter-bar');
-        var offset=(nav?nav.offsetHeight:53)+(fb?fb.offsetHeight:48)+8;
-        window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY-offset,behavior:'smooth'});
+        window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY-offset2,behavior:'smooth'});
       },50);
     }
-  }else if(f==='all'){
-    ss('games');
   }
 }
+
 function ss(id){
   var el=document.getElementById(id);if(!el)return;
   var nav=document.querySelector('nav');var fb=document.querySelector('.filter-bar');
