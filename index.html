@@ -633,7 +633,13 @@ function gw(){return document.getElementById('gw');}
 function openGame(key){
   if(window._gl){try{cancelAnimationFrame(window._gl);}catch(e){}try{clearTimeout(window._gl);}catch(e){}window._gl=null;}
   var box=document.getElementById('modal-box');if(!box)return;
-  box.innerHTML='<button class="modal-close" onclick="closeGame()">&times;</button><div id="gw"></div>';
+  /* Ad banner inside game modal */
+  var adBanner='<div style="background:linear-gradient(135deg,#fef3c7,#fde68a);border:1px solid #f59e0b;border-radius:10px;padding:8px 14px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:10px;">'
+    +'<div><div style="font-size:12px;font-weight:700;color:#92400e;">Need extra lives?</div>'
+    +'<div style="font-size:11px;color:#b45309;">Watch a short ad: +30 XP & +3 lives</div></div>'
+    +'<button onclick="watchAd()" style="background:#d97706;color:#fff;border:none;border-radius:7px;padding:6px 12px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;">Watch Ad</button>'
+    +'</div>';
+  box.innerHTML='<button class="modal-close" onclick="closeGame()">&times;</button>'+adBanner+'<div id="gw"></div>';
   var ov=document.getElementById('overlay');if(ov)ov.classList.add('active');
   document.body.style.overflow='hidden';
   if(typeof GAMES!=='undefined'&&GAMES[key]){
@@ -650,13 +656,32 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeGame();
 function setFilter(f,btn){
   document.querySelectorAll('.flt').forEach(function(b){b.classList.remove('active');});
   if(btn)btn.classList.add('active');
-  document.querySelectorAll('.game-card').forEach(function(c){c.style.display=(f==='all'||c.dataset.cat===f)?'':'none';});
+  document.querySelectorAll('.game-card').forEach(function(card){
+    card.style.display=(f==='all'||card.dataset.cat===f)?'':'none';
+  });
+  var secMap={quiz:'.quiz-section',word:'.word-section',math:'.math-section',classic:'.classic-section',memory:'.mem-section'};
   ['.quiz-section','.word-section','.math-section','.classic-section','.mem-section'].forEach(function(cls){
     var hdr=document.querySelector(cls);if(!hdr)return;
     var grid=hdr.nextElementSibling;var vis=false;
     if(grid){var cc=grid.querySelectorAll('.game-card');for(var i=0;i<cc.length;i++){if(cc[i].style.display!=='none'){vis=true;break;}}}
-    var show=(f==='all'||vis);hdr.style.display=show?'':'none';if(grid)grid.style.display=show?'':'none';
+    var show=(f==='all'||vis);
+    hdr.style.display=show?'':'none';
+    if(grid)grid.style.display=show?'':'none';
   });
+  /* Scroll to first visible section */
+  if(f!=='all'&&secMap[f]){
+    var target=document.querySelector(secMap[f]);
+    if(target){
+      setTimeout(function(){
+        var nav=document.querySelector('nav');
+        var fb=document.querySelector('.filter-bar');
+        var offset=(nav?nav.offsetHeight:53)+(fb?fb.offsetHeight:48)+8;
+        window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY-offset,behavior:'smooth'});
+      },50);
+    }
+  }else if(f==='all'){
+    ss('games');
+  }
 }
 function ss(id){
   var el=document.getElementById(id);if(!el)return;
@@ -749,8 +774,79 @@ function renderLB(){
 function lbSw(btn,t){document.querySelectorAll('.lb-tab').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');renderLB();}
 var DC=['g2048','sudoku','snake','tetris','flappy','wordle','mines','spelling','chess','wordsearch'];
 var DCN={g2048:'2048',sudoku:'Sudoku',snake:'Snake',tetris:'Tetris',flappy:'Flappy Bird',wordle:'Word Guess',mines:'Minesweeper',spelling:'Spelling Bee',chess:'Chess Puzzles',wordsearch:'Word Search'};
+
+/* 28 LANGUAGE SYSTEM */
+var LANGS={
+  en:{h1a:'Play smarter,',h1b:'get better.',sub:'Brain games, classics, daily challenges - all free.',cta:'Play Now - Free',days:'days',daily:'Daily Challenge',tourney:'Weekly Tournament',ach:'Achievements',tasks:'Daily Tasks',lb:'Leaderboard',privacy:'Privacy Policy',terms:'Terms of Use',contact:'Contact Us'},
+  tr:{h1a:'Daha zeki oyna,',h1b:'daha iyi ol.',sub:'Zeka oyunlari, klasikler - hepsi ucretsiz.',cta:'Hemen Oyna',days:'gun',daily:'Gunluk Gorev',tourney:'Haftalik Turnuva',ach:'Basarimlar',tasks:'Gunluk Gorevler',lb:'Liderlik Tablosu',privacy:'Gizlilik',terms:'Sartlar',contact:'Iletisim'},
+  es:{h1a:'Juega inteligente,',h1b:'mejora.',sub:'Juegos mentales - todo gratis.',cta:'Jugar Gratis',days:'dias',daily:'Desafio Diario',tourney:'Torneo Semanal',ach:'Logros',tasks:'Tareas Diarias',lb:'Clasificacion',privacy:'Privacidad',terms:'Terminos',contact:'Contacto'},
+  fr:{h1a:'Jouez intelligemment,',h1b:'progressez.',sub:'Jeux cerebraux - tout gratuit.',cta:'Jouer Gratuit',days:'jours',daily:'Defi Quotidien',tourney:'Tournoi Hebdomadaire',ach:'Succes',tasks:'Taches Quotidiennes',lb:'Classement',privacy:'Confidentialite',terms:'Conditions',contact:'Contact'},
+  de:{h1a:'Spiel kluger,',h1b:'werde besser.',sub:'Denkspiele - kostenlos.',cta:'Jetzt Spielen',days:'Tage',daily:'Tagliche Aufgabe',tourney:'Wochentliches Turnier',ach:'Erfolge',tasks:'Tagliche Aufgaben',lb:'Rangliste',privacy:'Datenschutz',terms:'AGB',contact:'Kontakt'},
+  pt:{h1a:'Jogue inteligente,',h1b:'fique melhor.',sub:'Jogos mentais - gratis.',cta:'Jogar Gratis',days:'dias',daily:'Desafio Diario',tourney:'Torneio Semanal',ach:'Conquistas',tasks:'Tarefas Diarias',lb:'Classificacao',privacy:'Privacidade',terms:'Termos',contact:'Contato'},
+  it:{h1a:'Gioca intelligente,',h1b:'migliora.',sub:'Giochi mentali - gratis.',cta:'Gioca Gratis',days:'giorni',daily:'Sfida Giornaliera',tourney:'Torneo Settimanale',ach:'Obiettivi',tasks:'Compiti Giornalieri',lb:'Classifica',privacy:'Privacy',terms:'Termini',contact:'Contatto'},
+  ru:{h1a:'Igray umnee,',h1b:'stanovis luchshe.',sub:'Intellektualnie igry - besplatno.',cta:'Igrat Besplatno',days:'dney',daily:'Ezhednevniy Vyzov',tourney:'Ezhenedelniy Turnir',ach:'Dostizheniya',tasks:'Ezhednevnie Zadachi',lb:'Tablica Liderov',privacy:'Konfidencialnost',terms:'Usloviya',contact:'Kontakt'},
+  zh:{h1a:'Geng congming de wan,',h1b:'yue lai yue hao.',sub:'Nao li you xi - mian fei.',cta:'Li Ji Wan',days:'tian',daily:'Mei Ri Tiao Zhan',tourney:'Mei Zhou Bi Sai',ach:'Cheng Jiu',tasks:'Ri Chang Ren Wu',lb:'Pai Hang Bang',privacy:'Yin Si',terms:'Tiao Kuan',contact:'Lian Xi'},
+  ja:{h1a:'Kashikoku asobo,',h1b:'umaku naro.',sub:'Nozori gemu - muryo.',cta:'Ima Purei',days:'nichi',daily:'Mainichi Chousen',tourney:'Shuukan Taikai',ach:'Jisseki',tasks:'Mainichi Kadai',lb:'Rankingu',privacy:'Puraibarushi',terms:'Riyou Kiyaku',contact:'Renraku'},
+  ko:{h1a:'Deo seumateu hage,',h1b:'deo baljeon.',sub:'Brain geim - mulyo.',cta:'Jigeum Peurei',days:'il',daily:'Il Il Do Jeon',tourney:'Jugan Daehoe',ach:'Eobjeok',tasks:'Il Il Gwa Je',lb:'Sunu Wi',privacy:'Gae In Jeong Bo',terms:'Yak Gwan',contact:'Yeon Rak'},
+  ar:{h1a:'Aleb bdkae,',h1b:'tatwr.',sub:'Alab athkae - mjan.',cta:'Alb Alan',days:'ayam',daily:'Tahdi Yawmi',tourney:'Batal Usbui',ach:'Injazat',tasks:'Mahmat Yawmia',lb:'Qaimat Alsadr',privacy:'Khususia',terms:'Shurut',contact:'Itasal'},
+  hi:{h1a:'Smart khelo,',h1b:'behtar bano.',sub:'Dimagi khel - muft.',cta:'Abhi Khelo',days:'din',daily:'Roj Ka Challenge',tourney:'Weekly Pratiyogita',ach:'Uplabdhiyan',tasks:'Roj Ke Kaam',lb:'Leaderboard',privacy:'Niji Jankari',terms:'Sharten',contact:'Sampark'},
+  nl:{h1a:'Speel slimmer,',h1b:'word beter.',sub:'Hersengames - gratis.',cta:'Speel Nu',days:'dagen',daily:'Dagelijkse Uitdaging',tourney:'Weektoernooi',ach:'Prestaties',tasks:'Dagelijkse Taken',lb:'Ranglijst',privacy:'Privacy',terms:'Voorwaarden',contact:'Contact'},
+  pl:{h1a:'Graj madrzej,',h1b:'rozwijaj sie.',sub:'Gry umyslowe - za darmo.',cta:'Graj Teraz',days:'dni',daily:'Codzienne Wyzwanie',tourney:'Tygodniowy Turniej',ach:'Osiagniecia',tasks:'Codzienne Zadania',lb:'Ranking',privacy:'Prywatnosc',terms:'Regulamin',contact:'Kontakt'},
+  sv:{h1a:'Spela smartare,',h1b:'bli battre.',sub:'Hjarnspel - gratis.',cta:'Spela Nu',days:'dagar',daily:'Daglig Utmaning',tourney:'Veckoturneringen',ach:'Prestationer',tasks:'Dagliga Uppgifter',lb:'Ranglista',privacy:'Integritet',terms:'Villkor',contact:'Kontakt'},
+  no:{h1a:'Spill smartere,',h1b:'bli bedre.',sub:'Hjernespill - gratis.',cta:'Spill Na',days:'dager',daily:'Daglig Utfordring',tourney:'Ukentlig Turnering',ach:'Prestasjoner',tasks:'Daglige Oppgaver',lb:'Rangliste',privacy:'Personvern',terms:'Vilkar',contact:'Kontakt'},
+  da:{h1a:'Spil smartere,',h1b:'bliv bedre.',sub:'Hjernespil - gratis.',cta:'Spil Nu',days:'dage',daily:'Daglig Udfordring',tourney:'Ugentlig Turnering',ach:'Resultater',tasks:'Daglige Opgaver',lb:'Rangliste',privacy:'Privatliv',terms:'Vilkar',contact:'Kontakt'},
+  fi:{h1a:'Pelaa alykkaammin,',h1b:'kehity.',sub:'Aivopelit - ilmaiseksi.',cta:'Pelaa Nyt',days:'paivaa',daily:'Paivittainen Haaste',tourney:'Viikoittainen Turnaus',ach:'Saavutukset',tasks:'Paivittaiset Tehtavat',lb:'Tulostaulu',privacy:'Tietosuoja',terms:'Ehdot',contact:'Yhteystiedot'},
+  id:{h1a:'Bermain lebih cerdas,',h1b:'berkembang.',sub:'Game otak - gratis.',cta:'Main Sekarang',days:'hari',daily:'Tantangan Harian',tourney:'Turnamen Mingguan',ach:'Prestasi',tasks:'Tugas Harian',lb:'Papan Peringkat',privacy:'Privasi',terms:'Ketentuan',contact:'Kontak'},
+  ms:{h1a:'Main lebih bijak,',h1b:'jadi lebih baik.',sub:'Permainan otak - percuma.',cta:'Main Sekarang',days:'hari',daily:'Cabaran Harian',tourney:'Kejohanan Mingguan',ach:'Pencapaian',tasks:'Tugas Harian',lb:'Papan Pendahulu',privacy:'Privasi',terms:'Terma',contact:'Hubungi'},
+  th:{h1a:'Len yang chalad,',h1b:'phatthana.',sub:'Gem samong - fri.',cta:'Len Loei',days:'wan',daily:'Prathat Pracham Wan',tourney:'Kaeng Khan Pracham Sapda',ach:'Saphit',tasks:'Ngan Pracham Wan',lb:'Ao Charern',privacy:'Khwam Suam',terms:'Kho Khong Fai',contact:'Tit To'},
+  vi:{h1a:'Choi thong minh hon,',h1b:'ngay cang gioi hon.',sub:'Game tri tue - mien phi.',cta:'Choi Ngay',days:'ngay',daily:'Thach Thuc Hang Ngay',tourney:'Giai Dau Hang Tuan',ach:'Thanh Tich',tasks:'Nhiem Vu Hang Ngay',lb:'Bang Xep Hang',privacy:'Quyen Rieng Tu',terms:'Dieu Khoan',contact:'Lien He'},
+  uk:{h1a:'Graj rozumnishe,',h1b:'stavay krashchym.',sub:'Intelektualni ihry - bezkoshtovno.',cta:'Graty',days:'dniv',daily:'Shchodenny Vyklyk',tourney:'Shchotyzhneva Turnir',ach:'Dosyahnennya',tasks:'Shchodenni Zavdannya',lb:'Tablytsia Lideriv',privacy:'Konfidentsiynist',terms:'Umovy',contact:'Kontakt'},
+  cs:{h1a:'Hraj chytreji,',h1b:'zlepsuj se.',sub:'Hry pro mozek - zdarma.',cta:'Hrat Nyni',days:'dni',daily:'Denni Vyzva',tourney:'Tydenni Turnaj',ach:'Uspeechy',tasks:'Denni Ukoly',lb:'Zebricek',privacy:'Soukromi',terms:'Podminky',contact:'Kontakt'},
+  ro:{h1a:'Joaca mai inteligent,',h1b:'devino mai bun.',sub:'Jocuri pentru creier - gratuit.',cta:'Joaca Acum',days:'zile',daily:'Provocarea Zilnica',tourney:'Turneu Saptamanal',ach:'Realizari',tasks:'Sarcini Zilnice',lb:'Clasament',privacy:'Confidentialitate',terms:'Termeni',contact:'Contact'},
+  hu:{h1a:'Jatssz okosabban,',h1b:'fejlodj.',sub:'Agy jatekok - ingyen.',cta:'Jatssz Most',days:'nap',daily:'Napi Kihivas',tourney:'Heti Bajnoksag',ach:'Eredmenyek',tasks:'Napi Feladatok',lb:'Ranglista',privacy:'Adatvedelmi',terms:'Feltetelek',contact:'Kapcsolat'},
+  el:{h1a:'Paixe pio exypna,',h1b:'beltiothei.',sub:'Paixnidia noy - dorean.',cta:'Paixe Tora',days:'meres',daily:'Kathimerini Proklisi',tourney:'Evdomadiaio Tournoua',ach:'Epitefmata',tasks:'Kathimerines Ergasies',lb:'Pinakas Protilaion',privacy:'Aporrito',terms:'Oroi',contact:'Epikoinonia'}
+};
+function applyL(lang){
+  var t=LANGS[lang]||LANGS.en;
+  /* Update data-i18n elements */
+  var map={
+    'data-i18n-h1a':t.h1a,'data-i18n-h1b':t.h1b,'data-i18n-sub':t.sub,
+    'data-i18n-cta':t.cta,'data-i18n-days':t.days,
+    'data-i18n-daily':t.daily,'data-i18n-tourney':t.tourney,
+    'data-i18n-ach':t.ach,'data-i18n-tasks':t.tasks,'data-i18n-lb':t.lb,
+    'data-i18n-privacy':t.privacy,'data-i18n-terms':t.terms,'data-i18n-contact':t.contact
+  };
+  Object.keys(map).forEach(function(attr){
+    document.querySelectorAll('['+attr+']').forEach(function(el){el.textContent=map[attr];});
+  });
+  document.documentElement.lang=lang;
+  document.documentElement.dir=(lang==='ar')?'rtl':'ltr';
+  localStorage.setItem('gnw_lang',lang);
+}
+function changeLang(lang){
+  applyL(lang);
+  var sel=document.getElementById('lang-sel');if(sel)sel.value=lang;
+}
+function buildLangSel(){
+  var sel=document.getElementById('lang-sel');if(!sel)return;
+  var list=[
+    ['en','EN English'],['tr','TR Turkce'],['es','ES Espanol'],['fr','FR Francais'],
+    ['de','DE Deutsch'],['pt','PT Portugues'],['it','IT Italiano'],['ru','RU Russkiy'],
+    ['zh','ZH Zhongwen'],['ja','JA Nihongo'],['ko','KO Hangugeo'],['ar','AR Arabiy'],
+    ['hi','HI Hindi'],['nl','NL Nederlands'],['pl','PL Polski'],
+    ['sv','SV Svenska'],['no','NO Norsk'],['da','DA Dansk'],['fi','FI Suomi'],
+    ['id','ID Bahasa'],['ms','MS Melayu'],['th','TH Thai'],['vi','VI Tieng Viet'],
+    ['uk','UK Ukrainska'],['cs','CS Cestina'],['ro','RO Romana'],['hu','HU Magyar'],['el','EL Ellinika']
+  ];
+  sel.innerHTML=list.map(function(l){return'<option value="'+l[0]+'">'+l[1]+'</option>';}).join('');
+}
+
 document.addEventListener('DOMContentLoaded',function(){
   window._gl=null;console.log('GameNest v5 OK');
+  buildLangSel();
+  var sv=localStorage.getItem('gnw_lang');
+  if(sv&&LANGS[sv]){applyL(sv);var sel=document.getElementById('lang-sel');if(sel)sel.value=sv;}
+  else{var br=(navigator.language||'en').split('-')[0].toLowerCase();var lmap={tr:'tr',es:'es',fr:'fr',de:'de',pt:'pt',it:'it',ru:'ru',ar:'ar',zh:'zh',ja:'ja',ko:'ko',hi:'hi',nl:'nl',pl:'pl',sv:'sv',no:'no',da:'da',fi:'fi',id:'id',ms:'ms',th:'th',vi:'vi',uk:'uk',cs:'cs',ro:'ro',hu:'hu',el:'el'};var dt=lmap[br]||'en';applyL(dt);var sel2=document.getElementById('lang-sel');if(sel2)sel2.value=dt;}
   updateXPUI();checkStr();checkAch();renderTasks();renderLB();
   var today=new Date();var dcKey=DC[(today.getDate()+today.getMonth())%DC.length];
   var ne=document.getElementById('daily-name');if(ne)ne.textContent='Today: '+DCN[dcKey];
