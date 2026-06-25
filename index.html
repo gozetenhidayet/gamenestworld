@@ -332,6 +332,15 @@ footer{background:var(--text);padding:36px 32px 28px;}
   footer{padding:28px 16px 22px;}
 }
 @media(max-width:360px){.game-grid{grid-template-columns:repeat(2,1fr);}}
+ins.adsbygoogle:empty{display:none!important;}ins.adsbygoogle[data-ad-status="unfilled"]{display:none!important;}.adsbygoogle-noablate{min-height:0!important;}
+
+/* Hide ad slots until AdSense approved */
+.ad-strip { display: none !important; }
+.ad-lbl { display: none !important; }
+.ad-ph { display: none !important; }
+ins.adsbygoogle { display: none !important; }
+.ad-strip { display: none !important; }
+
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3359266836868361" crossorigin="anonymous"></script>
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
@@ -449,36 +458,7 @@ footer{background:var(--text);padding:36px 32px 28px;}
   </div>
 </div>
 
-<!-- TOP AD -->
-<div class="ad-strip">
-  <div class="ad-lbl">Advertisement</div>
-  <!-- AdSense: insert code here after approval -->
-  <ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-3359266836868361"
-     data-ad-slot="auto"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
-</div>
-
-<!-- GAMIFICATION STRIP -->
-<div class="gami-strip">
-  <div class="gami-inner">
-    <!-- DAILY CHALLENGE -->
-    <div class="daily-card">
-      <div style="flex:1;min-width:140px;">
-        <div class="daily-badge" data-i18n="daily_lbl">🔥 Daily Challenge</div>
-        <div class="daily-title" id="daily-name">Loading today's game...</div>
-        <div style="font-size:11px;color:var(--muted);" data-i18n="daily_sub">New game every day!</div>
-      </div>
-      <div style="text-align:center;flex-shrink:0;">
-        <div class="daily-timer-l" data-i18n="resets">Resets in</div>
-        <div class="daily-timer-v" id="daily-timer">--:--:--</div>
-      </div>
-      <button class="daily-btn" id="daily-btn" data-i18n="play_today">Play →</button>
-    </div>
-    <!-- TOURNAMENT -->
+<!-- TOURNAMENT -->
     <div class="tourney-card">
       <div class="tourney-badge" data-i18n="t_lbl">🏆 Weekly Tournament</div>
       <div class="tourney-title" data-i18n="t_name">2048 Championship</div>
@@ -533,80 +513,6 @@ footer{background:var(--text);padding:36px 32px 28px;}
 <!-- GAMES -->
 <div class="section" id="games">
 
-  <!-- MID AD -->
-  <div class="ad-strip" style="border-radius:12px;margin:20px 0 6px;">
-    <div class="ad-lbl">Advertisement</div>
-    <ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-3359266836868361"
-     data-ad-slot="auto"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
-  </div>
-
-  <!-- EN POPULER TOP 10 -->
-  <div class="sec-hdr" id="top-section" style="margin-top:16px;">
-    <div class="sec-icon" style="background:#fef3c7;font-size:18px;">&#x1F525;</div>
-    <div class="sec-ttl">En Populer Oyunlar</div>
-    <span class="sec-badge" style="background:#fef3c7;color:#d97706;">Top 10</span>
-    <div class="sec-line"></div>
-  </div>
-  <div class="top10-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:20px;">
-    <div class="game-card c-classic" data-cat="classic" onclick="openGame('g2048');earnXP(30,'2048')" style="border:2px solid #fbbf24;">
-      <div style="position:absolute;top:6px;left:8px;font-size:10px;font-weight:800;color:#d97706;">#1</div>
-      <div class="g-iw" style="background:#fef3c7;"><span class="g-em">&#x1F522;</span></div>
-      <div class="g-name">2048</div><div class="g-desc">2.4M plays/day</div>
-    </div>
-    <div class="game-card c-classic" data-cat="classic" onclick="openGame('sudoku');earnXP(35,'Sudoku')">
-      <div style="position:absolute;top:6px;left:8px;font-size:10px;font-weight:800;color:#d97706;">#2</div>
-      <div class="g-iw" style="background:#eef2ff;"><span class="g-em">&#x1F532;</span></div>
-      <div class="g-name">Sudoku</div><div class="g-desc">1.9M plays/day</div>
-    </div>
-    <div class="game-card c-classic" data-cat="classic" onclick="openGame('snake');earnXP(20,'Snake')">
-      <div style="position:absolute;top:6px;left:8px;font-size:10px;font-weight:800;color:#d97706;">#3</div>
-      <div class="g-iw" style="background:#dcfce7;"><span class="g-em">&#x1F40D;</span></div>
-      <div class="g-name">Snake</div><div class="g-desc">1.6M plays/day</div>
-    </div>
-    <div class="game-card c-classic" data-cat="classic" onclick="openGame('tetris');earnXP(25,'Tetris')">
-      <div style="position:absolute;top:6px;left:8px;font-size:10px;font-weight:800;color:#d97706;">#4</div>
-      <div class="g-iw" style="background:#ede9fe;"><span class="g-em">&#x1F7E6;</span></div>
-      <div class="g-name">Tetris</div><div class="g-desc">1.4M plays/day</div>
-    </div>
-    <div class="game-card c-classic" data-cat="classic" onclick="openGame('mines');earnXP(20,'Minesweeper')">
-      <div style="position:absolute;top:6px;left:8px;font-size:10px;font-weight:800;color:#d97706;">#5</div>
-      <div class="g-iw" style="background:#fef2f2;"><span class="g-em">&#x1F4A3;</span></div>
-      <div class="g-name">Minesweeper</div><div class="g-desc">1.1M plays/day</div>
-    </div>
-    <div class="game-card c-word" data-cat="word" onclick="openGame('wordsearch');earnXP(25,'Word Search')">
-      <div style="position:absolute;top:6px;left:8px;font-size:10px;font-weight:800;color:#d97706;">#6</div>
-      <div class="g-iw" style="background:#dcfce7;"><span class="g-em">&#x1F520;</span></div>
-      <div class="g-name">Word Search</div><div class="g-desc">980K plays/day</div>
-    </div>
-    <div class="game-card c-word" data-cat="word" onclick="openGame('crossword');earnXP(25,'Crossword')">
-      <div style="position:absolute;top:6px;left:8px;font-size:10px;font-weight:800;color:#d97706;">#7</div>
-      <div class="g-iw" style="background:#fef3c7;"><span class="g-em">&#x1F4F0;</span></div>
-      <div class="g-name">Crossword</div><div class="g-desc">870K plays/day</div>
-    </div>
-    <div class="game-card c-classic" data-cat="classic" onclick="openGame('chess');earnXP(35,'Chess')">
-      <div style="position:absolute;top:6px;left:8px;font-size:10px;font-weight:800;color:#d97706;">#8</div>
-      <div class="g-iw" style="background:#f8faff;"><span class="g-em">&#x265F;&#xFE0F;</span></div>
-      <div class="g-name">Chess</div><div class="g-desc">760K plays/day</div>
-    </div>
-    <div class="game-card c-word" data-cat="word" onclick="openGame('hangman');earnXP(20,'Hangman')">
-      <div style="position:absolute;top:6px;left:8px;font-size:10px;font-weight:800;color:#d97706;">#9</div>
-      <div class="g-iw" style="background:#fef2f2;"><span class="g-em">&#x1FA9D;</span></div>
-      <div class="g-name">Hangman</div><div class="g-desc">640K plays/day</div>
-    </div>
-    <div class="game-card c-classic" data-cat="classic" onclick="openGame('ttt');earnXP(15,'Tic Tac Toe')">
-      <div style="position:absolute;top:6px;left:8px;font-size:10px;font-weight:800;color:#d97706;">#10</div>
-      <div class="g-iw" style="background:#ede9fe;"><span class="g-em">&#x2B55;</span></div>
-      <div class="g-name">Tic Tac Toe</div><div class="g-desc">590K plays/day</div>
-    </div>
-  </div>
-
-
-
   <!-- 🧠 QUIZ -->
   <div class="sec-hdr quiz-section">
     <div class="sec-icon" style="background:var(--al);">🧠</div>
@@ -646,35 +552,6 @@ footer{background:var(--text);padding:36px 32px 28px;}
     <div class="game-card c-word" data-cat="word" onclick="openGame('spelling');earnXP(30,'Spelling')"><span class="diff-pip pip-h"></span><div class="g-iw"><span class="g-em">🐝</span></div><div class="g-name">Spelling Bee</div><div class="g-desc">Spell it right</div></div>
     <div class="game-card c-word" data-cat="word" onclick="openGame('cipher');earnXP(30,'Cipher')"><span class="diff-pip pip-h"></span><div class="g-iw"><span class="g-em">🔐</span></div><div class="g-name">Cipher Decode</div><div class="g-desc">Crack the code</div></div>
     <div class="game-card c-word" data-cat="word" onclick="openGame('wordsearch');earnXP(25,'Word Search')"><span class="diff-pip pip-h"></span><span class="g-new">New</span><div class="g-iw"><span class="g-em">🔠</span></div><div class="g-name">Word Search</div><div class="g-desc">Find hidden words</div></div>
-  </div>
-
-  <!-- MID AD 2 -->
-  <div class="ad-strip" style="border-radius:12px;margin:16px 0 6px;">
-    <div class="ad-lbl">Advertisement</div>
-    <ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-3359266836868361"
-     data-ad-slot="auto"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
-  </div>
-
-  <!-- 🔢 MATH -->
-  <div class="sec-hdr math-section">
-    <div class="sec-icon" style="background:var(--ol);">🔢</div>
-    <div class="sec-ttl" data-i18n="math_ttl">Math Games</div>
-    <span class="sec-badge" style="background:var(--ol);color:var(--orange);" data-i18n="math_sub">Numbers & Logic</span>
-    <div class="sec-line"></div><span class="sec-cnt">7</span>
-  </div>
-  <div class="game-grid">
-    <div class="game-card c-math" data-cat="math" onclick="openGame('mathbasic');earnXP(15,'Math Basics')"><span class="diff-pip pip-e"></span><div class="g-iw"><span class="g-em">➕</span></div><div class="g-name">Math Basics</div><div class="g-desc">Add & subtract fast</div></div>
-    <div class="game-card c-math" data-cat="math" onclick="openGame('mathquiz');earnXP(20,'Math Quiz')"><span class="diff-pip pip-m"></span><div class="g-iw"><span class="g-em">🔢</span></div><div class="g-name">Math Quiz</div><div class="g-desc">Mixed operations</div></div>
-    <div class="game-card c-math" data-cat="math" onclick="openGame('times');earnXP(20,'Times')"><span class="diff-pip pip-m"></span><div class="g-iw"><span class="g-em">✖️</span></div><div class="g-name">Times Tables</div><div class="g-desc">Multiplication race</div></div>
-    <div class="game-card c-math" data-cat="math" onclick="openGame('make24');earnXP(25,'Make 24')"><span class="diff-pip pip-m"></span><div class="g-iw"><span class="g-em">🎯</span></div><div class="g-name">Make 24</div><div class="g-desc">4 numbers → 24</div></div>
-    <div class="game-card c-math" data-cat="math" onclick="openGame('mathsprint');earnXP(30,'Sprint')"><span class="diff-pip pip-h"></span><span class="g-hot">🔥</span><div class="g-iw"><span class="g-em">🏃</span></div><div class="g-name">Math Sprint</div><div class="g-desc">30 Qs in 60s</div></div>
-    <div class="game-card c-math" data-cat="math" onclick="openGame('numseq');earnXP(25,'Num Seq')"><span class="diff-pip pip-h"></span><div class="g-iw"><span class="g-em">📈</span></div><div class="g-name">Number Sequence</div><div class="g-desc">Find the pattern</div></div>
-    <div class="game-card c-math" data-cat="math" onclick="openGame('sudoku');earnXP(35,'Sudoku')"><span class="diff-pip pip-h"></span><span class="g-hot">🔥</span><div class="g-iw"><span class="g-em">🔲</span></div><div class="g-name">Sudoku</div><div class="g-desc">Classic 9×9</div></div>
   </div>
 
   <!-- 🕹️ CLASSIC -->
@@ -734,21 +611,7 @@ footer{background:var(--text);padding:36px 32px 28px;}
   </div>
 
 
-  <!-- BOTTOM AD -->
-  <div class="ad-strip" style="border-radius:12px;margin:8px 0;">
-    <div class="ad-lbl">Advertisement</div>
-    <ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-3359266836868361"
-     data-ad-slot="auto"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
-  </div>
-
-</div>
-
-<!-- FOOTER -->
+  <!-- FOOTER -->
 <footer>
   <div style="max-width:1160px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr;gap:40px;align-items:start;">
     <div class="foot-brand">
@@ -1623,7 +1486,168 @@ function nextTimes(){
 function timesAns(c,a){window._ttQ++;if(c===a)window._ttScore++;nextTimes();}
 
 /* MINESWEEPER */
-function gameMines(){startMines(6,6,8,'mines');}
+function gameMines(){minesweeper(6,6,6);}
+function gameMinesHard(){minesweeper(10,10,20);}
+function minesweeper(W,H,MINES){
+  var board=[],revealed=[],flagged=[],gameOver=false,won=false,firstClick=true,startTime=null,timer=0,timerInt=null;
+  var best=+localStorage.getItem('bestMines'+W)||0;
+  function init(){
+    board=Array.from({length:H},function(){return Array(W).fill(0);});
+    revealed=Array.from({length:H},function(){return Array(W).fill(false);});
+    flagged=Array.from({length:H},function(){return Array(W).fill(false);});
+    gameOver=false;won=false;firstClick=true;startTime=null;timer=0;
+    if(timerInt)clearInterval(timerInt);
+  }
+  function placeMines(sx,sy){
+    var placed=0;
+    while(placed<MINES){
+      var r=Math.floor(Math.random()*H),c=Math.floor(Math.random()*W);
+      if(board[r][c]===-1)continue;
+      if(Math.abs(r-sy)<=1&&Math.abs(c-sx)<=1)continue;
+      board[r][c]=-1;placed++;
+    }
+    for(var r=0;r<H;r++)for(var c=0;c<W;c++){
+      if(board[r][c]===-1)continue;
+      var count=0;
+      for(var dr=-1;dr<=1;dr++)for(var dc=-1;dc<=1;dc++){
+        var nr=r+dr,nc=c+dc;
+        if(nr>=0&&nr<H&&nc>=0&&nc<W&&board[nr][nc]===-1)count++;
+      }
+      board[r][c]=count;
+    }
+  }
+  function reveal(r,c){
+    if(r<0||r>=H||c<0||c>=W||revealed[r][c]||flagged[r][c])return;
+    revealed[r][c]=true;
+    if(board[r][c]===0)for(var dr=-1;dr<=1;dr++)for(var dc=-1;dc<=1;dc++)reveal(r+dr,c+dc);
+  }
+  function checkWin(){
+    return board.every(function(row,r){return row.every(function(v,c){return v===-1||revealed[r][c];});});
+  }
+  function click(r,c){
+    if(gameOver||revealed[r][c]||flagged[r][c])return;
+    if(firstClick){firstClick=false;placeMines(c,r);startTime=Date.now();timerInt=setInterval(function(){timer=Math.floor((Date.now()-startTime)/1000);renderM();},1000);}
+    if(board[r][c]===-1){gameOver=true;clearInterval(timerInt);
+      for(var i=0;i<H;i++)for(var j=0;j<W;j++)if(board[i][j]===-1)revealed[i][j]=true;
+      earnXP(5,'Minesweeper');renderM();return;}
+    reveal(r,c);
+    if(checkWin()){won=true;clearInterval(timerInt);var t=timer;if(!best||t<best){best=t;localStorage.setItem('bestMines'+W,best);}earnXP(W===6?30:60,'Minesweeper');renderM();}
+    else renderM();
+  }
+  function flag(e,r,c){e.preventDefault();if(revealed[r][c]||gameOver)return;flagged[r][c]=!flagged[r][c];renderM();}
+  var COLORS=['','#1565c0','#2e7d32','#c62828','#4a148c','#b71c1c','#00695c','#000','#546e7a'];
+  function renderM(){
+    var g=gw();if(!g)return;
+    var flagsLeft=MINES-flagged.flat().filter(Boolean).length;
+    var h='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">';
+    h+='<div style="display:flex;gap:8px;">';
+    h+='<div style="background:var(--s2);border-radius:6px;padding:4px 10px;font-size:13px;font-weight:700;">🚩 '+flagsLeft+'</div>';
+    h+='<div style="background:var(--s2);border-radius:6px;padding:4px 10px;font-size:13px;font-weight:700;">⏱ '+timer+'s</div>';
+    h+='</div>';
+    h+='<div style="display:flex;gap:6px;">';
+    if(best)h+='<div style="background:var(--gol);border-radius:6px;padding:4px 10px;font-size:12px;font-weight:700;color:var(--gold);">Best: '+best+'s</div>';
+    h+='<button class="g-btn" onclick="minesweeper('+W+','+H+','+MINES+')" style="font-size:12px;padding:4px 10px;">New</button>';
+    h+='</div></div>';
+    if(won)h+='<div style="background:#dcfce7;border:1.5px solid #86efac;border-radius:8px;padding:10px;text-align:center;margin-bottom:8px;font-weight:700;color:#15803d;">🎉 You Won! Time: '+timer+'s</div>';
+    if(gameOver&&!won)h+='<div style="background:#fef2f2;border:1.5px solid #fca5a5;border-radius:8px;padding:10px;text-align:center;margin-bottom:8px;font-weight:700;color:#dc2626;">💥 Game Over!</div>';
+    h+='<div style="display:grid;grid-template-columns:repeat('+W+',1fr);gap:3px;max-width:'+(W*36+20)+'px;margin:0 auto;">';
+    for(var r=0;r<H;r++)for(var c=0;c<W;c++){
+      var rv=revealed[r][c],fl=flagged[r][c],v=board[r][c];
+      var bg=rv?(v===-1?'#ef4444':'#e2e8f0'):(fl?'#fef3c7':'#94a3b8');
+      var col=rv&&v>0?COLORS[v]:'#000';
+      var txt=rv?(v===-1?'💣':v>0?v:''):(fl?'🚩':'');
+      h+='<div onclick="mineClick('+r+','+c+')" oncontextmenu="mineFlag(event,'+r+','+c+')" style="aspect-ratio:1;background:'+bg+';border-radius:4px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;font-weight:700;color:'+col+';border:1px solid rgba(0,0,0,.1);user-select:none;transition:all .1s;">'+(txt||'')+'</div>';
+    }
+    h+='</div>';
+    h+='<div style="margin-top:8px;font-size:11px;color:var(--muted);text-align:center;">Click to reveal · Right-click to flag</div>';
+    g.innerHTML=h;
+  }
+  window.mineClick=function(r,c){click(r,c);};
+  window.mineFlag=function(e,r,c){flag(e,r,c);};
+  init();renderM();
+}
+
+
+function minesweeper(W,H,MINES){
+  var board=[],revealed=[],flagged=[],gameOver=false,won=false,firstClick=true,startTime=null,timer=0,timerInt=null;
+  var best=+localStorage.getItem('bestMines'+W)||0;
+  function init(){
+    board=Array.from({length:H},function(){return Array(W).fill(0);});
+    revealed=Array.from({length:H},function(){return Array(W).fill(false);});
+    flagged=Array.from({length:H},function(){return Array(W).fill(false);});
+    gameOver=false;won=false;firstClick=true;startTime=null;timer=0;
+    if(timerInt)clearInterval(timerInt);
+  }
+  function placeMines(sx,sy){
+    var placed=0;
+    while(placed<MINES){
+      var r=Math.floor(Math.random()*H),c=Math.floor(Math.random()*W);
+      if(board[r][c]===-1)continue;
+      if(Math.abs(r-sy)<=1&&Math.abs(c-sx)<=1)continue;
+      board[r][c]=-1;placed++;
+    }
+    for(var r=0;r<H;r++)for(var c=0;c<W;c++){
+      if(board[r][c]===-1)continue;
+      var count=0;
+      for(var dr=-1;dr<=1;dr++)for(var dc=-1;dc<=1;dc++){
+        var nr=r+dr,nc=c+dc;
+        if(nr>=0&&nr<H&&nc>=0&&nc<W&&board[nr][nc]===-1)count++;
+      }
+      board[r][c]=count;
+    }
+  }
+  function reveal(r,c){
+    if(r<0||r>=H||c<0||c>=W||revealed[r][c]||flagged[r][c])return;
+    revealed[r][c]=true;
+    if(board[r][c]===0)for(var dr=-1;dr<=1;dr++)for(var dc=-1;dc<=1;dc++)reveal(r+dr,c+dc);
+  }
+  function checkWin(){
+    return board.every(function(row,r){return row.every(function(v,c){return v===-1||revealed[r][c];});});
+  }
+  function click(r,c){
+    if(gameOver||revealed[r][c]||flagged[r][c])return;
+    if(firstClick){firstClick=false;placeMines(c,r);startTime=Date.now();timerInt=setInterval(function(){timer=Math.floor((Date.now()-startTime)/1000);renderM();},1000);}
+    if(board[r][c]===-1){gameOver=true;clearInterval(timerInt);
+      for(var i=0;i<H;i++)for(var j=0;j<W;j++)if(board[i][j]===-1)revealed[i][j]=true;
+      earnXP(5,'Minesweeper');renderM();return;}
+    reveal(r,c);
+    if(checkWin()){won=true;clearInterval(timerInt);var t=timer;if(!best||t<best){best=t;localStorage.setItem('bestMines'+W,best);}earnXP(W===6?30:60,'Minesweeper');renderM();}
+    else renderM();
+  }
+  function flag(e,r,c){e.preventDefault();if(revealed[r][c]||gameOver)return;flagged[r][c]=!flagged[r][c];renderM();}
+  var COLORS=['','#1565c0','#2e7d32','#c62828','#4a148c','#b71c1c','#00695c','#000','#546e7a'];
+  function renderM(){
+    var g=gw();if(!g)return;
+    var flagsLeft=MINES-flagged.flat().filter(Boolean).length;
+    var h='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">';
+    h+='<div style="display:flex;gap:8px;">';
+    h+='<div style="background:var(--s2);border-radius:6px;padding:4px 10px;font-size:13px;font-weight:700;">🚩 '+flagsLeft+'</div>';
+    h+='<div style="background:var(--s2);border-radius:6px;padding:4px 10px;font-size:13px;font-weight:700;">⏱ '+timer+'s</div>';
+    h+='</div>';
+    h+='<div style="display:flex;gap:6px;">';
+    if(best)h+='<div style="background:var(--gol);border-radius:6px;padding:4px 10px;font-size:12px;font-weight:700;color:var(--gold);">Best: '+best+'s</div>';
+    h+='<button class="g-btn" onclick="minesweeper('+W+','+H+','+MINES+')" style="font-size:12px;padding:4px 10px;">New</button>';
+    h+='</div></div>';
+    if(won)h+='<div style="background:#dcfce7;border:1.5px solid #86efac;border-radius:8px;padding:10px;text-align:center;margin-bottom:8px;font-weight:700;color:#15803d;">🎉 You Won! Time: '+timer+'s</div>';
+    if(gameOver&&!won)h+='<div style="background:#fef2f2;border:1.5px solid #fca5a5;border-radius:8px;padding:10px;text-align:center;margin-bottom:8px;font-weight:700;color:#dc2626;">💥 Game Over!</div>';
+    h+='<div style="display:grid;grid-template-columns:repeat('+W+',1fr);gap:3px;max-width:'+(W*36+20)+'px;margin:0 auto;">';
+    for(var r=0;r<H;r++)for(var c=0;c<W;c++){
+      var rv=revealed[r][c],fl=flagged[r][c],v=board[r][c];
+      var bg=rv?(v===-1?'#ef4444':'#e2e8f0'):(fl?'#fef3c7':'#94a3b8');
+      var col=rv&&v>0?COLORS[v]:'#000';
+      var txt=rv?(v===-1?'💣':v>0?v:''):(fl?'🚩':'');
+      h+='<div onclick="mineClick('+r+','+c+')" oncontextmenu="mineFlag(event,'+r+','+c+')" style="aspect-ratio:1;background:'+bg+';border-radius:4px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;font-weight:700;color:'+col+';border:1px solid rgba(0,0,0,.1);user-select:none;transition:all .1s;">'+(txt||'')+'</div>';
+    }
+    h+='</div>';
+    h+='<div style="margin-top:8px;font-size:11px;color:var(--muted);text-align:center;">Click to reveal · Right-click to flag</div>';
+    g.innerHTML=h;
+  }
+  window.mineClick=function(r,c){click(r,c);};
+  window.mineFlag=function(e,r,c){flag(e,r,c);};
+  init();renderM();
+}
+
+
 function gameMinesHard(){startMines(10,10,20,'mineshard');}
 function startMines(rows,cols,mines,key){
   const total=rows*cols;
@@ -1762,54 +1786,116 @@ function pmClick(i){
 
 /* SNAKE */
 function gameSnake(){
-  const canvas=document.createElement('canvas');canvas.width=300;canvas.height=300;canvas.style.borderRadius='8px';canvas.style.border='2px solid #ddd';
-  gw().innerHTML=`<h2>🐍 Snake</h2><div id="sn-score" style="font-size:16px;margin-bottom:8px;">Score: 0</div>`;
-  gw().appendChild(canvas);
-  gw().innerHTML+=`<div style="font-size:13px;color:#888;margin-top:6px;">Arrow keys or swipe to move</div>`;
-  const ctx=canvas.getContext('2d');
-  const SZ=20,COLS=15,ROWS=15;
-  let snake=[{x:7,y:7}],dir={x:1,y:0},food={x:rnd(0,14),y:rnd(0,14)},score=0,dead=false;
-  let lastTouch=null;
-  function draw(){
-    ctx.fillStyle='#f8f9fa';ctx.fillRect(0,0,300,300);
-    ctx.fillStyle='#2ecc71';snake.forEach(s=>ctx.fillRect(s.x*SZ,s.y*SZ,SZ-1,SZ-1));
-    ctx.fillStyle='#ef5350';ctx.fillRect(food.x*SZ,food.y*SZ,SZ-1,SZ-1);
+  var W=20,H=20,CS=18,snake=[{x:10,y:10}],dir={x:1,y:0},ndir={x:1,y:0},food={},score=0,best=+localStorage.getItem('bestSnake')||0,running=false,speed=150;
+  function randFood(){
+    var pos;
+    do{pos={x:Math.floor(Math.random()*W),y:Math.floor(Math.random()*H)};}
+    while(snake.some(function(s){return s.x===pos.x&&s.y===pos.y;}));
+    return pos;
   }
-  function step(){
-    if(dead)return;
-    const head={x:snake[0].x+dir.x,y:snake[0].y+dir.y};
-    if(head.x<0||head.x>=COLS||head.y<0||head.y>=ROWS||snake.some(s=>s.x===head.x&&s.y===head.y)){
-      dead=true;ctx.fillStyle='rgba(0,0,0,.5)';ctx.fillRect(0,0,300,300);
-      ctx.fillStyle='#fff';ctx.font='24px sans-serif';ctx.textAlign='center';ctx.fillText('Game Over',150,140);
-      ctx.font='18px sans-serif';ctx.fillText('Score: '+score,150,170);
+  food=randFood();
+  function render(){
+    var g=gw();if(!g)return;
+    var h='<div style="display:flex;justify-content:space-between;margin-bottom:8px;align-items:center;">';
+    h+='<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:18px;font-weight:900;color:var(--text);">🐍 Snake</div>';
+    h+='<div style="display:flex;gap:8px;">';
+    h+='<div style="background:var(--s2);border-radius:6px;padding:4px 10px;font-size:13px;font-weight:700;">Score: '+score+'</div>';
+    h+='<div style="background:var(--s2);border-radius:6px;padding:4px 10px;font-size:13px;font-weight:700;">Best: '+best+'</div>';
+    h+='</div></div>';
+    h+='<canvas id="snakeCanvas" width="'+(W*CS)+'" height="'+(H*CS)+'" style="border-radius:8px;border:2px solid var(--border);display:block;margin:0 auto;"></canvas>';
+    h+='<div style="display:flex;gap:6px;margin-top:10px;">';
+    if(!running)h+='<button class="btn" onclick="snakeStart()" style="flex:1;">'+( score>0?'Play Again':'Start Game')+'</button>';
+    else h+='<button class="btn btn-sec" onclick="snakePause()" style="flex:1;" id="pauseBtn">Pause</button>';
+    h+='</div>';
+    h+='<div id="snake-controls" style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:160px;margin:10px auto 0;">';
+    h+='<div></div><button class="g-btn" onpointerdown="snakeDir(0,-1)">↑</button><div></div>';
+    h+='<button class="g-btn" onpointerdown="snakeDir(-1,0)">←</button>';
+    h+='<button class="g-btn" onpointerdown="snakeDir(0,0)">⏸</button>';
+    h+='<button class="g-btn" onpointerdown="snakeDir(1,0)">→</button>';
+    h+='<div></div><button class="g-btn" onpointerdown="snakeDir(0,1)">↓</button><div></div>';
+    h+='</div>';
+    h+='<div style="margin-top:8px;font-size:11px;color:var(--muted);text-align:center;">Arrow keys or WASD to move</div>';
+    g.innerHTML=h;
+    drawSnake();
+  }
+  function drawSnake(){
+    var canvas=document.getElementById('snakeCanvas');if(!canvas)return;
+    var ctx=canvas.getContext('2d');
+    ctx.fillStyle='#1a1a2e';ctx.fillRect(0,0,W*CS,H*CS);
+    // Grid
+    ctx.strokeStyle='rgba(255,255,255,.05)';ctx.lineWidth=.5;
+    for(var i=0;i<=W;i++){ctx.beginPath();ctx.moveTo(i*CS,0);ctx.lineTo(i*CS,H*CS);ctx.stroke();}
+    for(var j=0;j<=H;j++){ctx.beginPath();ctx.moveTo(0,j*CS);ctx.lineTo(W*CS,j*CS);ctx.stroke();}
+    // Food
+    ctx.fillStyle='#ff4444';
+    ctx.beginPath();ctx.arc(food.x*CS+CS/2,food.y*CS+CS/2,CS/2-2,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#ff8888';
+    ctx.beginPath();ctx.arc(food.x*CS+CS/2-2,food.y*CS+CS/2-2,3,0,Math.PI*2);ctx.fill();
+    // Snake
+    snake.forEach(function(seg,i){
+      var isHead=i===0;
+      ctx.fillStyle=isHead?'#00ff88':'#00cc66';
+      ctx.beginPath();ctx.roundRect(seg.x*CS+1,seg.y*CS+1,CS-2,CS-2,isHead?4:2);ctx.fill();
+      if(isHead){
+        ctx.fillStyle='#003311';
+        var ex=seg.x*CS+CS/2+(dir.x*3),ey=seg.y*CS+CS/2+(dir.y*3);
+        var px=dir.y*3,py=-dir.x*3;
+        ctx.beginPath();ctx.arc(ex+px,ey+py,2,0,Math.PI*2);ctx.fill();
+        ctx.beginPath();ctx.arc(ex-px,ey-py,2,0,Math.PI*2);ctx.fill();
+      }
+    });
+  }
+  window.snakeDir=function(x,y){
+    if(x===0&&y===0){snakePause();return;}
+    if(snake.length>1&&x===-dir.x&&y===-dir.y)return;
+    ndir={x,y};
+  };
+  window.snakePause=function(){
+    running=!running;
+    var btn=document.getElementById('pauseBtn');
+    if(btn)btn.textContent=running?'Pause':'Resume';
+    if(running)tick();
+  };
+  window.snakeStart=function(){running=true;score=0;speed=150;snake=[{x:10,y:10}];dir={x:1,y:0};ndir={x:1,y:0};food=randFood();render();tick();};
+  function tick(){
+    if(!running)return;
+    if(window._gl)clearTimeout(window._gl);
+    dir=ndir;
+    var head={x:snake[0].x+dir.x,y:snake[0].y+dir.y};
+    if(head.x<0||head.x>=W||head.y<0||head.y>=H||snake.some(function(s){return s.x===head.x&&s.y===head.y;})){
+      running=false;
+      if(score>best){best=score;localStorage.setItem('bestSnake',best);}
+      earnXP(Math.max(5,Math.floor(score/2)),'Snake');
+      var g=gw();if(g){
+        var over=document.createElement('div');
+        over.style.cssText='position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;';
+        over.innerHTML='<div style="color:#fff;font-size:22px;font-weight:900;margin-bottom:8px;">Game Over!</div>'
+          +'<div style="color:#00ff88;font-size:16px;margin-bottom:16px;">Score: '+score+(score===best?' 🏆 NEW BEST!':'')+'</div>'
+          +'<button class="btn" onclick="window.snakeStart()" style="min-width:120px;">Play Again</button>';
+        var canvas=document.getElementById('snakeCanvas');
+        if(canvas){canvas.parentNode.style.position='relative';canvas.parentNode.appendChild(over);}
+      }
       return;
     }
     snake.unshift(head);
-    if(head.x===food.x&&head.y===food.y){score++;document.getElementById('sn-score').textContent='Score: '+score;food={x:rnd(0,14),y:rnd(0,14)};}
-    else snake.pop();
-    draw();
-    window._gameLoop=setTimeout(step,150);
+    if(head.x===food.x&&head.y===food.y){
+      score+=10;food=randFood();
+      if(score%50===0)speed=Math.max(60,speed-10);
+    }else{snake.pop();}
+    drawSnake();
+    window._gl=setTimeout(tick,speed);
   }
-  document.addEventListener('keydown',function snKey(e){
-    if(!['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key))return;
-    e.preventDefault();
-    const map={ArrowUp:{x:0,y:-1},ArrowDown:{x:0,y:1},ArrowLeft:{x:-1,y:0},ArrowRight:{x:1,y:0}};
-    const nd=map[e.key];
-    if(nd.x!==-dir.x||nd.y!==-dir.y)dir=nd;
-    if(document.getElementById('gw')===null)document.removeEventListener('keydown',snKey);
-  });
-  canvas.addEventListener('touchstart',e=>{lastTouch=e.touches[0];},{passive:true});
-  canvas.addEventListener('touchend',e=>{
-    if(!lastTouch)return;
-    const dx=e.changedTouches[0].clientX-lastTouch.clientX;
-    const dy=e.changedTouches[0].clientY-lastTouch.clientY;
-    if(Math.abs(dx)>Math.abs(dy)){dir=dx>0?{x:1,y:0}:{x:-1,y:0};}
-    else{dir=dy>0?{x:0,y:1}:{x:0,y:-1};}
-  },{passive:true});
-  draw();window._gameLoop=setTimeout(step,150);
+  render();
+  var keyH=function(e){
+    var map={ArrowLeft:{x:-1,y:0},ArrowRight:{x:1,y:0},ArrowUp:{x:0,y:-1},ArrowDown:{x:0,y:1},a:{x:-1,y:0},d:{x:1,y:0},w:{x:0,y:-1},s:{x:0,y:1}};
+    if(map[e.key]){e.preventDefault();window.snakeDir(map[e.key].x,map[e.key].y);}
+  };
+  document.addEventListener('keydown',keyH);
+  var origClose=closeGame;
+  window._snakeCleanup=function(){document.removeEventListener('keydown',keyH);running=false;};
 }
 
-/* PONG */
+
 function gamePong(){
   const canvas=document.createElement('canvas');canvas.width=320;canvas.height=220;canvas.style.borderRadius='8px';canvas.style.border='2px solid #ddd';
   gw().innerHTML=`<h2>🏓 Pong</h2><div id="pong-score" style="font-size:16px;margin-bottom:8px;">0 : 0</div>`;
@@ -1928,52 +2014,100 @@ function wordleGuess(){
 }
 
 /* 2048 */
-function game2048(){init2048();}
-function init2048(){
-  window._2048board=Array(16).fill(0);
-  add2048();add2048();render2048();
-  document.addEventListener('keydown',key2048);
-  const gDiv=document.getElementById('gw');
-  let t0=null;
-  gDiv.addEventListener('touchstart',e=>{t0=e.touches[0];},{passive:true});
-  gDiv.addEventListener('touchend',e=>{
-    if(!t0)return;const dx=e.changedTouches[0].clientX-t0.clientX,dy=e.changedTouches[0].clientY-t0.clientY;
-    if(Math.abs(dx)>Math.abs(dy)){move2048(dx>0?'r':'l');}else{move2048(dy>0?'d':'u');}
-  },{passive:true});
-}
-function add2048(){
-  const empty=window._2048board.map((_,i)=>i).filter(i=>!window._2048board[i]);
-  if(!empty.length)return;
-  const i=pick(empty);window._2048board[i]=Math.random()<0.9?2:4;
-}
-function render2048(){
-  const b=window._2048board;
-  const colors={0:'#cdc1b4',2:'#eee4da',4:'#ede0c8',8:'#f2b179',16:'#f59563',32:'#f67c5f',64:'#f65e3b',128:'#edcf72',256:'#edcc61',512:'#edc850',1024:'#edc53f',2048:'#edc22e'};
-  const max=Math.max(...b);
-  gw().innerHTML=`<h2>🔢 2048</h2><div style="font-size:14px;color:#888;margin-bottom:6px;">Best: ${max} | Arrow keys or swipe</div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-width:280px;margin:0 auto;background:#bbada0;padding:6px;border-radius:8px;">${b.map(v=>`<div style="width:58px;height:58px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:${v>99?v>999?16:20:24}px;font-weight:900;background:${colors[v]||'#3c3a32'};color:${v>4?'#f9f6f2':'#776e65'};">${v||''}</div>`).join('')}</div>${b.includes(2048)?'<div style="font-size:28px;margin-top:12px;">🏆 You got 2048!</div>':''}${!b.some((_,i)=>{const r=Math.floor(i/4),c=i%4;return !b[i]||(c<3&&b[i]===b[i+1])||(r<3&&b[i]===b[i+4]);})&&!b.includes(0)?'<div style="font-size:22px;margin-top:10px;">Game Over!</div>':''}`;
-}
-function slide2048(row){
-  let a=row.filter(v=>v);
-  for(let i=0;i<a.length-1;i++)if(a[i]===a[i+1]){a[i]*=2;a[i+1]=0;}
-  a=a.filter(v=>v);
-  while(a.length<4)a.push(0);
-  return a;
-}
-function move2048(dir){
-  const b=[...window._2048board];let changed=false;
-  if(dir==='l'){for(let r=0;r<4;r++){const row=b.slice(r*4,r*4+4);const s=slide2048(row);for(let c=0;c<4;c++)if(b[r*4+c]!==s[c]){changed=true;b[r*4+c]=s[c];}}}
-  else if(dir==='r'){for(let r=0;r<4;r++){const row=b.slice(r*4,r*4+4).reverse();const s=slide2048(row).reverse();for(let c=0;c<4;c++)if(b[r*4+c]!==s[c]){changed=true;b[r*4+c]=s[c];}}}
-  else if(dir==='u'){for(let c=0;c<4;c++){const col=[b[c],b[4+c],b[8+c],b[12+c]];const s=slide2048(col);[0,1,2,3].forEach((r,i)=>{if(b[r*4+c]!==s[i]){changed=true;b[r*4+c]=s[i];}});}}
-  else if(dir==='d'){for(let c=0;c<4;c++){const col=[b[c],b[4+c],b[8+c],b[12+c]].reverse();const s=slide2048(col).reverse();[0,1,2,3].forEach((r,i)=>{if(b[r*4+c]!==s[i]){changed=true;b[r*4+c]=s[i];}});}}
-  if(changed){window._2048board=b;add2048();render2048();}
-}
-function key2048(e){
-  if(!document.getElementById('gw'))return document.removeEventListener('keydown',key2048);
-  const map={ArrowLeft:'l',ArrowRight:'r',ArrowUp:'u',ArrowDown:'d'};
-  if(map[e.key]){e.preventDefault();move2048(map[e.key]);}
+function game2048(){
+  var SIZE=4, board=[], score=0, best=+localStorage.getItem('best2048')||0, moved=false;
+  function newBoard(){board=Array.from({length:SIZE},()=>Array(SIZE).fill(0));}
+  function addTile(){
+    var empty=[];
+    board.forEach(function(r,i){r.forEach(function(v,j){if(!v)empty.push([i,j]);});});
+    if(!empty.length)return;
+    var pos=empty[Math.floor(Math.random()*empty.length)];
+    board[pos[0]][pos[1]]=Math.random()<0.9?2:4;
+  }
+  function slide(row){
+    row=row.filter(function(v){return v;});
+    for(var i=0;i<row.length-1;i++){
+      if(row[i]===row[i+1]){row[i]*=2;score+=row[i];row.splice(i+1,1);}
+    }
+    while(row.length<SIZE)row.push(0);
+    return row;
+  }
+  function move(dir){
+    var prev=JSON.stringify(board);
+    if(dir==='left')board=board.map(slide);
+    else if(dir==='right')board=board.map(function(r){return slide(r.slice().reverse()).reverse();});
+    else if(dir==='up'){
+      for(var j=0;j<SIZE;j++){var col=board.map(function(r){return r[j];});col=slide(col);col.forEach(function(v,i){board[i][j]=v;});}
+    }else{
+      for(var j=0;j<SIZE;j++){var col=board.map(function(r){return r[j];}).reverse();col=slide(col);col.reverse().forEach(function(v,i){board[i][j]=v;});}
+    }
+    if(JSON.stringify(board)!==prev){addTile();if(score>best){best=score;localStorage.setItem('best2048',best);}}
+    render2048();
+  }
+  function hasWon(){return board.some(function(r){return r.some(function(v){return v===2048;});});}
+  function isOver(){
+    for(var i=0;i<SIZE;i++)for(var j=0;j<SIZE;j++){
+      if(!board[i][j])return false;
+      if(i<SIZE-1&&board[i][j]===board[i+1][j])return false;
+      if(j<SIZE-1&&board[i][j]===board[i][j+1])return false;
+    }return true;
+  }
+  var COLORS={'':'#cdc1b4',2:'#eee4da',4:'#ede0c8',8:'#f2b179',16:'#f59563',32:'#f67c5f',64:'#f65e3b',128:'#edcf72',256:'#edcc61',512:'#edc850',1024:'#edc53f',2048:'#edc22e'};
+  var TCOL={'':''};[2,4].forEach(function(v){TCOL[v]='#776e65';});[8,16,32,64,128,256,512,1024,2048].forEach(function(v){TCOL[v]='#f9f6f2';});
+  function render2048(){
+    var g=gw();if(!g)return;
+    var won=hasWon(),over=isOver();
+    var h='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">';
+    h+='<div style="font-family:Plus Jakarta Sans,sans-serif;font-size:22px;font-weight:900;color:#776e65;">2048</div>';
+    h+='<div style="display:flex;gap:8px;">';
+    h+='<div style="background:#bbada0;border-radius:6px;padding:6px 12px;text-align:center;"><div style="font-size:9px;color:#eee4da;text-transform:uppercase;">Score</div><div style="font-size:16px;font-weight:700;color:#fff;">'+score+'</div></div>';
+    h+='<div style="background:#bbada0;border-radius:6px;padding:6px 12px;text-align:center;"><div style="font-size:9px;color:#eee4da;text-transform:uppercase;">Best</div><div style="font-size:16px;font-weight:700;color:#fff;">'+best+'</div></div>';
+    h+='</div></div>';
+    h+='<div style="background:#bbada0;border-radius:6px;padding:6px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px;">';
+    board.forEach(function(row){
+      row.forEach(function(v){
+        var bg=COLORS[v]||'#3c3a32',tc=TCOL[v]||'#f9f6f2',fs=v>=1024?16:v>=128?20:v>=8?22:24;
+        h+='<div style="background:'+bg+';border-radius:4px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:'+fs+'px;font-weight:900;color:'+tc+';font-family:Plus Jakarta Sans,sans-serif;transition:all .1s;">'+(v||'')+'</div>';
+      });
+    });
+    h+='</div>';
+    if(won&&!window._2048won){
+      window._2048won=true;
+      h+='<div style="background:#edcf72;border-radius:10px;padding:14px;text-align:center;margin-bottom:10px;"><div style="font-size:20px;font-weight:900;color:#776e65;">You reached 2048!</div><div style="font-size:13px;color:#776e65;margin-top:4px;">Keep going for a higher score!</div></div>';
+      earnXP(100,'2048 - Reached 2048!');
+    }
+    if(over){
+      h+='<div style="background:#f65e3b;border-radius:10px;padding:14px;text-align:center;margin-bottom:10px;"><div style="font-size:18px;font-weight:900;color:#fff;">Game Over!</div><div style="font-size:13px;color:#fff;margin-top:4px;">Score: '+score+'</div></div>';
+      earnXP(Math.floor(score/100),'2048 Game Over');
+    }
+    h+='<div style="display:flex;gap:6px;">';
+    h+='<button class="btn" onclick="game2048()" style="flex:1;">New Game</button>';
+    h+='<button class="btn btn-sec" onclick="window._2048hint&&window._2048hint()" style="flex:1;">Hint</button>';
+    h+='</div>';
+    h+='<div style="margin-top:10px;background:#f5f0eb;border-radius:8px;padding:10px;font-size:12px;color:#776e65;text-align:center;">';
+    h+='Use <strong>Arrow Keys</strong> or <strong>WASD</strong> to move tiles. Combine matching numbers to reach <strong>2048!</strong></div>';
+    g.innerHTML=h;
+    // Touch support
+    var startX,startY;
+    g.ontouchstart=function(e){startX=e.touches[0].clientX;startY=e.touches[0].clientY;};
+    g.ontouchend=function(e){
+      var dx=e.changedTouches[0].clientX-startX,dy=e.changedTouches[0].clientY-startY;
+      if(Math.abs(dx)>Math.abs(dy)){move(dx>0?'right':'left');}else{move(dy>0?'down':'up');}
+    };
+  }
+  newBoard();addTile();addTile();window._2048won=false;
+  window._2048board=board;
+  render2048();
+  var keyH=function(e){
+    var map={ArrowLeft:'left',ArrowRight:'right',ArrowUp:'up',ArrowDown:'down',a:'left',d:'right',w:'up',s:'down'};
+    if(map[e.key]){e.preventDefault();move(map[e.key]);}
+  };
+  document.addEventListener('keydown',keyH);
+  var orig=closeGame;
+  window._2048cleanup=function(){document.removeEventListener('keydown',keyH);};
 }
 
-/* MATH SPRINT */
+
 function gameMathSprint(){window._ms2Score=0;window._ms2Q=0;window._ms2Time=60;nextMathSprint();
   window._ms2Timer=setInterval(()=>{window._ms2Time--;document.getElementById('ms2-time')&&(document.getElementById('ms2-time').textContent=`⏱ ${window._ms2Time}s`);if(window._ms2Time<=0){clearInterval(window._ms2Timer);gw().innerHTML=`<h2>⚡ Math Sprint</h2><div style="font-size:48px;">🏆</div><div style="font-size:24px;">Score: ${window._ms2Score}/30</div><button class="g-btn" style="margin-top:12px;" onclick="gameMathSprint()">Play Again</button>`;}},1000);
 }
@@ -2066,38 +2200,138 @@ function gameBreakout(){
 
 /* TETRIS */
 function gameTetris(){
-  const canvas=document.createElement('canvas');canvas.width=160;canvas.height=320;canvas.style.borderRadius='8px';canvas.style.border='2px solid #ddd';
-  const scoreDiv=document.createElement('div');scoreDiv.id='tet-score';scoreDiv.style.cssText='font-size:16px;margin-bottom:8px;';scoreDiv.textContent='Score: 0';
-  gw().innerHTML=`<h2>🟦 Tetris Lite</h2>`;
-  gw().appendChild(scoreDiv);gw().appendChild(canvas);
-  gw().innerHTML+=`<div style="font-size:13px;color:#888;margin-top:6px;">Arrow keys or swipe</div>`;
-  const ctx=canvas.getContext('2d');
-  const W=8,H=16,SZ=20;
-  const PIECES=[[[1,1,1,1]],[[1,1],[1,1]],[[0,1,0],[1,1,1]],[[1,0],[1,0],[1,1]],[[0,1],[0,1],[1,1]],[[0,1,1],[1,1,0]],[[1,1,0],[0,1,1]]];
-  const COLORS=['#00bcd4','#ffc107','#9c27b0','#2196f3','#ff9800','#4caf50','#ef5350'];
-  let board=Array.from({length:H},()=>Array(W).fill(0));
-  let score=0,piece=null,px=0,py=0,pc=0;
-  function spawn(){pc=rnd(0,6);piece=PIECES[pc];px=Math.floor((W-piece[0].length)/2);py=0;if(!valid())endGame();}
-  function valid(p=piece,x=px,y=py){return p.every((row,r)=>row.every((c,col)=>!c||(y+r>=0&&y+r<H&&x+col>=0&&x+col<W&&!board[y+r][x+col])));}
-  function place(){piece.forEach((row,r)=>row.forEach((c,col)=>{if(c)board[py+r][px+col]=pc+1;}));let lines=0;board=board.filter(r=>{if(r.some(c=>!c))return true;lines++;return false;});while(board.length<H)board.unshift(Array(W).fill(0));score+=lines*100;document.getElementById('tet-score').textContent='Score: '+score;spawn();}
-  function draw(){ctx.fillStyle='#1a1d2e';ctx.fillRect(0,0,W*SZ,H*SZ);board.forEach((row,r)=>row.forEach((c,col)=>{if(c){ctx.fillStyle=COLORS[c-1];ctx.fillRect(col*SZ+1,r*SZ+1,SZ-2,SZ-2);}}));piece&&piece.forEach((row,r)=>row.forEach((c,col)=>{if(c){ctx.fillStyle=COLORS[pc];ctx.fillRect((px+col)*SZ+1,(py+r)*SZ+1,SZ-2,SZ-2);}}));}
-  function endGame(){cancelAnimationFrame(window._gameLoop);window._gameLoop=null;ctx.fillStyle='rgba(0,0,0,.6)';ctx.fillRect(0,0,W*SZ,H*SZ);ctx.fillStyle='#fff';ctx.font='16px sans-serif';ctx.textAlign='center';ctx.fillText('Game Over',W*SZ/2,H*SZ/2);ctx.fillText('Score: '+score,W*SZ/2,H*SZ/2+24);}
-  function step(){if(!piece)spawn();if(!valid(piece,px,py+1)){place();}else py++;draw();window._gameLoop=setTimeout(step,400);}
-  document.addEventListener('keydown',function tetKey(e){
-    if(!document.getElementById('gw'))return document.removeEventListener('keydown',tetKey);
-    if(e.key==='ArrowLeft'&&valid(piece,px-1,py))px--;
-    if(e.key==='ArrowRight'&&valid(piece,px+1,py))px++;
-    if(e.key==='ArrowDown'&&valid(piece,px,py+1))py++;
-    if(e.key==='ArrowUp'){const rot=piece[0].map((_,i)=>piece.map(r=>r[i]).reverse());if(valid(rot,px,py))piece=rot;}
-    draw();
-  });
-  let touch0=null;
-  canvas.addEventListener('touchstart',e=>{touch0=e.touches[0];},{passive:true});
-  canvas.addEventListener('touchend',e=>{if(!touch0)return;const dx=e.changedTouches[0].clientX-touch0.clientX,dy=e.changedTouches[0].clientY-touch0.clientY;if(Math.abs(dx)>Math.abs(dy)){if(dx>20&&valid(piece,px+1,py))px++;if(dx<-20&&valid(piece,px-1,py))px--;}else if(dy>20&&valid(piece,px,py+1))py++;else{const rot=piece[0].map((_,i)=>piece.map(r=>r[i]).reverse());if(valid(rot,px,py))piece=rot;}draw();},{passive:true});
-  spawn();step();
+  var W=10,H=20,CS=22,board=[],score=0,lines=0,level=1,best=+localStorage.getItem('bestTetris')||0,running=false,paused=false;
+  var PIECES=[
+    [[1,1,1,1]],
+    [[1,1],[1,1]],
+    [[0,1,0],[1,1,1]],
+    [[1,0,0],[1,1,1]],
+    [[0,0,1],[1,1,1]],
+    [[0,1,1],[1,1,0]],
+    [[1,1,0],[0,1,1]]
+  ];
+  var COLORS=['','#00f0f0','#f0f000','#a000f0','#00f000','#f00000','#0000f0','#f0a000'];
+  var cur,curX,curY,curC,next,nextC;
+  function newBoard(){board=Array.from({length:H},function(){return Array(W).fill(0);});}
+  function newPiece(){
+    cur=next||PIECES[rnd(0,PIECES.length-1)];curC=nextC||rnd(1,COLORS.length-1);
+    curX=Math.floor(W/2)-Math.floor(cur[0].length/2);curY=0;
+    next=PIECES[rnd(0,PIECES.length-1)];nextC=rnd(1,COLORS.length-1);
+    if(collide(cur,curX,curY)){running=false;gameOver();}
+  }
+  function collide(p,x,y){
+    return p.some(function(row,r){return row.some(function(v,c){
+      if(!v)return false;var nx=x+c,ny=y+r;
+      return nx<0||nx>=W||ny>=H||(ny>=0&&board[ny][nx]);
+    });});
+  }
+  function place(){
+    cur.forEach(function(row,r){row.forEach(function(v,c){if(v&&curY+r>=0)board[curY+r][curX+c]=curC;});});
+    var cleared=0;
+    for(var r=H-1;r>=0;r--){
+      if(board[r].every(function(v){return v;})){board.splice(r,1);board.unshift(Array(W).fill(0));cleared++;r++;}
+    }
+    if(cleared){
+      var pts=[0,100,300,500,800];score+=pts[cleared]*level;lines+=cleared;
+      level=Math.floor(lines/10)+1;if(score>best){best=score;localStorage.setItem('bestTetris',best);}
+      earnXP(cleared*10,'Tetris Lines');
+    }
+    newPiece();renderT();
+  }
+  function rotate(p){return p[0].map(function(_,i){return p.map(function(row){return row[i];}).reverse();});}
+  function drop(){if(!collide(cur,curX,curY+1)){curY++;}else{place();}renderT();}
+  function hardDrop(){while(!collide(cur,curX,curY+1))curY++;score+=2;place();}
+  function gameOver(){
+    earnXP(Math.floor(score/50),'Tetris Game Over');
+    var g=gw();if(!g)return;
+    var ov=document.createElement('div');
+    ov.style.cssText='position:absolute;inset:0;background:rgba(0,0,0,.8);display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;gap:10px;';
+    ov.innerHTML='<div style="color:#fff;font-size:24px;font-weight:900;">Game Over!</div>'
+      +'<div style="color:#00f0f0;font-size:15px;">Score: '+score+(score===best?' 🏆':'')+'</div>'
+      +'<div style="color:#aaa;font-size:13px;">Lines: '+lines+' | Level: '+level+'</div>'
+      +'<button class="btn" onclick="gameTetris()" style="min-width:120px;">Play Again</button>';
+    var canvas=document.getElementById('tetCanvas');
+    if(canvas){canvas.parentNode.style.position='relative';canvas.parentNode.appendChild(ov);}
+  }
+  function renderT(){
+    var g=gw();if(!g)return;
+    if(!document.getElementById('tetCanvas')){
+      var h='<div style="display:flex;gap:10px;justify-content:center;">';
+      h+='<div>';
+      h+='<div style="display:flex;justify-content:space-between;margin-bottom:6px;">';
+      h+='<div style="font-size:13px;font-weight:700;color:var(--text);">🟦 Tetris</div>';
+      h+='<button class="g-btn" id="tetPauseBtn" onclick="tetPause()" style="font-size:11px;padding:4px 8px;">Pause</button></div>';
+      h+='<canvas id="tetCanvas" width="'+(W*CS)+'" height="'+(H*CS)+'" style="border-radius:6px;border:2px solid #333;"></canvas>';
+      h+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:8px;max-width:'+(W*CS)+'px;">';
+      h+='<button class="g-btn" onpointerdown="tetMove(-1)">←</button>';
+      h+='<button class="g-btn" onpointerdown="tetHard()">⬇⬇</button>';
+      h+='<button class="g-btn" onpointerdown="tetMove(1)">→</button>';
+      h+='<button class="g-btn" onpointerdown="tetRot()">↻ Rotate</button>';
+      h+='<button class="g-btn" onpointerdown="tetDrop()">↓ Drop</button>';
+      h+='<button class="g-btn" onclick="gameTetris()">New</button>';
+      h+='</div></div>';
+      h+='<div style="width:80px;">';
+      h+='<div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Next</div>';
+      h+='<canvas id="tetNext" width="80" height="80" style="border-radius:6px;border:1px solid var(--border);background:#1a1a2e;"></canvas>';
+      h+='<div style="margin-top:10px;font-size:11px;color:var(--muted);">Score<br><strong style="font-size:15px;color:var(--text);" id="tScore">0</strong></div>';
+      h+='<div style="margin-top:6px;font-size:11px;color:var(--muted);">Lines<br><strong id="tLines">0</strong></div>';
+      h+='<div style="margin-top:6px;font-size:11px;color:var(--muted);">Level<br><strong id="tLevel">1</strong></div>';
+      h+='<div style="margin-top:6px;font-size:11px;color:var(--muted);">Best<br><strong id="tBest">'+best+'</strong></div>';
+      h+='</div></div>';
+      g.innerHTML=h;
+    }
+    var el=document.getElementById('tScore');if(el)el.textContent=score;
+    var el2=document.getElementById('tLines');if(el2)el2.textContent=lines;
+    var el3=document.getElementById('tLevel');if(el3)el3.textContent=level;
+    var el4=document.getElementById('tBest');if(el4)el4.textContent=best;
+    var canvas=document.getElementById('tetCanvas');if(!canvas)return;
+    var ctx=canvas.getContext('2d');
+    ctx.fillStyle='#1a1a2e';ctx.fillRect(0,0,W*CS,H*CS);
+    ctx.strokeStyle='rgba(255,255,255,.04)';ctx.lineWidth=.5;
+    for(var i=0;i<=W;i++){ctx.beginPath();ctx.moveTo(i*CS,0);ctx.lineTo(i*CS,H*CS);ctx.stroke();}
+    for(var j=0;j<=H;j++){ctx.beginPath();ctx.moveTo(0,j*CS);ctx.lineTo(W*CS,j*CS);ctx.stroke();}
+    board.forEach(function(row,r){row.forEach(function(v,c){
+      if(v){ctx.fillStyle=COLORS[v];ctx.fillRect(c*CS+1,r*CS+1,CS-2,CS-2);
+        ctx.fillStyle='rgba(255,255,255,.2)';ctx.fillRect(c*CS+1,r*CS+1,CS-2,4);}
+    });});
+    // Ghost
+    var gy=curY;while(!collide(cur,curX,gy+1))gy++;
+    cur.forEach(function(row,r){row.forEach(function(v,c){
+      if(v){ctx.fillStyle='rgba(255,255,255,.15)';ctx.fillRect((curX+c)*CS+1,(gy+r)*CS+1,CS-2,CS-2);}
+    });});
+    // Current piece
+    cur.forEach(function(row,r){row.forEach(function(v,c){
+      if(v){ctx.fillStyle=COLORS[curC];ctx.fillRect((curX+c)*CS+1,(curY+r)*CS+1,CS-2,CS-2);
+        ctx.fillStyle='rgba(255,255,255,.3)';ctx.fillRect((curX+c)*CS+1,(curY+r)*CS+1,CS-2,4);}
+    });});
+    // Next piece
+    var nc=document.getElementById('tetNext');if(nc){
+      var nctx=nc.getContext('2d');nctx.fillStyle='#1a1a2e';nctx.fillRect(0,0,80,80);
+      var ns=14,ox=Math.floor((4-next[0].length)/2)*ns+8,oy=Math.floor((4-next.length)/2)*ns+8;
+      next.forEach(function(row,r){row.forEach(function(v,c){
+        if(v){nctx.fillStyle=COLORS[nextC];nctx.fillRect(ox+c*ns,oy+r*ns,ns-1,ns-1);}
+      });});
+    }
+  }
+  window.tetMove=function(d){if(!collide(cur,curX+d,curY))curX+=d;renderT();};
+  window.tetRot=function(){var r=rotate(cur);if(!collide(r,curX,curY)){cur=r;}else if(!collide(r,curX+1,curY)){cur=r;curX++;}else if(!collide(r,curX-1,curY)){cur=r;curX--;}renderT();};
+  window.tetDrop=function(){drop();};
+  window.tetHard=function(){hardDrop();};
+  window.tetPause=function(){paused=!paused;running=!paused;var b=document.getElementById('tetPauseBtn');if(b)b.textContent=paused?'Resume':'Pause';if(!paused)tick();};
+  function tick(){
+    if(!running||paused)return;
+    drop();
+    window._gl=setTimeout(tick,Math.max(50,400-level*30));
+  }
+  newBoard();newPiece();running=true;renderT();tick();
+  var keyH=function(e){
+    var m={ArrowLeft:function(){tetMove(-1);},ArrowRight:function(){tetMove(1);},ArrowUp:function(){tetRot();},ArrowDown:function(){tetDrop();},z:function(){tetRot();},x:function(){tetHard();},p:function(){tetPause();},Escape:function(){tetPause();}};
+    if(m[e.key]){e.preventDefault();m[e.key]();}
+  };
+  document.addEventListener('keydown',keyH);
 }
 
-/* CROSSWORD LITE */
+
 function gameCrossword(){
   const grid=[
     ['S','U','N','_','_'],
@@ -2138,29 +2372,87 @@ const SUDOKU_PUZZLES=[
   {puzzle:'530070000600195000098000060800060003400803001700020006060000280000419005000080079',solution:'534678912672195348198342567859761423426853791713924856961537284287419635345286179'},
 ];
 function gameSudoku(){
-  const {puzzle,solution}=SUDOKU_PUZZLES[0];
-  const cells=puzzle.split('');
-  window._sudGrid=[...cells];window._sudSol=solution;window._sudFixed=cells.map(c=>c!=='0');
-  renderSudoku();
-}
-function renderSudoku(){
-  const g=window._sudGrid;const fixed=window._sudFixed;
-  gw().innerHTML=`<h2>🔲 Sudoku</h2><div style="display:grid;grid-template-columns:repeat(9,1fr);gap:2px;max-width:300px;margin:0 auto;background:#888;padding:2px;border-radius:4px;">${g.map((v,i)=>{
-    const r=Math.floor(i/9),c=i%9;
-    const border='border-right:'+(c===2||c===5?'2px solid #888':'none')+';border-bottom:'+(r===2||r===5?'2px solid #888':'none');
-    return`<input type="text" maxlength="1" value="${v==='0'?'':v}" ${fixed[i]?'readonly':''}  oninput="sudInput(${i},this.value)" style="width:30px;height:30px;border:none;text-align:center;font-size:16px;font-weight:${fixed[i]?700:400};color:${fixed[i]?'#1a1d2e':'#2196f3'};background:${fixed[i]?'#e0e0e0':'#fff'};cursor:${fixed[i]?'default':'pointer'};${border};">`;
-  }).join('')}</div><button class="g-btn" style="margin-top:12px;" onclick="checkSudoku()">Check</button><div id="sud-msg" style="margin-top:10px;font-size:16px;min-height:24px;"></div>`;
-}
-function sudInput(i,v){const n=parseInt(v);if(n>=1&&n<=9)window._sudGrid[i]=String(n);else window._sudGrid[i]='0';}
-function checkSudoku(){
-  const correct=window._sudGrid.join('')===window._sudSol;
-  const msg=document.getElementById('sud-msg');
-  msg.style.color=correct?'#2ecc71':'#e74c3c';
-  msg.textContent=correct?'🏆 Perfect! Sudoku Solved!':'❌ Not quite right. Keep trying!';
+  var puzzles=[
+    '530070000600195000098000060800060003400803001700020006060000280000419005000080079',
+    '003020600900305001001806400008102900700000008006708200002609500800203009005010300',
+    '200080300060070084030500209000105408000000000402706000301007040720040060004010003',
+  ];
+  var solutions=[
+    '534678912672195348198342567859761423426853791713924856961537284287419635345286179',
+    '143628579928357461651896432568132947372549618496718253234961785817253394785461326',
+    '245187396169273584738564219923415768576892431412736857391657042827341965684029173',
+  ];
+  var idx=Math.floor(Math.random()*puzzles.length);
+  var puzzle=puzzles[idx].split('').map(Number);
+  var solution=solutions[idx].split('').map(Number);
+  var grid=puzzle.slice();var selected=-1;var errors=0;var startTime=Date.now();var hints=3;
+  var best=+localStorage.getItem('bestSudoku')||0;
+  function isFixed(i){return puzzle[i]!==0;}
+  function isConflict(i){
+    var v=grid[i];if(!v)return false;var r=Math.floor(i/9),c=i%9;
+    for(var j=0;j<81;j++){if(j===i)continue;var jr=Math.floor(j/9),jc=j%9,jbr=Math.floor(jr/3),jbc=Math.floor(jc/3),ibr=Math.floor(r/3),ibc=Math.floor(c/3);
+      if((jr===r||jc===c||(jbr===ibr&&jbc===ibc))&&grid[j]===v)return true;}return false;
+  }
+  function isComplete(){return grid.every(function(v,i){return v===solution[i];});}
+  function render(){
+    var g=gw();if(!g)return;var elapsed=Math.floor((Date.now()-startTime)/1000);
+    var m=String(Math.floor(elapsed/60)).padStart(2,'0'),s=String(elapsed%60).padStart(2,'0');
+    var h='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">';
+    h+='<div style="font-size:18px;font-weight:900;font-family:Plus Jakarta Sans,sans-serif;">🔲 Sudoku</div>';
+    h+='<div style="display:flex;gap:6px;">';
+    h+='<div style="background:var(--s2);border-radius:6px;padding:4px 10px;font-size:12px;font-weight:700;">'+m+':'+s+'</div>';
+    h+='<div style="background:var(--rl);border-radius:6px;padding:4px 10px;font-size:12px;font-weight:700;color:var(--red);">❌ '+errors+'</div>';
+    h+='<div style="background:var(--al);border-radius:6px;padding:4px 10px;font-size:12px;font-weight:700;color:var(--accent);">💡 '+hints+'</div>';
+    h+='</div></div>';
+    h+='<div style="display:grid;grid-template-columns:repeat(9,1fr);gap:1px;background:#334;border:2px solid #334;border-radius:4px;margin:0 auto;max-width:360px;">';
+    for(var i=0;i<81;i++){
+      var r=Math.floor(i/9),c2=i%9;
+      var v=grid[i];var fixed=isFixed(i);var conflict=isConflict(i);
+      var sel=i===selected;var selRow=selected>=0&&Math.floor(selected/9)===r;
+      var selCol=selected>=0&&selected%9===c2;
+      var selBox=selected>=0&&Math.floor(Math.floor(selected/9)/3)===Math.floor(r/3)&&Math.floor(selected%9/3)===Math.floor(c2/3);
+      var sameNum=selected>=0&&grid[selected]&&grid[i]===grid[selected]&&i!==selected;
+      var borderR=c2===2||c2===5?'2px solid #334':'1px solid #aaa';var borderB=r===2||r===5?'2px solid #334':'1px solid #aaa';
+      var bg=sel?'#bbdefb':conflict?'#ffcdd2':sameNum?'#e3f2fd':(selRow||selCol||selBox)?'#e8eaf6':'#fff';
+      var fc=fixed?'#1a1a2e':conflict?'#c62828':'#1565c0';
+      h+='<div onclick="sudokuSel('+i+')" style="aspect-ratio:1;background:'+bg+';display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;font-weight:'+(fixed?'900':'700')+';color:'+fc+';border-right:'+borderR+';border-bottom:'+borderB+';user-select:none;">'+(v||'')+'</div>';
+    }
+    h+='</div>';
+    h+='<div style="display:grid;grid-template-columns:repeat(9,1fr);gap:4px;margin-top:8px;max-width:360px;margin-left:auto;margin-right:auto;">';
+    for(var n=1;n<=9;n++)h+='<button class="g-btn" onclick="sudokuInput('+n+')" style="aspect-ratio:1;font-size:16px;font-weight:700;padding:0;">'+n+'</button>';
+    h+='</div>';
+    h+='<div style="display:flex;gap:6px;margin-top:8px;">';
+    h+='<button class="btn btn-sec" onclick="sudokuInput(0)" style="flex:1;">Clear</button>';
+    h+='<button class="btn" onclick="sudokuHint()" style="flex:1;">💡 Hint ('+hints+')</button>';
+    h+='<button class="btn btn-sec" onclick="gameSudoku()" style="flex:1;">New</button>';
+    h+='</div>';
+    g.innerHTML=h;
+    // Timer update
+    window._sudokuTimer=setInterval(function(){var el=document.querySelector('#gw div');if(el&&el.textContent.includes(':'))render();else clearInterval(window._sudokuTimer);},1000);
+  }
+  window.sudokuSel=function(i){selected=i;clearInterval(window._sudokuTimer);render();};
+  window.sudokuInput=function(n){
+    if(selected<0||isFixed(selected))return;
+    if(n===0){grid[selected]=0;}else{
+      if(grid[selected]===n){grid[selected]=0;}else{
+        grid[selected]=n;if(n!==solution[selected]){errors++;earnXP(-1,'Sudoku Error');}
+      }
+    }
+    if(isComplete()){var t=Math.floor((Date.now()-startTime)/1000);if(!best||t<best){best=t;localStorage.setItem('bestSudoku',best);}earnXP(100,'Sudoku Complete!');}
+    clearInterval(window._sudokuTimer);render();
+  };
+  window.sudokuHint=function(){
+    if(hints<=0||selected<0)return;
+    grid[selected]=solution[selected];hints--;earnXP(-5,'Sudoku Hint');
+    if(isComplete()){earnXP(50,'Sudoku Complete!');}
+    clearInterval(window._sudokuTimer);render();
+  };
+  var keyH=function(e){if(e.key>='1'&&e.key<='9')window.sudokuInput(+e.key);else if(e.key==='Backspace'||e.key==='Delete')window.sudokuInput(0);};
+  document.addEventListener('keydown',keyH);
+  render();
 }
 
-/* CIPHER DECODE */
-const CI_PHRASES=[['KHOOR','HELLO',3],['ZRUOG','WORLD',3],['DQQHB','DANNY',3],['FRGH','CODE',3],['VHFUHW','SECRET',3],['PDJLF','MAGIC',3]];
+
 function gameCipher(){
   window._ciIdx=0;window._ciScore=0;window._ciPhrases=shuffle(CI_PHRASES);nextCipher();
 }
@@ -2193,63 +2485,115 @@ function loClick(i){
 
 /* FLAPPY BIRD */
 function gameFlappy(){
-  const canvas=document.createElement('canvas');canvas.width=320;canvas.height=400;canvas.style.borderRadius='8px';canvas.style.border='2px solid #ddd';
-  gw().innerHTML=`<h2>🐦 Flappy Bird</h2><div id="fl-score" style="font-size:16px;margin-bottom:8px;">Score: 0</div>`;
-  gw().appendChild(canvas);
-  gw().innerHTML+=`<div style="font-size:13px;color:#888;margin-top:6px;">Tap/Space to flap</div>`;
-  const ctx=canvas.getContext('2d');
-  const W=320,H=400,GAP=120,PW=50;
-  let by=180,bvy=0,pipes=[],score=0,frames=0,started=false,dead=false;
-  function addPipe(){const top=rnd(50,H-GAP-50);pipes.push({x:W,top});}
-  function flap(){if(!started){started=true;}if(!dead)bvy=-7;}
-  document.addEventListener('keydown',function flKey(e){if(e.code==='Space'){e.preventDefault();flap();}if(!document.getElementById('gw'))document.removeEventListener('keydown',flKey);});
-  canvas.addEventListener('click',flap);canvas.addEventListener('touchstart',e=>{e.preventDefault();flap();},{passive:false});
+  var W=320,H=480,bird={x:80,y:240,v:0,r:0},pipes=[],score=0,best=+localStorage.getItem('bestFlappy')||0,state='idle',frame=0;
+  var G=0.5,JUMP=-9,GAP=140,PSPEED=2.5,PWIDTH=52,BIRD_R=16;
+  function addPipe(){
+    var topH=60+Math.random()*(H-GAP-120);
+    pipes.push({x:W,topH:topH,scored:false});
+  }
+  function reset(){bird={x:80,y:240,v:0,r:0};pipes=[];score=0;frame=0;addPipe();}
+  function jump(){
+    if(state==='idle'){state='playing';reset();}
+    else if(state==='dead'){state='idle';render();}
+    else{bird.v=JUMP;bird.r=-30;}
+  }
+  function tick(){
+    if(state!=='playing')return;
+    frame++;
+    bird.v+=G;bird.y+=bird.v;bird.r=Math.min(90,bird.r+4);
+    if(bird.y-BIRD_R<0){bird.y=BIRD_R;bird.v=0;}
+    if(frame%85===0)addPipe();
+    pipes.forEach(function(p){
+      p.x-=PSPEED;
+      if(!p.scored&&p.x+PWIDTH<bird.x){p.scored=true;score++;if(score>best){best=score;localStorage.setItem('bestFlappy',best);}earnXP(5,'Flappy Bird');}
+      var inX=bird.x+BIRD_R-8>p.x&&bird.x-BIRD_R+8<p.x+PWIDTH;
+      if(inX&&(bird.y-BIRD_R+4<p.topH||bird.y+BIRD_R-4>p.topH+GAP)){state='dead';}
+    });
+    if(bird.y+BIRD_R>H){state='dead';}
+    if(state==='dead'){earnXP(score,'Flappy Bird');}
+    pipes=pipes.filter(function(p){return p.x>-PWIDTH;});
+    draw();
+    if(state==='playing')window._gl=requestAnimationFrame(tick);
+    else render();
+  }
   function draw(){
-    ctx.fillStyle='#87ceeb';ctx.fillRect(0,0,W,H);
-    ctx.fillStyle='#2ecc71';
-    pipes.forEach(p=>{ctx.fillRect(p.x,0,PW,p.top);ctx.fillRect(p.x,p.top+GAP,PW,H-p.top-GAP);});
-    ctx.fillStyle='#f39c12';ctx.beginPath();ctx.arc(60,by,14,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle='#1a1d2e';ctx.font='16px sans-serif';ctx.fillText('Score: '+score,10,20);
-    if(!started){ctx.fillStyle='rgba(0,0,0,.5)';ctx.fillRect(0,0,W,H);ctx.fillStyle='#fff';ctx.font='22px sans-serif';ctx.textAlign='center';ctx.fillText('Tap to Start',W/2,H/2);}
-    if(dead){ctx.fillStyle='rgba(0,0,0,.5)';ctx.fillRect(0,0,W,H);ctx.fillStyle='#fff';ctx.font='24px sans-serif';ctx.textAlign='center';ctx.fillText('Game Over',W/2,H/2-20);ctx.font='18px sans-serif';ctx.fillText('Score: '+score,W/2,H/2+10);ctx.fillText('Tap to restart',W/2,H/2+40);}
+    var canvas=document.getElementById('flappyCanvas');if(!canvas)return;
+    var ctx=canvas.getContext('2d');
+    // Sky gradient
+    var sky=ctx.createLinearGradient(0,0,0,H);sky.addColorStop(0,'#70c5ce');sky.addColorStop(1,'#b8e0e8');
+    ctx.fillStyle=sky;ctx.fillRect(0,0,W,H);
+    // Ground
+    ctx.fillStyle='#ded895';ctx.fillRect(0,H-60,W,60);
+    ctx.fillStyle='#5d9e3c';ctx.fillRect(0,H-62,W,6);
+    // Clouds
+    ctx.fillStyle='rgba(255,255,255,.7)';
+    [[50,60,40,20],[180,40,50,22],[260,80,35,16]].forEach(function(cl){ctx.beginPath();ctx.ellipse(cl[0],cl[1],cl[2],cl[3],0,0,Math.PI*2);ctx.fill();});
+    // Pipes
+    pipes.forEach(function(p){
+      // Top pipe
+      var tg=ctx.createLinearGradient(p.x,0,p.x+PWIDTH,0);tg.addColorStop(0,'#4caf50');tg.addColorStop(.4,'#66bb6a');tg.addColorStop(1,'#388e3c');
+      ctx.fillStyle=tg;ctx.fillRect(p.x,0,PWIDTH,p.topH);
+      ctx.fillRect(p.x-4,p.topH-24,PWIDTH+8,24);
+      // Bottom pipe
+      ctx.fillStyle=tg;ctx.fillRect(p.x,p.topH+GAP,PWIDTH,H-p.topH-GAP-60);
+      ctx.fillRect(p.x-4,p.topH+GAP,PWIDTH+8,24);
+    });
+    // Bird
+    ctx.save();ctx.translate(bird.x,bird.y);ctx.rotate(bird.r*Math.PI/180);
+    ctx.fillStyle='#ffd700';ctx.beginPath();ctx.ellipse(0,0,BIRD_R,BIRD_R-3,0,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#ff6b00';ctx.beginPath();ctx.ellipse(BIRD_R-2,2,7,5,0.3,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#fff';ctx.beginPath();ctx.ellipse(BIRD_R-10,-5,6,6,0,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#000';ctx.beginPath();ctx.ellipse(BIRD_R-8,-5,3,3,0,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='rgba(200,200,0,.6)';ctx.beginPath();ctx.ellipse(-5,-BIRD_R+2,8,5,-0.5,0,Math.PI*2);ctx.fill();
+    ctx.restore();
+    // Score
+    ctx.fillStyle='rgba(0,0,0,.3)';ctx.fillRect(W/2-35,10,70,36);
+    ctx.fillStyle='#fff';ctx.font='bold 24px Plus Jakarta Sans,sans-serif';ctx.textAlign='center';
+    ctx.fillText(score,W/2,35);
   }
-  function loop(){
-    if(dead){draw();return;}
-    if(started){
-      bvy+=0.4;by+=bvy;
-      frames++;if(frames%90===0)addPipe();
-      pipes.forEach(p=>p.x-=2);pipes=pipes.filter(p=>p.x>-PW);
-      for(const p of pipes){
-        if(p.x<74&&p.x+PW>46&&(by-14<p.top||by+14>p.top+GAP)){dead=true;canvas.onclick=()=>{gameFlappy();};break;}
-        if(p.x+PW<60&&!p.scored){p.scored=true;score++;document.getElementById('fl-score').textContent='Score: '+score;}
+  function render(){
+    var g=gw();if(!g)return;
+    if(!document.getElementById('flappyCanvas')){
+      var h='<div style="text-align:center;">';
+      h+='<canvas id="flappyCanvas" width="'+W+'" height="'+H+'" style="border-radius:12px;max-width:100%;cursor:pointer;"></canvas>';
+      h+='</div>';
+      g.innerHTML=h;
+      var canvas=document.getElementById('flappyCanvas');
+      if(canvas){
+        canvas.onclick=jump;
+        canvas.ontouchstart=function(e){e.preventDefault();jump();};
       }
-      if(by>H-14||by<14)dead=true;
     }
-    draw();window._gameLoop=requestAnimationFrame(loop);
+    var canvas=document.getElementById('flappyCanvas');if(!canvas)return;
+    var ctx=canvas.getContext('2d');
+    if(state==='idle'){
+      draw();
+      ctx.fillStyle='rgba(0,0,0,.4)';ctx.fillRect(0,0,W,H);
+      ctx.fillStyle='#fff';ctx.font='bold 32px Plus Jakarta Sans,sans-serif';ctx.textAlign='center';
+      ctx.fillText('Flappy Bird',W/2,160);
+      ctx.font='16px Inter,sans-serif';ctx.fillStyle='rgba(255,255,255,.9)';
+      ctx.fillText('Tap or Click to Start',W/2,200);
+      ctx.font='14px Inter,sans-serif';ctx.fillStyle='rgba(255,255,255,.6)';
+      ctx.fillText('Best: '+best,W/2,230);
+    }else if(state==='dead'){
+      draw();
+      ctx.fillStyle='rgba(0,0,0,.5)';ctx.fillRect(0,0,W,H);
+      ctx.fillStyle='#ff4444';ctx.font='bold 28px Plus Jakarta Sans,sans-serif';ctx.textAlign='center';
+      ctx.fillText('Game Over!',W/2,160);
+      ctx.fillStyle='#fff';ctx.font='20px Inter,sans-serif';
+      ctx.fillText('Score: '+score,W/2,200);
+      if(score===best&&score>0){ctx.fillStyle='#ffd700';ctx.fillText('NEW BEST!',W/2,230);}
+      ctx.fillStyle='rgba(255,255,255,.7)';ctx.font='14px Inter,sans-serif';
+      ctx.fillText('Tap to restart',W/2,260);
+    }
   }
-  window._gameLoop=requestAnimationFrame(loop);
+  render();
+  var spaceH=function(e){if(e.code==='Space'){e.preventDefault();jump();}};
+  document.addEventListener('keydown',spaceH);
+  if(window._flappyCleanup)window._flappyCleanup();
+  window._flappyCleanup=function(){document.removeEventListener('keydown',spaceH);};
 }
 
-/* ═══════════════════════════════════════════
-   GAME DISPATCH MAP
-═══════════════════════════════════════════ */
-const GAMES={
-  coin:gameCoinFlip,dice:gameDice,rps:gameRPS,colorquiz:gameColorQuiz,
-  mathbasic:gameMathBasic,flagquiz:gameFlagQuiz,numguess:gameNumGuess,
-  reaction:gameReaction,truefalse:gameTrueFalse,simon:gameSimon,
-  wordscramble:gameWordScramble,riddles:gameRiddles,emojiquiz:gameEmojiQuiz,
-  oddone:gameOddOne,colormatch:gameColorMatch,
-  genquiz:gameGenQuiz,memory:gameMemory,ttt:gameTTT,hangman:gameHangman,
-  mathquiz:gameMathQuiz,typing:gameTyping,anagram:gameAnagram,
-  geoquiz:gameGeoQuiz,times:gameTimes,mines:gameMines,sciquiz:gameSciQuiz,
-  wordchain:gameWordChain,c4:gameC4,patternmem:gamePatternMem,snake:gameSnake,
-  moviequiz:gameMovieQuiz,pong:gamePong,make24:gameMake24,
-  wordle:gameWordle,g2048:game2048,mathsprint:gameMathSprint,mineshard:gameMinesHard,
-  histquiz:gameHistQuiz,crossword:gameCrossword,chess:gameChess,sudoku:gameSudoku,
-  expertquiz:gameExpertQuiz,spelling:gameSpelling,breakout:gameBreakout,
-  numseq:gameNumSeq,tetris:gameTetris,cipher:gameCipher,lightsout:gameLightsOut,
-  flappy:gameFlappy,memhard:gameMemHard,
-};
 
 function gameWordsearch(){
   var WORDS=['BRAIN','CHESS','SNAKE','PIXEL','QUEST','NINJA'];
