@@ -486,6 +486,19 @@ body{background:linear-gradient(160deg,#f8faff 0%,#f1f5f9 50%,#f5f3ff 100%)!impo
 @keyframes scoreUp{0%{transform:translateY(0);opacity:1}100%{transform:translateY(-30px);opacity:0}}
 .score-pop{position:absolute;animation:scoreUp .8s ease forwards;font-size:20px;font-weight:900;color:#ffd700;pointer-events:none;z-index:99;}
 
+
+/* ══ MODAL BUTTON STYLES (visible on dark bg) ══ */
+#modal-box .btn{background:rgba(255,255,255,.2)!important;color:#ffffff!important;border:1.5px solid rgba(255,255,255,.3)!important;}
+#modal-box .btn:hover{background:rgba(255,255,255,.3)!important;}
+#modal-box .btn-sec{background:rgba(255,255,255,.08)!important;color:rgba(255,255,255,.8)!important;border:1.5px solid rgba(255,255,255,.2)!important;}
+#modal-box input{color:#1e293b!important;background:#fff!important;border-color:rgba(255,255,255,.4)!important;}
+#modal-box h2{color:#ffffff!important;}
+#modal-box p{color:rgba(255,255,255,.7)!important;}
+/* Modal overlay blur */
+.overlay.active{background:rgba(8,12,24,.8)!important;backdrop-filter:blur(10px)!important;}
+/* Modal box */
+.modal{padding:0!important;overflow:hidden!important;}
+
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3359266836868361" crossorigin="anonymous"></script>
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
@@ -828,6 +841,8 @@ body{background:linear-gradient(160deg,#f8faff 0%,#f1f5f9 50%,#f5f3ff 100%)!impo
 <script>
 
 
+
+
 /* ══ MONETIZATION HOOKS ══ */
 var _lastAdPrompt = 0;
 
@@ -885,13 +900,749 @@ function shareProgress(level) {
   document.getElementById('levelup-modal').remove();
 }
 
-/* Hook into _LVL.win to trigger ad prompts */
-var _origLVLwin = _LVL.win.bind(_LVL);
-_LVL.win = function(pts) {
-  var result = _origLVLwin(pts);
-  checkAdPrompt(this.level);
-  return result;
+/* monetization hook moved to DOMContentLoaded */
+
+
+
+
+
+
+
+
+
+
+
+
+var rnd=function(a,b){return Math.floor(Math.random()*(b-a+1))+a;};
+var pick=function(a){return a[rnd(0,a.length-1)];};
+var shuffle=function(arr){var a=arr.slice();for(var i=a.length-1;i>0;i--){var j=rnd(0,i);var t=a[i];a[i]=a[j];a[j]=t;}return a;};
+function gw(){return document.getElementById('gw');}
+
+/* ══ LIVES & LEVEL SYSTEM ══ */
+var _lives = 3;
+var _maxLives = 3;
+var _currentGame = null;
+var _currentLevel = 1;
+var _currentScore = 0;
+
+function getLives(){return _lives;}
+function loseLive(){
+  _lives = Math.max(0, _lives-1);
+  updateLivesUI();
+  if(_lives === 0){
+    playSound('lose');
+    showNoLivesModal();
+  }
+  return _lives > 0;
+}
+function gainLive(n){
+  _lives = Math.min(_maxLives+2, _lives+(n||1));
+  updateLivesUI();
+}
+function resetLives(){_lives=3;updateLivesUI();}
+function updateLivesUI(){
+  var lb=document.getElementById('modal-lives');
+  if(!lb)return;
+  var h='';
+  for(var i=0;i<_maxLives;i++){
+    h+='<span class="life-heart'+(i>=_lives?' lost':'')+'">❤️</span>';
+  }
+  lb.innerHTML=h;
+}
+function showNoLivesModal(){
+  var box=document.getElementById('modal-box');if(!box)return;
+  var gEl=document.getElementById('gw');
+  var overlay=document.createElement('div');
+  overlay.style.cssText='position:absolute;inset:0;background:rgba(0,0,0,.85);display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:20px;z-index:10;';
+  overlay.innerHTML='<div style="font-size:48px;margin-bottom:12px;">💔</div>'
+    +'<div style="color:#fff;font-size:22px;font-weight:900;margin-bottom:6px;">No Lives Left!</div>'
+    +'<div style="color:rgba(255,255,255,.7);font-size:14px;margin-bottom:20px;">Watch an ad to get +3 lives and keep playing!</div>'
+    +'<button class="btn" onclick="adForLives()" style="background:#f59e0b;border-color:#f59e0b;margin-bottom:10px;min-width:200px;">📺 Watch Ad → +3 Lives</button>'
+    +'<button class="btn btn-sec" onclick="closeGame()" style="min-width:200px;color:#fff;border-color:rgba(255,255,255,.3);">Exit Game</button>';
+  box.style.position='relative';
+  box.appendChild(overlay);
+}
+function adForLives(){
+  // Remove no lives overlay
+  var box=document.getElementById('modal-box');
+  if(box){var ov=box.querySelector('div[style*="position:absolute"]');if(ov)ov.remove();}
+  // Start ad countdown
+  gainLive(3);
+  showToast('Lives Restored!',30);
+  playSound('win');
+}
+
+/* ══ COLORFUL MODAL THEME ══ */
+var GAME_THEMES = {
+  colorquiz:'quiz',flagquiz:'quiz',truefalse:'quiz',riddles:'quiz',emojiquiz:'quiz',
+  oddone:'quiz',genquiz:'quiz',geoquiz:'quiz',sciquiz:'quiz',moviequiz:'quiz',histquiz:'quiz',expertquiz:'quiz',
+  wordscramble:'word',hangman:'word',typing:'word',anagram:'word',wordchain:'word',
+  wordle:'word',crossword:'word',spelling:'word',cipher:'word',wordsearch:'word',
+  mathbasic:'math',mathquiz:'math',times:'math',make24:'math',mathsprint:'math',numseq:'math',sudoku:'math',
+  coin:'classic',dice:'classic',rps:'classic',numguess:'classic',reaction:'classic',
+  ttt:'classic',mines:'classic',c4:'classic',snake:'classic',pong:'classic',
+  g2048:'classic',chess:'classic',tetris:'classic',flappy:'classic',mineshard:'classic',
+  breakout:'classic',lightsout:'classic',
+  colormatch:'memory',simon:'memory',memory:'memory',patternmem:'memory',memhard:'memory'
 };
+
+var THEME_COLORS = {
+  quiz:{bg:'linear-gradient(145deg,#1e1b4b,#3730a3)',text:'#e0e7ff',accent:'#818cf8',border:'rgba(129,140,248,.3)'},
+  word:{bg:'linear-gradient(145deg,#052e16,#166534)',text:'#dcfce7',accent:'#4ade80',border:'rgba(74,222,128,.3)'},
+  math:{bg:'linear-gradient(145deg,#431407,#9a3412)',text:'#fed7aa',accent:'#fb923c',border:'rgba(251,146,60,.3)'},
+  classic:{bg:'linear-gradient(145deg,#1e1b4b,#5b21b6)',text:'#ede9fe',accent:'#a78bfa',border:'rgba(167,139,250,.3)'},
+  memory:{bg:'linear-gradient(145deg,#4a044e,#9d174d)',text:'#fce7f3',accent:'#f472b6',border:'rgba(244,114,182,.3)'},
+  default:{bg:'linear-gradient(145deg,#0f172a,#1e293b)',text:'#f1f5f9',accent:'#60a5fa',border:'rgba(96,165,250,.3)'}
+};
+
+function openGame(key){
+  if(window._gl){try{cancelAnimationFrame(window._gl);}catch(e){}try{clearTimeout(window._gl);}catch(e){}window._gl=null;}
+  addRecent(key);
+  playSound('click');
+  _currentGame=key;
+  resetLives();
+
+  var box=document.getElementById('modal-box');if(!box)return;
+  var fav=isFav(key),fi=fav?'❤️':'🤍';
+
+  var theme=GAME_THEMES&&GAME_THEMES[key]?GAME_THEMES[key]:'default';
+  var th=(THEME_COLORS&&THEME_COLORS[theme])||{bg:'linear-gradient(145deg,#1e293b,#0f172a)',text:'#f1f5f9',accent:'#60a5fa',border:'rgba(96,165,250,.3)'};
+
+  /* Modal styling */
+  box.style.cssText='background:'+th.bg+';border:1px solid '+th.border+';border-radius:20px;padding:20px;max-height:90vh;overflow-y:auto;';
+
+  box.innerHTML=
+    '<div style="display:flex;align-items:center;gap:6px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid '+th.border+';">'
+    +'<button onclick="closeGame()" style="background:rgba(255,255,255,.15);border:none;border-radius:10px;width:34px;height:34px;cursor:pointer;font-size:18px;font-weight:700;color:#fff;flex-shrink:0;">&times;</button>'
+    +'<div id="modal-lives" style="display:flex;gap:3px;font-size:18px;margin-left:2px;"></div>'
+    +'<div style="flex:1"></div>'
+    +'<button data-gkey="'+key+'" onclick="toggleFav(this)" style="background:rgba(255,255,255,.12);border:1px solid '+th.border+';border-radius:10px;width:34px;height:34px;cursor:pointer;font-size:16px;" title="Favorite">'+fi+'</button>'
+    +'<button onclick="shareGame(this)" data-gkey2="'+key+'" style="background:rgba(255,255,255,.12);border:1px solid '+th.border+';border-radius:10px;padding:0 10px;height:34px;cursor:pointer;font-size:12px;font-weight:700;color:'+th.accent+';">Share</button>'
+    +'<button onclick="goFullscreen()" style="background:rgba(255,255,255,.12);border:1px solid '+th.border+';border-radius:10px;width:34px;height:34px;cursor:pointer;font-size:14px;" title="Fullscreen">&#x26F6;</button>'
+    +'<button id="sound-btn" onclick="toggleSound()" style="background:rgba(255,255,255,.12);border:1px solid '+th.border+';border-radius:10px;width:34px;height:34px;cursor:pointer;font-size:14px;">'+(_soundOn?'🔊':'🔇')+'</button>'
+    +'</div>'
+    +'<div id="gw" style="color:#ffffff;">'
+    +'<div style="text-align:center;padding:40px;">'
+    +'<div style="display:inline-block;width:36px;height:36px;border:3px solid rgba(255,255,255,.2);border-top-color:'+th.accent+';border-radius:50%;animation:spin .7s linear infinite;"></div>'
+    +'<p style="margin-top:14px;color:rgba(255,255,255,.5);font-size:13px;">Loading...</p>'
+    +'</div></div>';
+
+  updateLivesUI();
+  var ov=document.getElementById('overlay');if(ov)ov.classList.add('active');
+  document.body.style.overflow='hidden';
+
+  setTimeout(function(){
+    if(typeof GAMES!=='undefined'&&GAMES[key]){
+      try{GAMES[key]();}catch(e){console.error('Game error:',key,e);var g=gw();if(g)g.innerHTML='<div style="text-align:center;padding:30px;"><div style="font-size:48px;margin-bottom:12px;">⚠️</div><div style="color:#f87171;font-size:16px;font-weight:700;">'+e.message+'</div></div>';}
+    }else{var g=gw();if(g)g.innerHTML='<div style="text-align:center;padding:30px;"><div style="font-size:48px;margin-bottom:12px;">🚧</div><div style="color:rgba(255,255,255,.7);font-size:16px;font-weight:700;">Coming Soon!</div></div>';}
+  },80);
+}
+
+function closeGame(){
+  if(window._gl){try{cancelAnimationFrame(window._gl);}catch(e){}try{clearTimeout(window._gl);}catch(e){}window._gl=null;}
+  var box=document.getElementById('modal-box');
+  if(box){box.style.background='';box.style.color='';box.style.border='';}
+  var ov=document.getElementById('overlay');if(ov)ov.classList.remove('active');
+  document.body.style.overflow='';
+  _currentGame=null;
+}
+
+function closeIfOut(e){if(e&&e.target&&e.target.id==='overlay')closeGame();}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeGame();});
+function setFilter(f,btn){
+  /* Remove active from all buttons, set active on clicked */
+  document.querySelectorAll('.flt').forEach(function(b){b.classList.remove('active');});
+  if(btn)btn.classList.add('active');
+
+  /* DO NOT hide any cards - just scroll to the right section */
+  var sectionMap={
+    quiz:'.quiz-section',
+    word:'.word-section',
+    math:'.math-section',
+    classic:'.classic-section',
+    memory:'.mem-section'
+  };
+
+  if(f==='all'){
+    /* Scroll to top of games */
+    var gamesEl=document.getElementById('games');
+    if(gamesEl){
+      var nav=document.querySelector('nav');
+      var fb=document.querySelector('.filter-bar');
+      var offset=(nav?nav.offsetHeight:53)+(fb?fb.offsetHeight:48)+8;
+      window.scrollTo({top:gamesEl.getBoundingClientRect().top+window.scrollY-offset,behavior:'smooth'});
+    }
+  } else if(sectionMap[f]){
+    /* Scroll to that category section */
+    var target=document.querySelector(sectionMap[f]);
+    if(target){
+      var nav2=document.querySelector('nav');
+      var fb2=document.querySelector('.filter-bar');
+      var offset2=(nav2?nav2.offsetHeight:53)+(fb2?fb2.offsetHeight:48)+8;
+      setTimeout(function(){
+        window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY-offset2,behavior:'smooth'});
+      },50);
+    }
+  }
+}
+
+function ss(id){
+  var el=document.getElementById(id);if(!el)return;
+  var nav=document.querySelector('nav');var fb=document.querySelector('.filter-bar');
+  window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-(nav?nav.offsetHeight:53)-(fb?fb.offsetHeight:48)-8,behavior:'smooth'});
+}
+var LVS=[0,100,250,500,900,1500,2500,4000,6000,9000,15000];
+var LVN=['Newbie','Beginner','Explorer','Thinker','Challenger','Expert','Master','Legend','Grandmaster','Champion','God Mode'];
+function getXP(){return+(localStorage.getItem('gnw_xp')||0);}
+function setXP(v){localStorage.setItem('gnw_xp',''+v);}
+function getLv(){var x=getXP();for(var i=LVS.length-1;i>=0;i--)if(x>=LVS[i])return i;return 0;}
+function getLvP(){var x=getXP(),l=getLv(),b=LVS[l],n=LVS[l+1]||(LVS[l]*2);return Math.min(100,Math.round((x-b)/(n-b)*100));}
+function earnXP(amt,name){setXP(getXP()+amt);updateXPUI();showToast(name,amt);checkStr();checkAch();updTasks(name);renderLB();renderTasks();}
+function updateXPUI(){
+  var x=getXP(),l=getLv();
+  var e1=document.getElementById('nav-xp');var e2=document.getElementById('xp-bar');var e3=document.getElementById('nav-lv');
+  if(e1)e1.textContent=x+' XP';if(e2)e2.style.width=getLvP()+'%';if(e3)e3.textContent='Lv.'+l+' '+LVN[l];
+}
+function showToast(name,pts){
+  var t=document.getElementById('xp-toast');if(!t)return;
+  var m=document.getElementById('t-msg');var p=document.getElementById('t-pts');
+  if(m)m.textContent=name+' complete!';if(p)p.textContent='+'+pts+' XP';
+  t.classList.add('show');setTimeout(function(){if(t)t.classList.remove('show');},2500);
+}
+function watchAd(){
+  var box=document.getElementById('modal-box');if(!box)return;
+  var h='<button class="modal-close" onclick="closeGame()">&times;</button><div id="gw" style="text-align:center;padding:20px;">';
+  h+='<div style="font-size:48px;margin-bottom:12px;">&#128250;</div><h2>Watch Ad - Earn Rewards!</h2>';
+  h+='<p style="color:#64748b;font-size:14px;margin:12px 0 16px">Watch a short ad for +30 XP and +3 lives!</p>';
+  h+='<div style="background:#f1f5f9;border:2px dashed #cbd5e1;border-radius:12px;height:100px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:#94a3b8;">Ad plays here</div>';
+  h+='<div id="ad-cd" style="font-size:28px;font-weight:800;color:#6366f1;margin-bottom:14px;">5</div>';
+  h+='<button class="btn" id="ad-btn" disabled style="opacity:.4;">Claim +30 XP</button></div>';
+  box.innerHTML=h;
+  var ov=document.getElementById('overlay');if(ov)ov.classList.add('active');document.body.style.overflow='hidden';
+  var sec=5;var iv=setInterval(function(){sec--;var cd=document.getElementById('ad-cd');if(cd)cd.textContent=sec>0?''+sec:'Done!';
+    if(sec<=0){clearInterval(iv);var btn=document.getElementById('ad-btn');if(btn){btn.disabled=false;btn.style.opacity='1';btn.onclick=function(){earnXP(30,'Watch Ad');closeGame();};}}},1000);
+}
+function joinTournament(){
+  openGame('g2048');earnXP(25,'Tournament');
+  setTimeout(function(){var g=document.getElementById('gw');if(g){var b=document.createElement('div');b.style.cssText='background:#6366f1;color:#fff;border-radius:8px;padding:8px;font-size:12px;font-weight:700;margin-bottom:10px;text-align:center;';b.textContent='TOURNAMENT MODE - XP x3!';g.insertBefore(b,g.firstChild);}},300);
+}
+function copyInv(){
+  try{navigator.clipboard.writeText('https://gamenestworld.com/?ref=player').then(function(){alert('Link copied!');});}
+  catch(e){alert('Copy: https://gamenestworld.com/?ref=player');}
+}
+function checkStr(){
+  var today=new Date().toDateString(),last=localStorage.getItem('gnw_day'),s=+(localStorage.getItem('gnw_s')||0);
+  if(last!==today){var y=new Date(Date.now()-86400000).toDateString();s=(last===y)?s+1:1;localStorage.setItem('gnw_s',''+s);localStorage.setItem('gnw_day',today);}
+  var el=document.getElementById('streak-n');if(el)el.textContent=''+s;
+}
+var ACHS=[
+  {id:'first',n:'First Game',ic:'&#127918;',p:10,ok:function(){return getXP()>0;}},
+  {id:'xp100',n:'100 XP',ic:'&#9889;',p:20,ok:function(){return getXP()>=100;}},
+  {id:'xp500',n:'500 XP',ic:'&#11088;',p:50,ok:function(){return getXP()>=500;}},
+  {id:'xp1k',n:'1000 XP',ic:'&#128142;',p:100,ok:function(){return getXP()>=1000;}},
+  {id:'xp5k',n:'5000 XP',ic:'&#128081;',p:250,ok:function(){return getXP()>=5000;}},
+  {id:'s3',n:'3-Day Streak',ic:'&#128293;',p:30,ok:function(){return+(localStorage.getItem('gnw_s')||0)>=3;}},
+  {id:'s7',n:'7-Day Streak',ic:'&#127885;',p:75,ok:function(){return+(localStorage.getItem('gnw_s')||0)>=7;}},
+  {id:'lv3',n:'Level 3',ic:'&#128640;',p:50,ok:function(){return getLv()>=3;}},
+  {id:'lv5',n:'Level 5',ic:'&#127942;',p:100,ok:function(){return getLv()>=5;}},
+  {id:'lv8',n:'Level 8',ic:'&#127752;',p:200,ok:function(){return getLv()>=8;}},
+];
+function getUnlk(){return JSON.parse(localStorage.getItem('gnw_ach')||'[]');}
+function checkAch(){var u=getUnlk(),ch=false;for(var i=0;i<ACHS.length;i++){if(u.indexOf(ACHS[i].id)===-1&&ACHS[i].ok()){u.push(ACHS[i].id);ch=true;}}if(ch)localStorage.setItem('gnw_ach',JSON.stringify(u));renderAch();}
+function renderAch(){
+  var row=document.getElementById('ach-row');if(!row)return;var u=getUnlk();var h='';
+  for(var i=0;i<ACHS.length;i++){var a=ACHS[i];var ok=(u.indexOf(a.id)!==-1);
+    h+='<div class="ach-pill '+(ok?'unlocked':'locked')+'"><span class="ach-icon">'+a.ic+'</span><span class="ach-name">'+a.n+'</span><span class="ach-pts">'+(ok?'Done':a.p+' XP')+'</span></div>';}
+  row.innerHTML=h;
+}
+var TSKS=[{id:'p3',n:'Play 3 games',ic:'&#127918;',g:3,r:50,k:'gp'},{id:'q1',n:'Complete a Quiz',ic:'&#129504;',g:1,r:30,k:'qd'},{id:'c1',n:'Play a Classic',ic:'&#128377;',g:1,r:25,k:'cd'},{id:'lg',n:'Daily Login',ic:'&#128197;',g:1,r:20,k:'ld'}];
+function getTasks(){var today=new Date().toDateString();var d=JSON.parse(localStorage.getItem('gnw_t')||'{}');if(d.date!==today){var nd={date:today,gp:0,qd:0,cd:0,ld:1};localStorage.setItem('gnw_t',JSON.stringify(nd));return nd;}d.ld=1;return d;}
+function updTasks(name){var d=getTasks();d.gp=(d.gp||0)+1;if(name&&(name.indexOf('Quiz')>-1||name.indexOf('Flag')>-1))d.qd=(d.qd||0)+1;if(name&&(name.indexOf('Snake')>-1||name.indexOf('Tetris')>-1||name.indexOf('Flappy')>-1))d.cd=(d.cd||0)+1;localStorage.setItem('gnw_t',JSON.stringify(d));renderTasks();}
+function renderTasks(){
+  var list=document.getElementById('tasks-list');if(!list)return;var d=getTasks();var done=0;var h='';
+  for(var i=0;i<TSKS.length;i++){var t=TSKS[i];var cur=Math.min(t.g,d[t.k]||0);var pct=Math.round(cur/t.g*100);if(cur>=t.g)done++;
+    h+='<div class="task-row"><div class="task-icon">'+t.ic+'</div><div class="task-info"><div class="task-name">'+t.n+'</div><div class="task-bar"><div class="task-fill" style="width:'+pct+'%"></div></div><div class="task-sub">'+cur+'/'+t.g+'</div></div><div class="task-rwd">'+(cur>=t.g?'Done':'+'+t.r+' XP')+'</div></div>';}
+  list.innerHTML=h;var pe=document.getElementById('tasks-prog');if(pe)pe.textContent='('+done+'/4 done)';
+}
+var LBD=[{n:'NightOwl',a:'&#129409;',g:'2048: 14200',x:4800},{n:'MindBlast',a:'&#129423;',g:'Wordle: 6 wins',x:3900},{n:'QuizKing',a:'&#129418;',g:'Expert: 10/10',x:3200},{n:'SnakePro',a:'&#129402;',g:'Snake: Lv18',x:2700},{n:'Puzzler',a:'&#129413;',g:'Sudoku: 3:42',x:2100}];
+function renderLB(){
+  var el=document.getElementById('lb-rows');if(!el)return;var myXP=getXP();
+  var all=LBD.slice();all.push({n:'You',a:'&#11088;',g:'Session',x:myXP});all.sort(function(a,b){return b.x-a.x;});
+  var mr=0;for(var i=0;i<all.length;i++){if(all[i].n==='You'){mr=i+1;break;}}var re=document.getElementById('my-rank');if(re)re.textContent='#'+mr;
+  var med=['&#129351;','&#129352;','&#129353;'];var h='';
+  for(var i=0;i<Math.min(5,all.length);i++){var p=all[i];var me=(p.n==='You');
+    h+='<div class="lb-row" style="'+(me?'background:#eef2ff;':'')+'"><div class="lb-rank '+(i===0?'gold':i===1?'silver':i===2?'bronze':'')+'">'+( med[i]||''+( i+1))+'</div><div class="lb-ava">'+p.a+'</div><div class="lb-info"><div class="lb-name" style="'+(me?'color:#6366f1;':'')+'">'+p.n+(me?' (you)':'')+'</div><div class="lb-game">'+p.g+'</div></div><div style="text-align:right"><div class="lb-xp">'+p.x+'</div><div style="font-size:9px;color:#94a3b8">XP</div></div></div>';}
+  el.innerHTML=h;
+}
+function lbSw(btn,t){document.querySelectorAll('.lb-tab').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');renderLB();}
+var DC=['g2048','sudoku','snake','tetris','flappy','wordle','mines','spelling','chess','wordsearch'];
+var DCN={g2048:'2048',sudoku:'Sudoku',snake:'Snake',tetris:'Tetris',flappy:'Flappy Bird',wordle:'Word Guess',mines:'Minesweeper',spelling:'Spelling Bee',chess:'Chess Puzzles',wordsearch:'Word Search'};
+
+/* 28 LANGUAGE SYSTEM */
+var LANGS={
+  en:{h1a:'Play smarter,',h1b:'get better.',sub:'Brain games, classics, daily challenges - all free.',cta:'Play Now - Free',days:'days',daily:'Daily Challenge',tourney:'Weekly Tournament',ach:'Achievements',tasks:'Daily Tasks',lb:'Leaderboard',privacy:'Privacy Policy',terms:'Terms of Use',contact:'Contact Us'},
+  tr:{h1a:'Daha zeki oyna,',h1b:'daha iyi ol.',sub:'Zeka oyunlari, klasikler - hepsi ucretsiz.',cta:'Hemen Oyna',days:'gun',daily:'Gunluk Gorev',tourney:'Haftalik Turnuva',ach:'Basarimlar',tasks:'Gunluk Gorevler',lb:'Liderlik Tablosu',privacy:'Gizlilik',terms:'Sartlar',contact:'Iletisim'},
+  es:{h1a:'Juega inteligente,',h1b:'mejora.',sub:'Juegos mentales - todo gratis.',cta:'Jugar Gratis',days:'dias',daily:'Desafio Diario',tourney:'Torneo Semanal',ach:'Logros',tasks:'Tareas Diarias',lb:'Clasificacion',privacy:'Privacidad',terms:'Terminos',contact:'Contacto'},
+  fr:{h1a:'Jouez intelligemment,',h1b:'progressez.',sub:'Jeux cerebraux - tout gratuit.',cta:'Jouer Gratuit',days:'jours',daily:'Defi Quotidien',tourney:'Tournoi Hebdomadaire',ach:'Succes',tasks:'Taches Quotidiennes',lb:'Classement',privacy:'Confidentialite',terms:'Conditions',contact:'Contact'},
+  de:{h1a:'Spiel kluger,',h1b:'werde besser.',sub:'Denkspiele - kostenlos.',cta:'Jetzt Spielen',days:'Tage',daily:'Tagliche Aufgabe',tourney:'Wochentliches Turnier',ach:'Erfolge',tasks:'Tagliche Aufgaben',lb:'Rangliste',privacy:'Datenschutz',terms:'AGB',contact:'Kontakt'},
+  pt:{h1a:'Jogue inteligente,',h1b:'fique melhor.',sub:'Jogos mentais - gratis.',cta:'Jogar Gratis',days:'dias',daily:'Desafio Diario',tourney:'Torneio Semanal',ach:'Conquistas',tasks:'Tarefas Diarias',lb:'Classificacao',privacy:'Privacidade',terms:'Termos',contact:'Contato'},
+  it:{h1a:'Gioca intelligente,',h1b:'migliora.',sub:'Giochi mentali - gratis.',cta:'Gioca Gratis',days:'giorni',daily:'Sfida Giornaliera',tourney:'Torneo Settimanale',ach:'Obiettivi',tasks:'Compiti Giornalieri',lb:'Classifica',privacy:'Privacy',terms:'Termini',contact:'Contatto'},
+  ru:{h1a:'Igray umnee,',h1b:'stanovis luchshe.',sub:'Intellektualnie igry - besplatno.',cta:'Igrat Besplatno',days:'dney',daily:'Ezhednevniy Vyzov',tourney:'Ezhenedelniy Turnir',ach:'Dostizheniya',tasks:'Ezhednevnie Zadachi',lb:'Tablica Liderov',privacy:'Konfidencialnost',terms:'Usloviya',contact:'Kontakt'},
+  zh:{h1a:'Geng congming de wan,',h1b:'yue lai yue hao.',sub:'Nao li you xi - mian fei.',cta:'Li Ji Wan',days:'tian',daily:'Mei Ri Tiao Zhan',tourney:'Mei Zhou Bi Sai',ach:'Cheng Jiu',tasks:'Ri Chang Ren Wu',lb:'Pai Hang Bang',privacy:'Yin Si',terms:'Tiao Kuan',contact:'Lian Xi'},
+  ja:{h1a:'Kashikoku asobo,',h1b:'umaku naro.',sub:'Nozori gemu - muryo.',cta:'Ima Purei',days:'nichi',daily:'Mainichi Chousen',tourney:'Shuukan Taikai',ach:'Jisseki',tasks:'Mainichi Kadai',lb:'Rankingu',privacy:'Puraibarushi',terms:'Riyou Kiyaku',contact:'Renraku'},
+  ko:{h1a:'Deo seumateu hage,',h1b:'deo baljeon.',sub:'Brain geim - mulyo.',cta:'Jigeum Peurei',days:'il',daily:'Il Il Do Jeon',tourney:'Jugan Daehoe',ach:'Eobjeok',tasks:'Il Il Gwa Je',lb:'Sunu Wi',privacy:'Gae In Jeong Bo',terms:'Yak Gwan',contact:'Yeon Rak'},
+  ar:{h1a:'Aleb bdkae,',h1b:'tatwr.',sub:'Alab athkae - mjan.',cta:'Alb Alan',days:'ayam',daily:'Tahdi Yawmi',tourney:'Batal Usbui',ach:'Injazat',tasks:'Mahmat Yawmia',lb:'Qaimat Alsadr',privacy:'Khususia',terms:'Shurut',contact:'Itasal'},
+  hi:{h1a:'Smart khelo,',h1b:'behtar bano.',sub:'Dimagi khel - muft.',cta:'Abhi Khelo',days:'din',daily:'Roj Ka Challenge',tourney:'Weekly Pratiyogita',ach:'Uplabdhiyan',tasks:'Roj Ke Kaam',lb:'Leaderboard',privacy:'Niji Jankari',terms:'Sharten',contact:'Sampark'},
+  nl:{h1a:'Speel slimmer,',h1b:'word beter.',sub:'Hersengames - gratis.',cta:'Speel Nu',days:'dagen',daily:'Dagelijkse Uitdaging',tourney:'Weektoernooi',ach:'Prestaties',tasks:'Dagelijkse Taken',lb:'Ranglijst',privacy:'Privacy',terms:'Voorwaarden',contact:'Contact'},
+  pl:{h1a:'Graj madrzej,',h1b:'rozwijaj sie.',sub:'Gry umyslowe - za darmo.',cta:'Graj Teraz',days:'dni',daily:'Codzienne Wyzwanie',tourney:'Tygodniowy Turniej',ach:'Osiagniecia',tasks:'Codzienne Zadania',lb:'Ranking',privacy:'Prywatnosc',terms:'Regulamin',contact:'Kontakt'},
+  sv:{h1a:'Spela smartare,',h1b:'bli battre.',sub:'Hjarnspel - gratis.',cta:'Spela Nu',days:'dagar',daily:'Daglig Utmaning',tourney:'Veckoturneringen',ach:'Prestationer',tasks:'Dagliga Uppgifter',lb:'Ranglista',privacy:'Integritet',terms:'Villkor',contact:'Kontakt'},
+  no:{h1a:'Spill smartere,',h1b:'bli bedre.',sub:'Hjernespill - gratis.',cta:'Spill Na',days:'dager',daily:'Daglig Utfordring',tourney:'Ukentlig Turnering',ach:'Prestasjoner',tasks:'Daglige Oppgaver',lb:'Rangliste',privacy:'Personvern',terms:'Vilkar',contact:'Kontakt'},
+  da:{h1a:'Spil smartere,',h1b:'bliv bedre.',sub:'Hjernespil - gratis.',cta:'Spil Nu',days:'dage',daily:'Daglig Udfordring',tourney:'Ugentlig Turnering',ach:'Resultater',tasks:'Daglige Opgaver',lb:'Rangliste',privacy:'Privatliv',terms:'Vilkar',contact:'Kontakt'},
+  fi:{h1a:'Pelaa alykkaammin,',h1b:'kehity.',sub:'Aivopelit - ilmaiseksi.',cta:'Pelaa Nyt',days:'paivaa',daily:'Paivittainen Haaste',tourney:'Viikoittainen Turnaus',ach:'Saavutukset',tasks:'Paivittaiset Tehtavat',lb:'Tulostaulu',privacy:'Tietosuoja',terms:'Ehdot',contact:'Yhteystiedot'},
+  id:{h1a:'Bermain lebih cerdas,',h1b:'berkembang.',sub:'Game otak - gratis.',cta:'Main Sekarang',days:'hari',daily:'Tantangan Harian',tourney:'Turnamen Mingguan',ach:'Prestasi',tasks:'Tugas Harian',lb:'Papan Peringkat',privacy:'Privasi',terms:'Ketentuan',contact:'Kontak'},
+  ms:{h1a:'Main lebih bijak,',h1b:'jadi lebih baik.',sub:'Permainan otak - percuma.',cta:'Main Sekarang',days:'hari',daily:'Cabaran Harian',tourney:'Kejohanan Mingguan',ach:'Pencapaian',tasks:'Tugas Harian',lb:'Papan Pendahulu',privacy:'Privasi',terms:'Terma',contact:'Hubungi'},
+  th:{h1a:'Len yang chalad,',h1b:'phatthana.',sub:'Gem samong - fri.',cta:'Len Loei',days:'wan',daily:'Prathat Pracham Wan',tourney:'Kaeng Khan Pracham Sapda',ach:'Saphit',tasks:'Ngan Pracham Wan',lb:'Ao Charern',privacy:'Khwam Suam',terms:'Kho Khong Fai',contact:'Tit To'},
+  vi:{h1a:'Choi thong minh hon,',h1b:'ngay cang gioi hon.',sub:'Game tri tue - mien phi.',cta:'Choi Ngay',days:'ngay',daily:'Thach Thuc Hang Ngay',tourney:'Giai Dau Hang Tuan',ach:'Thanh Tich',tasks:'Nhiem Vu Hang Ngay',lb:'Bang Xep Hang',privacy:'Quyen Rieng Tu',terms:'Dieu Khoan',contact:'Lien He'},
+  uk:{h1a:'Graj rozumnishe,',h1b:'stavay krashchym.',sub:'Intelektualni ihry - bezkoshtovno.',cta:'Graty',days:'dniv',daily:'Shchodenny Vyklyk',tourney:'Shchotyzhneva Turnir',ach:'Dosyahnennya',tasks:'Shchodenni Zavdannya',lb:'Tablytsia Lideriv',privacy:'Konfidentsiynist',terms:'Umovy',contact:'Kontakt'},
+  cs:{h1a:'Hraj chytreji,',h1b:'zlepsuj se.',sub:'Hry pro mozek - zdarma.',cta:'Hrat Nyni',days:'dni',daily:'Denni Vyzva',tourney:'Tydenni Turnaj',ach:'Uspeechy',tasks:'Denni Ukoly',lb:'Zebricek',privacy:'Soukromi',terms:'Podminky',contact:'Kontakt'},
+  ro:{h1a:'Joaca mai inteligent,',h1b:'devino mai bun.',sub:'Jocuri pentru creier - gratuit.',cta:'Joaca Acum',days:'zile',daily:'Provocarea Zilnica',tourney:'Turneu Saptamanal',ach:'Realizari',tasks:'Sarcini Zilnice',lb:'Clasament',privacy:'Confidentialitate',terms:'Termeni',contact:'Contact'},
+  hu:{h1a:'Jatssz okosabban,',h1b:'fejlodj.',sub:'Agy jatekok - ingyen.',cta:'Jatssz Most',days:'nap',daily:'Napi Kihivas',tourney:'Heti Bajnoksag',ach:'Eredmenyek',tasks:'Napi Feladatok',lb:'Ranglista',privacy:'Adatvedelmi',terms:'Feltetelek',contact:'Kapcsolat'},
+  el:{h1a:'Paixe pio exypna,',h1b:'beltiothei.',sub:'Paixnidia noy - dorean.',cta:'Paixe Tora',days:'meres',daily:'Kathimerini Proklisi',tourney:'Evdomadiaio Tournoua',ach:'Epitefmata',tasks:'Kathimerines Ergasies',lb:'Pinakas Protilaion',privacy:'Aporrito',terms:'Oroi',contact:'Epikoinonia'}
+};
+function applyL(lang){
+  var t=LANGS[lang]||LANGS.en;
+  /* Update data-i18n elements */
+  var map={
+    'data-i18n-h1a':t.h1a,'data-i18n-h1b':t.h1b,'data-i18n-sub':t.sub,
+    'data-i18n-cta':t.cta,'data-i18n-days':t.days,
+    'data-i18n-daily':t.daily,'data-i18n-tourney':t.tourney,
+    'data-i18n-ach':t.ach,'data-i18n-tasks':t.tasks,'data-i18n-lb':t.lb,
+    'data-i18n-privacy':t.privacy,'data-i18n-terms':t.terms,'data-i18n-contact':t.contact
+  };
+  Object.keys(map).forEach(function(attr){
+    document.querySelectorAll('['+attr+']').forEach(function(el){el.textContent=map[attr];});
+  });
+  document.documentElement.lang=lang;
+  document.documentElement.dir=(lang==='ar')?'rtl':'ltr';
+  localStorage.setItem('gnw_lang',lang);
+}
+function changeLang(lang){
+  applyL(lang);
+  var sel=document.getElementById('lang-sel');if(sel)sel.value=lang;
+}
+function buildLangSel(){
+  var sel=document.getElementById('lang-sel');if(!sel)return;
+  var list=[
+    ['en','EN English'],['tr','TR Turkce'],['es','ES Espanol'],['fr','FR Francais'],
+    ['de','DE Deutsch'],['pt','PT Portugues'],['it','IT Italiano'],['ru','RU Russkiy'],
+    ['zh','ZH Zhongwen'],['ja','JA Nihongo'],['ko','KO Hangugeo'],['ar','AR Arabiy'],
+    ['hi','HI Hindi'],['nl','NL Nederlands'],['pl','PL Polski'],
+    ['sv','SV Svenska'],['no','NO Norsk'],['da','DA Dansk'],['fi','FI Suomi'],
+    ['id','ID Bahasa'],['ms','MS Melayu'],['th','TH Thai'],['vi','VI Tieng Viet'],
+    ['uk','UK Ukrainska'],['cs','CS Cestina'],['ro','RO Romana'],['hu','HU Magyar'],['el','EL Ellinika']
+  ];
+  sel.innerHTML=list.map(function(l){return'<option value="'+l[0]+'">'+l[1]+'</option>';}).join('');
+}
+
+
+/* ── SOUND SYSTEM ── */
+var _soundOn = localStorage.getItem('gnw_sound') !== '0';
+function playSound(type) {
+  if (!_soundOn) return;
+  try {
+    var ctx = new (window.AudioContext || window.webkitAudioContext)();
+    var o = ctx.createOscillator();
+    var g = ctx.createGain();
+    o.connect(g); g.connect(ctx.destination);
+    var sounds = {
+      score:  {freq: 880, dur: 0.08, type: 'sine'},
+      win:    {freq: 1046, dur: 0.4, type: 'sine'},
+      lose:   {freq: 220, dur: 0.3, type: 'sawtooth'},
+      click:  {freq: 660, dur: 0.05, type: 'square'},
+      pop:    {freq: 440, dur: 0.06, type: 'sine'}
+    };
+    var s = sounds[type] || sounds.click;
+    o.type = s.type;
+    o.frequency.setValueAtTime(s.freq, ctx.currentTime);
+    if (type === 'win') { o.frequency.exponentialRampToValueAtTime(1568, ctx.currentTime + 0.2); }
+    if (type === 'lose') { o.frequency.exponentialRampToValueAtTime(110, ctx.currentTime + 0.3); }
+    g.gain.setValueAtTime(0.15, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + s.dur);
+    o.start(ctx.currentTime);
+    o.stop(ctx.currentTime + s.dur);
+  } catch(e) {}
+}
+function toggleSound() {
+  _soundOn = !_soundOn;
+  localStorage.setItem('gnw_sound', _soundOn ? '1' : '0');
+  var btn = document.getElementById('sound-btn');
+  if (btn) btn.textContent = _soundOn ? '🔊' : '🔇';
+}
+
+/* ── FAVORITES SYSTEM ── */
+function getFavs() { return JSON.parse(localStorage.getItem('gnw_favs') || '[]'); }
+function toggleFav(key, el) {
+  var favs = getFavs();
+  var idx = favs.indexOf(key);
+  if (idx >= 0) { favs.splice(idx, 1); if(el) el.textContent = '♡'; if(el) el.style.color = '#94a3b8'; }
+  else { favs.push(key); if(el) el.textContent = '♥'; if(el) el.style.color = '#ef4444'; playSound('pop'); }
+  localStorage.setItem('gnw_favs', JSON.stringify(favs));
+}
+function isFav(key) { return getFavs().includes(key); }
+
+/* ── RECENTLY PLAYED ── */
+function addRecent(key) {
+  var r = JSON.parse(localStorage.getItem('gnw_recent') || '[]');
+  r = r.filter(function(k) { return k !== key; });
+  r.unshift(key);
+  r = r.slice(0, 8);
+  localStorage.setItem('gnw_recent', JSON.stringify(r));
+}
+function getRecent() { return JSON.parse(localStorage.getItem('gnw_recent') || '[]'); }
+
+/* ── LIKES SYSTEM ── */
+function getLikes() { return JSON.parse(localStorage.getItem('gnw_likes') || '{}'); }
+function likeGame(key) {
+  var likes = getLikes();
+  if (!likes[key]) { likes[key] = 1; playSound('pop'); earnXP(2, 'Like'); }
+  localStorage.setItem('gnw_likes', JSON.stringify(likes));
+}
+
+/* ── FULLSCREEN ── */
+function toggleFullscreen(el) {
+  var modal = document.getElementById('overlay');
+  if (!document.fullscreenElement) {
+    (modal || el).requestFullscreen && (modal || el).requestFullscreen();
+  } else {
+    document.exitFullscreen && document.exitFullscreen();
+  }
+}
+
+/* ── SHARE GAME ── */
+function shareGame(key, title) {
+  var url = 'https://gamenestworld.com/' + key + '.html';
+  if (navigator.share) {
+    navigator.share({ title: title + ' - GameNest World', text: 'Play ' + title + ' free!', url: url });
+  } else {
+    navigator.clipboard.writeText(url).then(function() { showToast('Link copied!', 0); });
+  }
+}
+
+
+/* SOUND */
+var _soundOn=localStorage.getItem('gnw_sound')!=='0';
+function playSound(type){
+  if(!_soundOn)return;
+  try{
+    var ac=new(window.AudioContext||window.webkitAudioContext)();
+    var o=ac.createOscillator(),g=ac.createGain();
+    o.connect(g);g.connect(ac.destination);
+    var s={score:{f:880,d:.1},win:{f:1047,d:.4},lose:{f:200,d:.3},click:{f:660,d:.05},pop:{f:440,d:.07}};
+    var sv=s[type]||s.click;
+    o.type='sine';o.frequency.value=sv.f;
+    if(type==='win')o.frequency.exponentialRampToValueAtTime(1568,ac.currentTime+.2);
+    if(type==='lose')o.frequency.exponentialRampToValueAtTime(110,ac.currentTime+.3);
+    g.gain.setValueAtTime(.12,ac.currentTime);
+    g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+sv.d);
+    o.start();o.stop(ac.currentTime+sv.d);
+  }catch(e){}
+}
+function toggleSound(){
+  _soundOn=!_soundOn;localStorage.setItem('gnw_sound',_soundOn?'1':'0');
+  var b=document.getElementById('sound-btn');if(b)b.textContent=_soundOn?'🔊':'🔇';
+}
+/* FAVORITES */
+function getFavs(){return JSON.parse(localStorage.getItem('gnw_favs')||'[]');}
+function isFav(key){return getFavs().indexOf(key)>=0;}
+function toggleFav(el){
+  var key=el.getAttribute('data-gkey');
+  var favs=getFavs(),idx=favs.indexOf(key);
+  if(idx>=0){favs.splice(idx,1);el.textContent='♡';el.style.color='#94a3b8';}
+  else{favs.push(key);el.textContent='♥';el.style.color='#ef4444';playSound('pop');}
+  localStorage.setItem('gnw_favs',JSON.stringify(favs));
+}
+/* RECENT */
+function addRecent(key){var r=JSON.parse(localStorage.getItem('gnw_recent')||'[]');r=r.filter(function(k){return k!==key;});r.unshift(key);localStorage.setItem('gnw_recent',JSON.stringify(r.slice(0,8)));renderRecent();}
+/* SHARE */
+function shareGame(el){
+  var key=el.getAttribute('data-gkey2')||el.getAttribute('data-gkey')||'';
+  var title=el.getAttribute('data-title')||'Game';
+
+  var url='https://gamenestworld.com/'+key+'.html';
+  if(navigator.share)navigator.share({title:title+' - GameNest World',url:url});
+  else if(navigator.clipboard)navigator.clipboard.writeText(url).then(function(){showToast('Link copied!',0);});
+}
+/* FULLSCREEN */
+function goFullscreen(){
+  var ov=document.getElementById('overlay');
+  if(!document.fullscreenElement){(ov||document.body).requestFullscreen&&(ov||document.body).requestFullscreen();}
+  else{document.exitFullscreen&&document.exitFullscreen();}
+}
+
+
+
+/* ── SEARCH GAMES ── */
+function openGame_recent(e){var k=e.currentTarget.getAttribute('data-rkey');if(k)openGame(k);}
+function searchGames(q){
+  q=q.toLowerCase().trim();
+  var cards=document.querySelectorAll('.game-card');
+  var secs={'.quiz-section':false,'.word-section':false,'.math-section':false,'.classic-section':false,'.mem-section':false};
+  cards.forEach(function(card){
+    var name=(card.querySelector('.g-name')||{textContent:''}).textContent.toLowerCase();
+    var desc=(card.querySelector('.g-desc')||{textContent:''}).textContent.toLowerCase();
+    var show=!q||name.includes(q)||desc.includes(q);
+    card.style.display=show?'':'none';
+    if(show){
+      var cat=card.dataset.cat;
+      if(cat==='quiz')secs['.quiz-section']=true;
+      if(cat==='word')secs['.word-section']=true;
+      if(cat==='math')secs['.math-section']=true;
+      if(cat==='classic')secs['.classic-section']=true;
+      if(cat==='memory')secs['.mem-section']=true;
+    }
+  });
+  if(q){
+    Object.keys(secs).forEach(function(cls){
+      var hdr=document.querySelector(cls);if(!hdr)return;
+      var grid=hdr.nextElementSibling;
+      hdr.style.display=secs[cls]?'':'none';
+      if(grid)grid.style.display=secs[cls]?'':'none';
+    });
+  }else{
+    document.querySelectorAll('.sec-hdr,.game-grid').forEach(function(el){el.style.display='';});
+  }
+}
+
+/* ── RECENTLY PLAYED UI ── */
+function makeRecentChips(keys,names){
+  return keys.map(function(k){
+    return '<button class="recent-chip" style="background:var(--s2);border:1px solid var(--border);border-radius:99px;padding:4px 12px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;" data-rk="'+k+'" onclick="recentClick(this)">&#9654; '+(names[k]||k)+'</button>';
+  }).join('');
+}
+function recentClick(el){openGame(el.getAttribute('data-rk'));}
+function renderRecent(){
+  var bar=document.getElementById('recent-bar');if(!bar)return;
+  var r=getRecent();
+  if(!r.length){bar.style.display='none';return;}
+  var NAMES={coin:'Coin Flip',dice:'Dice',rps:'Rock Paper Scissors',colorquiz:'Color Quiz',mathbasic:'Math Basics',flagquiz:'Flag Quiz',numguess:'Number Guess',reaction:'Reaction Time',truefalse:'True/False',simon:'Simon Says',wordscramble:'Word Scramble',riddles:'Riddles',emojiquiz:'Emoji Quiz',oddone:'Odd One Out',colormatch:'Color Match',genquiz:'General Knowledge',memory:'Memory Cards',ttt:'Tic Tac Toe',hangman:'Hangman',mathquiz:'Math Quiz',typing:'Typing Speed',anagram:'Anagram',geoquiz:'Geography Quiz',times:'Times Tables',mines:'Minesweeper',sciquiz:'Science Quiz',wordchain:'Word Chain',c4:'Connect Four',patternmem:'Pattern Memory',snake:'Snake',moviequiz:'Movie Quiz',pong:'Pong',make24:'Make 24',wordle:'Word Guess',g2048:'2048',mathsprint:'Math Sprint',mineshard:'Minesweeper Hard',histquiz:'History Quiz',crossword:'Crossword',chess:'Chess',sudoku:'Sudoku',expertquiz:'Expert Trivia',spelling:'Spelling Bee',breakout:'Breakout',numseq:'Number Sequence',tetris:'Tetris',cipher:'Cipher',lightsout:'Lights Out',flappy:'Flappy Bird',memhard:'Memory Pro',wordsearch:'Word Search'};
+  bar.style.display='flex';
+  bar.innerHTML='<span style="font-size:12px;color:var(--muted);font-weight:600;">Recently:</span>'
+    +makeRecentChips(r.slice(0,5),NAMES);
+}
+
+/* ── WIN/LOSE OVERLAY ── */
+function showWin(title,msg,xp){
+  playSound('win');
+  var div=document.createElement('div');
+  div.className='win-overlay';
+  div.id='win-overlay';
+  div.innerHTML='<div class="win-box">'
+    +'<div style="font-size:48px;margin-bottom:8px;">🏆</div>'
+    +'<div style="font-size:24px;font-weight:900;color:#1e293b;margin-bottom:6px;">'+title+'</div>'
+    +'<div style="color:#64748b;font-size:14px;margin-bottom:16px;">'+msg+'</div>'
+    +(xp?'<div style="background:#fef3c7;border-radius:8px;padding:8px;font-size:15px;font-weight:700;color:#d97706;margin-bottom:16px;">+'+xp+' XP Earned!</div>':'')
+    +'<button class="btn" onclick="var o=document.getElementById(\'win-overlay\');if(o)o.remove();">Continue</button>'
+    +'</div>';
+  document.body.appendChild(div);
+  div.onclick=function(e){if(e.target===div)div.remove();};
+}
+function showLose(title,msg){
+  playSound('lose');
+  var div=document.createElement('div');
+  div.className='win-overlay';
+  div.id='win-overlay';
+  div.innerHTML='<div class="win-box">'
+    +'<div style="font-size:48px;margin-bottom:8px;">😔</div>'
+    +'<div style="font-size:22px;font-weight:900;color:#1e293b;margin-bottom:6px;">'+title+'</div>'
+    +'<div style="color:#64748b;font-size:14px;margin-bottom:16px;">'+msg+'</div>'
+    +'<button class="btn" onclick="var o=document.getElementById(\'win-overlay\');if(o)o.remove();">Try Again</button>'
+    +'</div>';
+  document.body.appendChild(div);
+  div.onclick=function(e){if(e.target===div)div.remove();};
+}
+
+/* ── LEADERBOARD (localStorage) ── */
+var LB_GAMES=['g2048','snake','tetris','flappy','mines','sudoku'];
+function updateHighScore(game,score){
+  var key='hs_'+game;
+  var old=+(localStorage.getItem(key)||0);
+  if(score>old){localStorage.setItem(key,score);}
+  return Math.max(score,old);
+}
+function getHighScore(game){return+(localStorage.getItem('hs_'+game)||0);}
+
+document.addEventListener('DOMContentLoaded',function(){
+  window._gl=null;
+  /* Patch _LVL.win to trigger ad prompts after levels */
+  var _origWin = _LVL.win.bind(_LVL);
+  _LVL.win = function(pts) {
+    var result = _origWin(pts);
+    checkAdPrompt(_LVL.level);
+    return result;
+  };
+
+  console.log('GameNest v5 OK');
+  renderRecent();
+  buildLangSel();
+  var sv=localStorage.getItem('gnw_lang');
+  if(sv&&LANGS[sv]){applyL(sv);var sel=document.getElementById('lang-sel');if(sel)sel.value=sv;}
+  else{var br=(navigator.language||'en').split('-')[0].toLowerCase();var lmap={tr:'tr',es:'es',fr:'fr',de:'de',pt:'pt',it:'it',ru:'ru',ar:'ar',zh:'zh',ja:'ja',ko:'ko',hi:'hi',nl:'nl',pl:'pl',sv:'sv',no:'no',da:'da',fi:'fi',id:'id',ms:'ms',th:'th',vi:'vi',uk:'uk',cs:'cs',ro:'ro',hu:'hu',el:'el'};var dt=lmap[br]||'en';applyL(dt);var sel2=document.getElementById('lang-sel');if(sel2)sel2.value=dt;}
+  updateXPUI();checkStr();checkAch();renderTasks();renderLB();
+  var today=new Date();var dcKey=DC[(today.getDate()+today.getMonth())%DC.length];
+  var ne=document.getElementById('daily-name');if(ne)ne.textContent='Today: '+DCN[dcKey];
+  var pb=document.getElementById('daily-btn');if(pb)pb.onclick=function(){openGame(dcKey);earnXP(50,'Daily Challenge');};
+  function tick(){var now=new Date(),mid=new Date();mid.setHours(24,0,0,0);var d=mid-now;var te=document.getElementById('daily-timer');if(te)te.textContent=('0'+Math.floor(d/3600000)).slice(-2)+':'+('0'+Math.floor(d%3600000/60000)).slice(-2)+':'+('0'+Math.floor(d%60000/1000)).slice(-2);}
+  tick();setInterval(tick,1000);
+  var tc=1247;setInterval(function(){tc+=Math.floor(Math.random()*3)-1;if(tc<1000)tc=1000;var ce=document.getElementById('t-cnt');if(ce)ce.textContent=tc.toLocaleString();},3000);
+  var sv=localStorage.getItem('gnw_lang')||((navigator.language||'en').split('-')[0].toLowerCase());
+  var lmap={tr:'tr',es:'es',fr:'fr',de:'de',pt:'pt',it:'it',ru:'ru',ar:'ar',zh:'zh',ja:'ja',ko:'ko',hi:'hi',nl:'nl',pl:'pl'};
+  var dt=lmap[sv]||'en';var sel=document.getElementById('lang-sel');if(sel)sel.value=dt;
+});
+
+/* ── LEVEL MANAGER ── */
+var _LVL = {
+  game: null,
+  level: 1,
+  maxLevel: 50,
+  lives: 3,
+  score: 0,
+  streak: 0,
+  bestLevel: {},
+
+  init: function(gameKey, maxLvl) {
+    this.game = gameKey;
+    this.maxLevel = maxLvl || 50;
+    this.level = +(localStorage.getItem('lvl_'+gameKey) || 1);
+    this.lives = 3;
+    this.score = 0;
+    this.streak = 0;
+    this.bestLevel[gameKey] = +(localStorage.getItem('bestlvl_'+gameKey) || 1);
+  },
+
+  getConfig: function() {
+    var l = this.level;
+    return {
+      level: l,
+      difficulty: l <= 10 ? 'Easy' : l <= 25 ? 'Medium' : l <= 40 ? 'Hard' : 'Expert',
+      speed: Math.max(0.3, 1 - (l-1)*0.015),
+      timeLimit: Math.max(5, 30 - Math.floor(l/2)),
+      options: Math.min(6, 2 + Math.floor(l/8)),
+      lives: this.lives
+    };
+  },
+
+  win: function(pts) {
+    this.score += (pts || 10) + this.level * 2;
+    this.streak++;
+    this.level = Math.min(this.maxLevel, this.level + 1);
+    localStorage.setItem('lvl_'+this.game, this.level);
+    if(this.level > (this.bestLevel[this.game]||0)) {
+      this.bestLevel[this.game] = this.level;
+      localStorage.setItem('bestlvl_'+this.game, this.level);
+    }
+    var xp = pts + this.level * 3;
+    earnXP(xp, this.game + ' Level ' + (this.level-1));
+    playSound('score');
+    return this.level > this.maxLevel;
+  },
+
+  lose: function() {
+    this.streak = 0;
+    this.lives--;
+    updateLivesUI();
+    playSound('lose');
+    if(this.lives <= 0) {
+      this.level = Math.max(1, this.level - 2);
+      localStorage.setItem('lvl_'+this.game, this.level);
+      showNoLivesModal();
+      return false;
+    }
+    return true;
+  },
+
+  renderHeader: function(title, color) {
+    var cfg = this.getConfig();
+    var diffColors = {Easy:'#4ade80',Medium:'#fbbf24',Hard:'#f87171',Expert:'#c084fc'};
+    var dc = diffColors[cfg.difficulty] || '#60a5fa';
+    var h = '<div style="margin-bottom:14px;">';
+    // Title row
+    h += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">';
+    h += '<div style="font-size:20px;font-weight:900;color:#ffffff;letter-spacing:-.3px;">'+title+'</div>';
+    h += '<div style="display:flex;gap:6px;align-items:center;">';
+    h += '<div style="background:'+dc+'25;color:'+dc+';border:1px solid '+dc+'60;border-radius:8px;padding:3px 10px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;">'+cfg.difficulty+'</div>';
+    h += '<div id="modal-lives" style="display:flex;gap:2px;font-size:18px;"></div>';
+    h += '</div></div>';
+    // Level progress bar
+    h += '<div style="display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.3);border-radius:10px;padding:8px 12px;">';
+    h += '<div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.7);white-space:nowrap;">Lv '+this.level+'/'+this.maxLevel+'</div>';
+    h += '<div style="flex:1;background:rgba(255,255,255,.15);border-radius:99px;height:6px;">';
+    h += '<div style="background:'+dc+';height:6px;border-radius:99px;width:'+Math.round(this.level/this.maxLevel*100)+'%;transition:width .5s;box-shadow:0 0 6px '+dc+'88;"></div>';
+    h += '</div>';
+    h += '<div style="font-size:12px;font-weight:800;color:'+dc+';white-space:nowrap;">⭐ '+this.score+'</div>';
+    h += '</div></div>';
+    setTimeout(updateLivesUI, 30);
+    return h;
+  }
+};
+
+/* ══ MONETIZATION HOOKS ══ */
+var _lastAdPrompt = 0;
+
+function closeLevelUp(){var lm=document.getElementById('levelup-modal');if(lm)lm.remove();}
+function checkAdPrompt(level) {
+  /* Show ad prompt every 5 levels - key for revenue */
+  if(level > 0 && level % 5 === 0 && level !== _lastAdPrompt) {
+    _lastAdPrompt = level;
+    setTimeout(function() { showLevelUpModal(level); }, 1500);
+  }
+}
+
+function showLevelUpModal(level) {
+  var existing = document.getElementById('levelup-modal');
+  if(existing) existing.remove();
+  var div = document.createElement('div');
+  div.id = 'levelup-modal';
+  div.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:9999;animation:fadeIn .3s;';
+  var milestone = level % 25 === 0 ? '🏆 MILESTONE!' : level % 10 === 0 ? '🌟 Amazing!' : '⬆️ Level Up!';
+  div.innerHTML = '<div style="background:linear-gradient(145deg,#1e1b4b,#3730a3);border-radius:20px;padding:32px 24px;text-align:center;max-width:300px;width:90%;border:1px solid rgba(129,140,248,.3);">'
+    + '<div style="font-size:48px;margin-bottom:8px;">' + (level % 25 === 0 ? '🏆' : level % 10 === 0 ? '🌟' : '⬆️') + '</div>'
+    + '<div style="color:#e0e7ff;font-size:22px;font-weight:900;margin-bottom:4px;">' + milestone + '</div>'
+    + '<div style="color:rgba(255,255,255,.7);font-size:14px;margin-bottom:20px;">You reached Level ' + level + '!</div>'
+    + '<button onclick="adForLevelBonus(this)" style="width:100%;padding:14px;border-radius:12px;background:#f59e0b;border:none;color:#fff;font-size:15px;font-weight:700;cursor:pointer;margin-bottom:10px;">📺 Watch Ad → +5 Bonus Lives</button>'
+    + '<button onclick="shareProgress(' + level + ')" style="width:100%;padding:14px;border-radius:12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#e0e7ff;font-size:14px;font-weight:600;cursor:pointer;margin-bottom:10px;">📤 Share My Progress!</button>'
+    + '<button onclick="closeLevelUp()" style="width:100%;padding:10px;border-radius:10px;background:none;border:none;color:rgba(255,255,255,.4);font-size:13px;cursor:pointer;">Continue playing</button>'
+    + '</div>';
+  document.body.appendChild(div);
+}
+
+function adForLevelBonus(btn) {
+  btn.textContent = '⏱ Watching...';
+  btn.disabled = true;
+  var sec = 5;
+  var iv = setInterval(function() {
+    sec--;
+    btn.textContent = 'Watching... ' + sec + 's';
+    if(sec <= 0) {
+      clearInterval(iv);
+      gainLive(5);
+      showToast('Bonus Lives!', 5);
+      playSound('win');
+      document.getElementById('levelup-modal').remove();
+    }
+  }, 1000);
+}
+
+function shareProgress(level) {
+  var text = 'I reached Level ' + level + ' on GameNest World! Can you beat me? 🎮 gamenestworld.com';
+  if(navigator.share) {
+    navigator.share({ title: 'GameNest World', text: text, url: 'https://gamenestworld.com' });
+  } else if(navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(function() { showToast('Copied to share!', 0); });
+  }
+  document.getElementById('levelup-modal').remove();
+}
+
+/* monetization hook moved to DOMContentLoaded */
 
 
 
@@ -1465,7 +2216,16 @@ function updateHighScore(game,score){
 function getHighScore(game){return+(localStorage.getItem('hs_'+game)||0);}
 
 document.addEventListener('DOMContentLoaded',function(){
-  window._gl=null;console.log('GameNest v5 OK');
+  window._gl=null;
+  /* Patch _LVL.win to trigger ad prompts after levels */
+  var _origWin = _LVL.win.bind(_LVL);
+  _LVL.win = function(pts) {
+    var result = _origWin(pts);
+    checkAdPrompt(_LVL.level);
+    return result;
+  };
+
+  console.log('GameNest v5 OK');
   renderRecent();
   buildLangSel();
   var sv=localStorage.getItem('gnw_lang');
@@ -5367,6 +6127,8 @@ const GAMES={
 GAMES.wordsearch=gameWordsearch;
 console.log("GameNest v5 - all games loaded");
 console.log("GameNest v5 - all games loaded");
+
+
 
 
 
