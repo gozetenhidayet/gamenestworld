@@ -80,7 +80,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:10px 3
 .hnum-l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:1px;}
 
 /* AD STRIP */
-.ad-strip{background:transparent;padding:8px 16px;text-align:center;}
+.ad-strip{display:none!important;}
 .ad-lbl{display:none;}
 .ad-ph{display:none;}
 
@@ -353,6 +353,48 @@ ins.adsbygoogle { display: none !important; }
 .game-card{transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s ease;}
 @keyframes spin{to{transform:rotate(360deg);}}
 
+
+/* ── HIDE ALL ADS UNTIL APPROVED ── */
+.ad-strip,.ad-lbl,.ad-ph,ins.adsbygoogle{display:none!important;min-height:0!important;height:0!important;padding:0!important;margin:0!important;}
+
+
+/* ── COLORFUL GAME CARDS ── */
+.c-quiz{background:linear-gradient(135deg,#eef2ff 0%,#e0e7ff 100%)!important;border-color:#c7d2fe!important;}
+.c-word{background:linear-gradient(135deg,#f0fdf4 0%,#dcfce7 100%)!important;border-color:#86efac!important;}
+.c-math{background:linear-gradient(135deg,#fff7ed 0%,#ffedd5 100%)!important;border-color:#fed7aa!important;}
+.c-classic{background:linear-gradient(135deg,#faf5ff 0%,#ede9fe 100%)!important;border-color:#c4b5fd!important;}
+.c-memory{background:linear-gradient(135deg,#fdf4ff 0%,#fae8ff 100%)!important;border-color:#f0abfc!important;}
+.game-card .g-iw{background:rgba(255,255,255,0.7)!important;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+.c-quiz .g-em,.c-quiz .g-name{color:#4338ca!important;}
+.c-word .g-em,.c-word .g-name{color:#15803d!important;}
+.c-math .g-em,.c-math .g-name{color:#c2410c!important;}
+.c-classic .g-em,.c-classic .g-name{color:#6d28d9!important;}
+.c-memory .g-em,.c-memory .g-name{color:#a21caf!important;}
+.game-card{transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s ease!important;}
+.game-card:hover{transform:translateY(-6px) scale(1.04)!important;box-shadow:0 16px 32px rgba(0,0,0,.14)!important;}
+
+/* ── SEARCH BOX ── */
+.search-wrap{max-width:1160px;margin:0 auto;padding:12px 20px 0;position:relative;}
+.search-inp{width:100%;padding:12px 44px 12px 16px;border-radius:12px;border:1.5px solid var(--border);font-size:15px;font-family:inherit;background:#fff;outline:none;transition:border-color .2s;}
+.search-inp:focus{border-color:var(--accent);}
+.search-icon{position:absolute;right:36px;top:50%;transform:translateY(-50%);font-size:18px;pointer-events:none;}
+
+/* ── RECENTLY PLAYED ── */
+.recent-bar{max-width:1160px;margin:0 auto;padding:8px 20px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.recent-chip{background:var(--s2);border:1px solid var(--border);border-radius:99px;padding:4px 12px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;}
+.recent-chip:hover{background:var(--accent);color:#fff;border-color:var(--accent);}
+
+/* ── HOW TO PLAY ── */
+.how-box{background:var(--s2);border-radius:10px;padding:12px 14px;margin-top:10px;font-size:12px;color:var(--muted);}
+.how-box h4{font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px;}
+
+/* ── WIN/LOSE OVERLAY ── */
+@keyframes winPop{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes confetti{0%{transform:translateY(-10px) rotate(0deg);opacity:1}100%{transform:translateY(200px) rotate(720deg);opacity:0}}
+.win-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:9999;}
+.win-box{background:#fff;border-radius:20px;padding:32px 24px;text-align:center;animation:winPop .4s ease;max-width:320px;width:90%;}
+
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3359266836868361" crossorigin="anonymous"></script>
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
@@ -453,6 +495,14 @@ ins.adsbygoogle { display: none !important; }
   </div>
 </div>
 
+
+
+<div class="search-wrap">
+  <input class="search-inp" id="search-inp" type="text" placeholder="🔍 Search games... (Snake, Tetris, 2048...)" oninput="searchGames(this.value)">
+</div>
+<div id="recent-bar" class="recent-bar" style="display:none;">
+  <span style="font-size:12px;color:var(--muted);font-weight:600;">Recently:</span>
+</div>
 
 <!-- HERO -->
 <div class="hero">
@@ -656,6 +706,8 @@ ins.adsbygoogle { display: none !important; }
 <!-- MODAL -->
 <div class="overlay" id="overlay" onclick="closeIfOut(event)"><div class="modal" id="modal-box"></div></div>
 <script>
+
+
 var rnd=function(a,b){return Math.floor(Math.random()*(b-a+1))+a;};
 var pick=function(a){return a[rnd(0,a.length-1)];};
 var shuffle=function(arr){var a=arr.slice();for(var i=a.length-1;i>0;i--){var j=rnd(0,i);var t=a[i];a[i]=a[j];a[j]=t;}return a;};
@@ -1004,7 +1056,7 @@ function toggleFav(el){
   localStorage.setItem('gnw_favs',JSON.stringify(favs));
 }
 /* RECENT */
-function addRecent(key){var r=JSON.parse(localStorage.getItem('gnw_recent')||'[]');r=r.filter(function(k){return k!==key;});r.unshift(key);localStorage.setItem('gnw_recent',JSON.stringify(r.slice(0,8)));}
+function addRecent(key){var r=JSON.parse(localStorage.getItem('gnw_recent')||'[]');r=r.filter(function(k){return k!==key;});r.unshift(key);localStorage.setItem('gnw_recent',JSON.stringify(r.slice(0,8)));renderRecent();}
 /* SHARE */
 function shareGame(el){
   var key=el.getAttribute('data-gkey2')||el.getAttribute('data-gkey')||'';
@@ -1021,8 +1073,101 @@ function goFullscreen(){
   else{document.exitFullscreen&&document.exitFullscreen();}
 }
 
+
+
+/* ── SEARCH GAMES ── */
+function openGame_recent(e){var k=e.currentTarget.getAttribute('data-rkey');if(k)openGame(k);}
+function searchGames(q){
+  q=q.toLowerCase().trim();
+  var cards=document.querySelectorAll('.game-card');
+  var secs={'.quiz-section':false,'.word-section':false,'.math-section':false,'.classic-section':false,'.mem-section':false};
+  cards.forEach(function(card){
+    var name=(card.querySelector('.g-name')||{textContent:''}).textContent.toLowerCase();
+    var desc=(card.querySelector('.g-desc')||{textContent:''}).textContent.toLowerCase();
+    var show=!q||name.includes(q)||desc.includes(q);
+    card.style.display=show?'':'none';
+    if(show){
+      var cat=card.dataset.cat;
+      if(cat==='quiz')secs['.quiz-section']=true;
+      if(cat==='word')secs['.word-section']=true;
+      if(cat==='math')secs['.math-section']=true;
+      if(cat==='classic')secs['.classic-section']=true;
+      if(cat==='memory')secs['.mem-section']=true;
+    }
+  });
+  if(q){
+    Object.keys(secs).forEach(function(cls){
+      var hdr=document.querySelector(cls);if(!hdr)return;
+      var grid=hdr.nextElementSibling;
+      hdr.style.display=secs[cls]?'':'none';
+      if(grid)grid.style.display=secs[cls]?'':'none';
+    });
+  }else{
+    document.querySelectorAll('.sec-hdr,.game-grid').forEach(function(el){el.style.display='';});
+  }
+}
+
+/* ── RECENTLY PLAYED UI ── */
+function makeRecentChips(keys,names){
+  return keys.map(function(k){
+    return '<button class="recent-chip" style="background:var(--s2);border:1px solid var(--border);border-radius:99px;padding:4px 12px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;" data-rk="'+k+'" onclick="recentClick(this)">&#9654; '+(names[k]||k)+'</button>';
+  }).join('');
+}
+function recentClick(el){openGame(el.getAttribute('data-rk'));}
+function renderRecent(){
+  var bar=document.getElementById('recent-bar');if(!bar)return;
+  var r=getRecent();
+  if(!r.length){bar.style.display='none';return;}
+  var NAMES={coin:'Coin Flip',dice:'Dice',rps:'Rock Paper Scissors',colorquiz:'Color Quiz',mathbasic:'Math Basics',flagquiz:'Flag Quiz',numguess:'Number Guess',reaction:'Reaction Time',truefalse:'True/False',simon:'Simon Says',wordscramble:'Word Scramble',riddles:'Riddles',emojiquiz:'Emoji Quiz',oddone:'Odd One Out',colormatch:'Color Match',genquiz:'General Knowledge',memory:'Memory Cards',ttt:'Tic Tac Toe',hangman:'Hangman',mathquiz:'Math Quiz',typing:'Typing Speed',anagram:'Anagram',geoquiz:'Geography Quiz',times:'Times Tables',mines:'Minesweeper',sciquiz:'Science Quiz',wordchain:'Word Chain',c4:'Connect Four',patternmem:'Pattern Memory',snake:'Snake',moviequiz:'Movie Quiz',pong:'Pong',make24:'Make 24',wordle:'Word Guess',g2048:'2048',mathsprint:'Math Sprint',mineshard:'Minesweeper Hard',histquiz:'History Quiz',crossword:'Crossword',chess:'Chess',sudoku:'Sudoku',expertquiz:'Expert Trivia',spelling:'Spelling Bee',breakout:'Breakout',numseq:'Number Sequence',tetris:'Tetris',cipher:'Cipher',lightsout:'Lights Out',flappy:'Flappy Bird',memhard:'Memory Pro',wordsearch:'Word Search'};
+  bar.style.display='flex';
+  bar.innerHTML='<span style="font-size:12px;color:var(--muted);font-weight:600;">Recently:</span>'
+    +makeRecentChips(r.slice(0,5),NAMES);
+}
+
+/* ── WIN/LOSE OVERLAY ── */
+function showWin(title,msg,xp){
+  playSound('win');
+  var div=document.createElement('div');
+  div.className='win-overlay';
+  div.id='win-overlay';
+  div.innerHTML='<div class="win-box">'
+    +'<div style="font-size:48px;margin-bottom:8px;">🏆</div>'
+    +'<div style="font-size:24px;font-weight:900;color:#1e293b;margin-bottom:6px;">'+title+'</div>'
+    +'<div style="color:#64748b;font-size:14px;margin-bottom:16px;">'+msg+'</div>'
+    +(xp?'<div style="background:#fef3c7;border-radius:8px;padding:8px;font-size:15px;font-weight:700;color:#d97706;margin-bottom:16px;">+'+xp+' XP Earned!</div>':'')
+    +'<button class="btn" onclick="var o=document.getElementById(\'win-overlay\');if(o)o.remove();">Continue</button>'
+    +'</div>';
+  document.body.appendChild(div);
+  div.onclick=function(e){if(e.target===div)div.remove();};
+}
+function showLose(title,msg){
+  playSound('lose');
+  var div=document.createElement('div');
+  div.className='win-overlay';
+  div.id='win-overlay';
+  div.innerHTML='<div class="win-box">'
+    +'<div style="font-size:48px;margin-bottom:8px;">😔</div>'
+    +'<div style="font-size:22px;font-weight:900;color:#1e293b;margin-bottom:6px;">'+title+'</div>'
+    +'<div style="color:#64748b;font-size:14px;margin-bottom:16px;">'+msg+'</div>'
+    +'<button class="btn" onclick="var o=document.getElementById(\'win-overlay\');if(o)o.remove();">Try Again</button>'
+    +'</div>';
+  document.body.appendChild(div);
+  div.onclick=function(e){if(e.target===div)div.remove();};
+}
+
+/* ── LEADERBOARD (localStorage) ── */
+var LB_GAMES=['g2048','snake','tetris','flappy','mines','sudoku'];
+function updateHighScore(game,score){
+  var key='hs_'+game;
+  var old=+(localStorage.getItem(key)||0);
+  if(score>old){localStorage.setItem(key,score);}
+  return Math.max(score,old);
+}
+function getHighScore(game){return+(localStorage.getItem('hs_'+game)||0);}
+
 document.addEventListener('DOMContentLoaded',function(){
   window._gl=null;console.log('GameNest v5 OK');
+  renderRecent();
   buildLangSel();
   var sv=localStorage.getItem('gnw_lang');
   if(sv&&LANGS[sv]){applyL(sv);var sel=document.getElementById('lang-sel');if(sel)sel.value=sv;}
@@ -2566,6 +2711,7 @@ function gameTetris(){
     ctx.fillText('Game Over!',W*CS/2,H*CS/2-20);
     ctx.fillStyle='#fff';ctx.font='16px Inter,sans-serif';ctx.fillText('Score: '+score,W*CS/2,H*CS/2+10);
     ctx.fillStyle='rgba(255,255,255,.5)';ctx.font='12px Inter,sans-serif';ctx.fillText('Tap New Game',W*CS/2,H*CS/2+35);
+    setTimeout(function(){showLose('Game Over!','Score: '+score+' | Lines: '+lines);},500);
   }
   function drop(){if(!collide(cur,curX,curY+1))curY++;else place();draw();}
   window.tetMove=function(d){if(!running||paused)return;if(!collide(cur,curX+d,curY))curX+=d;draw();};
@@ -2892,6 +3038,8 @@ function gameWordsearch(){
 GAMES.wordsearch=gameWordsearch;
 console.log("GameNest v5 - all games loaded");
 console.log("GameNest v5 - all games loaded");
+
+
 </script>
 </body>
 </html>
