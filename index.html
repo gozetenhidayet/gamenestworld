@@ -828,6 +828,76 @@ body{background:linear-gradient(160deg,#f8faff 0%,#f1f5f9 50%,#f5f3ff 100%)!impo
 <script>
 
 
+/* ══ MONETIZATION HOOKS ══ */
+var _lastAdPrompt = 0;
+
+function closeLevelUp(){var lm=document.getElementById('levelup-modal');if(lm)lm.remove();}
+function checkAdPrompt(level) {
+  /* Show ad prompt every 5 levels - key for revenue */
+  if(level > 0 && level % 5 === 0 && level !== _lastAdPrompt) {
+    _lastAdPrompt = level;
+    setTimeout(function() { showLevelUpModal(level); }, 1500);
+  }
+}
+
+function showLevelUpModal(level) {
+  var existing = document.getElementById('levelup-modal');
+  if(existing) existing.remove();
+  var div = document.createElement('div');
+  div.id = 'levelup-modal';
+  div.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:9999;animation:fadeIn .3s;';
+  var milestone = level % 25 === 0 ? '🏆 MILESTONE!' : level % 10 === 0 ? '🌟 Amazing!' : '⬆️ Level Up!';
+  div.innerHTML = '<div style="background:linear-gradient(145deg,#1e1b4b,#3730a3);border-radius:20px;padding:32px 24px;text-align:center;max-width:300px;width:90%;border:1px solid rgba(129,140,248,.3);">'
+    + '<div style="font-size:48px;margin-bottom:8px;">' + (level % 25 === 0 ? '🏆' : level % 10 === 0 ? '🌟' : '⬆️') + '</div>'
+    + '<div style="color:#e0e7ff;font-size:22px;font-weight:900;margin-bottom:4px;">' + milestone + '</div>'
+    + '<div style="color:rgba(255,255,255,.7);font-size:14px;margin-bottom:20px;">You reached Level ' + level + '!</div>'
+    + '<button onclick="adForLevelBonus(this)" style="width:100%;padding:14px;border-radius:12px;background:#f59e0b;border:none;color:#fff;font-size:15px;font-weight:700;cursor:pointer;margin-bottom:10px;">📺 Watch Ad → +5 Bonus Lives</button>'
+    + '<button onclick="shareProgress(' + level + ')" style="width:100%;padding:14px;border-radius:12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#e0e7ff;font-size:14px;font-weight:600;cursor:pointer;margin-bottom:10px;">📤 Share My Progress!</button>'
+    + '<button onclick="closeLevelUp()" style="width:100%;padding:10px;border-radius:10px;background:none;border:none;color:rgba(255,255,255,.4);font-size:13px;cursor:pointer;">Continue playing</button>'
+    + '</div>';
+  document.body.appendChild(div);
+}
+
+function adForLevelBonus(btn) {
+  btn.textContent = '⏱ Watching...';
+  btn.disabled = true;
+  var sec = 5;
+  var iv = setInterval(function() {
+    sec--;
+    btn.textContent = 'Watching... ' + sec + 's';
+    if(sec <= 0) {
+      clearInterval(iv);
+      gainLive(5);
+      showToast('Bonus Lives!', 5);
+      playSound('win');
+      document.getElementById('levelup-modal').remove();
+    }
+  }, 1000);
+}
+
+function shareProgress(level) {
+  var text = 'I reached Level ' + level + ' on GameNest World! Can you beat me? 🎮 gamenestworld.com';
+  if(navigator.share) {
+    navigator.share({ title: 'GameNest World', text: text, url: 'https://gamenestworld.com' });
+  } else if(navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(function() { showToast('Copied to share!', 0); });
+  }
+  document.getElementById('levelup-modal').remove();
+}
+
+/* Hook into _LVL.win to trigger ad prompts */
+var _origLVLwin = _LVL.win.bind(_LVL);
+_LVL.win = function(pts) {
+  var result = _origLVLwin(pts);
+  checkAdPrompt(this.level);
+  return result;
+};
+
+
+
+
+
+
 
 
 
@@ -1839,9 +1909,51 @@ function flagAns(chosen,correct){if(chosen===correct)window._fqScore++;nextFlagQ
 
 /* NUMBER GUESS */
 function gameNumGuess(){
-  window._ngSecret=rnd(1,100);window._ngTries=7;
-  gw().innerHTML=`<h2>🔢 Number Guess</h2><p>I'm thinking of a number 1-100</p><div id="ng-hint" style="font-size:18px;color:#666;margin:10px;min-height:28px;"></div><input id="ng-in" type="number" min="1" max="100" style="font-size:20px;width:80px;padding:8px;border:2px solid #ccc;border-radius:8px;text-align:center;" onkeydown="if(event.key==='Enter')guessNum()"><br><button class="g-btn" style="margin-top:10px;" onclick="guessNum()">Guess</button><div id="ng-tries" style="margin-top:10px;color:#888;font-size:14px;">7 tries left</div>`;
+  _LVL.init('numguess',40);
+  var level=_LVL.level;
+  var maxNum=Math.min(10000,Math.floor(10*Math.pow(1.2,level-1)));
+  var maxTries=Math.max(3,10-Math.floor(level/5));
+  var target=rnd(1,maxNum);
+  var tries=0;var history=[];
+  function render(){
+    var g=gw();if(!g)return;
+    var h=_LVL.renderHeader('🔢 Number Guess','#60a5fa');
+    h+='<div style="text-align:center;margin-bottom:16px;">';
+    h+='<div style="font-size:14px;color:var(--muted);margin-bottom:4px;">Guess a number between <strong>1</strong> and <strong>'+maxNum.toLocaleString()+'</strong></div>';
+    h+='<div style="font-size:13px;color:var(--muted);">Tries left: <strong style="color:'+(tries>=maxTries-1?'#ef4444':'#22c55e')+';">'+(maxTries-tries)+'</strong></div>';
+    h+='</div>';
+    if(history.length){
+      h+='<div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px;margin-bottom:12px;max-height:80px;overflow-y:auto;">';
+      history.slice(-3).forEach(function(item){h+='<div style="font-size:13px;text-align:center;padding:2px 0;color:'+(item.dir==='correct'?'#22c55e':item.dir==='higher'?'#f59e0b':'#60a5fa')+';">'+item.guess+' → '+item.dir.toUpperCase()+'</div>';});
+      h+='</div>';
+    }
+    h+='<div style="display:flex;gap:8px;margin-bottom:8px;">';
+    h+='<input id="ng-inp" type="number" min="1" max="'+maxNum+'" placeholder="Your guess..." style="flex:1;padding:14px;border-radius:12px;border:2px solid #e2e8f0;font-size:18px;font-weight:700;font-family:inherit;text-align:center;outline:none;" onkeydown="if(event.key===\'Enter\')ngGuess();">';
+    h+='<button class="btn" onclick="ngGuess()" style="padding:14px 20px;font-size:16px;">Go!</button>';
+    h+='</div>';
+    g.innerHTML=h;
+    document.getElementById('ng-inp').focus();
+  }
+  render();
+  window.ngGuess=function(){
+    var val=+(document.getElementById('ng-inp').value||0);
+    if(!val||val<1||val>maxNum)return;
+    tries++;
+    if(val===target){
+      _LVL.win(50);showScorePop('+50');
+      var g=gw();if(g){var fb=document.createElement('div');fb.style.cssText='text-align:center;padding:16px;background:#dcfce7;border-radius:12px;margin-top:10px;font-weight:700;color:#15803d;font-size:16px;';fb.textContent='Correct! It was '+target+'. Found in '+tries+' tries!';g.appendChild(fb);}
+      setTimeout(function(){gameNumGuess();},1800);
+    }else if(tries>=maxTries){
+      _LVL.lose();history.push({guess:val,dir:'correct → '+target});render();
+      setTimeout(function(){gameNumGuess();},1500);
+    }else{
+      history.push({guess:val,dir:val<target?'higher':'lower'});
+      render();
+    }
+  };
 }
+
+
 function guessNum(){
   const inp=document.getElementById('ng-in');
   const g=parseInt(inp.value);
@@ -1861,10 +1973,51 @@ function guessNum(){
 
 /* REACTION TIME */
 function gameReaction(){
-  window._rtState='idle';
-  gw().innerHTML=`<h2>⚡ Reaction Time</h2><div id="rt-box" onclick="rtClick()" style="width:260px;height:160px;border-radius:16px;background:#e0e0e0;display:flex;align-items:center;justify-content:center;cursor:pointer;margin:16px auto;font-size:18px;user-select:none;">Click to Start</div><div id="rt-hist" style="font-size:14px;color:#666;margin-top:8px;"></div>`;
-  window._rtTimes=[];
+  _LVL.init('reaction',30);
+  var level=_LVL.level;
+  var rounds=Math.min(10,3+Math.floor(level/3));
+  var results=[];var waiting=false;var canClick=false;var startTime;var tId;
+  var targetMs=Math.max(150,400-level*8);
+  function runRound(){
+    var g=gw();if(!g)return;
+    waiting=true;canClick=false;
+    var delay=1000+Math.random()*3000;
+    var h=_LVL.renderHeader('⚡ Reaction Time','#fbbf24');
+    h+='<div id="rt-box" onclick="rtClick()" style="width:100%;height:180px;border-radius:16px;background:#1e293b;display:flex;align-items:center;justify-content:center;cursor:pointer;margin-bottom:12px;transition:background .1s;">';
+    h+='<div id="rt-msg" style="font-size:18px;font-weight:700;color:#94a3b8;">Wait for green...</div>';
+    h+='</div>';
+    h+='<div style="text-align:center;color:var(--muted);font-size:13px;">Round '+(results.length+1)+'/'+rounds+'</div>';
+    if(results.length){
+      var avg=Math.round(results.reduce(function(a,b){return a+b;},0)/results.length);
+      h+='<div style="text-align:center;font-size:13px;color:var(--muted);margin-top:4px;">Avg: '+avg+'ms | Target: <'+targetMs+'ms</div>';
+    }
+    g.innerHTML=h;
+    tId=setTimeout(function(){
+      waiting=false;canClick=true;startTime=Date.now();
+      var box=document.getElementById('rt-box');var msg=document.getElementById('rt-msg');
+      if(box)box.style.background='#22c55e';
+      if(msg){msg.textContent='CLICK NOW!';msg.style.color='#fff';msg.style.fontSize='24px';}
+    },delay);
+  }
+  window.rtClick=function(){
+    if(waiting){clearTimeout(tId);_LVL.lose();var g=gw();if(g){var msg=document.getElementById('rt-msg');if(msg){msg.textContent='Too early! Wait for green!';msg.style.color='#ef4444';}}setTimeout(runRound,1500);return;}
+    if(!canClick)return;
+    canClick=false;
+    var rt=Date.now()-startTime;
+    results.push(rt);
+    var box=document.getElementById('rt-box');var msg=document.getElementById('rt-msg');
+    if(box)box.style.background=rt<targetMs?'#6366f1':'#f59e0b';
+    if(msg)msg.textContent=rt+'ms '+(rt<targetMs?'⚡ Fast!':'Slow...');
+    if(results.length>=rounds){
+      var avg=Math.round(results.reduce(function(a,b){return a+b;},0)/results.length);
+      if(avg<targetMs){_LVL.win(40);showScorePop('+40');}else{_LVL.lose();}
+      setTimeout(function(){gameReaction();},1500);
+    }else{setTimeout(runRound,1200);}
+  };
+  runRound();
 }
+
+
 function rtClick(){
   const box=document.getElementById('rt-box');
   if(window._rtState==='idle'){
@@ -2005,7 +2158,68 @@ function tfAns(chosen,correct){window._tfQ++;if(chosen===correct)window._tfScore
 /* SIMON SAYS */
 const SIMON_COLS=['#ef5350','#4caf50','#2196f3','#ffc107'];
 const SIMON_NAMES=['Red','Green','Blue','Yellow'];
-function gameSimon(){window._simonSeq=[];window._simonStep=0;window._simonPlaying=false;simonStart();}
+function gameSimon(){
+  _LVL.init('simon',40);
+  var level=_LVL.level;
+  var COLORS=['#ef4444','#22c55e','#3b82f6','#eab308'];
+  var NAMES=['Red','Green','Blue','Yellow'];
+  var sequence=[];var playerIdx=0;var showing=false;
+  var startLen=Math.max(1,Math.floor(level/3));
+  for(var i=0;i<startLen;i++)sequence.push(Math.floor(Math.random()*4));
+
+  function flash(idx,cb){
+    var btn=document.getElementById('simon-'+idx);
+    if(!btn){if(cb)cb();return;}
+    btn.style.opacity='1';btn.style.transform='scale(1.1)';
+    setTimeout(function(){btn.style.opacity='.3';btn.style.transform='scale(1)';if(cb)setTimeout(cb,100+Math.max(0,50-level*2));},Math.max(100,400-level*10));
+  }
+
+  function showSequence(){
+    showing=true;playerIdx=0;
+    var i=0;
+    function next(){
+      if(i>=sequence.length){showing=false;return;}
+      flash(sequence[i],function(){i++;setTimeout(next,100);});
+    }
+    setTimeout(next,500);
+  }
+
+  function render(){
+    var g=gw();if(!g)return;
+    var h=_LVL.renderHeader('🔴 Simon Says','#f472b6');
+    h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;max-width:220px;margin-left:auto;margin-right:auto;">';
+    COLORS.forEach(function(color,i){
+      h+='<button id="simon-'+i+'" onclick="simonClick('+i+')" style="height:90px;border-radius:12px;background:'+color+';opacity:.3;border:none;cursor:pointer;font-size:15px;font-weight:700;color:#fff;transition:all .1s;text-shadow:0 1px 4px rgba(0,0,0,.4);">'+NAMES[i]+'</button>';
+    });
+    h+='</div>';
+    h+='<div style="text-align:center;font-size:14px;font-weight:600;color:var(--muted);" id="simon-status">Watch and repeat the sequence!</div>';
+    h+='<div style="text-align:center;font-size:13px;color:var(--muted);margin-top:4px;">Sequence length: '+sequence.length+'</div>';
+    g.innerHTML=h;
+    showSequence();
+  }
+
+  window.simonClick=function(idx){
+    if(showing)return;
+    flash(idx);
+    if(idx===sequence[playerIdx]){
+      playerIdx++;
+      if(playerIdx>=sequence.length){
+        playSound('score');showScorePop('+'+sequence.length*5+'!');
+        sequence.push(Math.floor(Math.random()*4));
+        _LVL.win(sequence.length*5);
+        setTimeout(function(){render();},800);
+      }
+    }else{
+      _LVL.lose();
+      var st=document.getElementById('simon-status');
+      if(st){st.textContent='Wrong! The sequence was '+sequence.length+' long.';st.style.color='#ef4444';}
+      setTimeout(function(){gameSimon();},1500);
+    }
+  };
+  render();
+}
+
+
 function simonStart(){
   window._simonSeq=[];window._simonStep=0;
   gw().innerHTML=`<h2>🔵 Simon Says</h2><div id="sim-msg" style="font-size:16px;margin:8px;">Watch the sequence!</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:220px;margin:16px auto;">${SIMON_COLS.map((c,i)=>`<div id="sim-${i}" onclick="simonPress(${i})" style="width:90px;height:90px;border-radius:12px;background:${c};opacity:0.4;cursor:pointer;transition:opacity .15s;"></div>`).join('')}</div><div id="sim-level" style="font-size:14px;color:#666;margin-top:8px;">Level 1</div>`;
@@ -2041,7 +2255,58 @@ function simonPress(idx){
 
 /* WORD SCRAMBLE */
 const WS_WORDS=['PUZZLE','SCRAMBLE','JUNGLE','PLANET','BRIDGE','CASTLE','DRAGON','MIRROR','FILTER','RANDOM','PURPLE','SILVER','WINTER','GARDEN','BOTTLE'];
-function gameWordScramble(){window._wsWord='';nextWS();}
+function gameWordScramble(){
+  _LVL.init('wordscramble',50);
+  var level=_LVL.level;
+  var WORDS_BY_LEVEL=[
+    // Easy (1-10): 4-5 letter words
+    ['GAME','PLAY','WORD','JUMP','FISH','BIRD','CAKE','FIRE','GOLD','STAR'],
+    // Medium (11-25): 6-7 letter words
+    ['PLANET','BRIDGE','FLOWER','CASTLE','MIRROR','BOTTLE','JUNGLE','ROCKET','GARDEN','FROZEN'],
+    // Hard (26-40): 8-9 letter words
+    ['ABSOLUTE','CALENDAR','DIRECTOR','ELEPHANT','FRAGMENT','GRATEFUL','HOSPITAL','INVENTOR','JUDGMENT','KEYBOARD'],
+    // Expert (41-50): 10+ letter words
+    ['BASKETBALL','CELEBRATED','DICTIONARY','EARTHQUAKE','FAHRENHEIT','GOALKEEPER','HELICOPTER','IMPOSSIBLE','JOURNALISM','KNOWLEDGEABLE']
+  ];
+  var tier=level<=10?0:level<=25?1:level<=40?2:3;
+  var wordList=WORDS_BY_LEVEL[tier];
+  var word=wordList[Math.floor(Math.random()*wordList.length)];
+  var scrambled=word.split('').sort(function(){return Math.random()-.5;}).join('');
+  while(scrambled===word)scrambled=word.split('').sort(function(){return Math.random()-.5;}).join('');
+  var timeLimit=Math.max(8,30-level);var timer=timeLimit;
+  var g=gw();if(!g)return;
+  var h=_LVL.renderHeader('🔀 Word Scramble','#4ade80');
+  h+='<div style="text-align:center;margin-bottom:16px;">';
+  h+='<div style="font-size:36px;font-weight:900;letter-spacing:6px;color:#6366f1;background:rgba(99,102,241,.1);padding:16px;border-radius:12px;margin-bottom:8px;">'+scrambled+'</div>';
+  h+='<div style="font-size:13px;color:var(--muted);">Unscramble this word!</div>';
+  if(level>=5)h+='<div id="ws-timer" style="font-size:20px;font-weight:800;margin-top:8px;color:'+(timer<=5?'#ef4444':'#6366f1')+';">⏱ '+timer+'s</div>';
+  h+='</div>';
+  h+='<input id="ws-inp" type="text" placeholder="Type the word..." style="width:100%;padding:14px;border-radius:12px;border:2px solid #e2e8f0;font-size:18px;font-weight:700;font-family:inherit;text-transform:uppercase;text-align:center;outline:none;box-sizing:border-box;margin-bottom:10px;" onkeydown="if(event.key===\'Enter\')wsCheck();">';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
+  h+='<button class="btn" onclick="wsCheck()" style="padding:14px;font-size:16px;">Submit</button>';
+  h+='<button class="btn btn-sec" onclick="wsHint()" style="padding:14px;font-size:16px;">💡 Hint (-5pts)</button>';
+  h+='</div>';
+  h+='<div id="ws-hint-area" style="text-align:center;margin-top:8px;font-size:13px;color:var(--muted);"></div>';
+  g.innerHTML=h;
+  document.getElementById('ws-inp').focus();
+  if(level>=5){
+    window._wsTimer=setInterval(function(){timer--;var te=document.getElementById('ws-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=5?'#ef4444':'#6366f1';}if(timer<=0){clearInterval(window._wsTimer);_LVL.lose();setTimeout(function(){gameWordScramble();},800);}},1000);
+  }
+  window.wsCheck=function(){
+    if(window._wsTimer)clearInterval(window._wsTimer);
+    var val=(document.getElementById('ws-inp').value||'').trim().toUpperCase();
+    if(val===word){_LVL.win(30);showScorePop('+30');setTimeout(function(){gameWordScramble();},700);}
+    else{var alive=_LVL.lose();var inp=document.getElementById('ws-inp');if(inp){inp.style.borderColor='#ef4444';inp.value='';}var ha=document.getElementById('ws-hint-area');if(ha)ha.textContent='Incorrect! The word was: '+word;if(alive)setTimeout(function(){gameWordScramble();},1500);}
+  };
+  window.wsHint=function(){
+    var ha=document.getElementById('ws-hint-area');
+    var revealed=Math.min(word.length-1,Math.floor(word.length/2));
+    if(ha)ha.textContent='Hint: '+word.slice(0,revealed)+'_'.repeat(word.length-revealed);
+    _LVL.score=Math.max(0,_LVL.score-5);
+  };
+}
+
+
 function nextWS(){
   const w=pick(WS_WORDS);
   window._wsWord=w;
@@ -2069,7 +2334,85 @@ const RIDDLES=[
   ["What has one eye but can't see?","A needle"],
   ["I can be cracked, made, told, and played. What am I?","A joke"],
 ];
-function gameRiddles(){window._rdIdx=0;window._rdShuf=shuffle(RIDDLES);nextRiddle();}
+function gameRiddles(){
+  _LVL.init('riddles',40);
+  var ALL=[
+    // Easy
+    ['I have hands but cannot clap. What am I?','A clock'],
+    ['The more you take, the more you leave behind. What am I?','Footsteps'],
+    ['What has keys but no locks, space but no room?','A keyboard'],
+    ['I speak without a mouth and hear without ears. What am I?','An echo'],
+    ['What gets wetter as it dries?','A towel'],
+    ['I have cities, but no houses live there. What am I?','A map'],
+    ['What can you catch but not throw?','A cold'],
+    ['I am always in front of you but cannot be seen. What am I?','The future'],
+    ['What has a head and a tail but no body?','A coin'],
+    ['The more you remove, the bigger I become. What am I?','A hole'],
+    // Medium
+    ['I have branches but no fruit or leaves. What am I?','A bank'],
+    ['What invention lets you look through a wall?','A window'],
+    ['What runs but never walks?','A river'],
+    ['I have a thumb and four fingers but I am not alive. What am I?','A glove'],
+    ['What can fill a room but takes no space?','Light'],
+    ['Forward I am heavy, backward I am not. What am I?','Ton'],
+    ['What goes up but never comes down?','Age'],
+    ['I have no legs but I travel far. What am I?','A ship'],
+    ['What can travel around the world while staying in one spot?','A stamp'],
+    ['I have teeth but cannot eat. What am I?','A comb'],
+    // Hard
+    ['I have an eye but cannot see. What am I?','A needle'],
+    ['The more you share me, the less you have. What am I?','A secret'],
+    ['What has many keys but cannot open a door?','A piano'],
+    ['I am always hungry and must always be fed. What am I?','Fire'],
+    ['What can you keep after giving it to someone?','Your word'],
+    ['I fly without wings, I cry without eyes. What am I?','A cloud'],
+    ['What gets sharper the more you use it?','Your brain'],
+    ['I have no voice, yet I speak to you. What am I?','A book'],
+    ['Born in water, raised on land, dies in fire. What am I?','Salt'],
+    ['What is as light as a feather but even the strongest man cannot hold it for long?','His breath'],
+    // Expert
+    ['The man who invented it does not want it. The man who bought it does not need it. The man who needs it does not know it. What is it?','A coffin'],
+    ['I can be cracked, made, told, and played. What am I?','A joke'],
+    ['What word becomes shorter when you add two letters to it?','Short'],
+    ['How many letters are in the alphabet?','11'],
+    ['I am not alive, but I grow. I have no mouth, but I need water. What am I?','A plant'],
+    ['What loses its head in the morning and gets it back at night?','A pillow'],
+    ['What can run but never walks, has a mouth but never talks?','A river'],
+    ['I have lakes with no water, mountains with no stone, and cities with no buildings. What am I?','A map'],
+    ['What is always in front of you but cannot be seen?','The future'],
+    ['What has one eye but cannot see?','A needle']
+  ];
+  var level=_LVL.level;
+  var idx=Math.floor(Math.random()*Math.min(ALL.length,10+level));
+  var riddle=ALL[idx];
+  var q=riddle[0],ans=riddle[1].toLowerCase();
+  var g=gw();if(!g)return;
+  var h=_LVL.renderHeader('🤔 Riddles','#818cf8');
+  h+='<div style="background:rgba(255,255,255,.08);border-radius:16px;padding:20px;margin-bottom:16px;text-align:center;">';
+  h+='<div style="font-size:32px;margin-bottom:10px;">🧩</div>';
+  h+='<div style="font-size:15px;line-height:1.6;font-weight:600;color:var(--text);">'+q+'</div>';
+  h+='</div>';
+  h+='<input id="riddle-ans" type="text" placeholder="Type your answer..." style="width:100%;padding:14px;border-radius:12px;border:2px solid #e2e8f0;font-size:15px;font-family:inherit;outline:none;box-sizing:border-box;margin-bottom:10px;" onkeydown="if(event.key===\'Enter\')checkRiddle();">';
+  h+='<button class="btn" onclick="checkRiddle()" style="width:100%;padding:14px;font-size:16px;">Submit Answer</button>';
+  h+='<div id="riddle-hint" style="margin-top:10px;text-align:center;color:var(--muted);font-size:13px;">Hint: '+ans[0].toUpperCase()+'_'.repeat(ans.length-1)+'</div>';
+  g.innerHTML=h;
+  document.getElementById('riddle-ans').focus();
+  window.checkRiddle=function(){
+    var val=(document.getElementById('riddle-ans').value||'').toLowerCase().trim();
+    if(val===ans||ans.includes(val)&&val.length>2){
+      _LVL.win(30);showScorePop('+30');
+      var g2=gw();if(g2){var fb=document.createElement('div');fb.style.cssText='text-align:center;padding:12px;background:#dcfce7;border-radius:10px;margin-top:10px;font-size:16px;font-weight:700;color:#15803d;';fb.textContent='Correct! Answer: '+riddle[1];g2.appendChild(fb);}
+      setTimeout(function(){gameRiddles();},1500);
+    }else{
+      var alive=_LVL.lose();
+      var inp=document.getElementById('riddle-ans');if(inp){inp.style.borderColor='#ef4444';inp.value='';}
+      var hint=document.getElementById('riddle-hint');if(hint)hint.textContent='Wrong! The answer was: '+riddle[1];
+      if(alive)setTimeout(function(){gameRiddles();},2000);
+    }
+  };
+}
+
+
 function nextRiddle(){
   if(window._rdIdx>=window._rdShuf.length){gw().innerHTML=`<h2>🤔 Riddles</h2><div style="font-size:48px;">🏆</div><div>All riddles done!</div><button class="g-btn" style="margin-top:12px;" onclick="gameRiddles()">Play Again</button>`;return;}
   const [q]=window._rdShuf[window._rdIdx];
@@ -2089,7 +2432,80 @@ const EQ_LIST=[
   ['🧙🔮💍','Lord of the Rings'],['🦇🌙🦸','Batman'],['🧊🍦🚐','Ice Cream Truck'],
   ['🌹💀💀','Romeo and Juliet'],['🚂💨🧙','Harry Potter'],['🦸🩸🦇','Dracula'],
 ];
-function gameEmojiQuiz(){window._eqIdx=0;window._eqScore=0;window._eqList=shuffle(EQ_LIST);nextEQ();}
+function gameEmojiQuiz(){
+  _LVL.init('emojiquiz',45);
+  var ALL=[
+    {emoji:'🌊🏄','ans':'Surfing'},
+    {emoji:'🌙⭐','ans':'Night Sky'},
+    {emoji:'🔥💧','ans':'Fire and Water'},
+    {emoji:'🎵🎸','ans':'Rock Music'},
+    {emoji:'🍕🇮🇹','ans':'Italian Pizza'},
+    {emoji:'🏔️🧗','ans':'Rock Climbing'},
+    {emoji:'🎬🍿','ans':'Movie Night'},
+    {emoji:'📚🤓','ans':'Studying'},
+    {emoji:'🌺🐝','ans':'Bee and Flower'},
+    {emoji:'🚀🌕','ans':'Moon Landing'},
+    {emoji:'🎭😂😢','ans':'Drama'},
+    {emoji:'🌈☔','ans':'Rainbow After Rain'},
+    {emoji:'🦁🌿','ans':'Lion in Jungle'},
+    {emoji:'⚽🏆','ans':'Football Trophy'},
+    {emoji:'🎂🕯️','ans':'Birthday'},
+    {emoji:'🐠🌊','ans':'Tropical Fish'},
+    {emoji:'☕📰','ans':'Morning Coffee'},
+    {emoji:'🎪🤹','ans':'Circus'},
+    {emoji:'💻👨‍💻','ans':'Coding'},
+    {emoji:'🌍♻️','ans':'Recycle Earth'},
+    {emoji:'🎸🤘','ans':'Rock and Roll'},
+    {emoji:'🦋🌸','ans':'Spring'},
+    {emoji:'🏠❤️','ans':'Home Sweet Home'},
+    {emoji:'🎯🏹','ans':'Archery'},
+    {emoji:'🌊🏖️','ans':'Beach'},
+    {emoji:'🍎📚','ans':'School'},
+    {emoji:'🦅🗽','ans':'American Eagle'},
+    {emoji:'🎻🎼','ans':'Classical Music'},
+    {emoji:'🌊🐋','ans':'Whale Ocean'},
+    {emoji:'🔬🧬','ans':'DNA Science'},
+    {emoji:'🎪🎠','ans':'Carnival'},
+    {emoji:'🏋️💪','ans':'Weightlifting'},
+    {emoji:'🌋🔥','ans':'Volcano'},
+    {emoji:'🐉🔥','ans':'Dragon Fire'},
+    {emoji:'🌺🍹','ans':'Tropical Drink'},
+    {emoji:'🎯🎲','ans':'Strategy Game'},
+    {emoji:'🦚🌈','ans':'Peacock Colors'},
+    {emoji:'🏺🏛️','ans':'Ancient Greece'},
+    {emoji:'🚂🌿','ans':'Train Through Nature'},
+    {emoji:'🦠🔬','ans':'Virus Microscope'},
+    {emoji:'🎆🎇','ans':'Fireworks'},
+    {emoji:'🦩🌅','ans':'Flamingo Sunset'},
+    {emoji:'🏰👸','ans':'Princess Castle'},
+    {emoji:'🌡️🤒','ans':'Sick Fever'},
+    {emoji:'🎣🐟','ans':'Fishing'}
+  ];
+  var level=_LVL.level;
+  var pool=ALL.slice(0,Math.min(ALL.length,8+level));
+  var item=pool[Math.floor(Math.random()*pool.length)];
+  var correct=item.ans;
+  var wrong=ALL.filter(function(a){return a.ans!==correct;}).sort(function(){return Math.random()-.5;}).slice(0,3).map(function(a){return a.ans;});
+  var opts=[correct].concat(wrong).sort(function(){return Math.random()-.5;});
+  var g=gw();if(!g)return;
+  var h=_LVL.renderHeader('😀 Emoji Quiz','#f472b6');
+  h+='<div style="text-align:center;padding:20px;background:rgba(255,255,255,.08);border-radius:16px;margin-bottom:16px;">';
+  h+='<div style="font-size:64px;letter-spacing:8px;margin-bottom:8px;">'+item.emoji+'</div>';
+  h+='<div style="font-size:14px;font-weight:600;color:var(--muted);">What does this represent?</div>';
+  h+='</div>';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
+  opts.forEach(function(opt){
+    h+='<button onclick="eqAns(\''+opt+'\')" style="padding:12px;border-radius:12px;border:2px solid #e2e8f0;background:#fff;cursor:pointer;font-size:13px;font-weight:700;color:#1e293b;transition:all .15s;" onmouseover="this.style.background=\'#ec4899\';this.style.color=\'#fff\';" onmouseout="this.style.background=\'#fff\';this.style.color=\'#1e293b\';">'+opt+'</button>';
+  });
+  h+='</div>';
+  g.innerHTML=h;
+  window.eqAns=function(val){
+    if(val===correct){_LVL.win(25);showScorePop('+25');setTimeout(function(){gameEmojiQuiz();},700);}
+    else{var alive=_LVL.lose();var btns=g.querySelectorAll('button');btns.forEach(function(b){if(b.textContent===correct)b.style.background='#22c55e';else if(b.textContent===val)b.style.background='#ef4444';b.style.color='#fff';b.disabled=true;});if(alive)setTimeout(function(){gameEmojiQuiz();},1200);}
+  };
+}
+
+
 function nextEQ(){
   if(window._eqIdx>=window._eqList.length){gw().innerHTML=`<h2>😀 Emoji Quiz</h2><div style="font-size:48px;">🏆</div><div style="font-size:22px;">Score: ${window._eqScore}/${window._eqList.length}</div><button class="g-btn" style="margin-top:12px;" onclick="gameEmojiQuiz()">Play Again</button>`;return;}
   const [emoji]=window._eqList[window._eqIdx];
@@ -2123,7 +2539,66 @@ const OO_SETS=[
   [['Moon','Sun','Mars','Atlantic'],'Atlantic','Only ocean'],
   [['Shakespeare','Dickens','Newton','Twain'],'Newton','Only scientist'],
 ];
-function gameOddOne(){window._ooIdx=0;window._ooScore=0;window._ooSets=shuffle(OO_SETS);nextOO();}
+function gameOddOne(){
+  _LVL.init('oddone',40);
+  var level=_LVL.level;
+  var ALL=[
+    {items:['Apple','Banana','Carrot','Mango'],odd:'Carrot',reason:'Not a fruit'},
+    {items:['Dog','Cat','Fish','Wolf'],odd:'Fish',reason:'Not a mammal'},
+    {items:['Red','Green','Blue','Five'],odd:'Five',reason:'Not a color'},
+    {items:['Paris','London','Berlin','Amazon'],odd:'Amazon',reason:'Not a capital city'},
+    {items:['Piano','Guitar','Violin','Drum'],odd:'Drum',reason:'Not a stringed instrument'},
+    {items:['Mercury','Venus','Moon','Mars'],odd:'Moon',reason:'Not a planet'},
+    {items:['Add','Subtract','Multiply','Color'],odd:'Color',reason:'Not a math operation'},
+    {items:['Eagle','Penguin','Parrot','Ostrich'],odd:'Parrot',reason:'Can fly... actually Eagles fly, Penguin cannot'},
+    {items:['Iron','Gold','Silver','Wood'],odd:'Wood',reason:'Not a metal'},
+    {items:['Book','Pen','Computer','Bicycle'],odd:'Bicycle',reason:'Not a writing/computing tool'},
+    {items:['Rose','Lily','Tulip','Oak'],odd:'Oak',reason:'Not a flower'},
+    {items:['Circle','Square','Triangle','Cube'],odd:'Cube',reason:'Not a 2D shape'},
+    {items:['Jazz','Rock','Classical','Painting'],odd:'Painting',reason:'Not music'},
+    {items:['Oxygen','Carbon','Hydrogen','Water'],odd:'Water',reason:'Not an element'},
+    {items:['Sprint','Marathon','Relay','Swimming'],odd:'Swimming',reason:'Not a running event'},
+    {items:['Sahara','Gobi','Amazon','Atacama'],odd:'Amazon',reason:'Not a desert'},
+    {items:['1','4','9','14'],odd:'14',reason:'Not a perfect square'},
+    {items:['Python','Java','HTML','C++'],odd:'HTML',reason:'Not a programming language'},
+    {items:['Heart','Liver','Brain','Stomach'],odd:'Brain',reason:'Not a digestive organ'},
+    {items:['Copper','Bronze','Brass','Silver'],odd:'Silver',reason:'Not an alloy'},
+    {items:['Photon','Electron','Neutron','Atom'],odd:'Atom',reason:'Not a subatomic particle'},
+    {items:['Hamlet','Othello','Macbeth','Sherlock'],odd:'Sherlock',reason:'Not Shakespeare'},
+    {items:['ATP','DNA','RNA','H2O'],odd:'H2O',reason:'Not a biological molecule type'},
+    {items:['2','3','4','5'],odd:'4',reason:'Not a prime number'},
+    {items:['Everest','K2','Alps','Kilimanjaro'],odd:'Alps',reason:'Not a single peak'},
+    {items:['Buddha','Jesus','Muhammad','Socrates'],odd:'Socrates',reason:'Not a religious founder'},
+    {items:['Violin','Cello','Bass','Flute'],odd:'Flute',reason:'Not a string instrument'},
+    {items:['Respiration','Photosynthesis','Fermentation','Deforestation'],odd:'Deforestation',reason:'Not a metabolic process'},
+    {items:['Volt','Ampere','Newton','Ohm'],odd:'Newton',reason:'Not an electrical unit'},
+    {items:['Cubism','Impressionism','Baroque','Quantum'],odd:'Quantum',reason:'Not an art movement'}
+  ];
+  var idx=Math.min(ALL.length-1,Math.floor(level/40*ALL.length)+Math.floor(Math.random()*3));
+  var item=ALL[idx];
+  var shuffled=item.items.slice().sort(function(){return Math.random()-.5;});
+  var g=gw();if(!g)return;
+  var h=_LVL.renderHeader('🔍 Odd One Out','#fb923c');
+  h+='<div style="text-align:center;font-size:14px;color:var(--muted);margin-bottom:16px;">Which one does NOT belong?</div>';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">';
+  shuffled.forEach(function(opt){
+    h+='<button onclick="ooAns(\''+opt+'\')" style="padding:16px 12px;border-radius:14px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:15px;font-weight:700;color:var(--text);transition:all .2s;" onmouseover="this.style.background=\'rgba(251,146,60,.4)\';" onmouseout="this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';
+  });
+  h+='</div>';
+  if(level>=20)h+='<div id="oo-timer" style="text-align:center;margin-top:10px;font-size:18px;font-weight:800;color:#fb923c;">⏱ '+(15-Math.floor(level/3))+'s</div>';
+  g.innerHTML=h;
+  if(level>=20){
+    var t=Math.max(5,15-Math.floor(level/3));
+    window._ooTimer=setInterval(function(){t--;var te=document.getElementById('oo-timer');if(te)te.textContent='⏱ '+t+'s';if(t<=0){clearInterval(window._ooTimer);_LVL.lose();setTimeout(function(){gameOddOne();},800);}},1000);
+  }
+  window.ooAns=function(val){
+    if(window._ooTimer)clearInterval(window._ooTimer);
+    if(val===item.odd){_LVL.win(30);showScorePop('+30');var g2=gw();if(g2){var fb=document.createElement('div');fb.style.cssText='text-align:center;padding:10px;background:rgba(34,197,94,.3);border-radius:10px;margin-top:8px;color:#fff;font-size:13px;';fb.textContent='Correct! '+item.reason;g2.appendChild(fb);}setTimeout(function(){gameOddOne();},1500);}
+    else{var alive=_LVL.lose();var btns=g.querySelectorAll('button');btns.forEach(function(b){if(b.textContent===item.odd)b.style.background='rgba(34,197,94,.5)';else if(b.textContent===val)b.style.background='rgba(239,68,68,.5)';b.style.color='#fff';b.disabled=true;});if(alive)setTimeout(function(){gameOddOne();},1500);}
+  };
+}
+
+
 function nextOO(){
   if(window._ooIdx>=window._ooSets.length){gw().innerHTML=`<h2>🔍 Odd One Out</h2><div style="font-size:48px;">🏆</div><div style="font-size:22px;">Score: ${window._ooScore}/${window._ooSets.length}</div><button class="g-btn" style="margin-top:12px;" onclick="gameOddOne()">Play Again</button>`;return;}
   const [items,odd,reason]=window._ooSets[window._ooIdx];
@@ -2139,7 +2614,39 @@ function ooAns(chosen,odd,reason){
 
 /* COLOR MATCH (STROOP) */
 const CM_COLORS=[['Red','#ef5350'],['Green','#4caf50'],['Blue','#2196f3'],['Yellow','#ffc107'],['Purple','#9c27b0'],['Orange','#ff9800']];
-function gameColorMatch(){window._cmScore=0;window._cmQ=0;window._cmStart=Date.now();nextCM();}
+function gameColorMatch(){
+  _LVL.init('colormatch',40);
+  var level=_LVL.level;
+  var COLORS=['Red','Green','Blue','Yellow','Purple','Orange','Pink','Cyan'];
+  var HEX={'Red':'#ef4444','Green':'#22c55e','Blue':'#3b82f6','Yellow':'#eab308','Purple':'#8b5cf6','Orange':'#f97316','Pink':'#ec4899','Cyan':'#06b6d4'};
+  var poolSize=Math.min(COLORS.length,4+Math.floor(level/5));
+  var pool=COLORS.slice(0,poolSize);
+  var wordColor=pool[Math.floor(Math.random()*pool.length)];
+  var inkColor=pool[Math.floor(Math.random()*pool.length)];
+  // At higher levels: always mismatch for harder Stroop
+  if(level>20&&wordColor===inkColor)inkColor=pool[(pool.indexOf(inkColor)+1)%pool.length];
+  var correctAns=(level<=10)?wordColor:inkColor; // Easy: match word, Hard: match ink
+  var opts=pool.slice(0,Math.min(pool.length,4+Math.floor(level/10))).sort(function(){return Math.random()-.5;});
+  if(!opts.includes(correctAns))opts[0]=correctAns;
+  opts=opts.sort(function(){return Math.random()-.5;});
+  var timeLimit=Math.max(2,8-Math.floor(level/6));var timer=timeLimit;
+  var g=gw();if(!g)return;
+  var instruction=level<=10?'Click the WORD you see':'Click the INK COLOR';
+  var h=_LVL.renderHeader('🌈 Color Match','#f472b6');
+  h+='<div style="text-align:center;margin-bottom:16px;">';
+  h+='<div style="font-size:13px;color:rgba(255,255,255,.6);margin-bottom:10px;">'+instruction+'</div>';
+  h+='<div style="font-size:56px;font-weight:900;color:'+HEX[inkColor]+';text-shadow:0 2px 12px '+HEX[inkColor]+'66;margin-bottom:10px;transition:all .2s;">'+wordColor+'</div>';
+  if(level>=5)h+='<div id="cm-timer" style="font-size:22px;font-weight:900;color:'+(timer<=2?'#ef4444':'#f472b6')+';">⏱ '+timer+'s</div>';
+  h+='</div>';
+  h+='<div style="display:grid;grid-template-columns:repeat('+(opts.length<=4?2:3)+',1fr);gap:8px;">';
+  opts.forEach(function(c2){h+='<button onclick="cmAns(\''+c2+'\')" style="padding:14px;border-radius:12px;border:2px solid '+HEX[c2]+'66;background:'+HEX[c2]+'22;cursor:pointer;font-size:14px;font-weight:700;color:'+HEX[c2]+';transition:all .15s;" onmouseover="this.style.background=\''+HEX[c2]+'44\';" onmouseout="this.style.background=\''+HEX[c2]+'22\';">'+c2+'</button>';});
+  h+='</div>';
+  g.innerHTML=h;
+  if(level>=5){window._cmTimer=setInterval(function(){timer--;var te=document.getElementById('cm-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=2?'#ef4444':'#f472b6';}if(timer<=0){clearInterval(window._cmTimer);_LVL.lose();setTimeout(function(){gameColorMatch();},600);}},1000);}
+  window.cmAns=function(val){if(window._cmTimer)clearInterval(window._cmTimer);if(val===correctAns){_LVL.win(15);showScorePop('+15');setTimeout(function(){gameColorMatch();},400);}else{var alive=_LVL.lose();if(alive)setTimeout(function(){gameColorMatch();},800);}};
+}
+
+
 function nextCM(){
   if(window._cmQ>=15){const elapsed=Math.round((Date.now()-window._cmStart)/1000);gw().innerHTML=`<h2>🎨 Color Match</h2><div style="font-size:48px;">🏆</div><div style="font-size:22px;">Score: ${window._cmScore}/15</div><div style="font-size:14px;color:#888;">Time: ${elapsed}s</div><button class="g-btn" style="margin-top:12px;" onclick="gameColorMatch()">Play Again</button>`;return;}
   const textColor=pick(CM_COLORS);
@@ -2257,16 +2764,457 @@ const EXQ_DATA=[
   ['CRISPR stands for...?','Clustered Regularly Interspaced Short Palindromic Repeats','Compound RNA Integration System','Cellular Reprogramming Insertion System','None'],
 ];
 
-function gameGenQuiz(){window._qeRestart=gameGenQuiz;makeQuizEngine(GQ_DATA,'General Knowledge','🧠')();}
-function gameGeoQuiz(){window._qeRestart=gameGeoQuiz;const fn=makeQuizEngine(GGQ_DATA,'Geography Quiz','🌍');fn();}
-function gameSciQuiz(){window._qeRestart=gameSciQuiz;const fn=makeQuizEngine(SQ_DATA,'Science Quiz','🔬');fn();}
-function gameHistQuiz(){window._qeRestart=gameHistQuiz;const fn=makeQuizEngine(HQ_DATA,'History Quiz','📜');fn();}
-function gameMovieQuiz(){window._qeRestart=gameMovieQuiz;const fn=makeQuizEngine(MQ_DATA,'Movie Quiz','🎬');fn();}
-function gameExpertQuiz(){window._qeRestart=gameExpertQuiz;const fn=makeQuizEngine(EXQ_DATA,'Expert Trivia','🏆');fn();}
+function gameGenQuiz(){
+  _LVL.init('genquiz',50);
+  var level=_LVL.level;
+  var ALL_Q=[
+    // Easy
+    {q:'What color do you get mixing red and blue?',a:'Purple',w:['Green','Orange','Brown']},
+    {q:'How many sides does a triangle have?',a:'3',w:['4','5','6']},
+    {q:'What is the capital of France?',a:'Paris',w:['London','Berlin','Rome']},
+    {q:'What planet is closest to the Sun?',a:'Mercury',w:['Venus','Earth','Mars']},
+    {q:'How many continents are there?',a:'7',w:['5','6','8']},
+    {q:'What is H2O?',a:'Water',w:['Salt','Oxygen','Hydrogen']},
+    {q:'How many days in a week?',a:'7',w:['5','6','8']},
+    {q:'What animal says moo?',a:'Cow',w:['Pig','Horse','Sheep']},
+    {q:'How many letters in the English alphabet?',a:'26',w:['24','25','28']},
+    {q:'What is the largest ocean?',a:'Pacific',w:['Atlantic','Indian','Arctic']},
+    // Medium
+    {q:'Who wrote Romeo and Juliet?',a:'Shakespeare',w:['Dickens','Austen','Tolkien']},
+    {q:'What is the speed of light (km/s)?',a:'299,792',w:['150,000','199,792','399,792']},
+    {q:'How many bones in the human body?',a:'206',w:['198','215','212']},
+    {q:'What year did WW2 end?',a:'1945',w:['1943','1944','1946']},
+    {q:'What is the chemical symbol for gold?',a:'Au',w:['Go','Gd','Ag']},
+    {q:'Which planet has rings?',a:'Saturn',w:['Jupiter','Mars','Neptune']},
+    {q:'What is the square root of 144?',a:'12',w:['11','13','14']},
+    {q:'How many players in a soccer team?',a:'11',w:['9','10','12']},
+    {q:'What is the longest river in the world?',a:'Nile',w:['Amazon','Yangtze','Mississippi']},
+    {q:'What year did man first land on the Moon?',a:'1969',w:['1965','1967','1971']},
+    // Hard
+    {q:'What is the powerhouse of the cell?',a:'Mitochondria',w:['Nucleus','Ribosome','Vacuole']},
+    {q:'Who developed the theory of relativity?',a:'Einstein',w:['Newton','Darwin','Hawking']},
+    {q:'What is the capital of Australia?',a:'Canberra',w:['Sydney','Melbourne','Perth']},
+    {q:'Which element has atomic number 79?',a:'Gold',w:['Silver','Platinum','Iron']},
+    {q:'How many symphonies did Beethoven write?',a:'9',w:['6','7','10']},
+    {q:'What year was the Eiffel Tower built?',a:'1889',w:['1876','1901','1895']},
+    {q:'What is the hardest natural substance?',a:'Diamond',w:['Steel','Quartz','Titanium']},
+    {q:'Who painted the Sistine Chapel?',a:'Michelangelo',w:['Da Vinci','Raphael','Botticelli']},
+    {q:'What is the smallest country in the world?',a:'Vatican City',w:['Monaco','Liechtenstein','San Marino']},
+    {q:'What is pi to 4 decimal places?',a:'3.1416',w:['3.1214','3.1592','3.1618']},
+    // Expert
+    {q:'What is the half-life of Carbon-14?',a:'5,730 years',w:['1,000 years','10,000 years','50,000 years']},
+    {q:'Who invented the World Wide Web?',a:'Tim Berners-Lee',w:['Bill Gates','Steve Jobs','Linus Torvalds']},
+    {q:'What is the Fibonacci sequence start?',a:'0,1,1,2,3,5',w:['1,1,2,3,5,8','0,1,2,3,4,5','1,2,3,5,8,13']},
+    {q:'How many moons does Jupiter have?',a:'95',w:['67','79','88']},
+    {q:'What is the Krebs cycle?',a:'Cellular respiration',w:['Photosynthesis','Mitosis','DNA replication']},
+    {q:'In what year was the first iPhone released?',a:'2007',w:['2005','2006','2008']},
+    {q:'What is the Pythagorean theorem?',a:'a²+b²=c²',w:['a+b=c','a×b=c²','a²-b²=c']},
+    {q:'Who wrote "A Brief History of Time"?',a:'Stephen Hawking',w:['Carl Sagan','Neil deGrasse Tyson','Brian Greene']},
+    {q:'What is the largest desert in the world?',a:'Antarctica',w:['Sahara','Arabian','Gobi']},
+    {q:'What is quantum entanglement?',a:'Particle correlation',w:['Wave function','Energy quanta','Spin orbit']}
+  ];
+  var maxIdx=Math.min(ALL_Q.length-1,Math.floor(level/50*ALL_Q.length));
+  var range=Math.min(ALL_Q.length,10+level);
+  var q=ALL_Q[Math.floor(Math.random()*Math.min(range,ALL_Q.length))];
+  var opts=[q.a].concat(q.w).sort(function(){return Math.random()-.5;});
+  var timeLimit=Math.max(5,20-Math.floor(level/4));var timer=timeLimit;
+  var g=gw();if(!g)return;
+  var h=_LVL.renderHeader('🧠 General Knowledge','#818cf8');
+  h+='<div style="background:rgba(255,255,255,.08);border-radius:14px;padding:18px;margin-bottom:14px;text-align:center;">';
+  h+='<div style="font-size:15px;font-weight:700;line-height:1.5;color:var(--text);">'+q.q+'</div>';
+  if(level>=8)h+='<div id="gq-timer" style="font-size:20px;font-weight:900;margin-top:8px;color:'+(timer<=5?'#ef4444':'#818cf8')+';">⏱ '+timer+'s</div>';
+  h+='</div>';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
+  opts.forEach(function(opt){
+    h+='<button onclick="gqAns(\''+opt.replace(/'/g,"\\'")+'\')" style="padding:12px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:13px;font-weight:700;color:var(--text);transition:all .15s;" onmouseover="this.style.background=\'rgba(129,140,248,.4)\';" onmouseout="this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';
+  });
+  h+='</div>';
+  g.innerHTML=h;
+  if(level>=8){
+    window._gqTimer=setInterval(function(){timer--;var te=document.getElementById('gq-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=5?'#ef4444':'#818cf8';}if(timer<=0){clearInterval(window._gqTimer);_LVL.lose();setTimeout(function(){gameGenQuiz();},800);}},1000);
+  }
+  window.gqAns=function(val){
+    if(window._gqTimer)clearInterval(window._gqTimer);
+    if(val===q.a){_LVL.win(25);showScorePop('+25');setTimeout(function(){gameGenQuiz();},700);}
+    else{var alive=_LVL.lose();var btns=g.querySelectorAll('button');btns.forEach(function(b){if(b.textContent===q.a)b.style.background='rgba(34,197,94,.5)';else if(b.textContent===val)b.style.background='rgba(239,68,68,.5)';b.disabled=true;});if(alive)setTimeout(function(){gameGenQuiz();},1300);}
+  };
+}
 
-/* MEMORY CARDS */
-const MEM_EMOJIS='🍎🍊🍋🍇🍓🍑🥝🍒🫐🥭🍍🍌🍐🎯🎮🎲🃏🎪🎨🎭'.split('');
-function gameMemory(){startMemory(4,8,'memory');}
+
+function gameGeoQuiz(){
+  _LVL.init('geoquiz',50);
+  var level=_LVL.level;
+  var ALL=[
+    {q:'Capital of France?',a:'Paris',w:['London','Berlin','Rome']},
+    {q:'Capital of Japan?',a:'Tokyo',w:['Osaka','Kyoto','Hiroshima']},
+    {q:'Largest country by area?',a:'Russia',w:['Canada','China','USA']},
+    {q:'Capital of Australia?',a:'Canberra',w:['Sydney','Melbourne','Perth']},
+    {q:'Which country has the most population?',a:'India',w:['China','USA','Indonesia']},
+    {q:'Longest river in the world?',a:'Nile',w:['Amazon','Yangtze','Mississippi']},
+    {q:'Highest mountain in the world?',a:'Everest',w:['K2','Kangchenjunga','Makalu']},
+    {q:'Capital of Brazil?',a:'Brasilia',w:['Rio de Janeiro','São Paulo','Salvador']},
+    {q:'Which ocean is the largest?',a:'Pacific',w:['Atlantic','Indian','Arctic']},
+    {q:'Capital of Canada?',a:'Ottawa',w:['Toronto','Vancouver','Montreal']},
+    {q:'Capital of Germany?',a:'Berlin',w:['Munich','Hamburg','Frankfurt']},
+    {q:'Which country has the Eiffel Tower?',a:'France',w:['Belgium','Italy','Spain']},
+    {q:'Capital of Egypt?',a:'Cairo',w:['Alexandria','Luxor','Aswan']},
+    {q:'Smallest country in the world?',a:'Vatican City',w:['Monaco','Liechtenstein','San Marino']},
+    {q:'Which continent has the most countries?',a:'Africa',w:['Asia','Europe','Americas']},
+    {q:'Capital of Argentina?',a:'Buenos Aires',w:['Mendoza','Cordoba','Rosario']},
+    {q:'Capital of India?',a:'New Delhi',w:['Mumbai','Kolkata','Chennai']},
+    {q:'Which country has the Colosseum?',a:'Italy',w:['Greece','Spain','Turkey']},
+    {q:'Capital of South Korea?',a:'Seoul',w:['Busan','Incheon','Daegu']},
+    {q:'Which is the driest desert?',a:'Atacama',w:['Sahara','Gobi','Arabian']},
+    {q:'Capital of Mexico?',a:'Mexico City',w:['Guadalajara','Monterrey','Puebla']},
+    {q:'Which country is known as the Land of the Rising Sun?',a:'Japan',w:['China','South Korea','Thailand']},
+    {q:'Capital of Turkey?',a:'Ankara',w:['Istanbul','Izmir','Bursa']},
+    {q:'Which river flows through Egypt?',a:'Nile',w:['Congo','Niger','Zambezi']},
+    {q:'Capital of Russia?',a:'Moscow',w:['Saint Petersburg','Novosibirsk','Kazan']},
+    {q:'Which country has the most islands?',a:'Sweden',w:['Norway','Finland','Indonesia']},
+    {q:'Capital of Saudi Arabia?',a:'Riyadh',w:['Jeddah','Mecca','Medina']},
+    {q:'Which ocean borders Africa and Asia?',a:'Indian Ocean',w:['Atlantic','Pacific','Arctic']},
+    {q:'Capital of New Zealand?',a:'Wellington',w:['Auckland','Christchurch','Dunedin']},
+    {q:'Which country has the Amazon rainforest?',a:'Brazil',w:['Colombia','Peru','Venezuela']},
+    {q:'Capital of Thailand?',a:'Bangkok',w:['Chiang Mai','Pattaya','Phuket']},
+    {q:'Which is the longest wall ever built?',a:'Great Wall of China',w:['Hadrian\'s Wall','Berlin Wall','Aurelian Wall']},
+    {q:'Capital of Kenya?',a:'Nairobi',w:['Mombasa','Kisumu','Nakuru']},
+    {q:'Which country has the Taj Mahal?',a:'India',w:['Pakistan','Bangladesh','Nepal']},
+    {q:'Capital of Norway?',a:'Oslo',w:['Bergen','Stavanger','Trondheim']},
+    {q:'Which sea is saltiest?',a:'Dead Sea',w:['Red Sea','Caspian Sea','Black Sea']},
+    {q:'Capital of Poland?',a:'Warsaw',w:['Krakow','Gdansk','Wroclaw']},
+    {q:'Which continent is Antarctica?',a:'Antarctica',w:['An ocean','An island','Part of South America']},
+    {q:'Capital of Nigeria?',a:'Abuja',w:['Lagos','Kano','Ibadan']},
+    {q:'Which country has the most UNESCO sites?',a:'Italy',w:['China','Spain','France']},
+    {q:'Capital of Philippines?',a:'Manila',w:['Cebu','Davao','Makati']},
+    {q:'Where is the Sahara Desert?',a:'North Africa',w:['Middle East','Central Asia','Southern Africa']},
+    {q:'Capital of Vietnam?',a:'Hanoi',w:['Ho Chi Minh City','Da Nang','Hue']},
+    {q:'Which is the highest plateau?',a:'Tibetan Plateau',w:['Colorado Plateau','Iranian Plateau','Deccan Plateau']},
+    {q:'Capital of Colombia?',a:'Bogota',w:['Medellin','Cali','Cartagena']},
+    {q:'Which country has most active volcanoes?',a:'Indonesia',w:['Japan','USA','Philippines']},
+    {q:'Capital of Ukraine?',a:'Kyiv',w:['Lviv','Kharkiv','Odessa']},
+    {q:'Which city is built on water?',a:'Venice',w:['Amsterdam','Bangkok','Stockholm']},
+    {q:'Capital of Peru?',a:'Lima',w:['Cusco','Arequipa','Trujillo']},
+    {q:'Which is the deepest lake?',a:'Lake Baikal',w:['Lake Tanganyika','Caspian Sea','Lake Superior']}
+  ];
+  var range=Math.min(ALL.length,10+level);
+  var q=ALL[Math.floor(Math.random()*range)];
+  var opts=[q.a].concat(q.w).sort(function(){return Math.random()-.5;});
+  var timeLimit=Math.max(5,20-Math.floor(level/4));var timer=timeLimit;
+  var g=gw();if(!g)return;
+  var h=_LVL.renderHeader('🌍 Geography Quiz','#60a5fa');
+  h+='<div style="background:rgba(255,255,255,.08);border-radius:14px;padding:18px;margin-bottom:14px;text-align:center;">';
+  h+='<div style="font-size:36px;margin-bottom:8px;">🗺️</div>';
+  h+='<div style="font-size:15px;font-weight:700;color:var(--text);">'+q.q+'</div>';
+  if(level>=5)h+='<div id="geo-timer" style="font-size:20px;font-weight:800;margin-top:8px;color:'+(timer<=5?'#ef4444':'#60a5fa')+';">⏱ '+timer+'s</div>';
+  h+='</div>';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
+  opts.forEach(function(opt){
+    h+='<button onclick="geoAns(\''+opt.replace(/'/g,"\\'")+'\')" style="padding:12px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:13px;font-weight:700;color:var(--text);transition:all .15s;" onmouseover="this.style.background=\'rgba(96,165,250,.4)\';" onmouseout="this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';
+  });
+  h+='</div>';
+  g.innerHTML=h;
+  if(level>=5){
+    window._geoTimer=setInterval(function(){timer--;var te=document.getElementById('geo-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=5?'#ef4444':'#60a5fa';}if(timer<=0){clearInterval(window._geoTimer);_LVL.lose();setTimeout(function(){gameGeoQuiz();},800);}},1000);
+  }
+  window.geoAns=function(val){
+    if(window._geoTimer)clearInterval(window._geoTimer);
+    if(val===q.a){_LVL.win(25);showScorePop('+25');setTimeout(function(){gameGeoQuiz();},700);}
+    else{var alive=_LVL.lose();var btns=g.querySelectorAll('button');btns.forEach(function(b){if(b.textContent===q.a)b.style.background='rgba(34,197,94,.5)';else if(b.textContent===val)b.style.background='rgba(239,68,68,.5)';b.disabled=true;});if(alive)setTimeout(function(){gameGeoQuiz();},1200);}
+  };
+}
+
+
+function gameSciQuiz(){
+  _LVL.init('sciquiz',45);
+  var level=_LVL.level;
+  var ALL=[
+    {q:'What is the chemical symbol for water?',a:'H2O',w:['CO2','O2','H2']},
+    {q:'How many planets are in our solar system?',a:'8',w:['7','9','10']},
+    {q:'What force keeps us on Earth?',a:'Gravity',w:['Magnetism','Friction','Inertia']},
+    {q:'What is the powerhouse of the cell?',a:'Mitochondria',w:['Nucleus','Ribosome','Golgi']},
+    {q:'What planet is the Red Planet?',a:'Mars',w:['Jupiter','Venus','Saturn']},
+    {q:'What gas do plants absorb?',a:'Carbon Dioxide',w:['Oxygen','Nitrogen','Hydrogen']},
+    {q:'What is the speed of light?',a:'299,792 km/s',w:['150,000 km/s','450,000 km/s','100,000 km/s']},
+    {q:'What is the atomic number of Carbon?',a:'6',w:['4','8','12']},
+    {q:'Which gas is most abundant in atmosphere?',a:'Nitrogen',w:['Oxygen','Carbon Dioxide','Argon']},
+    {q:'What is the boiling point of water?',a:'100°C',w:['50°C','120°C','90°C']},
+    {q:'How many chromosomes do humans have?',a:'46',w:['23','48','44']},
+    {q:'What is DNA composed of?',a:'Nucleotides',w:['Amino acids','Proteins','Lipids']},
+    {q:'Which element is a liquid at room temperature?',a:'Mercury',w:['Bromine','Gallium','Cesium']},
+    {q:'What is the name for H2O as a gas?',a:'Steam',w:['Vapor','Mist','Fog']},
+    {q:'What is the SI unit of force?',a:'Newton',w:['Joule','Watt','Pascal']},
+    {q:'Which vitamin is produced by sunlight?',a:'Vitamin D',w:['Vitamin A','Vitamin C','Vitamin B12']},
+    {q:'What type of radiation has the shortest wavelength?',a:'Gamma rays',w:['X-rays','Ultraviolet','Microwaves']},
+    {q:'What is the pH of neutral water?',a:'7',w:['5','9','6']},
+    {q:'What is the largest organ in the human body?',a:'Skin',w:['Liver','Brain','Heart']},
+    {q:'What is the half-life of Carbon-14?',a:'5,730 years',w:['1,000 years','10,000 years','570 years']},
+    {q:'What particle has no charge?',a:'Neutron',w:['Proton','Electron','Positron']},
+    {q:'What is the process of cell division called?',a:'Mitosis',w:['Meiosis','Osmosis','Diffusion']},
+    {q:'Which planet has the strongest magnetic field?',a:'Jupiter',w:['Saturn','Earth','Neptune']},
+    {q:'What is Avogadros number?',a:'6.022 x 10^23',w:['3.14 x 10^23','9.81 x 10^23','1.67 x 10^23']},
+    {q:'What is the chemical formula for salt?',a:'NaCl',w:['KCl','CaCl','MgCl']},
+    {q:'What is the name of the closest star to Earth?',a:'Proxima Centauri',w:['Sirius','Alpha Centauri A','Vega']},
+    {q:'What is the SI unit of electrical resistance?',a:'Ohm',w:['Volt','Ampere','Farad']},
+    {q:'Which blood type is the universal donor?',a:'O negative',w:['A positive','AB negative','B positive']},
+    {q:'What is Newtons third law?',a:'Action-reaction',w:['Inertia','Acceleration','Conservation']},
+    {q:'What is the smallest unit of matter?',a:'Atom',w:['Molecule','Quark','Electron']},
+    {q:'What causes rainbows?',a:'Light refraction',w:['Reflection','Diffraction','Absorption']},
+    {q:'What is the most common element in universe?',a:'Hydrogen',w:['Helium','Carbon','Oxygen']},
+    {q:'How many bones are in the human skull?',a:'22',w:['14','29','8']},
+    {q:'What type of bond shares electrons?',a:'Covalent',w:['Ionic','Metallic','Hydrogen']},
+    {q:'What is the freezing point of water in Fahrenheit?',a:'32°F',w:['0°F','28°F','41°F']},
+    {q:'What organ produces insulin?',a:'Pancreas',w:['Liver','Kidney','Thyroid']},
+    {q:'Which wave type requires a medium?',a:'Mechanical',w:['Electromagnetic','Radio','Light']},
+    {q:'What is the chemical symbol for potassium?',a:'K',w:['P','Po','Pt']},
+    {q:'What is terminal velocity?',a:'Maximum falling speed',w:['Launch speed','Escape velocity','Sound speed']},
+    {q:'How many moons does Mars have?',a:'2',w:['0','1','3']},
+    {q:'What is the name for the study of earthquakes?',a:'Seismology',w:['Geology','Volcanology','Tectonics']},
+    {q:'Which planet rotates on its side?',a:'Uranus',w:['Neptune','Saturn','Venus']},
+    {q:'What is the chemical symbol for silver?',a:'Ag',w:['Si','S','Sr']},
+    {q:'What causes tides?',a:'Moon gravity',w:['Sun gravity','Earth rotation','Wind']},
+    {q:'How many valence electrons does Carbon have?',a:'4',w:['2','6','8']}
+  ];
+  var range=Math.min(ALL.length,10+level);
+  var q=ALL[Math.floor(Math.random()*range)];
+  var opts=[q.a].concat(q.w).sort(function(){return Math.random()-.5;});
+  var timeLimit=Math.max(5,18-Math.floor(level/3));var timer=timeLimit;
+  var g=gw();if(!g)return;
+  var h=_LVL.renderHeader('🔬 Science Quiz','#22d3ee');
+  h+='<div style="background:rgba(255,255,255,.08);border-radius:14px;padding:18px;margin-bottom:14px;text-align:center;">';
+  h+='<div style="font-size:30px;margin-bottom:8px;">🔬⚗️🧬</div>';
+  h+='<div style="font-size:15px;font-weight:700;color:var(--text);">'+q.q+'</div>';
+  if(level>=5)h+='<div id="sci-timer" style="font-size:20px;font-weight:900;margin-top:8px;color:'+(timer<=5?'#ef4444':'#22d3ee')+';">⏱ '+timer+'s</div>';
+  h+='</div>';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
+  opts.forEach(function(opt){h+='<button onclick="sciAns(\''+opt.replace(/'/g,"\\'")+'\')" style="padding:12px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:13px;font-weight:700;color:var(--text);transition:all .15s;" onmouseover="this.style.background=\'rgba(34,211,238,.3)\';" onmouseout="this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';});
+  h+='</div>';
+  g.innerHTML=h;
+  if(level>=5){window._sciTimer=setInterval(function(){timer--;var te=document.getElementById('sci-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=5?'#ef4444':'#22d3ee';}if(timer<=0){clearInterval(window._sciTimer);_LVL.lose();setTimeout(function(){gameSciQuiz();},800);}},1000);}
+  window.sciAns=function(val){if(window._sciTimer)clearInterval(window._sciTimer);if(val===q.a){_LVL.win(25);showScorePop('+25');setTimeout(function(){gameSciQuiz();},700);}else{var alive=_LVL.lose();var btns=g.querySelectorAll('button');btns.forEach(function(b){if(b.textContent===q.a)b.style.background='rgba(34,197,94,.5)';else if(b.textContent===val)b.style.background='rgba(239,68,68,.5)';b.disabled=true;});if(alive)setTimeout(function(){gameSciQuiz();},1300);}};
+}
+
+
+function gameHistQuiz(){
+  _LVL.init('histquiz',40);
+  var level=_LVL.level;
+  var ALL=[
+    {q:'When did World War II end?',a:'1945',w:['1943','1944','1946']},
+    {q:'Who was the first US President?',a:'George Washington',w:['John Adams','Thomas Jefferson','Abraham Lincoln']},
+    {q:'When did the French Revolution begin?',a:'1789',w:['1776','1793','1804']},
+    {q:'What ancient wonder was in Alexandria?',a:'Lighthouse',w:['Colossus','Mausoleum','Gardens']},
+    {q:'Which empire was ruled by Genghis Khan?',a:'Mongol Empire',w:['Ottoman Empire','Roman Empire','Persian Empire']},
+    {q:'When did man first land on the Moon?',a:'1969',w:['1965','1971','1967']},
+    {q:'Who wrote the Declaration of Independence?',a:'Thomas Jefferson',w:['Benjamin Franklin','John Adams','James Madison']},
+    {q:'What year did the Berlin Wall fall?',a:'1989',w:['1985','1991','1987']},
+    {q:'Which pharaoh built the Great Pyramid?',a:'Khufu',w:['Ramesses','Tutankhamun','Cleopatra']},
+    {q:'When was the Magna Carta signed?',a:'1215',w:['1066','1415','1307']},
+    {q:'Who invented the printing press?',a:'Johannes Gutenberg',w:['Leonardo da Vinci','Isaac Newton','Galileo Galilei']},
+    {q:'What year did WWI begin?',a:'1914',w:['1912','1916','1918']},
+    {q:'Who led the Indian independence movement?',a:'Mahatma Gandhi',w:['Nehru','Subhas Bose','Tilak']},
+    {q:'What was the name of the first artificial satellite?',a:'Sputnik',w:['Vostok','Explorer','Telstar']},
+    {q:'Which empire was ruled by Augustus Caesar?',a:'Roman Empire',w:['Byzantine Empire','Ottoman Empire','Holy Roman Empire']},
+    {q:'When did the Renaissance begin?',a:'14th century',w:['12th century','16th century','13th century']},
+    {q:'Who discovered America in 1492?',a:'Columbus',w:['Vespucci','Cabot','Drake']},
+    {q:'What was the longest war in US history?',a:'War in Afghanistan',w:['Vietnam War','Revolutionary War','Civil War']},
+    {q:'Who was the first woman to win a Nobel Prize?',a:'Marie Curie',w:['Jane Addams','Pearl Buck','Bertha Suttner']},
+    {q:'What year was the Titanic disaster?',a:'1912',w:['1910','1914','1908']},
+    {q:'Which civilization built Machu Picchu?',a:'Inca',w:['Aztec','Maya','Olmec']},
+    {q:'When was the first iPhone released?',a:'2007',w:['2005','2008','2009']},
+    {q:'What year was the United Nations founded?',a:'1945',w:['1919','1939','1950']},
+    {q:'Who was the first Emperor of China?',a:'Qin Shi Huang',w:['Kublai Khan','Yongle','Wu Zetian']},
+    {q:'What year was the internet invented?',a:'1989',w:['1975','1995','1983']},
+    {q:'Which country was the first to give women the right to vote?',a:'New Zealand',w:['Australia','Finland','USA']},
+    {q:'What was the name of the ship Darwin sailed on?',a:'HMS Beagle',w:['HMS Victory','HMS Endeavour','HMS Challenger']},
+    {q:'When did Nelson Mandela become president of South Africa?',a:'1994',w:['1990','1996','1991']},
+    {q:'Who invented the telephone?',a:'Alexander Graham Bell',w:['Thomas Edison','Nikola Tesla','Guglielmo Marconi']},
+    {q:'What was the first country to land on Mars?',a:'USA',w:['USSR','China','ESA']}
+  ];
+  var range=Math.min(ALL.length,10+level);
+  var q=ALL[Math.floor(Math.random()*range)];
+  var opts=[q.a].concat(q.w).sort(function(){return Math.random()-.5;});
+  var timeLimit=Math.max(6,20-Math.floor(level/3));var timer=timeLimit;
+  var g=gw();if(!g)return;
+  var h=_LVL.renderHeader('📜 History Quiz','#f59e0b');
+  h+='<div style="background:rgba(255,255,255,.08);border-radius:14px;padding:18px;margin-bottom:14px;text-align:center;">';
+  h+='<div style="font-size:28px;margin-bottom:8px;">🏛️📜⚔️</div>';
+  h+='<div style="font-size:15px;font-weight:700;color:var(--text);">'+q.q+'</div>';
+  if(level>=5)h+='<div id="hi-timer" style="font-size:20px;font-weight:900;margin-top:8px;color:'+(timer<=5?'#ef4444':'#f59e0b')+';">⏱ '+timer+'s</div>';
+  h+='</div>';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
+  opts.forEach(function(opt){h+='<button onclick="hiAns(\''+opt.replace(/'/g,"\\'")+'\')" style="padding:12px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:13px;font-weight:700;color:var(--text);transition:all .15s;" onmouseover="this.style.background=\'rgba(245,158,11,.3)\';" onmouseout="this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';});
+  h+='</div>';
+  g.innerHTML=h;
+  if(level>=5){window._hiTimer=setInterval(function(){timer--;var te=document.getElementById('hi-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=5?'#ef4444':'#f59e0b';}if(timer<=0){clearInterval(window._hiTimer);_LVL.lose();setTimeout(function(){gameHistQuiz();},800);}},1000);}
+  window.hiAns=function(val){if(window._hiTimer)clearInterval(window._hiTimer);if(val===q.a){_LVL.win(25);showScorePop('+25');setTimeout(function(){gameHistQuiz();},700);}else{var alive=_LVL.lose();var btns=g.querySelectorAll('button');btns.forEach(function(b){if(b.textContent===q.a)b.style.background='rgba(34,197,94,.5)';else if(b.textContent===val)b.style.background='rgba(239,68,68,.5)';b.disabled=true;});if(alive)setTimeout(function(){gameHistQuiz();},1300);}};
+}
+
+
+function gameMovieQuiz(){
+  _LVL.init('moviequiz',40);
+  var level=_LVL.level;
+  var ALL=[
+    {q:'Who directed Titanic (1997)?',a:'James Cameron',w:['Steven Spielberg','Christopher Nolan','Ridley Scott']},
+    {q:'In which movie does "I\'ll be back" appear?',a:'The Terminator',w:['Predator','RoboCop','Die Hard']},
+    {q:'Which film won the first Academy Award for Best Picture?',a:'Wings (1927)',w:['The Jazz Singer','Sunrise','Ben-Hur']},
+    {q:'Who played Iron Man in the MCU?',a:'Robert Downey Jr.',w:['Chris Evans','Chris Hemsworth','Mark Ruffalo']},
+    {q:'What year was Star Wars first released?',a:'1977',w:['1975','1979','1980']},
+    {q:'Which movie features the line "You had me at hello"?',a:'Jerry Maguire',w:['Notting Hill','When Harry Met Sally','Pretty Woman']},
+    {q:'Who voiced Woody in Toy Story?',a:'Tom Hanks',w:['Tim Allen','Tom Cruise','Will Smith']},
+    {q:'Which film has the highest box office revenue ever?',a:'Avatar',w:['Avengers Endgame','Titanic','Star Wars']},
+    {q:'In The Dark Knight, who played the Joker?',a:'Heath Ledger',w:['Jack Nicholson','Jared Leto','Joaquin Phoenix']},
+    {q:'Which Pixar movie features a rat who wants to cook?',a:'Ratatouille',w:['Remy','Chef','The Kitchen']},
+    {q:'What is the name of the ship in Alien (1979)?',a:'Nostromo',w:['Sulaco','Prometheus','Discovery']},
+    {q:'Who played Neo in The Matrix?',a:'Keanu Reeves',w:['Laurence Fishburne','Hugo Weaving','Will Smith']},
+    {q:'Which movie features the song "Let It Go"?',a:'Frozen',w:['Tangled','Moana','Brave']},
+    {q:'What year was The Shawshank Redemption released?',a:'1994',w:['1991','1996','1998']},
+    {q:'Who directed Pulp Fiction?',a:'Quentin Tarantino',w:['Martin Scorsese','Francis Ford Coppola','Oliver Stone']},
+    {q:'Which Bond film featured the theme song "Skyfall"?',a:'Skyfall',w:['Casino Royale','Spectre','No Time to Die']},
+    {q:'In which city does La La Land take place?',a:'Los Angeles',w:['New York','Chicago','San Francisco']},
+    {q:'Who played Forrest Gump?',a:'Tom Hanks',w:['Tom Cruise','Kevin Costner','Mel Gibson']},
+    {q:'Which film won Best Picture at the 2020 Oscars?',a:'Parasite',w:['1917','Ford v Ferrari','Joker']},
+    {q:'What is the highest-rated film on IMDb?',a:'The Shawshank Redemption',w:['The Godfather','The Dark Knight','Schindlers List']},
+    {q:'Who plays Captain Jack Sparrow?',a:'Johnny Depp',w:['Orlando Bloom','Keira Knightley','Bill Nighy']},
+    {q:'Which movie features talking toys?',a:'Toy Story',w:['Antz','A Bugs Life','Shrek']},
+    {q:'Who directed Jurassic Park?',a:'Steven Spielberg',w:['James Cameron','George Lucas','Ron Howard']},
+    {q:'What is the name of the lion in The Lion King?',a:'Simba',w:['Mufasa','Nala','Scar']},
+    {q:'Which 2019 film earned over $2 billion worldwide?',a:'Avengers Endgame',w:['The Lion King','Frozen 2','Spider-Man Far From Home']},
+    {q:'Who played Black Widow in the MCU?',a:'Scarlett Johansson',w:['Brie Larson','Elizabeth Olsen','Zoe Saldana']},
+    {q:'In which film does Leonardo DiCaprio play a con artist?',a:'Catch Me If You Can',w:['The Wolf of Wall Street','Shutter Island','Inception']},
+    {q:'What film features the character Dobby?',a:'Harry Potter',w:['The Chronicles of Narnia','Lord of the Rings','Percy Jackson']},
+    {q:'Who composed the music for Interstellar?',a:'Hans Zimmer',w:['John Williams','Howard Shore','Danny Elfman']},
+    {q:'Which film shows a red door leading to Wonderland?',a:'Alice in Wonderland',w:['The Wizard of Oz','Labyrinth','Pan']},
+    {q:'What is the name of the spaceship in 2001: A Space Odyssey?',a:'Discovery One',w:['Enterprise','Nostromo','Millennium Falcon']},
+    {q:'Who directed Schindlers List?',a:'Steven Spielberg',w:['Roman Polanski','Roberto Benigni','Lasse Hallstrom']},
+    {q:'In which film does a clownfish search for his son?',a:'Finding Nemo',w:['The Little Mermaid','Shark Tale','Moana']},
+    {q:'What year was The Godfather released?',a:'1972',w:['1969','1974','1970']},
+    {q:'Who directed 2001: A Space Odyssey?',a:'Stanley Kubrick',w:['Ridley Scott','George Lucas','Alfred Hitchcock']},
+    {q:'In which film does Will Smith play a genie?',a:'Aladdin (2019)',w:['Bright','Ali','The Fresh Prince']},
+    {q:'What is the name of the pub in Shaun of the Dead?',a:'The Winchester',w:['The Queen Vic','The Slaughtered Lamb','The Crown']},
+    {q:'Which actor played Batman in the 1989 film?',a:'Michael Keaton',w:['Val Kilmer','George Clooney','Christian Bale']},
+    {q:'In which film does Tom Hanks play a man stuck in an airport?',a:'The Terminal',w:['Cast Away','Philadelphia','Forrest Gump']},
+    {q:'Which animated film features the character Shrek?',a:'Shrek',w:['Bee Movie','Antz','A Bugs Life']}
+  ];
+  var range=Math.min(ALL.length,10+level);
+  var q=ALL[Math.floor(Math.random()*range)];
+  var opts=[q.a].concat(q.w).sort(function(){return Math.random()-.5;});
+  var timeLimit=Math.max(6,20-Math.floor(level/3));var timer=timeLimit;
+  var g=gw();if(!g)return;
+  var h=_LVL.renderHeader('🎬 Movie Quiz','#818cf8');
+  h+='<div style="background:rgba(255,255,255,.08);border-radius:14px;padding:18px;margin-bottom:14px;">';
+  h+='<div style="font-size:36px;text-align:center;margin-bottom:8px;">🎬</div>';
+  h+='<div style="font-size:15px;font-weight:700;text-align:center;color:var(--text);">'+q.q+'</div>';
+  if(level>=5)h+='<div id="mv-timer" style="text-align:center;font-size:20px;font-weight:900;margin-top:8px;color:'+(timer<=5?'#ef4444':'#818cf8')+';">⏱ '+timer+'s</div>';
+  h+='</div>';
+  h+='<div style="display:grid;grid-template-columns:1fr;gap:8px;">';
+  opts.forEach(function(opt){h+='<button onclick="mvAns(\''+opt.replace(/'/g,"\\'")+'\')" style="padding:12px 16px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:14px;font-weight:600;color:var(--text);text-align:left;transition:all .15s;" onmouseover="this.style.background=\'rgba(129,140,248,.3)\';" onmouseout="this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';});
+  h+='</div>';
+  g.innerHTML=h;
+  if(level>=5){window._mvTimer=setInterval(function(){timer--;var te=document.getElementById('mv-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=5?'#ef4444':'#818cf8';}if(timer<=0){clearInterval(window._mvTimer);_LVL.lose();setTimeout(function(){gameMovieQuiz();},800);}},1000);}
+  window.mvAns=function(val){if(window._mvTimer)clearInterval(window._mvTimer);if(val===q.a){_LVL.win(25);showScorePop('+25');setTimeout(function(){gameMovieQuiz();},700);}else{var alive=_LVL.lose();var btns=g.querySelectorAll('button');btns.forEach(function(b){if(b.textContent===q.a)b.style.background='rgba(34,197,94,.5)';else if(b.textContent===val)b.style.background='rgba(239,68,68,.5)';b.disabled=true;});if(alive)setTimeout(function(){gameMovieQuiz();},1300);}};
+}
+
+
+function gameExpertQuiz(){
+  _LVL.init('expertquiz',30);
+  var level=_LVL.level;
+  var ALL=[
+    {q:'What is the Planck constant?',a:'6.626 x 10^-34 J·s',w:['3.14 x 10^-34','9.81 x 10^-34','1.38 x 10^-34']},
+    {q:'What is Schrodingers cat thought experiment about?',a:'Quantum superposition',w:['Wave-particle duality','Uncertainty principle','Entanglement']},
+    {q:'Who proved Fermats Last Theorem?',a:'Andrew Wiles',w:['Pierre de Fermat','Kurt Godel','Henri Poincare']},
+    {q:'What is the Riemann Hypothesis about?',a:'Distribution of prime numbers',w:['Prime factorization','Infinite series','Complex analysis']},
+    {q:'What is the Haversine formula used for?',a:'Great-circle distance',w:['Tidal calculations','Orbital mechanics','Gravitational lensing']},
+    {q:'What is the Godel Incompleteness Theorem?',a:'Some truths cannot be proven',w:['All math is consistent','Logic is complete','Numbers are finite']},
+    {q:'What is quantum entanglement?',a:'Correlated quantum states',w:['Particle fusion','Wave collapse','Energy transfer']},
+    {q:'Who developed the Standard Model?',a:'Multiple physicists',w:['Einstein alone','Bohr and Heisenberg','Feynman alone']},
+    {q:'What is the Navier-Stokes equation?',a:'Fluid dynamics',w:['Quantum mechanics','General relativity','Thermodynamics']},
+    {q:'What is the Busy Beaver problem?',a:'Uncomputable function',w:['Graph theory','Neural networks','Encryption']},
+    {q:'What is the Langlands program?',a:'Unified number theory',w:['String theory','Quantum gravity','Topology']},
+    {q:'What is P vs NP?',a:'Complexity theory problem',w:['Graph coloring','Sorting algorithm','Data structure']},
+    {q:'What is the abc conjecture?',a:'Number theory conjecture',w:['Algebraic conjecture','Geometric conjecture','Statistical conjecture']},
+    {q:'What is the Monty Hall problem?',a:'Conditional probability',w:['Game theory','Statistics paradox','Bayesian logic']},
+    {q:'What is Kolmogorov complexity?',a:'Algorithmic information',w:['Neural complexity','Graph complexity','Quantum complexity']},
+    {q:'What is the mass of a Higgs boson?',a:'125.1 GeV/c²',w:['91.2 GeV/c²','80.4 GeV/c²','173 GeV/c²']},
+    {q:'What is AdS/CFT correspondence?',a:'String theory/gauge duality',w:['M-theory','Brane cosmology','Loop quantum gravity']},
+    {q:'What is Ramanujan known for?',a:'Number theory prodigy',w:['Set theory founder','Calculus inventor','Topology pioneer']},
+    {q:'What is the Banach-Tarski paradox?',a:'Ball can be doubled',w:['Infinite series diverge','Primes are infinite','Sets are uncountable']},
+    {q:'What is the Yang-Mills existence problem?',a:'Mass gap in QFT',w:['Particle spin','Field equations','Wave functions']},
+    {q:'What is Turings halting problem?',a:'Undecidable computation',w:['Sorting problem','Search problem','Encryption problem']},
+    {q:'What is the holographic principle?',a:'3D info in 2D boundary',w:['Light refraction','Quantum tunneling','Dark matter']},
+    {q:'What is entropy in information theory?',a:'Measure of uncertainty',w:['Data compression','Signal noise','Error correction']},
+    {q:'What is supersymmetry?',a:'Fermion-boson symmetry',w:['String symmetry','Gauge symmetry','CPT symmetry']},
+    {q:'What is the Collatz conjecture?',a:'3n+1 always reaches 1',w:['Primes are infinite','Goldbach proved','Twin primes exist']},
+    {q:'What is the significance of e^(iπ)+1=0?',a:'Euler identity',w:['Fourier identity','Gauss identity','Riemann identity']},
+    {q:'What is the four color theorem?',a:'Maps need 4 colors max',w:['Graphs have 4 colors','Groups have 4 elements','Sets have 4 types']},
+    {q:'What is Goldbach conjecture?',a:'Every even number = 2 primes',w:['Primes are infinite','Twin primes exist','Mersenne primes']},
+    {q:'What is the Birch and Swinnerton-Dyer conjecture?',a:'Elliptic curve points',w:['Prime distribution','Complex zeros','Algebraic integers']},
+    {q:'What is the Poincare conjecture?',a:'3D sphere homeomorphism',w:['Riemann surface','Manifold classification','Knot theory']}
+  ];
+  var q=ALL[Math.min(ALL.length-1,Math.floor(level/30*ALL.length)+Math.floor(Math.random()*4))];
+  var opts=[q.a].concat(q.w).sort(function(){return Math.random()-.5;});
+  var timeLimit=Math.max(8,25-level);var timer=timeLimit;
+  var g=gw();if(!g)return;
+  var h=_LVL.renderHeader('🏆 Expert Trivia','#fbbf24');
+  h+='<div style="background:rgba(255,255,255,.08);border-radius:14px;padding:18px;margin-bottom:14px;text-align:center;">';
+  h+='<div style="font-size:30px;margin-bottom:8px;">🎓</div>';
+  h+='<div style="font-size:14px;font-weight:700;color:var(--text);line-height:1.5;">'+q.q+'</div>';
+  if(level>=5)h+='<div id="ex-timer" style="font-size:20px;font-weight:900;margin-top:8px;color:'+(timer<=8?'#ef4444':'#fbbf24')+';">⏱ '+timer+'s</div>';
+  h+='</div>';
+  h+='<div style="display:grid;grid-template-columns:1fr;gap:8px;">';
+  opts.forEach(function(opt){h+='<button onclick="exAns(\''+opt.replace(/'/g,"\\'")+'\')" style="padding:12px 16px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:13px;font-weight:600;color:var(--text);text-align:left;transition:all .15s;" onmouseover="this.style.background=\'rgba(251,191,36,.3)\';" onmouseout="this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';});
+  h+='</div>';
+  g.innerHTML=h;
+  if(level>=5){window._exTimer=setInterval(function(){timer--;var te=document.getElementById('ex-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=8?'#ef4444':'#fbbf24';}if(timer<=0){clearInterval(window._exTimer);_LVL.lose();setTimeout(function(){gameExpertQuiz();},800);}},1000);}
+  window.exAns=function(val){if(window._exTimer)clearInterval(window._exTimer);if(val===q.a){_LVL.win(50);showScorePop('+50!');setTimeout(function(){gameExpertQuiz();},700);}else{var alive=_LVL.lose();var btns=g.querySelectorAll('button');btns.forEach(function(b){if(b.textContent===q.a)b.style.background='rgba(34,197,94,.5)';else if(b.textContent===val)b.style.background='rgba(239,68,68,.5)';b.disabled=true;});if(alive)setTimeout(function(){gameExpertQuiz();},1500);}};
+}
+
+
+function gameMemory(){
+  _LVL.init('memory',40);
+  var level=_LVL.level;
+  var COLS=level<=5?2:level<=15?3:level<=25?4:level<=35?5:6;
+  var ROWS=level<=5?2:level<=15?3:level<=25?3:level<=35?4:4;
+  var TOTAL=COLS*ROWS;
+  var EMOJIS=['🎮','⚡','🌟','🎯','🔥','💎','🏆','🎪','🎭','🎨','🎵','🎸','🦄','🐉','🌈','🚀','🌙','⭐','🎲','🃏','🦁','🐯','🦊','🐺'];
+  var pairs=EMOJIS.slice(0,TOTAL/2);
+  var cards=pairs.concat(pairs).sort(function(){return Math.random()-.5;});
+  var revealed=[];var matched=[];var flipping=false;var moves=0;
+  var maxMoves=Math.floor(TOTAL*1.5+level*0.5);
+  function render(){
+    var g=gw();if(!g)return;
+    var h=_LVL.renderHeader('🃏 Memory Cards','#f472b6');
+    h+='<div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px;font-weight:600;color:var(--muted);">';
+    h+='<div>Moves: <strong style="color:var(--text);">'+moves+'</strong>/'+maxMoves+'</div>';
+    h+='<div>Pairs: <strong style="color:#22c55e;">'+matched.length/2+'</strong>/'+(TOTAL/2)+'</div>';
+    h+='</div>';
+    h+='<div style="display:grid;grid-template-columns:repeat('+COLS+',1fr);gap:6px;">';
+    cards.forEach(function(card,i){
+      var isRev=revealed.includes(i)||matched.includes(i);
+      var isMatch=matched.includes(i);
+      h+='<div onclick="memClick('+i+')" style="aspect-ratio:1;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:'+(level<=15?24:20)+'px;cursor:pointer;background:'+(isMatch?'#dcfce7':isRev?'#eef2ff':'#e2e8f0')+';border:2px solid '+(isMatch?'#86efac':isRev?'#a5b4fc':'#cbd5e1')+';transition:all .2s;'+(isMatch?'transform:scale(1.05);':'')+'">'+( isRev?card:'')+'</div>';
+    });
+    h+='</div>';
+    g.innerHTML=h;
+  }
+  window.memClick=function(i){
+    if(flipping||matched.includes(i)||revealed.includes(i))return;
+    revealed.push(i);moves++;
+    if(revealed.length===2){
+      flipping=true;
+      if(cards[revealed[0]]===cards[revealed[1]]){
+        matched=matched.concat(revealed);revealed=[];flipping=false;
+        playSound('score');showScorePop('+10');
+        if(matched.length===TOTAL){_LVL.win(60);showScorePop('+60!');setTimeout(function(){gameMemory();},1500);}
+        else render();
+      }else{
+        render();
+        setTimeout(function(){revealed=[];flipping=false;if(moves>=maxMoves){_LVL.lose();setTimeout(function(){gameMemory();},1000);}else render();},1000);
+      }
+    }else render();
+  };
+  render();
+}
+
+
 function gameMemHard(){startMemory(5,10,'memhard');}
 function startMemory(cols,pairs,key){
   const emojis=shuffle(MEM_EMOJIS).slice(0,pairs);
@@ -2299,9 +3247,64 @@ function memClick(i){
 
 /* TIC TAC TOE */
 function gameTTT(){
-  window._tttBoard=Array(9).fill('');window._tttTurn='X';
-  renderTTT('Your turn (X)');
+  _LVL.init('ttt',20);
+  var level=_LVL.level;
+  var board=Array(9).fill(null);var turn='X';var over=false;
+  var aiStrength=Math.min(10,Math.floor(level/2)); // 1-10 AI difficulty
+  function wins(b,p){var L=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];return L.some(function(l){return l.every(function(i){return b[i]===p;});});}
+  function isDraw(b){return b.every(Boolean)&&!wins(b,'X')&&!wins(b,'O');}
+  function minimax(b,isMax,depth){
+    if(wins(b,'O'))return 10-depth;if(wins(b,'X'))return depth-10;if(b.every(Boolean))return 0;
+    var best=isMax?-Infinity:Infinity;
+    b.forEach(function(_,i){if(!b[i]){b[i]=isMax?'O':'X';var v=minimax(b,!isMax,depth+1);b[i]=null;best=isMax?Math.max(best,v):Math.min(best,v);}});
+    return best;
+  }
+  function aiMove(){
+    if(aiStrength>=8){
+      var best=-Infinity,move=null;
+      board.forEach(function(_,i){if(!board[i]){board[i]='O';var v=minimax(board,false,0);board[i]=null;if(v>best){best=v;move=i;}}});
+      return move;
+    }else if(aiStrength>=5){
+      // Sometimes optimal, sometimes random
+      if(Math.random()<0.6){var best2=-Infinity,move2=null;board.forEach(function(_,i){if(!board[i]){board[i]='O';var v=minimax(board,false,0);board[i]=null;if(v>best2){best2=v;move2=i;}}});return move2;}
+    }
+    var empty=board.map(function(_,i){return i;}).filter(function(i){return !board[i];});
+    return empty[Math.floor(Math.random()*empty.length)];
+  }
+  function render(msg){
+    var g=gw();if(!g)return;
+    var h=_LVL.renderHeader('⭕ Tic Tac Toe','#a78bfa');
+    h+='<div style="text-align:center;margin-bottom:10px;">';
+    if(msg)h+='<div style="font-size:15px;font-weight:700;color:'+(msg.includes('win')||msg.includes('Win'))?'#22c55e':'#ef4444'+';margin-bottom:8px;">'+msg+'</div>';
+    else h+='<div style="font-size:14px;color:rgba(255,255,255,.6);margin-bottom:8px;">Your turn (X) — AI Level '+aiStrength+'</div>';
+    h+='</div>';
+    h+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:240px;margin:0 auto 12px;">';
+    board.forEach(function(cell,i){
+      var col=cell==='X'?'#60a5fa':cell==='O'?'#f472b6':'rgba(255,255,255,.8)';
+      h+='<div onclick="tttClick('+i+')" style="aspect-ratio:1;border-radius:12px;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:900;cursor:pointer;color:'+col+';transition:all .15s;" onmouseover="this.style.background=\'rgba(255,255,255,.2)\'" onmouseout="this.style.background=\'rgba(255,255,255,.1)\'">'+( cell||'')+'</div>';
+    });
+    h+='</div>';
+    h+='<div style="text-align:center;"><button onclick="gameTTT()" class="btn btn-sec" style="padding:8px 20px;font-size:13px;border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.7);">New Game</button></div>';
+    g.innerHTML=h;
+  }
+  window.tttClick=function(i){
+    if(board[i]||over||turn!=='X')return;
+    board[i]='X';
+    if(wins(board,'X')){over=true;_LVL.win(30);showScorePop('+30');render('🎉 You win!');return;}
+    if(isDraw(board)){over=true;render('Draw!');return;}
+    turn='O';render();
+    setTimeout(function(){
+      var ai=aiMove();if(ai===null||ai===undefined)return;
+      board[ai]='O';
+      if(wins(board,'O')){over=true;_LVL.lose();render('😔 AI wins!');return;}
+      if(isDraw(board)){over=true;render('Draw!');return;}
+      turn='X';render();
+    },400);
+  };
+  render();
 }
+
+
 function renderTTT(msg){
   gw().innerHTML=`<h2>⭕ Tic Tac Toe</h2><div style="font-size:14px;color:#888;margin-bottom:8px;">${msg}</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:210px;margin:0 auto;">${window._tttBoard.map((v,i)=>`<div onclick="tttClick(${i})" style="width:60px;height:60px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:32px;cursor:pointer;background:#f0f0f0;border:2px solid #ddd;">${v}</div>`).join('')}</div><button class="g-btn" style="margin-top:12px;" onclick="gameTTT()">Restart</button>`;
 }
@@ -2332,10 +3335,69 @@ function aiTTT(){
 /* HANGMAN */
 const HM_WORDS=['JAVASCRIPT','PYTHON','ELEPHANT','UNIVERSITY','CHALLENGE','KEYBOARD','MONITOR','QUANTUM','GRAVITY','SYMPHONY','ALGORITHM','DINOSAUR','ASTRONAUT','CHOCOLATE','ADVENTURE'];
 function gameHangman(){
-  window._hmWord=pick(HM_WORDS);
-  window._hmGuessed=new Set();window._hmWrong=0;
-  renderHM();
+  _LVL.init('hangman',50);
+  var level=_LVL.level;
+  var WORDS_BY_TIER=[
+    ['CAT','DOG','SUN','CAR','BOX','BEE','ANT','OWL','JAR','CUP'],
+    ['APPLE','BREAD','CLOUD','DANCE','EARTH','FLAME','GRAPE','HOUSE','IVORY','JEWEL'],
+    ['BRIDGE','CASTLE','DESERT','EMPIRE','FOREST','GARDEN','HARBOR','INSECT','JUNGLE','KNIGHT'],
+    ['ABSOLUTE','BACTERIA','CALENDAR','DIAMETER','ELECTRON','FRACTURE','GORGEOUS','HERITAGE','IMMINENT','JUNCTION'],
+    ['ALGORITHM','BASKETBALL','CHRYSALIS','DEMOCRACY','EARTHQUAKES','FAHRENHEIT','GOALKEEPER','HELICOPTER','ILLUMINATE','JAVASCRIPT'],
+    ['ARCHITECTURE','BIBLIOGRAPHY','CIRCUMSTANCE','DISINTEGRATE','ENCYCLOPEDIA','FLUORESCENCE','GALVANIZATION','HALLUCINATION','INDETERMINATE','JUXTAPOSITION']
+  ];
+  var tier=Math.min(5,Math.floor(level/8));
+  var word=WORDS_BY_TIER[tier][Math.floor(Math.random()*10)];
+  var maxWrong=Math.max(3,7-Math.floor(level/10));
+  var guessed=[];var wrong=0;
+  var HANGMAN_PARTS=[
+    '<circle cx="120" cy="40" r="18" stroke="#ef4444" stroke-width="3" fill="none"/>',
+    '<line x1="120" y1="58" x2="120" y2="110" stroke="#ef4444" stroke-width="3"/>',
+    '<line x1="120" y1="75" x2="90" y2="100" stroke="#ef4444" stroke-width="3"/>',
+    '<line x1="120" y1="75" x2="150" y2="100" stroke="#ef4444" stroke-width="3"/>',
+    '<line x1="120" y1="110" x2="95" y2="140" stroke="#ef4444" stroke-width="3"/>',
+    '<line x1="120" y1="110" x2="145" y2="140" stroke="#ef4444" stroke-width="3"/>'
+  ];
+  function render(){
+    var g=gw();if(!g)return;
+    var h=_LVL.renderHeader('🪝 Hangman','#a78bfa');
+    // SVG Hangman
+    h+='<svg width="240" height="160" style="display:block;margin:0 auto 12px;" viewBox="0 0 240 160">';
+    h+='<line x1="20" y1="155" x2="220" y2="155" stroke="#64748b" stroke-width="3"/>';
+    h+='<line x1="60" y1="155" x2="60" y2="10" stroke="#64748b" stroke-width="3"/>';
+    h+='<line x1="60" y1="10" x2="120" y2="10" stroke="#64748b" stroke-width="3"/>';
+    h+='<line x1="120" y1="10" x2="120" y2="22" stroke="#64748b" stroke-width="2"/>';
+    for(var i=0;i<Math.min(wrong,HANGMAN_PARTS.length);i++)h+=HANGMAN_PARTS[i];
+    h+='</svg>';
+    // Word display
+    h+='<div style="text-align:center;margin-bottom:12px;">';
+    h+='<div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:8px;">';
+    word.split('').forEach(function(letter){
+      h+='<div style="width:32px;height:36px;border-bottom:3px solid '+(guessed.includes(letter)?'#22c55e':'#6366f1')+';display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#1e293b;">'+(guessed.includes(letter)?letter:'')+'</div>';
+    });
+    h+='</div>';
+    h+='<div style="font-size:13px;color:#ef4444;font-weight:600;">Wrong: '+wrong+'/'+maxWrong+'</div>';
+    h+='</div>';
+    // Keyboard
+    h+='<div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;">';
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(function(l){
+      var used=guessed.includes(l);var correct=word.includes(l)&&used;var wrong2=!word.includes(l)&&used;
+      h+='<button onclick="hmGuess(\''+l+'\')" '+(used?'disabled':'')+' style="width:32px;height:32px;border-radius:6px;border:1.5px solid '+(correct?'#22c55e':wrong2?'#ef4444':'#e2e8f0')+';background:'+(correct?'#dcfce7':wrong2?'#fef2f2':'#fff')+';cursor:'+(used?'default':'pointer')+';font-size:12px;font-weight:700;color:'+(correct?'#15803d':wrong2?'#dc2626':'#1e293b')+';">'+l+'</button>';
+    });
+    h+='</div>';
+    g.innerHTML=h;
+  }
+  window.hmGuess=function(letter){
+    guessed.push(letter);
+    if(!word.includes(letter)){wrong++;}
+    var won=word.split('').every(function(l){return guessed.includes(l);});
+    if(won){_LVL.win(50);showScorePop('+50');render();setTimeout(function(){gameHangman();},1500);}
+    else if(wrong>=maxWrong){_LVL.lose();render();var g=gw();if(g){var fb=document.createElement('div');fb.style.cssText='text-align:center;padding:10px;background:#fef2f2;border-radius:10px;margin-top:8px;font-weight:700;color:#dc2626;';fb.textContent='The word was: '+word;g.appendChild(fb);}setTimeout(function(){gameHangman();},2000);}
+    else render();
+  };
+  render();
 }
+
+
 function renderHM(){
   const w=window._hmWord;const g=window._hmGuessed;const wrong=window._hmWrong;
   const display=w.split('').map(c=>g.has(c)?c:'_').join(' ');
@@ -2353,7 +3415,47 @@ function hmGuess(l){
 }
 
 /* MATH QUIZ */
-function gameMathQuiz(){window._mqScore=0;window._mqQ=0;nextMathQ();}
+function gameMathQuiz(){
+  _LVL.init('mathquiz',50);
+  var level=_LVL.level;
+  var ops=['+','-'];
+  if(level>8)ops.push('*');
+  if(level>18)ops.push('/');
+  var op=ops[Math.floor(Math.random()*ops.length)];
+  var max=Math.min(500,10+level*8);
+  var a,b,ans;
+  if(op==='+'){ a=rnd(1,max);b=rnd(1,max);ans=a+b; }
+  else if(op==='-'){ a=rnd(max/2|0,max);b=rnd(1,a);ans=a-b; }
+  else if(op==='*'){ a=rnd(2,Math.min(25,5+level));b=rnd(2,Math.min(25,5+level));ans=a*b; }
+  else{ ans=rnd(2,Math.min(20,4+level));b=rnd(2,Math.min(15,3+level));a=ans*b; }
+  var sym={'+':'+','-':'-','*':'×','/':'÷'}[op];
+  var opts=[ans];
+  while(opts.length<4){var w=ans+rnd(-Math.max(10,ans/3|0),Math.max(10,ans/3|0));if(w>0&&w!==ans&&!opts.includes(w))opts.push(w);}
+  opts.sort(function(){return Math.random()-.5;});
+  var timeLimit=Math.max(4,12-Math.floor(level/6));var timer=timeLimit;
+  var g=gw();if(!g)return;
+  var h=_LVL.renderHeader('🔢 Math Quiz','#fb923c');
+  h+='<div style="text-align:center;background:rgba(255,255,255,.08);padding:24px;border-radius:16px;margin-bottom:14px;">';
+  h+='<div style="font-size:44px;font-weight:900;color:var(--text);letter-spacing:2px;">'+a+' '+sym+' '+b+' = ?</div>';
+  if(level>=5)h+='<div id="mq-timer" style="font-size:22px;font-weight:900;margin-top:8px;color:'+(timer<=4?'#ef4444':'#fb923c')+';">⏱ '+timer+'s</div>';
+  h+='</div>';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
+  opts.forEach(function(opt){
+    h+='<button onclick="mqAns('+opt+')" style="padding:18px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:24px;font-weight:900;color:var(--text);transition:all .15s;" onmouseover="this.style.background=\'rgba(251,146,60,.4)\';" onmouseout="this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';
+  });
+  h+='</div>';
+  g.innerHTML=h;
+  if(level>=5){
+    window._mqTimer=setInterval(function(){timer--;var te=document.getElementById('mq-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=4?'#ef4444':'#fb923c';}if(timer<=0){clearInterval(window._mqTimer);_LVL.lose();setTimeout(function(){gameMathQuiz();},800);}},1000);
+  }
+  window.mqAns=function(val){
+    if(window._mqTimer)clearInterval(window._mqTimer);
+    if(val===ans){_LVL.win(20);showScorePop('+20');setTimeout(function(){gameMathQuiz();},600);}
+    else{var alive=_LVL.lose();var btns=g.querySelectorAll('button');btns.forEach(function(b){if(+b.textContent===ans)b.style.background='rgba(34,197,94,.5)';else if(+b.textContent===val)b.style.background='rgba(239,68,68,.5)';b.style.color='#fff';b.disabled=true;});if(alive)setTimeout(function(){gameMathQuiz();},1000);}
+  };
+}
+
+
 function nextMathQ(){
   if(window._mqQ>=10){gw().innerHTML=`<h2>🧮 Math Quiz</h2><div style="font-size:48px;">🏆</div><div style="font-size:24px;">Score: ${window._mqScore}/10</div><button class="g-btn" style="margin-top:12px;" onclick="gameMathQuiz()">Play Again</button>`;return;}
   const ops=['+','-','*','/'];const op=pick(ops);
@@ -2372,10 +3474,78 @@ function mqAns(chosen,correct){window._mqQ++;if(chosen===correct)window._mqScore
 /* TYPING SPEED */
 const TYPING_SENTENCES=['The quick brown fox jumps over the lazy dog','Pack my box with five dozen liquor jugs','How vexingly quick daft zebras jump','The five boxing wizards jump quickly','Sphinx of black quartz judge my vow','Two driven jocks help fax my big quiz','The jay pig fox zebra and my wolves quack'];
 function gameTyping(){
-  const sentence=pick(TYPING_SENTENCES);
-  window._tpSentence=sentence;window._tpStart=null;
-  gw().innerHTML=`<h2>⌨️ Typing Speed</h2><div id="tp-text" style="font-size:18px;line-height:1.8;padding:12px;background:#f8f8f8;border-radius:8px;margin:12px 0;letter-spacing:1px;">${sentence}</div><textarea id="tp-in" style="width:100%;font-size:16px;padding:8px;border:2px solid #ccc;border-radius:8px;resize:none;height:60px;" placeholder="Start typing here..." oninput="typingCheck()"></textarea><div id="tp-res" style="margin-top:10px;font-size:16px;min-height:24px;"></div>`;
+  _LVL.init('typing',40);
+  var level=_LVL.level;
+  var TEXTS=[
+    'the quick brown fox jumps over the lazy dog',
+    'pack my box with five dozen liquor jugs',
+    'how vexingly quick daft zebras jump',
+    'sphinx of black quartz judge my vow',
+    'two driven jocks help fax my big quiz',
+    'five quacking zephyrs jolt my wax bed',
+    'the five boxing wizards jump quickly',
+    'jackdaws love my big sphinx of quartz',
+    'fix problem quickly with galvanized jets',
+    'amazingly few discotheques provide jukeboxes',
+    'the early bird catches the worm but the second mouse gets the cheese',
+    'practice makes perfect so keep typing every single day to improve your speed',
+    'technology has transformed the way we communicate work and live our daily lives',
+    'the art of programming is the art of organizing complexity and managing details',
+    'success is not final failure is not fatal it is the courage to continue that counts'
+  ];
+  var textIdx=Math.min(TEXTS.length-1,Math.floor(level/3));
+  var text=TEXTS[textIdx];
+  var duration=Math.max(20,60-level);
+  var timeLeft=duration;var started=false;var timerInt;var typed=0;
+  var g=gw();if(!g)return;
+  var h=_LVL.renderHeader('⌨️ Typing Speed','#60a5fa');
+  h+='<div id="typing-text" style="font-size:16px;line-height:1.8;background:rgba(255,255,255,.08);padding:14px;border-radius:12px;margin-bottom:10px;font-family:monospace;letter-spacing:.05em;">'+text.split('').map(function(c,i){return '<span id="tc-'+i+'">'+c+'</span>';}).join('')+'</div>';
+  h+='<div style="display:flex;gap:8px;margin-bottom:8px;align-items:center;">';
+  h+='<div id="typing-timer" style="font-size:22px;font-weight:900;color:#6366f1;min-width:50px;">'+duration+'s</div>';
+  h+='<div style="flex:1;background:rgba(255,255,255,.1);border-radius:99px;height:8px;">';
+  h+='<div id="typing-prog" style="background:#6366f1;height:8px;border-radius:99px;width:100%;transition:width .1s;"></div></div>';
+  h+='<div id="typing-wpm" style="font-size:18px;font-weight:700;min-width:70px;text-align:right;">0 WPM</div>';
+  h+='</div>';
+  h+='<input id="typing-inp" type="text" placeholder="Start typing here..." style="width:100%;padding:14px;border-radius:12px;border:2px solid #e2e8f0;font-size:16px;font-family:monospace;outline:none;box-sizing:border-box;" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">';
+  g.innerHTML=h;
+  var inp=document.getElementById('typing-inp');
+  if(inp)inp.focus();
+  inp.oninput=function(){
+    if(!started){
+      started=true;
+      timerInt=setInterval(function(){
+        timeLeft--;
+        var te=document.getElementById('typing-timer');if(te){te.textContent=timeLeft+'s';te.style.color=timeLeft<=10?'#ef4444':'#6366f1';}
+        var pg=document.getElementById('typing-prog');if(pg)pg.style.width=(timeLeft/duration*100)+'%';
+        if(timeLeft<=0){
+          clearInterval(timerInt);
+          var val=inp.value||'';
+          var words=val.trim().split(/\s+/).filter(Boolean).length;
+          var wpm=Math.round(words/(duration/60));
+          var targetWpm=30+level*2;
+          if(wpm>=targetWpm){_LVL.win(wpm);showScorePop(wpm+' WPM!');}else{_LVL.lose();}
+          var g2=gw();if(g2){var fb=document.createElement('div');fb.style.cssText='text-align:center;padding:14px;background:rgba(255,255,255,.1);border-radius:12px;margin-top:10px;';fb.innerHTML='<div style="font-size:28px;font-weight:900;">'+wpm+' WPM</div><div style="font-size:13px;color:rgba(255,255,255,.6);">Target: '+targetWpm+' WPM</div>';g2.appendChild(fb);}
+          setTimeout(function(){gameTyping();},2000);
+        }
+      },1000);
+    }
+    var val=inp.value;
+    var words=val.trim().split(/\s+/).filter(Boolean).length;
+    var elapsed=(duration-timeLeft)||1;
+    var wpm=Math.round(words/(elapsed/60));
+    var we=document.getElementById('typing-wpm');if(we)we.textContent=wpm+' WPM';
+    // Color highlight
+    for(var i=0;i<text.length;i++){
+      var sp=document.getElementById('tc-'+i);
+      if(!sp)continue;
+      if(i>=val.length){sp.style.color='';sp.style.background='';}
+      else if(val[i]===text[i]){sp.style.color='#22c55e';sp.style.background='rgba(34,197,94,.1)';}
+      else{sp.style.color='#ef4444';sp.style.background='rgba(239,68,68,.1)';}
+    }
+  };
 }
+
+
 function typingCheck(){
   const inp=document.getElementById('tp-in');
   const v=inp.value;
@@ -2397,7 +3567,43 @@ function typingCheck(){
 
 /* ANAGRAM */
 const AG_WORDS=['listen/silent','earth/heart','race/care','ate/eat','evil/vile','act/cat','below/elbow','now/own','night/thing','state/taste'];
-function gameAnagram(){window._agWord='';window._agTarget='';nextAG();}
+function gameAnagram(){
+  _LVL.init('anagram',45);
+  var level=_LVL.level;
+  var PAIRS_BY_TIER=[
+    [['LISTEN','SILENT'],['HEART','EARTH'],['RACE','CARE'],['STOP','TOPS'],['PALM','LAMP']],
+    [['GARDEN','DANGER'],['MASTER','STREAM'],['RESCUE','SECURE'],['GRAPES','GASPER'],['STABLE','TABLES']],
+    [['PLANETS','PLATENS'],['TEACHER','CHEATER'],['KITCHEN','THICKEN'],['LIBRARY','BRARILY'],['PAINTER','PERTAIN']],
+    [['SCULPTURE','CUPRITES'],['ADVENTURE','EVENTURAD'],['ALGORITHM','LOGARITHM'],['EDUCATION','AUDACIOUS'],['SECRETARY','YACHTERS']],
+    [['LOGARITHMS','ALGORITHMS'],['SCHOOLMASTER','CLASSROOM HE'],['CONVERSATION','VOICES RANT ON'],['ASTRONOMER','MOON STARER'],['PRESBYTERIAN','BRITNEY SPEARS']]
+  ];
+  var tier=Math.min(4,Math.floor(level/9));
+  var pair=PAIRS_BY_TIER[tier][Math.floor(Math.random()*5)];
+  var word=pair[0],answer=pair[1];
+  var g=gw();if(!g)return;
+  var h=_LVL.renderHeader('🔤 Anagram','#4ade80');
+  h+='<div style="text-align:center;margin-bottom:16px;">';
+  h+='<div style="font-size:13px;color:var(--muted);margin-bottom:8px;">Rearrange these letters to make a new word:</div>';
+  h+='<div style="font-size:36px;font-weight:900;letter-spacing:6px;color:#6366f1;background:rgba(99,102,241,.1);padding:16px;border-radius:12px;">'+word+'</div>';
+  h+='</div>';
+  h+='<input id="ag-inp" type="text" placeholder="Type the anagram..." style="width:100%;padding:14px;border-radius:12px;border:2px solid #e2e8f0;font-size:18px;font-weight:700;text-transform:uppercase;text-align:center;font-family:inherit;outline:none;box-sizing:border-box;margin-bottom:10px;" onkeydown="if(event.key===\'Enter\')agCheck();">';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
+  h+='<button class="btn" onclick="agCheck()" style="padding:14px;font-size:16px;">Check</button>';
+  h+='<button class="btn btn-sec" onclick="agHint()" style="padding:14px;font-size:16px;">💡 Hint</button>';
+  h+='</div>';
+  h+='<div id="ag-hint-text" style="text-align:center;margin-top:8px;color:var(--muted);font-size:13px;"></div>';
+  g.innerHTML=h;
+  document.getElementById('ag-inp').focus();
+  window.agCheck=function(){
+    var val=(document.getElementById('ag-inp').value||'').trim().toUpperCase().replace(/\s+/g,'');
+    var ans=answer.toUpperCase().replace(/\s+/g,'');
+    if(val===ans){_LVL.win(35);showScorePop('+35');var g2=gw();if(g2){var fb=document.createElement('div');fb.style.cssText='text-align:center;padding:12px;background:#dcfce7;border-radius:10px;margin-top:10px;font-weight:700;color:#15803d;';fb.textContent='Correct! '+word+' → '+answer;g2.appendChild(fb);}setTimeout(function(){gameAnagram();},1500);}
+    else{var alive=_LVL.lose();var inp=document.getElementById('ag-inp');if(inp){inp.style.borderColor='#ef4444';inp.value='';}var ht=document.getElementById('ag-hint-text');if(ht)ht.textContent='Wrong! Answer: '+answer;if(alive)setTimeout(function(){gameAnagram();},1800);}
+  };
+  window.agHint=function(){var ht=document.getElementById('ag-hint-text');if(ht)ht.textContent='Starts with: '+answer[0]+' ('+answer.length+' letters)';};
+}
+
+
 function nextAG(){
   const pair=pick(AG_WORDS).split('/');
   window._agWord=pair[0].toUpperCase();window._agTarget=pair[1].toUpperCase();
@@ -2416,7 +3622,31 @@ function checkAG(){
 }
 
 /* TIMES TABLES */
-function gameTimes(){window._ttScore=0;window._ttQ=0;nextTimes();}
+function gameTimes(){
+  _LVL.init('times',50);
+  var level=_LVL.level;
+  var maxTable=Math.min(20,2+Math.floor(level/3));
+  var a=rnd(2,maxTable),b=rnd(2,maxTable),ans=a*b;
+  var opts=[ans];
+  while(opts.length<4){var w=ans+rnd(-ans/2|0,ans/2|0);if(w>0&&w!==ans&&!opts.includes(w))opts.push(w);}
+  opts.sort(function(){return Math.random()-.5;});
+  var timeLimit=Math.max(3,10-Math.floor(level/6));var timer=timeLimit;
+  var g=gw();if(!g)return;
+  var h=_LVL.renderHeader('✖️ Times Tables','#fb923c');
+  h+='<div style="text-align:center;background:rgba(255,255,255,.08);padding:28px;border-radius:16px;margin-bottom:14px;">';
+  h+='<div style="font-size:52px;font-weight:900;color:var(--text);letter-spacing:3px;">'+a+' × '+b+' = ?</div>';
+  h+='<div style="font-size:13px;color:rgba(255,255,255,.5);margin-top:6px;">Tables up to '+maxTable+'</div>';
+  if(level>=5)h+='<div id="tt-timer" style="font-size:22px;font-weight:900;margin-top:8px;color:'+(timer<=3?'#ef4444':'#fb923c')+';">⏱ '+timer+'s</div>';
+  h+='</div>';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
+  opts.forEach(function(opt){h+='<button onclick="ttAns('+opt+')" style="padding:18px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:26px;font-weight:900;color:var(--text);transition:all .15s;" onmouseover="this.style.background=\'rgba(251,146,60,.4)\';" onmouseout="this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';});
+  h+='</div>';
+  g.innerHTML=h;
+  if(level>=5){window._ttTimer=setInterval(function(){timer--;var te=document.getElementById('tt-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=3?'#ef4444':'#fb923c';}if(timer<=0){clearInterval(window._ttTimer);_LVL.lose();setTimeout(function(){gameTimes();},600);}},1000);}
+  window.ttAns=function(val){if(window._ttTimer)clearInterval(window._ttTimer);if(val===ans){_LVL.win(10);showScorePop('+10');setTimeout(function(){gameTimes();},400);}else{var alive=_LVL.lose();var btns=g.querySelectorAll('button');btns.forEach(function(b){if(+b.textContent===ans)b.style.background='rgba(34,197,94,.5)';else if(+b.textContent===val)b.style.background='rgba(239,68,68,.5)';b.style.color='#fff';b.disabled=true;});if(alive)setTimeout(function(){gameTimes();},800);}};
+}
+
+
 function nextTimes(){
   if(window._ttQ>=20){gw().innerHTML=`<h2>✖️ Times Tables</h2><div style="font-size:48px;">🏆</div><div style="font-size:24px;">Score: ${window._ttScore}/20</div><button class="g-btn" style="margin-top:12px;" onclick="gameTimes()">Play Again</button>`;return;}
   const a=rnd(2,12),b=rnd(2,12);
@@ -2640,9 +3870,56 @@ function msFlag(i){if(window._msOver)return;const b=window._msBoard;if(b[i].reve
 
 /* WORD CHAIN */
 function gameWordChain(){
-  window._wcUsed=new Set();window._wcLast='';window._wcScore=0;
-  gw().innerHTML=`<h2>🔗 Word Chain</h2><p>Each word must start with the last letter of the previous word!</p><div id="wc-chain" style="font-size:14px;color:#666;min-height:40px;margin:10px;word-wrap:break-word;"></div><input id="wc-in" type="text" style="font-size:18px;padding:8px;border:2px solid #ccc;border-radius:8px;width:200px;" placeholder="Enter a word..." onkeydown="if(event.key==='Enter')submitWordChain()"><button class="g-btn" style="margin-top:8px;display:block;margin:8px auto 0;" onclick="submitWordChain()">Submit</button><div id="wc-msg" style="margin-top:10px;min-height:24px;font-size:15px;"></div><div id="wc-score" style="font-size:14px;color:#888;margin-top:6px;">Score: 0</div>`;
+  _LVL.init('wordchain',35);
+  var level=_LVL.level;
+  var CHAINS_BY_LEVEL=[
+    [['CAT','TOP','PEN','NET','TEN'],'Each word starts with last letter of previous'],
+    [['APPLE','EAGLE','EARTH','HAIR','RAIN'],'Words connected by last → first letter'],
+    [['BRIDGE','ENERGY','YELLOW','WINDOW','WANDER'],'Longer word chain - think carefully!'],
+    [['COMPUTER','RATION','NUMBER','RESULT','TABLE'],'Expert chain - same rule, harder words'],
+    [['ALGORITHM','MATRIX','XYLOPHONE','ELEVEN','NATURE'],'Master level word chain'],
+  ];
+  var tier=Math.min(4,Math.floor(level/7));
+  var chain=CHAINS_BY_LEVEL[tier];
+  var words=chain[0].slice();var lastWord=words[words.length-1];
+  var lastLetter=lastWord[lastWord.length-1].toUpperCase();
+  var timeLimit=Math.max(10,30-level);var timer=timeLimit;
+  var g=gw();if(!g)return;
+  var h=_LVL.renderHeader('🔗 Word Chain','#4ade80');
+  h+='<div style="margin-bottom:14px;">';
+  h+='<div style="font-size:13px;color:rgba(255,255,255,.6);margin-bottom:10px;">'+chain[1]+'</div>';
+  h+='<div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:12px;">';
+  words.forEach(function(w,i){h+='<span style="background:rgba(255,255,255,.15);border-radius:8px;padding:6px 12px;font-size:15px;font-weight:700;color:var(--text);">'+w+'</span>'+(i<words.length-1?'<span style="color:rgba(255,255,255,.3);">→</span>':'');});
+  h+='<span style="color:#4ade80;font-size:18px;font-weight:900;margin-left:4px;">→ ?</span>';
+  h+='</div>';
+  h+='<div style="background:rgba(99,255,99,.1);border:1px solid rgba(74,222,128,.3);border-radius:10px;padding:10px;text-align:center;margin-bottom:10px;">';
+  h+='<div style="font-size:13px;color:#4ade80;font-weight:600;">Next word must start with: <span style="font-size:24px;font-weight:900;">'+lastLetter+'</span></div>';
+  h+='</div>';
+  if(level>=5)h+='<div id="wc-timer" style="text-align:center;font-size:20px;font-weight:900;margin-bottom:8px;color:'+(timer<=5?'#ef4444':'#4ade80')+';">⏱ '+timer+'s</div>';
+  h+='</div>';
+  h+='<input id="wc-inp" type="text" placeholder="Type a word starting with '+lastLetter+'..." style="width:100%;padding:14px;border-radius:12px;border:2px solid rgba(74,222,128,.3);background:rgba(255,255,255,.08);font-size:16px;font-weight:700;color:var(--text);font-family:inherit;text-transform:uppercase;text-align:center;outline:none;box-sizing:border-box;margin-bottom:10px;" onkeydown="if(event.key===\'Enter\')wcCheck();">';
+  h+='<button class="btn" onclick="wcCheck()" style="width:100%;padding:14px;font-size:16px;">Submit Word</button>';
+  g.innerHTML=h;
+  document.getElementById('wc-inp').focus();
+  if(level>=5){window._wcTimer=setInterval(function(){timer--;var te=document.getElementById('wc-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=5?'#ef4444':'#4ade80';}if(timer<=0){clearInterval(window._wcTimer);_LVL.lose();setTimeout(function(){gameWordChain();},800);}},1000);}
+  window.wcCheck=function(){
+    if(window._wcTimer)clearInterval(window._wcTimer);
+    var val=(document.getElementById('wc-inp').value||'').trim().toUpperCase();
+    if(val.length>=2&&val[0]===lastLetter&&!words.includes(val)){
+      _LVL.win(20);showScorePop('+20');
+      var g2=gw();if(g2){var fb=document.createElement('div');fb.style.cssText='text-align:center;padding:10px;background:rgba(34,197,94,.3);border-radius:10px;margin-top:8px;color:#fff;font-weight:700;';fb.textContent='Great! '+lastWord+' → '+val;g2.appendChild(fb);}
+      setTimeout(function(){gameWordChain();},1200);
+    }else{
+      var alive=_LVL.lose();
+      var inp=document.getElementById('wc-inp');if(inp){inp.style.borderColor='#ef4444';inp.value='';}
+      var msg=val.length<2?'Too short!':val[0]!==lastLetter?'Must start with '+lastLetter+'!':'Already used!';
+      var g3=gw();if(g3){var fb2=document.createElement('div');fb2.style.cssText='text-align:center;padding:8px;background:rgba(239,68,68,.3);border-radius:8px;margin-top:6px;color:#fff;font-size:13px;';fb2.textContent=msg;g3.appendChild(fb2);}
+      if(alive)setTimeout(function(){gameWordChain();},1500);
+    }
+  };
 }
+
+
 function submitWordChain(){
   const inp=document.getElementById('wc-in');
   const w=inp.value.trim().toLowerCase().replace(/[^a-z]/g,'');
@@ -2700,7 +3977,63 @@ function c4AI(){
 }
 
 /* PATTERN MEMORY */
-function gamePatternMem(){window._pmSeq=[];window._pmStep=0;window._pmPlaying=false;pmStart();}
+function gamePatternMem(){
+  _LVL.init('patternmem',40);
+  var level=_LVL.level;
+  var gridSize=Math.min(6,3+Math.floor(level/8));
+  var patternLen=Math.min(gridSize*gridSize,2+Math.floor(level/2));
+  var pattern=[];var cells=gridSize*gridSize;
+  while(pattern.length<patternLen){var c=Math.floor(Math.random()*cells);if(!pattern.includes(c))pattern.push(c);}
+  var playerPattern=[];var phase='show';
+  var showSpeed=Math.max(300,800-level*15);
+  function render(showingIdx){
+    var g=gw();if(!g)return;
+    var h=_LVL.renderHeader('🔲 Pattern Memory','#f472b6');
+    h+='<div style="text-align:center;margin-bottom:10px;">';
+    h+='<div style="font-size:13px;font-weight:700;color:rgba(255,255,255,.7);">'+(phase==='show'?'Watch the pattern!':'Repeat the pattern!')+'</div>';
+    h+='<div style="font-size:13px;color:rgba(255,255,255,.5);">'+patternLen+' cells to remember</div>';
+    h+='</div>';
+    h+='<div style="display:grid;grid-template-columns:repeat('+gridSize+',1fr);gap:6px;max-width:300px;margin:0 auto;">';
+    for(var i=0;i<cells;i++){
+      var isPattern=pattern.includes(i);
+      var isShowing=(phase==='show'&&showingIdx!==undefined&&pattern.indexOf(i)<=showingIdx);
+      var isClicked=playerPattern.includes(i);
+      var isCorrect=isClicked&&pattern.includes(i);
+      var bg=isShowing?'#f472b6':(phase==='play'&&isClicked?(isCorrect?'#22c55e':'#ef4444'):'rgba(255,255,255,.1)');
+      h+='<div onclick="pmClick('+i+')" style="aspect-ratio:1;border-radius:8px;background:'+bg+';cursor:pointer;border:2px solid rgba(255,255,255,'+(isShowing?'.6':'.15')+');transition:all .15s;box-shadow:'+(isShowing?'0 0 12px #f472b6':'none')+';"></div>';
+    }
+    h+='</div>';
+    if(phase==='play'){
+      h+='<div style="text-align:center;margin-top:10px;font-size:13px;color:rgba(255,255,255,.5);">'+playerPattern.length+'/'+patternLen+' selected</div>';
+      h+='<button class="btn btn-sec" onclick="pmClear()" style="width:100%;margin-top:8px;padding:10px;border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.7);">Clear</button>';
+    }
+    g.innerHTML=h;
+  }
+  function showPattern(){
+    var i=0;
+    function next(){
+      render(i);
+      i++;
+      if(i<patternLen)setTimeout(next,showSpeed);
+      else setTimeout(function(){phase='play';render();},showSpeed+200);
+    }
+    next();
+  }
+  window.pmClick=function(idx){
+    if(phase!=='play')return;
+    if(playerPattern.includes(idx)){playerPattern=playerPattern.filter(function(x){return x!==idx;});render();return;}
+    playerPattern.push(idx);render();
+    if(playerPattern.length===patternLen){
+      var correct=pattern.every(function(c){return playerPattern.includes(c);});
+      if(correct){_LVL.win(30);showScorePop('+30');setTimeout(function(){gamePatternMem();},1000);}
+      else{_LVL.lose();setTimeout(function(){gamePatternMem();},1500);}
+    }
+  };
+  window.pmClear=function(){playerPattern=[];render();};
+  render();setTimeout(showPattern,500);
+}
+
+
 function pmStart(){
   window._pmSeq.push(rnd(0,8));window._pmStep=0;window._pmPlaying=true;
   gw().innerHTML=`<h2>🧠 Pattern Memory</h2><div id="pm-msg" style="font-size:16px;margin:8px;">Watch the pattern!</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:220px;margin:16px auto;">${Array(9).fill(0).map((_,i)=>`<div id="pm-${i}" onclick="pmClick(${i})" style="width:60px;height:60px;border-radius:10px;background:#3498db;opacity:0.35;cursor:pointer;transition:opacity .15s;"></div>`).join('')}</div><div id="pm-level" style="font-size:14px;color:#888;">Level ${window._pmSeq.length}</div>`;
@@ -2972,7 +4305,56 @@ function gamePong(){
 }
 
 
-function gameMake24(){start24();}
+function gameMake24(){
+  _LVL.init('make24',40);
+  var level=_LVL.level;
+  // Easier puzzles at lower levels
+  var PUZZLES=[
+    // Easy (always solvable with simple ops)
+    [[1,2,3,4],'(1+2+3)*4=24'],[' [2,3,4,6]','2*3*4-6... try again'],[1,3,4,6,'try'],[2,4,6,8,'try'],
+    [[4,4,4,4],'44-44... or (4-4/4)*4... actually 4*(4-4+4)=16... try!'],
+    [[1,2,6,8],'8/(1-2/6)? No... 6/(1-2/4)? try'],
+    [[3,3,8,8],'8/(3-8/3)=24'],
+    [[1,3,4,6],'6/(1-3/4)=24'],
+    [[2,3,4,6],'(2-3+6)*4... or 3*4*(6/2... no'],
+    [[4,4,10,10],'(10*10-4)/4'],
+  ];
+  var maxNum=Math.min(13,3+Math.floor(level/4));
+  var nums=[rnd(1,maxNum),rnd(1,maxNum),rnd(1,maxNum),rnd(1,maxNum)];
+  var g=gw();if(!g)return;
+  var h=_LVL.renderHeader('🎯 Make 24','#fb923c');
+  h+='<div style="text-align:center;margin-bottom:16px;">';
+  h+='<div style="display:flex;justify-content:center;gap:12px;margin-bottom:12px;">';
+  nums.forEach(function(n){h+='<div style="width:64px;height:64px;border-radius:12px;background:rgba(251,146,60,.3);border:2px solid #fb923c;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;color:#fb923c;">'+n+'</div>';});
+  h+='</div>';
+  h+='<div style="font-size:14px;color:rgba(255,255,255,.6);">Use +, -, ×, ÷ and ( ) with these 4 numbers to make <span style="color:#fb923c;font-size:18px;font-weight:900;">24</span>!</div>';
+  h+='<div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:4px;">Use each number exactly once</div>';
+  h+='</div>';
+  h+='<input id="m24-inp" type="text" placeholder="e.g. (3+5)*(8/4)" style="width:100%;padding:14px;border-radius:12px;border:2px solid rgba(255,255,255,.3);background:rgba(255,255,255,.08);font-size:16px;font-weight:700;color:var(--text);font-family:monospace;text-align:center;outline:none;box-sizing:border-box;margin-bottom:10px;" onkeydown="if(event.key===\'Enter\')m24Check();">';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
+  h+='<button class="btn" onclick="m24Check()" style="padding:14px;font-size:16px;">Check!</button>';
+  h+='<button class="btn btn-sec" onclick="m24Skip()" style="padding:14px;font-size:16px;border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.7);">Skip (-5pts)</button>';
+  h+='</div>';
+  h+='<div id="m24-result" style="text-align:center;margin-top:8px;font-size:13px;color:rgba(255,255,255,.5);"></div>';
+  g.innerHTML=h;
+  document.getElementById('m24-inp').focus();
+  window.m24Check=function(){
+    var expr=(document.getElementById('m24-inp').value||'').trim().replace(/x/gi,'*').replace(/×/g,'*').replace(/÷/g,'/');
+    var res;
+    try{res=Function('"use strict";return ('+expr+')')();}catch(e){var rt=document.getElementById('m24-result');if(rt)rt.textContent='Invalid expression!';return;}
+    if(Math.abs(res-24)<0.001){
+      // Check all 4 numbers used
+      var usedNums=[];var tmp=expr.replace(/[^0-9]/g,' ').trim().split(/\s+/).map(Number).filter(Boolean);
+      var sortedInput=nums.slice().sort();var sortedUsed=tmp.slice().sort();
+      var valid=JSON.stringify(sortedInput)===JSON.stringify(sortedUsed);
+      if(valid){_LVL.win(40);showScorePop('+40!');var rt2=document.getElementById('m24-result');if(rt2)rt2.textContent='Correct! '+expr+' = 24';setTimeout(function(){gameMake24();},1500);}
+      else{var rt3=document.getElementById('m24-result');if(rt3)rt3.textContent='Use exactly these 4 numbers: '+nums.join(', ');}
+    }else{var rt4=document.getElementById('m24-result');if(rt4)rt4.textContent=expr+' = '+res+' (need 24)';}
+  };
+  window.m24Skip=function(){_LVL.score=Math.max(0,_LVL.score-5);setTimeout(function(){gameMake24();},300);};
+}
+
+
 function start24(){
   window._24nums=Array.from({length:4},()=>rnd(1,9));
   gw().innerHTML=`<h2>🔢 Make 24</h2><div style="font-size:36px;margin:16px;font-weight:700;letter-spacing:8px;color:#3498db;">${window._24nums.join(' ')}</div><p>Use +, -, *, / and ( ) with these 4 numbers to make 24!</p><input id="m24-in" type="text" style="font-size:18px;padding:8px;border:2px solid #ccc;border-radius:8px;width:220px;" placeholder="e.g. (3+5)*(8/4)" onkeydown="if(event.key==='Enter')check24()"><button class="g-btn" style="display:block;margin:10px auto 0;" onclick="check24()">Check</button><button class="g-btn" style="background:#95a5a6;" onclick="start24()">New Numbers</button><div id="m24-msg" style="margin-top:10px;min-height:24px;font-size:16px;"></div>`;
@@ -2998,7 +4380,81 @@ function check24(){
 
 /* WORDLE */
 const WD_WORDS=['CRANE','PLANT','STOVE','BRICK','GLIDE','FLUTE','WRECK','MOUNT','PIXEL','BLEND','SCOUT','TWIST','GROVE','QUEST','FLAME','TROUT','BLADE','FROST','CRISP','PROWL','CLASP','DROWN','FLINT','GROAN','PLUMB','SHREW','SWAMP','THUMP','WRIST','BLUNT'];
-function gameWordle(){wordleInit();}
+function gameWordle(){
+  _LVL.init('wordle',30);
+  var level=_LVL.level;
+  // Word pools by difficulty
+  var EASY=['PLANE','BRAIN','CHAIR','DREAM','FLAME','GRACE','HEART','JUICE','KNIFE','LIGHT','MAGIC','NIGHT','OCEAN','PAINT','QUEEN','RIVER','STONE','TIGER','ULTRA','VOICE','WATER','XENON','YEARS','ZEBRA','APPLE','BAKER','CANDY','DANCE','EAGLE','FRESH'];
+  var HARD=['SQUAT','GLYPH','FJORD','NYMPH','TRYST','CRYPT','GAWKY','JAZZY','PROXY','SIXTH','APHID','BLITZ','EXPEL','FLOWN','QUEUE','THYME','USURP','VOILA','WRUNG','XYLEM'];
+  var words= level<=10?EASY:level<=20?EASY.concat(HARD):HARD;
+  var word=words[Math.floor(Math.random()*words.length)].toUpperCase();
+  var maxGuesses=Math.max(3,7-Math.floor(level/10));
+  var guesses=[];var current='';
+  function render(){
+    var g=gw();if(!g)return;
+    var h=_LVL.renderHeader('🟩 Word Guess','#4ade80');
+    h+='<div style="margin-bottom:10px;text-align:center;font-size:13px;color:var(--muted);">Guess the 5-letter word ('+maxGuesses+' tries)</div>';
+    // Grid
+    h+='<div style="display:flex;flex-direction:column;gap:4px;align-items:center;margin-bottom:10px;">';
+    for(var i=0;i<maxGuesses;i++){
+      h+='<div style="display:flex;gap:4px;">';
+      var g2=guesses[i]||'';
+      var isActive=(i===guesses.length);
+      var display=isActive?current:g2;
+      for(var j=0;j<5;j++){
+        var ch=display[j]||'';
+        var bg='transparent',border='2px solid rgba(255,255,255,.3)',col='var(--text)';
+        if(g2&&!isActive){
+          if(ch===word[j]){bg='#22c55e';border='2px solid #22c55e';col='#fff';}
+          else if(word.includes(ch)){bg='#eab308';border='2px solid #eab308';col='#fff';}
+          else{bg='rgba(255,255,255,.1)';border='2px solid rgba(255,255,255,.2)';col='rgba(255,255,255,.5)';}
+        }else if(ch){border='2px solid rgba(255,255,255,.6)';}
+        h+='<div style="width:46px;height:46px;border:'+border+';border-radius:8px;background:'+bg+';display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:'+col+';">'+ch+'</div>';
+      }
+      h+='</div>';
+    }
+    h+='</div>';
+    // Keyboard
+    var ROWS=[['Q','W','E','R','T','Y','U','I','O','P'],['A','S','D','F','G','H','J','K','L'],['ENTER','Z','X','C','V','B','N','M','⌫']];
+    var used={};guesses.forEach(function(g3){g3.split('').forEach(function(ch,i){if(ch===word[i])used[ch]='#22c55e';else if(word.includes(ch)&&used[ch]!=='#22c55e')used[ch]='#eab308';else if(!used[ch])used[ch]='rgba(255,255,255,.2)';});});
+    h+='<div style="display:flex;flex-direction:column;gap:4px;align-items:center;">';
+    ROWS.forEach(function(row){
+      h+='<div style="display:flex;gap:3px;">';
+      row.forEach(function(key){
+        var bg=used[key]||'rgba(255,255,255,.15)';var w=key.length>1?'56px':'34px';
+        h+='<button onclick="wdKey(\''+key+'\')" style="width:'+w+';height:38px;border-radius:6px;border:none;background:'+bg+';color:#fff;font-size:'+(key.length>1?'10':'14')+'px;font-weight:700;cursor:pointer;transition:all .1s;">'+key+'</button>';
+      });
+      h+='</div>';
+    });
+    h+='</div>';
+    g.innerHTML=h;
+  }
+  window.wdKey=function(key){
+    if(key==='ENTER'){
+      if(current.length!==5)return;
+      guesses.push(current);
+      var won=current===word;
+      current='';
+      render();
+      if(won){_LVL.win(100);showScorePop('+100!');setTimeout(function(){gameWordle();},2000);}
+      else if(guesses.length>=maxGuesses){
+        _LVL.lose();
+        var g2=gw();if(g2){var fb=document.createElement('div');fb.style.cssText='text-align:center;padding:12px;background:rgba(239,68,68,.3);border-radius:10px;margin-top:8px;font-weight:700;color:#fff;';fb.textContent='Word was: '+word;g2.appendChild(fb);}
+        setTimeout(function(){gameWordle();},2000);
+      }
+    }else if(key==='⌫'){current=current.slice(0,-1);render();}
+    else if(current.length<5){current+=key;render();}
+  };
+  document.addEventListener('keydown',function wdKH(e){
+    if(!document.getElementById('modal-box'))return document.removeEventListener('keydown',wdKH);
+    if(e.key==='Enter')window.wdKey('ENTER');
+    else if(e.key==='Backspace')window.wdKey('⌫');
+    else if(e.key.match(/^[a-zA-Z]$/)&&e.key.length===1)window.wdKey(e.key.toUpperCase());
+  });
+  render();
+}
+
+
 function wordleInit(){
   window._wdWord=pick(WD_WORDS);window._wdRow=0;window._wdGrid=Array(30).fill('');window._wdCurrent='';
   gw().innerHTML=`<h2>🟩 Word Guess</h2><div id="wd-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;max-width:270px;margin:12px auto;"></div><div id="wd-kb" style="max-width:300px;margin:8px auto;"></div><div id="wd-msg" style="margin-top:8px;font-size:16px;min-height:24px;"></div>`;
@@ -3155,9 +4611,71 @@ function game2048(){
 }
 
 
-function gameMathSprint(){window._ms2Score=0;window._ms2Q=0;window._ms2Time=60;nextMathSprint();
-  window._ms2Timer=setInterval(()=>{window._ms2Time--;document.getElementById('ms2-time')&&(document.getElementById('ms2-time').textContent=`⏱ ${window._ms2Time}s`);if(window._ms2Time<=0){clearInterval(window._ms2Timer);gw().innerHTML=`<h2>⚡ Math Sprint</h2><div style="font-size:48px;">🏆</div><div style="font-size:24px;">Score: ${window._ms2Score}/30</div><button class="g-btn" style="margin-top:12px;" onclick="gameMathSprint()">Play Again</button>`;}},1000);
+function gameMathSprint(){
+  _LVL.init('mathsprint',35);
+  var level=_LVL.level;
+  var total=Math.min(50,15+level);
+  var timeLimit=Math.max(20,60-level);
+  var correct=0,answered=0;var timerInt;var timeLeft=timeLimit;
+  function getQ(){
+    var ops=['+','-'];if(level>5)ops.push('*');if(level>15)ops.push('/');
+    var op=ops[Math.floor(Math.random()*ops.length)];
+    var max=Math.min(50,5+level*2);var a,b,ans;
+    if(op==='+'){ a=rnd(1,max);b=rnd(1,max);ans=a+b; }
+    else if(op==='-'){ a=rnd(max/2|0,max);b=rnd(1,a);ans=a-b; }
+    else if(op==='*'){ a=rnd(2,Math.min(12,level));b=rnd(2,Math.min(12,level));ans=a*b; }
+    else{ ans=rnd(2,Math.min(12,level));b=rnd(2,Math.min(10,level));a=ans*b; }
+    var sym={'+':'+','-':'-','*':'x','/':'÷'}[op];
+    return{q:a+' '+sym+' '+b,ans:ans};
+  }
+  var questions=[];for(var i=0;i<total;i++)questions.push(getQ());
+  var qIdx=0;
+  function render(){
+    var g=gw();if(!g)return;
+    var h=_LVL.renderHeader('🏃 Math Sprint','#fb923c');
+    h+='<div style="display:flex;justify-content:space-between;margin-bottom:10px;font-weight:700;">';
+    h+='<div style="color:var(--muted);">'+answered+'/'+total+'</div>';
+    h+='<div id="ms-timer" style="font-size:20px;font-weight:900;color:'+(timeLeft<=10?'#ef4444':'#fb923c')+';">⏱ '+timeLeft+'s</div>';
+    h+='<div style="color:#22c55e;">✓ '+correct+'</div>';
+    h+='</div>';
+    h+='<div style="background:rgba(255,255,255,.1);border-radius:8px;height:6px;margin-bottom:12px;">';
+    h+='<div style="background:#fb923c;height:6px;border-radius:8px;width:'+(qIdx/total*100)+'%;transition:width .3s;"></div>';
+    h+='</div>';
+    if(qIdx<questions.length){
+      var q=questions[qIdx];
+      h+='<div style="text-align:center;font-size:44px;font-weight:900;color:var(--text);margin-bottom:14px;">'+q.q+' = ?</div>';
+      h+='<input id="ms-inp" type="number" placeholder="Answer..." style="width:100%;padding:16px;border-radius:12px;border:2px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);font-size:22px;font-weight:900;color:var(--text);text-align:center;font-family:inherit;outline:none;box-sizing:border-box;margin-bottom:8px;" onkeydown="if(event.key===\'Enter\')msSubmit();">';
+      h+='<button class="btn" onclick="msSubmit()" style="width:100%;padding:14px;font-size:16px;">Submit (Enter)</button>';
+    }else{
+      clearInterval(timerInt);
+      var pct=Math.round(correct/total*100);
+      h+='<div style="text-align:center;padding:20px;">';
+      h+='<div style="font-size:48px;margin-bottom:10px;">'+(pct>=80?'🏆':pct>=60?'⭐':'💪')+'</div>';
+      h+='<div style="font-size:22px;font-weight:900;color:var(--text);">'+pct+'% Correct!</div>';
+      h+='<div style="font-size:16px;color:var(--muted);margin:6px 0;">'+correct+'/'+total+' in '+( timeLimit-timeLeft)+'s</div>';
+      h+='<button class="btn" onclick="gameMathSprint()" style="margin-top:16px;padding:14px 32px;">Play Again</button>';
+      h+='</div>';
+      if(pct>=70){_LVL.win(correct*2);showScorePop('+'+correct*2+'!');}else{_LVL.lose();}
+    }
+    g.innerHTML=h;
+    if(qIdx<questions.length){var inp=document.getElementById('ms-inp');if(inp)inp.focus();}
+  }
+  window.msSubmit=function(){
+    var val=+(document.getElementById('ms-inp').value||'NaN');
+    answered++;qIdx++;
+    if(val===questions[answered-1]&&val!==questions[answered-1]){}// skip
+    if(questions[answered-1]&&val===questions[answered-1].ans)correct++;
+    if(answered>=total||timeLeft<=0){clearInterval(timerInt);render();}else render();
+  };
+  render();
+  timerInt=setInterval(function(){
+    timeLeft--;
+    var te=document.getElementById('ms-timer');if(te){te.textContent='⏱ '+timeLeft+'s';te.style.color=timeLeft<=10?'#ef4444':'#fb923c';}
+    if(timeLeft<=0){clearInterval(timerInt);qIdx=total;render();}
+  },1000);
 }
+
+
 function nextMathSprint(){
   if(window._ms2Q>=30){clearInterval(window._ms2Timer);gw().innerHTML=`<h2>⚡ Math Sprint</h2><div style="font-size:48px;">🏆</div><div style="font-size:24px;">Score: ${window._ms2Score}/30</div><button class="g-btn" style="margin-top:12px;" onclick="gameMathSprint()">Play Again</button>`;return;}
   const ops=['+','-','*'];const op=pick(ops);
@@ -3179,7 +4697,70 @@ const NS_SETS=[
   [[1,4,9,16],25,'Squares'],[[3,6,12,24],48,'*2'],[[10,8,6,4],2,'-2'],
   [[1,2,4,7,11],16,'+1+2+3...'],
 ];
-function gameNumSeq(){window._nsIdx=0;window._nsScore=0;window._nsSets=shuffle(NS_SETS);nextNS();}
+function gameNumSeq(){
+  _LVL.init('numseq',45);
+  var level=_LVL.level;
+  var SEQUENCES=[
+    // Easy
+    {seq:[2,4,6,8],next:10,rule:'+2'},
+    {seq:[1,3,5,7],next:9,rule:'+2 odd numbers'},
+    {seq:[5,10,15,20],next:25,rule:'+5'},
+    {seq:[1,2,4,8],next:16,rule:'×2'},
+    {seq:[100,90,80,70],next:60,rule:'-10'},
+    {seq:[1,4,9,16],next:25,rule:'Square numbers'},
+    {seq:[2,6,18,54],next:162,rule:'×3'},
+    {seq:[1,1,2,3,5],next:8,rule:'Fibonacci'},
+    {seq:[3,6,12,24],next:48,rule:'×2'},
+    {seq:[50,45,40,35],next:30,rule:'-5'},
+    // Medium
+    {seq:[1,3,6,10],next:15,rule:'Triangular numbers'},
+    {seq:[2,3,5,7,11],next:13,rule:'Prime numbers'},
+    {seq:[1,8,27,64],next:125,rule:'Cube numbers'},
+    {seq:[0,1,4,9,16],next:25,rule:'n² starting 0'},
+    {seq:[1,2,6,24],next:120,rule:'Factorials'},
+    {seq:[64,32,16,8],next:4,rule:'÷2'},
+    {seq:[1,3,7,15],next:31,rule:'2^n - 1'},
+    {seq:[2,5,10,17,26],next:37,rule:'n²+1'},
+    {seq:[1,5,14,30],next:55,rule:'Pyramidal numbers'},
+    {seq:[3,8,15,24],next:35,rule:'n²+2n'},
+    // Hard
+    {seq:[1,2,5,14],next:42,rule:'Catalan numbers'},
+    {seq:[2,3,5,11,23],next:47,rule:'Safe primes'},
+    {seq:[1,6,21,66],next:195,rule:'Pascal triangle'},
+    {seq:[4,7,12,19,28],next:39,rule:'n²+3'},
+    {seq:[1,7,25,79],next:241,rule:'3^n - 2'},
+    {seq:[2,10,30,68],next:130,rule:'2n³+2n'},
+    {seq:[1,4,13,40],next:121,rule:'3^n+1 /2... pattern'},
+    {seq:[3,5,11,21,43],next:85,rule:'2n+... pattern'},
+    {seq:[1,3,4,7,11,18],next:29,rule:'Lucas numbers'},
+    {seq:[5,12,29,70],next:169,rule:'Each term ×2 + pattern'},
+  ];
+  var idx=Math.min(SEQUENCES.length-1,Math.floor(level/45*SEQUENCES.length)+Math.floor(Math.random()*3));
+  var seq=SEQUENCES[idx];
+  var wrong=[seq.next+rnd(1,5),seq.next-rnd(1,5),seq.next+rnd(5,15),seq.next*2].filter(function(v){return v>0&&v!==seq.next;});
+  var opts=[seq.next].concat(wrong.slice(0,3)).sort(function(){return Math.random()-.5;});
+  var timeLimit=Math.max(6,20-Math.floor(level/3));var timer=timeLimit;
+  var g=gw();if(!g)return;
+  var h=_LVL.renderHeader('📈 Number Sequence','#fb923c');
+  h+='<div style="text-align:center;margin-bottom:16px;">';
+  h+='<div style="display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:10px;">';
+  seq.seq.forEach(function(n){h+='<span style="background:rgba(255,255,255,.15);border-radius:10px;padding:10px 16px;font-size:24px;font-weight:900;color:var(--text);">'+n+'</span>';h+='<span style="color:rgba(255,255,255,.3);font-size:20px;">→</span>';});
+  h+='<span style="background:rgba(251,146,60,.3);border:2px dashed #fb923c;border-radius:10px;padding:10px 16px;font-size:24px;font-weight:900;color:#fb923c;">?</span>';
+  h+='</div>';
+  h+='<div style="font-size:13px;color:rgba(255,255,255,.4);">What comes next in the sequence?</div>';
+  if(level>=8)h+='<div id="ns-timer" style="font-size:20px;font-weight:900;margin-top:8px;color:'+(timer<=5?'#ef4444':'#fb923c')+';">⏱ '+timer+'s</div>';
+  h+='</div>';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
+  opts.forEach(function(opt){h+='<button onclick="nsAns('+opt+')" style="padding:16px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:22px;font-weight:900;color:var(--text);transition:all .15s;" onmouseover="this.style.background=\'rgba(251,146,60,.3)\';" onmouseout="this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';});
+  h+='</div>';
+  h+='<div style="text-align:center;margin-top:10px;"><button onclick="nsHint()" style="background:none;border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:5px 12px;color:rgba(255,255,255,.5);cursor:pointer;font-size:12px;">💡 Hint: '+seq.rule+'</button></div>';
+  g.innerHTML=h;
+  if(level>=8){window._nsTimer=setInterval(function(){timer--;var te=document.getElementById('ns-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=5?'#ef4444':'#fb923c';}if(timer<=0){clearInterval(window._nsTimer);_LVL.lose();setTimeout(function(){gameNumSeq();},800);}},1000);}
+  window.nsAns=function(val){if(window._nsTimer)clearInterval(window._nsTimer);if(val===seq.next){_LVL.win(35);showScorePop('+35');setTimeout(function(){gameNumSeq();},700);}else{var alive=_LVL.lose();var btns=g.querySelectorAll('button');btns.forEach(function(b){if(+b.textContent===seq.next)b.style.background='rgba(34,197,94,.5)';else if(+b.textContent===val)b.style.background='rgba(239,68,68,.5)';b.style.color='#fff';b.disabled=true;});if(alive)setTimeout(function(){gameNumSeq();},1200);}};
+  window.nsHint=function(){showScorePop(seq.rule);};
+}
+
+
 function nextNS(){
   if(window._nsIdx>=window._nsSets.length){gw().innerHTML=`<h2>📈 Number Sequence</h2><div style="font-size:48px;">🏆</div><div style="font-size:24px;">Score: ${window._nsScore}/${window._nsSets.length}</div><button class="g-btn" style="margin-top:12px;" onclick="gameNumSeq()">Play Again</button>`;return;}
   const [seq,ans,rule]=window._nsSets[window._nsIdx];
@@ -3195,7 +4776,48 @@ function nsAns(c,a,rule){
 
 /* SPELLING BEE */
 const SP_WORDS=[['EPHEMERAL','Lasting for a short time'],['SERENDIPITY','Finding something good without looking'],['UBIQUITOUS','Present everywhere'],['MELANCHOLY','Deep sadness'],['SURREPTITIOUS','Done secretly'],['PERSPICACIOUS','Having a ready insight'],['LOQUACIOUS','Tending to talk a lot'],['MAGNANIMOUS','Very generous'],['OBFUSCATE','To make unclear'],['CACOPHONY','A harsh mixture of sounds']];
-function gameSpelling(){window._spIdx=0;window._spScore=0;window._spWords=shuffle(SP_WORDS);nextSpelling();}
+function gameSpelling(){
+  _LVL.init('spelling',40);
+  var level=_LVL.level;
+  var WORDS_BY_TIER=[
+    ['cat','dog','run','big','sun','hat','cup','box','bed','red'],
+    ['apple','brain','climb','dance','eagle','flame','grace','happy','ivory','judge'],
+    ['bridge','castle','desert','empire','forest','garden','harbor','insect','jungle','knight'],
+    ['absolute','bacteria','calendar','diameter','electron','fragment','gorgeous','heritage','imminent','junction'],
+    ['algorithm','basketball','chrysalis','democracy','fahrenheit','goalkeeper','helicopter','illuminate','javascript','knowledgeable'],
+    ['architecture','bibliography','circumstance','disintegrate','encyclopedia','fluorescence','galvanization','hallucination','indeterminate','juxtaposition']
+  ];
+  var tier=Math.min(5,Math.floor(level/7));
+  var word=WORDS_BY_TIER[tier][Math.floor(Math.random()*10)];
+  var scrambled=word.toUpperCase().split('').sort(function(){return Math.random()-.5;}).join(' ');
+  var timeLimit=Math.max(8,30-level);var timer=timeLimit;
+  var g=gw();if(!g)return;
+  var h=_LVL.renderHeader('🐝 Spelling Bee','#fbbf24');
+  h+='<div style="text-align:center;margin-bottom:16px;">';
+  h+='<div style="font-size:48px;margin-bottom:6px;">🐝</div>';
+  h+='<div style="font-size:20px;font-weight:900;color:var(--text);letter-spacing:8px;background:rgba(255,255,255,.1);padding:14px;border-radius:12px;">'+scrambled+'</div>';
+  h+='<div style="font-size:13px;color:rgba(255,255,255,.6);margin-top:8px;">Unscramble and spell the word correctly</div>';
+  if(level>=5)h+='<div id="sp-timer" style="font-size:22px;font-weight:900;margin-top:8px;color:'+(timer<=5?'#ef4444':'#fbbf24')+';">⏱ '+timer+'s</div>';
+  h+='</div>';
+  h+='<input id="sp-inp" type="text" placeholder="Spell the word..." style="width:100%;padding:14px;border-radius:12px;border:2px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);font-size:18px;font-weight:700;color:var(--text);font-family:monospace;text-align:center;outline:none;box-sizing:border-box;margin-bottom:10px;" autocorrect="off" autocapitalize="off" spellcheck="false" onkeydown="if(event.key===\'Enter\')spCheck();">';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
+  h+='<button class="btn" onclick="spCheck()" style="padding:14px;">Submit</button>';
+  h+='<button class="btn btn-sec" onclick="spHint()" style="padding:14px;border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.7);">Hint 💡</button>';
+  h+='</div>';
+  h+='<div id="sp-hint" style="text-align:center;margin-top:8px;color:rgba(255,255,255,.5);font-size:13px;"></div>';
+  g.innerHTML=h;
+  document.getElementById('sp-inp').focus();
+  if(level>=5){window._spTimer=setInterval(function(){timer--;var te=document.getElementById('sp-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=5?'#ef4444':'#fbbf24';}if(timer<=0){clearInterval(window._spTimer);_LVL.lose();setTimeout(function(){gameSpelling();},800);}},1000);}
+  window.spCheck=function(){
+    if(window._spTimer)clearInterval(window._spTimer);
+    var val=(document.getElementById('sp-inp').value||'').trim().toLowerCase();
+    if(val===word){_LVL.win(30);showScorePop('+30');setTimeout(function(){gameSpelling();},700);}
+    else{var alive=_LVL.lose();var inp=document.getElementById('sp-inp');if(inp){inp.style.borderColor='#ef4444';inp.value='';}var h2=document.getElementById('sp-hint');if(h2)h2.textContent='Correct: '+word;if(alive)setTimeout(function(){gameSpelling();},1500);}
+  };
+  window.spHint=function(){var h2=document.getElementById('sp-hint');if(h2)h2.textContent='First 2 letters: '+word.slice(0,2).toUpperCase()+' ('+word.length+' letters)';};
+}
+
+
 function nextSpelling(){
   if(window._spIdx>=window._spWords.length){gw().innerHTML=`<h2>🐝 Spelling Bee</h2><div style="font-size:48px;">🏆</div><div style="font-size:24px;">Score: ${window._spScore}/${window._spWords.length}</div><button class="g-btn" style="margin-top:12px;" onclick="gameSpelling()">Play Again</button>`;return;}
   const [word,def]=window._spWords[window._spIdx];window._spCurrent=word;
@@ -3393,13 +5015,59 @@ const CP=[
   {fen:'8/8/8/8/8/k7/8/KQ6',move:'Qb2#',desc:'King+Queen vs King  -  Qb2#'},
 ];
 function gameChess(){
-  let idx=0;
-  function show(){
-    const p=CP[idx];
-    gw().innerHTML=`<h2>♟️ Chess Puzzles</h2><div style="font-size:14px;color:#888;margin-bottom:8px;">Puzzle ${idx+1}/${CP.length}</div><div style="font-size:16px;margin:12px;">${p.desc}</div><p>What is the best move?</p><input id="ch-in" type="text" style="font-size:18px;padding:8px;border:2px solid #ccc;border-radius:8px;text-align:center;width:120px;" placeholder="e.g. Qxf2#"><button class="g-btn" style="display:block;margin:10px auto 0;" onclick="chCheck('${p.move}')">Submit</button><button class="g-btn" style="background:#95a5a6;" onclick="chReveal('${p.move}')">Show Answer</button><div id="ch-msg" style="margin-top:10px;min-height:24px;font-size:16px;"></div>`;
+  _LVL.init('chess',30);
+  var level=_LVL.level;
+  var PUZZLES=[
+    // Easy - Mate in 1
+    {fen:'Scholar mate setup',desc:'White: Qh5+Bc4 vs Black king on e8',solution:'Qxf7#',hint:'Queen takes f7',difficulty:'Easy - Mate in 1',moves:['Qxf7#'],wrong:['Qf3','Bc4','Nf3']},
+    {fen:'Back rank',desc:'White Rook on d1, Black king on e8 with no escape',solution:'Rd8#',hint:'Rook to d8',difficulty:'Easy - Mate in 1',moves:['Rd8#'],wrong:['Rd7','Re1','Rb1']},
+    {fen:'Fool mate',desc:'White bishop on c4, queen on h5',solution:'Qxf7#',hint:'Queen captures f7',difficulty:'Easy - Mate in 1',moves:['Qxf7#'],wrong:['Qf3','Bxf7','Nf3']},
+    {fen:'Smothered mate',desc:'Knight can fork king and queen',solution:'Nf7#',hint:'Knight to f7',difficulty:'Easy - Mate in 1',moves:['Nf7#'],wrong:['Ne4','Ng5','Nd6']},
+    {fen:'Queen mate',desc:'Queen and rook battery',solution:'Qd8#',hint:'Queen to d8',difficulty:'Easy - Mate in 1',moves:['Qd8#'],wrong:['Rd8','Qe7','Qb8']},
+    // Medium
+    {fen:'Double check',desc:'Discovered check opportunity',solution:'Nxd5+',hint:'Knight captures d5 with check',difficulty:'Medium - Win Material',moves:['Nxd5+'],wrong:['Nf4','Ne3','Nc3']},
+    {fen:'Fork tactic',desc:'Knight fork: king and rook',solution:'Ne7+',hint:'Knight to e7 forking king and rook',difficulty:'Medium - Fork',moves:['Ne7+'],wrong:['Nd5','Nc6','Nf5']},
+    {fen:'Pin tactic',desc:'Pin the knight to win the queen',solution:'Bb5',hint:'Bishop pins the knight',difficulty:'Medium - Pin',moves:['Bb5'],wrong:['Bc4','Ba6','Bd3']},
+    {fen:'Skewer',desc:'Skewer king to win rook',solution:'Bg5+',hint:'Bishop skewers king',difficulty:'Medium - Skewer',moves:['Bg5+'],wrong:['Bf4','Bh4','Be3']},
+    {fen:'Zwischenzug',desc:'In-between move wins material',solution:'Nxe5',hint:'Knight captures e5',difficulty:'Medium',moves:['Nxe5'],wrong:['Nf3','Nd4','Nc3']},
+    // Hard
+    {fen:'Deflection',desc:'Deflect the defender',solution:'Rxd5',hint:'Rook captures d5 to deflect',difficulty:'Hard - Deflection',moves:['Rxd5'],wrong:['Rd6','Rd7','Rd4']},
+    {fen:'Interference',desc:'Interfere with piece coordination',solution:'Nd5',hint:'Knight to d5 interferes',difficulty:'Hard - Interference',moves:['Nd5'],wrong:['Ne3','Nc3','Nf4']},
+    {fen:'Decoy',desc:'Decoy the queen to win',solution:'Rd8+',hint:'Rook decoys queen',difficulty:'Hard - Decoy',moves:['Rd8+'],wrong:['Rb8','Rc8','Re8']},
+    {fen:'X-ray',desc:'X-ray attack through pieces',solution:'Qxd8',hint:'Queen x-ray through the rook',difficulty:'Hard - X-ray',moves:['Qxd8'],wrong:['Qe7','Qb8','Qc7']},
+    {fen:'Zugzwang',desc:'Any move loses for the opponent',solution:'Ka6',hint:'King to a6 creates zugzwang',difficulty:'Hard - Zugzwang',moves:['Ka6'],wrong:['Ka4','Kb6','Kc6']},
+  ];
+  var idx=Math.min(PUZZLES.length-1,Math.floor(level/30*PUZZLES.length));
+  var puzzle=PUZZLES[idx];
+  var timeLimit=Math.max(10,40-level);var timer=timeLimit;
+  var allMoves=[puzzle.moves[0]].concat(puzzle.wrong).sort(function(){return Math.random()-.5;});
+  var g=gw();if(!g)return;
+  var h=_LVL.renderHeader('♟️ Chess Puzzles','#a78bfa');
+  h+='<div style="background:rgba(255,255,255,.08);border-radius:12px;padding:16px;margin-bottom:12px;">';
+  h+='<div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.5);margin-bottom:6px;">'+puzzle.difficulty+'</div>';
+  h+='<div style="font-size:15px;font-weight:700;margin-bottom:6px;color:var(--text);">'+puzzle.desc+'</div>';
+  h+='<div style="font-size:13px;color:rgba(255,255,255,.6);">White to move. Find the best move!</div>';
+  h+='</div>';
+  if(level>=5)h+='<div id="chess-timer" style="text-align:center;font-size:20px;font-weight:800;margin-bottom:10px;color:'+(timer<=10?'#ef4444':'#a78bfa')+';">⏱ '+timer+'s</div>';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">';
+  allMoves.forEach(function(move){
+    h+='<button onclick="chessAns(\''+move+'\')" style="padding:14px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:16px;font-weight:900;color:var(--text);font-family:monospace;transition:all .15s;" onmouseover="this.style.background=\'rgba(167,139,250,.4)\';" onmouseout="this.style.background=\'rgba(255,255,255,.1)\';">'+move+'</button>';
+  });
+  h+='</div>';
+  h+='<div style="text-align:center;"><button onclick="chessHint()" style="background:none;border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:6px 14px;color:rgba(255,255,255,.6);cursor:pointer;font-size:12px;">💡 Hint (-10pts)</button></div>';
+  g.innerHTML=h;
+  if(level>=5){
+    window._chessTimer=setInterval(function(){timer--;var te=document.getElementById('chess-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=10?'#ef4444':'#a78bfa';}if(timer<=0){clearInterval(window._chessTimer);_LVL.lose();setTimeout(function(){gameChess();},800);}},1000);
   }
-  window._chShow=show;show();
+  window.chessAns=function(move){
+    if(window._chessTimer)clearInterval(window._chessTimer);
+    if(move===puzzle.moves[0]){_LVL.win(40);showScorePop('+40');setTimeout(function(){gameChess();},800);}
+    else{var alive=_LVL.lose();var btns=g.querySelectorAll('button');btns.forEach(function(b){if(b.textContent===puzzle.moves[0])b.style.background='rgba(34,197,94,.5)';else if(b.textContent===move)b.style.background='rgba(239,68,68,.5)';b.disabled=true;});if(alive)setTimeout(function(){gameChess();},1500);}
+  };
+  window.chessHint=function(){_LVL.score=Math.max(0,_LVL.score-10);var g2=gw();if(g2){var fb=document.createElement('div');fb.style.cssText='text-align:center;padding:8px;color:rgba(255,255,255,.7);font-size:13px;margin-top:6px;';fb.textContent='Hint: '+puzzle.hint;g2.appendChild(fb);}};
 }
+
+
 function chCheck(ans){
   const v=document.getElementById('ch-in').value.trim();
   const msg=document.getElementById('ch-msg');
@@ -3699,6 +5367,9 @@ const GAMES={
 GAMES.wordsearch=gameWordsearch;
 console.log("GameNest v5 - all games loaded");
 console.log("GameNest v5 - all games loaded");
+
+
+
 
 
 
