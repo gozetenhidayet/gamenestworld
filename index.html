@@ -806,7 +806,11 @@ body{background:linear-gradient(160deg,#f8faff 0%,#f1f5f9 50%,#f5f3ff 100%)!impo
   </div>
 
 
-  <!-- FOOTER -->
+  
+<!-- AFFILIATE SECTION -->
+<div id="affiliate-section" style="background:var(--s2);border-top:1px solid var(--border);padding-top:20px;"></div>
+
+<!-- FOOTER -->
 <footer>
   <div style="max-width:1160px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr;gap:40px;align-items:start;">
     <div class="foot-brand">
@@ -839,6 +843,7 @@ body{background:linear-gradient(160deg,#f8faff 0%,#f1f5f9 50%,#f5f3ff 100%)!impo
 <!-- MODAL -->
 <div class="overlay" id="overlay" onclick="closeIfOut(event)"><div class="modal" id="modal-box"></div></div>
 <script>
+
 
 
 
@@ -999,6 +1004,7 @@ function openGame(key){
   if(window._gl){try{cancelAnimationFrame(window._gl);}catch(e){}try{clearTimeout(window._gl);}catch(e){}window._gl=null;}
   addRecent(key);
   playSound('click');
+  trackGamePlay(); /* monetization tracking */
   _currentGame=key;
   resetLives();
 
@@ -1432,6 +1438,9 @@ function renderRecent(){
 
 /* ── WIN/LOSE OVERLAY ── */
 function showWin(title,msg,xp){
+  /* Show affiliate offer after win - context relevant */
+  var cat = _currentGame && GAME_THEMES ? (GAME_THEMES[_currentGame]||'classic') : 'all';
+  setTimeout(function(){ showAffiliateAfterGame(cat); }, 3000);
   playSound('win');
   var div=document.createElement('div');
   div.className='win-overlay';
@@ -1470,6 +1479,394 @@ function updateHighScore(game,score){
   return Math.max(score,old);
 }
 function getHighScore(game){return+(localStorage.getItem('hs_'+game)||0);}
+
+/* ══════════════════════════════════════════════════════════
+   GAMENEST WORLD - COMPLETE MONETIZATION SYSTEM
+   Revenue streams: Rewarded Video, Interstitial, Affiliate
+   ══════════════════════════════════════════════════════════ */
+
+/* ── AD CONFIG (Replace with real AdSense after approval) ──
+   AdSense pub-id: ca-pub-3359266836868361
+   For rewarded ads: use AdSense Rewarded API when approved
+   For now: simulated 5s countdown = same UX as real rewarded ads */
+
+var AD_CONFIG = {
+  pub: 'ca-pub-3359266836868361',
+  rewardedSlot: 'auto',
+  interstitialSlot: 'auto',
+  bannerSlot: 'auto',
+  enabled: true,
+  rewardedCooldown: 30000, /* 30s between rewarded ads */
+  lastRewardedTime: 0,
+  interstitialFreq: 3,   /* show after every 3rd game */
+  gamesPlayed: 0
+};
+
+/* ── REWARDED VIDEO AD SYSTEM ── */
+function showRewardedAd(reason, onComplete) {
+  /* reason: 'hint' | 'extra_life' | 'show_answer' | 'continue' | 'bonus' */
+  var now = Date.now();
+  var cooldownLeft = AD_CONFIG.rewardedCooldown - (now - AD_CONFIG.lastRewardedTime);
+
+  var REWARDS = {
+    hint:        { title: 'Get a Hint!',         reward: 'Hint Unlocked', xp: 0,  icon: '💡' },
+    extra_life:  { title: 'Get an Extra Life!',  reward: '+1 Life',       xp: 5,  icon: '❤️' },
+    show_answer: { title: 'Reveal the Answer!',  reward: 'Answer Shown',  xp: 0,  icon: '🔍' },
+    continue:    { title: 'Continue Playing!',   reward: '+3 Lives',      xp: 10, icon: '▶️' },
+    bonus:       { title: 'Bonus Reward!',       reward: '+50 XP',        xp: 50, icon: '🎁' },
+    skip_level:  { title: 'Skip This Level!',    reward: 'Level Skipped', xp: 5,  icon: '⏭️' }
+  };
+  var r = REWARDS[reason] || REWARDS.bonus;
+
+  /* Create ad modal */
+  var existing = document.getElementById('rewarded-modal');
+  if (existing) existing.remove();
+
+  var modal = document.createElement('div');
+  modal.id = 'rewarded-modal';
+  modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;z-index:99999;backdrop-filter:blur(8px);';
+
+  var countdown = 5;
+  modal.innerHTML = rewardedModalHTML(r, countdown, false);
+  document.body.appendChild(modal);
+
+  var iv = setInterval(function() {
+    countdown--;
+    var cd = document.getElementById('rwrd-countdown');
+    var bar = document.getElementById('rwrd-bar');
+    var btn = document.getElementById('rwrd-claim');
+    if (cd) cd.textContent = countdown > 0 ? countdown + 's' : '✓';
+    if (bar) bar.style.width = ((5-countdown)/5*100) + '%';
+    if (countdown <= 0) {
+      clearInterval(iv);
+      AD_CONFIG.lastRewardedTime = Date.now();
+      if (btn) { btn.disabled = false; btn.style.opacity = '1'; btn.style.cursor = 'pointer'; }
+      var adBox = document.getElementById('rwrd-ad-box');
+      if (adBox) adBox.innerHTML = '<div style="font-size:48px;text-align:center;padding:20px;">✅</div>';
+    }
+  }, 1000);
+
+  window._claimReward = function() {
+    if (countdown > 0) return;
+    modal.remove();
+    /* Give reward */
+    if (reason === 'extra_life' || reason === 'continue') gainLive(reason === 'continue' ? 3 : 1);
+    if (r.xp > 0) earnXP(r.xp, 'Rewarded Ad');
+    playSound('win');
+    showToast(r.reward, r.xp);
+    if (onComplete) onComplete();
+  };
+
+  window._skipReward = function() {
+    clearInterval(iv);
+    modal.remove();
+  };
+}
+
+function rewardedModalHTML(r, cd, done) {
+  return '<div style="background:linear-gradient(145deg,#1e1b4b,#312e81);border-radius:24px;padding:28px 24px;text-align:center;max-width:320px;width:90%;border:1px solid rgba(129,140,248,.3);">'
+    + '<div style="font-size:48px;margin-bottom:8px;">'+r.icon+'</div>'
+    + '<div style="color:#e0e7ff;font-size:20px;font-weight:900;margin-bottom:4px;">'+r.title+'</div>'
+    + '<div style="color:rgba(255,255,255,.5);font-size:13px;margin-bottom:16px;">Watch a short ad to earn: <strong style="color:#818cf8;">'+r.reward+'</strong></div>'
+    /* Simulated ad area */
+    + '<div id="rwrd-ad-box" style="background:#000;border-radius:12px;height:140px;margin-bottom:14px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;">'
+    + '<div style="color:#374151;font-size:12px;text-align:center;padding:20px;">'
+    + '<div style="font-size:32px;margin-bottom:8px;">📺</div>'
+    + '<div>Advertisement</div>'
+    + '<div style="font-size:10px;margin-top:4px;color:#6b7280;">(AdSense Video Ad)</div>'
+    + '</div>'
+    + '<div style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,.7);color:#fff;font-size:11px;padding:3px 8px;border-radius:4px;" id="rwrd-countdown">'+cd+'s</div>'
+    + '</div>'
+    /* Progress bar */
+    + '<div style="background:rgba(255,255,255,.1);border-radius:99px;height:6px;margin-bottom:14px;overflow:hidden;">'
+    + '<div id="rwrd-bar" style="background:#818cf8;height:6px;border-radius:99px;width:0%;transition:width 1s linear;"></div>'
+    + '</div>'
+    + '<button id="rwrd-claim" onclick="_claimReward()" disabled style="width:100%;padding:14px;border-radius:12px;background:#4338ca;border:none;color:#fff;font-size:15px;font-weight:700;cursor:not-allowed;margin-bottom:10px;opacity:.4;transition:all .3s;">Claim '+r.reward+'</button>'
+    + '<button onclick="_skipReward()" style="background:none;border:none;color:rgba(255,255,255,.3);font-size:12px;cursor:pointer;">Skip</button>'
+    + '</div>';
+}
+
+/* ── INTERSTITIAL AD (shown between games) ── */
+var _gamesPlayedCount = 0;
+
+function trackGamePlay() {
+  _gamesPlayedCount++;
+  if (_gamesPlayedCount % AD_CONFIG.interstitialFreq === 0) {
+    setTimeout(showInterstitial, 500);
+  }
+}
+
+function showInterstitial() {
+  var existing = document.getElementById('interstitial-modal');
+  if (existing) return;
+
+  var modal = document.createElement('div');
+  modal.id = 'interstitial-modal';
+  modal.style.cssText = 'position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;z-index:99998;';
+
+  var skip = 5;
+  modal.innerHTML = '<div style="width:100%;max-width:600px;text-align:center;padding:20px;position:relative;">'
+    + '<div style="background:#1a1a2e;border-radius:16px;padding:40px 20px;margin-bottom:16px;">'
+    + '<div style="font-size:14px;color:#6b7280;margin-bottom:16px;">Advertisement</div>'
+    + '<div style="font-size:48px;margin-bottom:12px;">📺</div>'
+    + '<div style="color:#9ca3af;font-size:13px;">AdSense Interstitial Ad</div>'
+    + '<div style="color:#6b7280;font-size:11px;margin-top:4px;">ca-pub-3359266836868361</div>'
+    + '</div>'
+    + '<button id="skip-btn" onclick="closeInterstitial()" style="background:#374151;color:#9ca3af;border:none;border-radius:8px;padding:10px 24px;font-size:14px;cursor:pointer;" disabled>'
+    + 'Skip in <span id="skip-cd">'+skip+'</span>s'
+    + '</button>'
+    + '</div>';
+
+  document.body.appendChild(modal);
+
+  var iv = setInterval(function() {
+    skip--;
+    var cd = document.getElementById('skip-cd');
+    var btn = document.getElementById('skip-btn');
+    if (cd) cd.textContent = skip;
+    if (skip <= 0) {
+      clearInterval(iv);
+      if (btn) { btn.disabled = false; btn.style.background = '#4338ca'; btn.style.color = '#fff'; btn.textContent = 'Close Ad'; }
+    }
+  }, 1000);
+}
+
+window.closeInterstitial = function() {
+  var modal = document.getElementById('interstitial-modal');
+  if (modal) modal.remove();
+};
+
+/* ── AFFILIATE SYSTEM ── */
+var AFFILIATES = [
+  {
+    name: 'Chess.com Premium',
+    desc: 'Take your chess to the next level',
+    icon: '♟️',
+    url: 'https://www.chess.com/premium',
+    tag: '?utm_source=gamenestworld',
+    color: '#16a34a',
+    bg: '#dcfce7',
+    commission: '30%',
+    category: 'chess'
+  },
+  {
+    name: 'Lumosity Brain Training',
+    desc: 'Train memory, attention & problem solving',
+    icon: '🧠',
+    url: 'https://www.lumosity.com',
+    tag: '?utm_source=gamenestworld',
+    color: '#7c3aed',
+    bg: '#ede9fe',
+    commission: '25%',
+    category: 'brain'
+  },
+  {
+    name: 'Duolingo Plus',
+    desc: 'Learn languages while having fun',
+    icon: '🦜',
+    url: 'https://www.duolingo.com',
+    tag: '?utm_source=gamenestworld',
+    color: '#15803d',
+    bg: '#dcfce7',
+    commission: '15%',
+    category: 'word'
+  },
+  {
+    name: 'NordVPN',
+    desc: 'Secure your gaming sessions',
+    icon: '🔒',
+    url: 'https://nordvpn.com',
+    tag: '?utm_source=gamenestworld',
+    color: '#1d4ed8',
+    bg: '#dbeafe',
+    commission: '40%',
+    category: 'all'
+  },
+  {
+    name: 'Amazon Gaming',
+    desc: 'Best gaming gear & accessories',
+    icon: '🎮',
+    url: 'https://www.amazon.com/gaming',
+    tag: '?tag=gamenestworld-20',
+    color: '#d97706',
+    bg: '#fef3c7',
+    commission: '6%',
+    category: 'all'
+  },
+  {
+    name: 'Brilliant.org',
+    desc: 'Math & science courses — perfect for puzzle lovers',
+    icon: '🔬',
+    url: 'https://brilliant.org',
+    tag: '?utm_source=gamenestworld',
+    color: '#dc2626',
+    bg: '#fef2f2',
+    commission: '30%',
+    category: 'math'
+  }
+];
+
+/* Show affiliate after game based on category */
+function showAffiliateAfterGame(gameCategory) {
+  var relevant = AFFILIATES.filter(function(a) {
+    return a.category === gameCategory || a.category === 'all';
+  });
+  if (!relevant.length) return;
+  var aff = relevant[Math.floor(Math.random() * relevant.length)];
+
+  var existing = document.getElementById('affiliate-banner');
+  if (existing) existing.remove();
+
+  var banner = document.createElement('div');
+  banner.id = 'affiliate-banner';
+  banner.style.cssText = 'position:fixed;bottom:20px;right:20px;max-width:280px;background:#fff;border-radius:16px;padding:16px;box-shadow:0 8px 32px rgba(0,0,0,.2);border:1px solid #e2e8f0;z-index:9997;animation:slideIn .4s ease;';
+  banner.innerHTML = '<button onclick="document.getElementById(\'affiliate-banner\').remove()" style="position:absolute;top:8px;right:8px;background:none;border:none;color:#94a3b8;cursor:pointer;font-size:16px;">&times;</button>'
+    + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">'
+    + '<div style="width:40px;height:40px;border-radius:10px;background:'+aff.bg+';display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">'+aff.icon+'</div>'
+    + '<div><div style="font-size:13px;font-weight:700;color:#1e293b;">'+aff.name+'</div>'
+    + '<div style="font-size:11px;color:#64748b;">'+aff.desc+'</div></div>'
+    + '</div>'
+    + '<a href="'+aff.url+aff.tag+'" target="_blank" rel="noopener" onclick="trackAffiliate(\''+aff.name+'\')" style="display:block;width:100%;padding:10px;background:'+aff.color+';color:#fff;text-align:center;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none;box-sizing:border-box;">Check it out →</a>'
+    + '<div style="font-size:10px;color:#cbd5e1;text-align:center;margin-top:6px;">Sponsored · We earn a commission</div>';
+
+  document.body.appendChild(banner);
+  setTimeout(function() {
+    var el = document.getElementById('affiliate-banner');
+    if (el) el.remove();
+  }, 15000);
+}
+
+function trackAffiliate(name) {
+  /* Track click in Analytics */
+  if (window.gtag) gtag('event', 'affiliate_click', { affiliate: name });
+}
+
+/* ── DONATE / SUPPORT BUTTON ── */
+function showSupportModal() {
+  var existing = document.getElementById('support-modal');
+  if (existing) { existing.remove(); return; }
+
+  var modal = document.createElement('div');
+  modal.id = 'support-modal';
+  modal.style.cssText = 'position:fixed;bottom:80px;right:20px;background:#fff;border-radius:20px;padding:20px;max-width:260px;box-shadow:0 12px 40px rgba(0,0,0,.2);border:1px solid #e2e8f0;z-index:9996;animation:slideIn .3s ease;';
+  modal.innerHTML = '<button onclick="document.getElementById(\'support-modal\').remove()" style="position:absolute;top:10px;right:10px;background:none;border:none;color:#94a3b8;cursor:pointer;font-size:16px;">&times;</button>'
+    + '<div style="text-align:center;margin-bottom:14px;">'
+    + '<div style="font-size:32px;margin-bottom:6px;">☕</div>'
+    + '<div style="font-size:15px;font-weight:800;color:#1e293b;">Support GameNest!</div>'
+    + '<div style="font-size:12px;color:#64748b;margin-top:4px;">Keep all 51 games free forever</div>'
+    + '</div>'
+    + '<a href="https://ko-fi.com/gamenestworld" target="_blank" rel="noopener" style="display:block;padding:12px;background:#ff5e5b;color:#fff;border-radius:12px;text-align:center;font-size:14px;font-weight:700;text-decoration:none;margin-bottom:8px;">☕ Buy me a coffee ($3)</a>'
+    + '<a href="https://ko-fi.com/gamenestworld" target="_blank" rel="noopener" style="display:block;padding:10px;background:#fff;border:2px solid #e2e8f0;color:#64748b;border-radius:12px;text-align:center;font-size:13px;font-weight:600;text-decoration:none;">💝 Monthly supporter ($5/mo)</a>';
+  document.body.appendChild(modal);
+}
+
+/* ── REVENUE TRACKING ── */
+var _revenue = {
+  adImpressions: 0,
+  rewardedCompleted: 0,
+  affiliateClicks: 0,
+  estimatedRPM: 2.5, /* $2.50 per 1000 ad views */
+
+  estimate: function() {
+    var daily = (this.adImpressions / 1000) * this.estimatedRPM;
+    return daily.toFixed(2);
+  }
+};
+
+/* ── INTEGRATE REWARDED ADS INTO _LVL SYSTEM ── */
+/* Override showNoLivesModal to show rewarded ad */
+function showNoLivesModal() {
+  var box = document.getElementById('modal-box');
+  if (!box) return;
+
+  var overlay = document.createElement('div');
+  overlay.id = 'no-lives-overlay';
+  overlay.style.cssText = 'position:absolute;inset:0;background:rgba(0,0,0,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:20px;z-index:10;padding:24px;box-sizing:border-box;';
+  overlay.innerHTML = '<div style="font-size:52px;margin-bottom:12px;animation:pulse 1s infinite;">💔</div>'
+    + '<div style="color:#fff;font-size:22px;font-weight:900;margin-bottom:6px;text-align:center;">No Lives Left!</div>'
+    + '<div style="color:rgba(255,255,255,.6);font-size:14px;margin-bottom:24px;text-align:center;">Watch a short ad to restore lives and keep your progress!</div>'
+    /* Option 1: Watch ad */
+    + '<button onclick="rewardedForLives()" style="width:100%;max-width:240px;padding:15px;border-radius:14px;background:linear-gradient(135deg,#f59e0b,#d97706);border:none;color:#fff;font-size:16px;font-weight:700;cursor:pointer;margin-bottom:10px;box-shadow:0 4px 20px rgba(245,158,11,.4);">📺 Watch Ad → +3 Lives</button>'
+    /* Option 2: Use XP */
+    + '<button onclick="xpForLives()" style="width:100%;max-width:240px;padding:13px;border-radius:14px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:14px;font-weight:600;cursor:pointer;margin-bottom:10px;">⭐ Spend 50 XP → +1 Life (You have '+getXP()+'XP)</button>'
+    /* Option 3: Exit */
+    + '<button onclick="var o=document.getElementById(\'no-lives-overlay\');if(o)o.remove();closeGame();" style="background:none;border:none;color:rgba(255,255,255,.3);font-size:13px;cursor:pointer;">Exit Game</button>';
+
+  box.style.position = 'relative';
+  box.appendChild(overlay);
+}
+
+window.rewardedForLives = function() {
+  var overlay = document.getElementById('no-lives-overlay');
+  if (overlay) overlay.remove();
+  showRewardedAd('continue', function() {
+    gainLive(3);
+    _revenue.rewardedCompleted++;
+  });
+};
+
+window.xpForLives = function() {
+  if (getXP() >= 50) {
+    setXP(getXP() - 50);
+    updateXPUI();
+    gainLive(1);
+    var overlay = document.getElementById('no-lives-overlay');
+    if (overlay) overlay.remove();
+    showToast('+1 Life!', 0);
+  } else {
+    showToast('Not enough XP!', 0);
+  }
+};
+
+/* ── HINT BUTTON (rewarded) ── */
+function getHintRewarded(onHint) {
+  showRewardedAd('hint', onHint);
+}
+
+/* ── ANSWER REVEAL (rewarded) ── */
+function revealAnswerRewarded(onReveal) {
+  showRewardedAd('show_answer', onReveal);
+}
+
+/* ── SUPPORT FLOATING BUTTON ── */
+function addSupportButton() {
+  var existing = document.getElementById('support-fab');
+  if (existing) return;
+  var fab = document.createElement('button');
+  fab.id = 'support-fab';
+  fab.onclick = showSupportModal;
+  fab.style.cssText = 'position:fixed;bottom:20px;right:20px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#ff5e5b,#ff8c00);color:#fff;border:none;font-size:20px;cursor:pointer;box-shadow:0 4px 16px rgba(255,94,91,.4);z-index:9995;transition:all .2s;';
+  fab.title = 'Support GameNest';
+  fab.textContent = '☕';
+  fab.onmouseover = function() { fab.style.transform = 'scale(1.1)'; };
+  fab.onmouseout = function() { fab.style.transform = 'scale(1)'; };
+  document.body.appendChild(fab);
+}
+
+/* ── AFFILIATE SECTION IN PAGE ── */
+function renderAffiliateSection() {
+  var section = document.getElementById('affiliate-section');
+  if (!section) return;
+  var h = '<div style="max-width:1160px;margin:0 auto;padding:0 20px 40px;">';
+  h += '<div style="font-size:18px;font-weight:900;color:var(--text);margin-bottom:16px;">🎯 Recommended for Gamers</div>';
+  h += '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;">';
+  AFFILIATES.forEach(function(aff) {
+    h += '<a href="'+aff.url+aff.tag+'" target="_blank" rel="noopener" onclick="trackAffiliate(\''+aff.name+'\')" style="display:block;background:#fff;border-radius:14px;padding:16px;border:1.5px solid #e2e8f0;text-decoration:none;transition:all .2s;" onmouseover="this.style.transform=\'translateY(-3px)\';this.style.boxShadow=\'0 8px 24px rgba(0,0,0,.1)\'" onmouseout="this.style.transform=\'\';this.style.boxShadow=\'\'">';
+    h += '<div style="font-size:28px;margin-bottom:8px;">'+aff.icon+'</div>';
+    h += '<div style="font-size:13px;font-weight:700;color:#1e293b;margin-bottom:4px;">'+aff.name+'</div>';
+    h += '<div style="font-size:11px;color:#64748b;margin-bottom:10px;">'+aff.desc+'</div>';
+    h += '<div style="font-size:11px;font-weight:700;color:'+aff.color+';">Try Free →</div>';
+    h += '</a>';
+  });
+  h += '</div></div>';
+  section.innerHTML = h;
+}
+
+/* ── CSS ANIMATIONS ── */
+var monetStyle = document.createElement('style');
+monetStyle.textContent = '@keyframes slideIn{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}';
+document.head.appendChild(monetStyle);
+
 
 document.addEventListener('DOMContentLoaded',function(){
   window._gl=null;
@@ -1741,6 +2138,7 @@ function openGame(key){
   if(window._gl){try{cancelAnimationFrame(window._gl);}catch(e){}try{clearTimeout(window._gl);}catch(e){}window._gl=null;}
   addRecent(key);
   playSound('click');
+  trackGamePlay(); /* monetization tracking */
   _currentGame=key;
   resetLives();
   
@@ -6127,6 +6525,7 @@ const GAMES={
 GAMES.wordsearch=gameWordsearch;
 console.log("GameNest v5 - all games loaded");
 console.log("GameNest v5 - all games loaded");
+
 
 
 
