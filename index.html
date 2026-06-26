@@ -559,9 +559,7 @@ div[style*="background:#fff;border:1.5px solid #e2e8f0"] div[style*="color:#94a3
 </div>
 
 <!-- SEARCH -->
-<div class="search-wrap">
-  <input class="search-inp" type="text" placeholder="🔍 Search games... (Snake, Tetris, 2048...)" oninput="searchGames(this.value)">
-</div>
+
 
 <!-- HERO -->
 <div class="hero">
@@ -621,91 +619,93 @@ div[style*="background:#fff;border:1.5px solid #e2e8f0"] div[style*="color:#94a3
     <div class="lb-item"><div class="lb-rank">🥈</div><div style="font-size:20px;margin-right:8px;">🐯</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;">BrainStorm</div><div style="font-size:11px;color:var(--muted);">Wordle: Lv15</div></div><div style="font-weight:800;color:#f59e0b;">4,100 XP</div></div>
     <div class="lb-item"><div class="lb-rank">🥉</div><div style="font-size:20px;margin-right:8px;">🦊</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;">PuzzleKing</div><div style="font-size:11px;color:var(--muted);">Chess: Lv18</div></div><div style="font-weight:800;color:#f59e0b;">3,800 XP</div></div>
     <div class="lb-item"><div class="lb-rank" style="color:#6366f1;">#6</div><div style="font-size:20px;margin-right:8px;">🎮</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;" id="your-xp-lb">You — 0 XP</div><div style="font-size:11px;color:var(--muted);">Keep playing to rank up!</div></div></div>
+  
+    <div style="flex:1;min-width:160px;max-width:280px;padding-left:4px;"><input class="search-inp" type="text" placeholder="🔍 Search..." oninput="searchGames(this.value)" style="width:100%;padding:7px 12px;font-size:13px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:10px;outline:none;font-family:inherit;" placeholder="🔍 Search..."></div>
   </div>
 </div>
 
 <!-- GAMES SECTION -->
 <section id="games">
 
-  <div style="background:#f8faff;border-bottom:1px solid #e2e8f0;padding:24px 20px 20px;">
+  <div style="background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.06);padding:24px 20px 20px;">
     <div style="max-width:1160px;margin:0 auto;">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
         <span style="font-size:24px;">🔥</span>
-        <div><div style="font-size:20px;font-weight:900;color:#1e293b;">Most Popular Games</div><div style="font-size:12px;color:#94a3b8;">Most played today</div></div>
-        <div style="margin-left:auto;background:#fff7ed;color:#d97706;border:1px solid #fed7aa;border-radius:8px;padding:3px 10px;font-size:11px;font-weight:800;">TOP 12</div>
+        <div><div style="font-size:20px;font-weight:900;color:#fff;">Most Popular Games</div><div style="font-size:12px;color:rgba(255,255,255,.4);">Most played today</div></div>
+        <div style="margin-left:auto;background:rgba(245,158,11,.2);color:#fbbf24;border:1px solid rgba(251,191,36,.3);border-radius:8px;padding:3px 10px;font-size:11px;font-weight:800;">TOP 12</div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
-        <div onclick="openGame('g2048')" data-hot="true" style="background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#f59e0b'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.05)';this.style.borderColor='#e2e8f0'">
-          <div style="position:absolute;top:6px;left:8px;color:#f59e0b;font-size:10px;font-weight:900;">#1</div>
+        <div onclick="openGame('g2048')" data-hot="true" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;backdrop-filter:blur(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#f59e0b'" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='rgba(255,255,255,.12)'">
+          <div style="position:absolute;top:6px;left:8px;color:#f59e0b;font-size:10px;font-weight:900;text-shadow:0 0 8px currentColor;">#1</div>
           <div style="width:60px;height:60px;border-radius:14px;background:#fef3c7;display:flex;align-items:center;justify-content:center;font-size:30px;margin:8px auto 10px;">🔢</div>
-          <div style="font-size:12px;font-weight:800;color:#1e293b;margin-bottom:3px;">2048</div>
-          <div style="font-size:10px;color:#94a3b8;">2.4M plays/day</div>
+          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px;">2048</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.4);">2.4M plays/day</div>
         </div>
-        <div onclick="openGame('sudoku')" style="background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#6366f1'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.05)';this.style.borderColor='#e2e8f0'">
-          <div style="position:absolute;top:6px;left:8px;color:#6366f1;font-size:10px;font-weight:900;">#2</div>
+        <div onclick="openGame('sudoku')" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;backdrop-filter:blur(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#6366f1'" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='rgba(255,255,255,.12)'">
+          <div style="position:absolute;top:6px;left:8px;color:#6366f1;font-size:10px;font-weight:900;text-shadow:0 0 8px currentColor;">#2</div>
           <div style="width:60px;height:60px;border-radius:14px;background:#eef2ff;display:flex;align-items:center;justify-content:center;font-size:30px;margin:8px auto 10px;">🔲</div>
-          <div style="font-size:12px;font-weight:800;color:#1e293b;margin-bottom:3px;">Sudoku</div>
-          <div style="font-size:10px;color:#94a3b8;">1.9M plays/day</div>
+          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px;">Sudoku</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.4);">1.9M plays/day</div>
         </div>
-        <div onclick="openGame('snake')" data-hot="true" style="background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#22c55e'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.05)';this.style.borderColor='#e2e8f0'">
-          <div style="position:absolute;top:6px;left:8px;color:#22c55e;font-size:10px;font-weight:900;">#3</div>
+        <div onclick="openGame('snake')" data-hot="true" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;backdrop-filter:blur(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#22c55e'" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='rgba(255,255,255,.12)'">
+          <div style="position:absolute;top:6px;left:8px;color:#22c55e;font-size:10px;font-weight:900;text-shadow:0 0 8px currentColor;">#3</div>
           <div style="width:60px;height:60px;border-radius:14px;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:30px;margin:8px auto 10px;">🐍</div>
-          <div style="font-size:12px;font-weight:800;color:#1e293b;margin-bottom:3px;">Snake</div>
-          <div style="font-size:10px;color:#94a3b8;">1.6M plays/day</div>
+          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px;">Snake</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.4);">1.6M plays/day</div>
         </div>
-        <div onclick="openGame('tetris')" data-hot="true" style="background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#8b5cf6'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.05)';this.style.borderColor='#e2e8f0'">
-          <div style="position:absolute;top:6px;left:8px;color:#8b5cf6;font-size:10px;font-weight:900;">#4</div>
+        <div onclick="openGame('tetris')" data-hot="true" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;backdrop-filter:blur(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#8b5cf6'" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='rgba(255,255,255,.12)'">
+          <div style="position:absolute;top:6px;left:8px;color:#8b5cf6;font-size:10px;font-weight:900;text-shadow:0 0 8px currentColor;">#4</div>
           <div style="width:60px;height:60px;border-radius:14px;background:#ede9fe;display:flex;align-items:center;justify-content:center;font-size:30px;margin:8px auto 10px;">🟦</div>
-          <div style="font-size:12px;font-weight:800;color:#1e293b;margin-bottom:3px;">Tetris</div>
-          <div style="font-size:10px;color:#94a3b8;">1.4M plays/day</div>
+          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px;">Tetris</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.4);">1.4M plays/day</div>
         </div>
-        <div onclick="openGame('mines')" data-hot="true" style="background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#ef4444'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.05)';this.style.borderColor='#e2e8f0'">
-          <div style="position:absolute;top:6px;left:8px;color:#ef4444;font-size:10px;font-weight:900;">#5</div>
+        <div onclick="openGame('mines')" data-hot="true" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;backdrop-filter:blur(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#ef4444'" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='rgba(255,255,255,.12)'">
+          <div style="position:absolute;top:6px;left:8px;color:#ef4444;font-size:10px;font-weight:900;text-shadow:0 0 8px currentColor;">#5</div>
           <div style="width:60px;height:60px;border-radius:14px;background:#fef2f2;display:flex;align-items:center;justify-content:center;font-size:30px;margin:8px auto 10px;">💣</div>
-          <div style="font-size:12px;font-weight:800;color:#1e293b;margin-bottom:3px;">Minesweeper</div>
-          <div style="font-size:10px;color:#94a3b8;">1.1M plays/day</div>
+          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px;">Minesweeper</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.4);">1.1M plays/day</div>
         </div>
-        <div onclick="openGame('wordsearch')" style="background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#10b981'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.05)';this.style.borderColor='#e2e8f0'">
-          <div style="position:absolute;top:6px;left:8px;color:#10b981;font-size:10px;font-weight:900;">#6</div>
+        <div onclick="openGame('wordsearch')" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;backdrop-filter:blur(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#10b981'" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='rgba(255,255,255,.12)'">
+          <div style="position:absolute;top:6px;left:8px;color:#10b981;font-size:10px;font-weight:900;text-shadow:0 0 8px currentColor;">#6</div>
           <div style="width:60px;height:60px;border-radius:14px;background:#d1fae5;display:flex;align-items:center;justify-content:center;font-size:30px;margin:8px auto 10px;">🔠</div>
-          <div style="font-size:12px;font-weight:800;color:#1e293b;margin-bottom:3px;">Word Search</div>
-          <div style="font-size:10px;color:#94a3b8;">980K plays/day</div>
+          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px;">Word Search</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.4);">980K plays/day</div>
         </div>
-        <div onclick="openGame('crossword')" style="background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#eab308'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.05)';this.style.borderColor='#e2e8f0'">
-          <div style="position:absolute;top:6px;left:8px;color:#eab308;font-size:10px;font-weight:900;">#7</div>
+        <div onclick="openGame('crossword')" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;backdrop-filter:blur(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#eab308'" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='rgba(255,255,255,.12)'">
+          <div style="position:absolute;top:6px;left:8px;color:#eab308;font-size:10px;font-weight:900;text-shadow:0 0 8px currentColor;">#7</div>
           <div style="width:60px;height:60px;border-radius:14px;background:#fefce8;display:flex;align-items:center;justify-content:center;font-size:30px;margin:8px auto 10px;">📰</div>
-          <div style="font-size:12px;font-weight:800;color:#1e293b;margin-bottom:3px;">Crossword</div>
-          <div style="font-size:10px;color:#94a3b8;">870K plays/day</div>
+          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px;">Crossword</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.4);">870K plays/day</div>
         </div>
-        <div onclick="openGame('chess')" style="background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#475569'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.05)';this.style.borderColor='#e2e8f0'">
-          <div style="position:absolute;top:6px;left:8px;color:#475569;font-size:10px;font-weight:900;">#8</div>
+        <div onclick="openGame('chess')" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;backdrop-filter:blur(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#475569'" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='rgba(255,255,255,.12)'">
+          <div style="position:absolute;top:6px;left:8px;color:#475569;font-size:10px;font-weight:900;text-shadow:0 0 8px currentColor;">#8</div>
           <div style="width:60px;height:60px;border-radius:14px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;font-size:30px;margin:8px auto 10px;">♟️</div>
-          <div style="font-size:12px;font-weight:800;color:#1e293b;margin-bottom:3px;">Chess</div>
-          <div style="font-size:10px;color:#94a3b8;">760K plays/day</div>
+          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px;">Chess</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.4);">760K plays/day</div>
         </div>
-        <div onclick="openGame('hangman')" style="background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#f97316'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.05)';this.style.borderColor='#e2e8f0'">
-          <div style="position:absolute;top:6px;left:8px;color:#f97316;font-size:10px;font-weight:900;">#9</div>
+        <div onclick="openGame('hangman')" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;backdrop-filter:blur(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#f97316'" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='rgba(255,255,255,.12)'">
+          <div style="position:absolute;top:6px;left:8px;color:#f97316;font-size:10px;font-weight:900;text-shadow:0 0 8px currentColor;">#9</div>
           <div style="width:60px;height:60px;border-radius:14px;background:#fff7ed;display:flex;align-items:center;justify-content:center;font-size:30px;margin:8px auto 10px;">🪝</div>
-          <div style="font-size:12px;font-weight:800;color:#1e293b;margin-bottom:3px;">Hangman</div>
-          <div style="font-size:10px;color:#94a3b8;">640K plays/day</div>
+          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px;">Hangman</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.4);">640K plays/day</div>
         </div>
-        <div onclick="openGame('memory')" style="background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#a855f7'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.05)';this.style.borderColor='#e2e8f0'">
-          <div style="position:absolute;top:6px;left:8px;color:#a855f7;font-size:10px;font-weight:900;">#10</div>
+        <div onclick="openGame('memory')" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;backdrop-filter:blur(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#a855f7'" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='rgba(255,255,255,.12)'">
+          <div style="position:absolute;top:6px;left:8px;color:#a855f7;font-size:10px;font-weight:900;text-shadow:0 0 8px currentColor;">#10</div>
           <div style="width:60px;height:60px;border-radius:14px;background:#fdf4ff;display:flex;align-items:center;justify-content:center;font-size:30px;margin:8px auto 10px;">🃏</div>
-          <div style="font-size:12px;font-weight:800;color:#1e293b;margin-bottom:3px;">Memory Cards</div>
-          <div style="font-size:10px;color:#94a3b8;">590K plays/day</div>
+          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px;">Memory Cards</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.4);">590K plays/day</div>
         </div>
-        <div onclick="openGame('ttt')" style="background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#ec4899'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.05)';this.style.borderColor='#e2e8f0'">
-          <div style="position:absolute;top:6px;left:8px;color:#ec4899;font-size:10px;font-weight:900;">#11</div>
+        <div onclick="openGame('ttt')" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;backdrop-filter:blur(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#ec4899'" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='rgba(255,255,255,.12)'">
+          <div style="position:absolute;top:6px;left:8px;color:#ec4899;font-size:10px;font-weight:900;text-shadow:0 0 8px currentColor;">#11</div>
           <div style="width:60px;height:60px;border-radius:14px;background:#fdf2f8;display:flex;align-items:center;justify-content:center;font-size:30px;margin:8px auto 10px;">⭕</div>
-          <div style="font-size:12px;font-weight:800;color:#1e293b;margin-bottom:3px;">Tic Tac Toe</div>
-          <div style="font-size:10px;color:#94a3b8;">480K plays/day</div>
+          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px;">Tic Tac Toe</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.4);">480K plays/day</div>
         </div>
-        <div onclick="openGame('flappy')" data-hot="true" style="background:#fff;border:1.5px solid #e2e8f0;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#3b82f6'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.05)';this.style.borderColor='#e2e8f0'">
-          <div style="position:absolute;top:6px;left:8px;color:#3b82f6;font-size:10px;font-weight:900;">#12</div>
+        <div onclick="openGame('flappy')" data-hot="true" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;backdrop-filter:blur(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#3b82f6'" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='rgba(255,255,255,.12)'">
+          <div style="position:absolute;top:6px;left:8px;color:#3b82f6;font-size:10px;font-weight:900;text-shadow:0 0 8px currentColor;">#12</div>
           <div style="width:60px;height:60px;border-radius:14px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-size:30px;margin:8px auto 10px;">🐦</div>
-          <div style="font-size:12px;font-weight:800;color:#1e293b;margin-bottom:3px;">Flappy Bird</div>
-          <div style="font-size:10px;color:#94a3b8;">430K plays/day</div>
+          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px;">Flappy Bird</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.4);">430K plays/day</div>
         </div>
       </div>
     </div>
@@ -724,67 +724,67 @@ div[style*="background:#fff;border:1.5px solid #e2e8f0"] div[style*="color:#94a3
       <span style="position:absolute;top:6px;right:6px;background:#22c55e;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Easy</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(99,102,241,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🎨</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#4338ca;margin-bottom:3px;">Color Quiz</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Name that color</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Name that color</div>
     </div>
     <div class="game-card c-quiz" data-cat="quiz" onclick="openGame('flagquiz')" style="background:#eef2ff;border:1.5px solid #6366f133;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#ef4444;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Hard</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(99,102,241,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🏳️</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#4338ca;margin-bottom:3px;">Flag Quiz</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Guess the country</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Guess the country</div>
     </div>
     <div class="game-card c-quiz" data-cat="quiz" onclick="openGame('truefalse')" style="background:#eef2ff;border:1.5px solid #6366f133;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#22c55e;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Easy</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(99,102,241,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">✅</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#4338ca;margin-bottom:3px;">True or False</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">10 fun facts</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">10 fun facts</div>
     </div>
     <div class="game-card c-quiz" data-cat="quiz" onclick="openGame('riddles')" style="background:#eef2ff;border:1.5px solid #6366f133;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Med</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(99,102,241,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🤔</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#4338ca;margin-bottom:3px;">Riddles</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Brain teasers</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Brain teasers</div>
     </div>
     <div class="game-card c-quiz" data-cat="quiz" onclick="openGame('emojiquiz')" style="background:#eef2ff;border:1.5px solid #6366f133;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#22c55e;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Easy</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(99,102,241,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">😀</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#4338ca;margin-bottom:3px;">Emoji Quiz</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Guess from emojis</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Guess from emojis</div>
     </div>
     <div class="game-card c-quiz" data-cat="quiz" onclick="openGame('oddone')" style="background:#eef2ff;border:1.5px solid #6366f133;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Med</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(99,102,241,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔍</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#4338ca;margin-bottom:3px;">Odd One Out</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Spot what differs</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Spot what differs</div>
     </div>
     <div class="game-card c-quiz" data-cat="quiz" onclick="openGame('genquiz')" style="background:#eef2ff;border:1.5px solid #6366f133;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Med</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(99,102,241,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🧠</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#4338ca;margin-bottom:3px;">General Knowledge</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">10 trivia Qs</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">10 trivia Qs</div>
     </div>
     <div class="game-card c-quiz" data-cat="quiz" onclick="openGame('geoquiz')" style="background:#eef2ff;border:1.5px solid #6366f133;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#ef4444;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Hard</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(99,102,241,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🌍</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#4338ca;margin-bottom:3px;">Geography Quiz</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Capitals & countries</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Capitals & countries</div>
     </div>
     <div class="game-card c-quiz" data-cat="quiz" onclick="openGame('sciquiz')" style="background:#eef2ff;border:1.5px solid #6366f133;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#ef4444;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Hard</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(99,102,241,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔬</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#4338ca;margin-bottom:3px;">Science Quiz</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Physics, chem & bio</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Physics, chem & bio</div>
     </div>
     <div class="game-card c-quiz" data-cat="quiz" onclick="openGame('moviequiz')" style="background:#eef2ff;border:1.5px solid #6366f133;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Med</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(99,102,241,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🎬</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#4338ca;margin-bottom:3px;">Movie Quiz</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Guess the film</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Guess the film</div>
     </div>
     <div class="game-card c-quiz" data-cat="quiz" onclick="openGame('expertquiz')" style="background:#eef2ff;border:1.5px solid #6366f133;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#8b5cf6;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Expert</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(99,102,241,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🏆</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#4338ca;margin-bottom:3px;">Expert Trivia</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Hard questions</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Hard questions</div>
     </div>
   </div></div>
 
@@ -800,61 +800,61 @@ div[style*="background:#fff;border:1.5px solid #e2e8f0"] div[style*="color:#94a3
       <span style="position:absolute;top:6px;right:6px;background:#22c55e;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Easy</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(34,197,94,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔀</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#15803d;margin-bottom:3px;">Word Scramble</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Unscramble it!</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Unscramble it!</div>
     </div>
     <div class="game-card c-word" data-cat="word" onclick="openGame('hangman')" style="background:#dcfce7;border:1.5px solid #22c55e33;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Med</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(34,197,94,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🪝</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#15803d;margin-bottom:3px;">Hangman</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Guess the word</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Guess the word</div>
     </div>
     <div class="game-card c-word" data-cat="word" onclick="openGame('typing')" style="background:#dcfce7;border:1.5px solid #22c55e33;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Med</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(34,197,94,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">⌨️</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#15803d;margin-bottom:3px;">Typing Speed</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">60-sec WPM</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">60-sec WPM</div>
     </div>
     <div class="game-card c-word" data-cat="word" onclick="openGame('anagram')" style="background:#dcfce7;border:1.5px solid #22c55e33;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#ef4444;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Hard</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(34,197,94,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔤</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#15803d;margin-bottom:3px;">Anagram</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Rearrange letters</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Rearrange letters</div>
     </div>
     <div class="game-card c-word" data-cat="word" onclick="openGame('wordchain')" style="background:#dcfce7;border:1.5px solid #22c55e33;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Med</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(34,197,94,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔗</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#15803d;margin-bottom:3px;">Word Chain</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Link words together</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Link words together</div>
     </div>
     <div class="game-card c-word" data-cat="word" onclick="openGame('wordle')" data-hot="true" style="background:#dcfce7;border:1.5px solid #22c55e33;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Med</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(34,197,94,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🟩</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#15803d;margin-bottom:3px;">Word Guess</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">5-letter Wordle</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">5-letter Wordle</div>
     </div>
     <div class="game-card c-word" data-cat="word" onclick="openGame('crossword')" style="background:#dcfce7;border:1.5px solid #22c55e33;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#ef4444;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Hard</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(34,197,94,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">📰</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#15803d;margin-bottom:3px;">Crossword</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Mini crossword</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Mini crossword</div>
     </div>
     <div class="game-card c-word" data-cat="word" onclick="openGame('spelling')" style="background:#dcfce7;border:1.5px solid #22c55e33;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Med</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(34,197,94,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🐝</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#15803d;margin-bottom:3px;">Spelling Bee</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Spell it right</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Spell it right</div>
     </div>
     <div class="game-card c-word" data-cat="word" onclick="openGame('cipher')" style="background:#dcfce7;border:1.5px solid #22c55e33;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#ef4444;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Hard</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(34,197,94,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔐</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#15803d;margin-bottom:3px;">Cipher Decode</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Crack the code</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Crack the code</div>
     </div>
     <div class="game-card c-word" data-cat="word" onclick="openGame('wordsearch')" style="background:#dcfce7;border:1.5px solid #22c55e33;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#22c55e;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Easy</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(34,197,94,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔠</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#15803d;margin-bottom:3px;">Word Search</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Find hidden words</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Find hidden words</div>
     </div>
   </div></div>
 
@@ -870,43 +870,43 @@ div[style*="background:#fff;border:1.5px solid #e2e8f0"] div[style*="color:#94a3
       <span style="position:absolute;top:6px;right:6px;background:#22c55e;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Easy</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(249,115,22,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">➕</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#c2410c;margin-bottom:3px;">Math Basics</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Add & subtract fast</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Add & subtract fast</div>
     </div>
     <div class="game-card c-math" data-cat="math" onclick="openGame('mathquiz')" style="background:#fff7ed;border:1.5px solid #f9731633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Med</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(249,115,22,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔢</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#c2410c;margin-bottom:3px;">Math Quiz</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Mixed operations</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Mixed operations</div>
     </div>
     <div class="game-card c-math" data-cat="math" onclick="openGame('times')" style="background:#fff7ed;border:1.5px solid #f9731633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Med</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(249,115,22,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">✖️</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#c2410c;margin-bottom:3px;">Times Tables</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Multiplication race</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Multiplication race</div>
     </div>
     <div class="game-card c-math" data-cat="math" onclick="openGame('make24')" style="background:#fff7ed;border:1.5px solid #f9731633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#ef4444;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Hard</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(249,115,22,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🎯</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#c2410c;margin-bottom:3px;">Make 24</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">4 numbers → 24</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">4 numbers → 24</div>
     </div>
     <div class="game-card c-math" data-cat="math" onclick="openGame('mathsprint')" style="background:#fff7ed;border:1.5px solid #f9731633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#ef4444;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Hard</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(249,115,22,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🏃</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#c2410c;margin-bottom:3px;">Math Sprint</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">30 Qs in 60s</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">30 Qs in 60s</div>
     </div>
     <div class="game-card c-math" data-cat="math" onclick="openGame('numseq')" style="background:#fff7ed;border:1.5px solid #f9731633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#ef4444;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Hard</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(249,115,22,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">📈</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#c2410c;margin-bottom:3px;">Number Sequence</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Find the pattern</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Find the pattern</div>
     </div>
     <div class="game-card c-math" data-cat="math" onclick="openGame('sudoku')" style="background:#fff7ed;border:1.5px solid #f9731633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#8b5cf6;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Expert</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(249,115,22,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔲</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#c2410c;margin-bottom:3px;">Sudoku</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Classic 9×9</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Classic 9×9</div>
     </div>
   </div></div>
 
@@ -922,85 +922,85 @@ div[style*="background:#fff;border:1.5px solid #e2e8f0"] div[style*="color:#94a3
       <span style="position:absolute;top:6px;right:6px;background:#22c55e;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Easy</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🪙</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;">Coin Flip</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Heads or tails?</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Heads or tails?</div>
     </div>
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('dice')" style="background:#f5f3ff;border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#22c55e;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Easy</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🎲</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;">Dice Roller</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Roll up to 6 dice</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Roll up to 6 dice</div>
     </div>
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('rps')" style="background:#f5f3ff;border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#22c55e;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Easy</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">✊</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;">Rock Paper Scissors</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Best of 5 rounds</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Best of 5 rounds</div>
     </div>
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('numguess')" style="background:#f5f3ff;border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#22c55e;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Easy</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔢</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;">Number Guess</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">1-100 in 7 tries</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">1-100 in 7 tries</div>
     </div>
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('reaction')" style="background:#f5f3ff;border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Med</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">⚡</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;">Reaction Time</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Test your reflexes</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Test your reflexes</div>
     </div>
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('ttt')" style="background:#f5f3ff;border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#22c55e;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Easy</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">⭕</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;">Tic Tac Toe</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Vs smart AI</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Vs smart AI</div>
     </div>
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('mines')" style="background:#f5f3ff;border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Med</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">💣</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;">Minesweeper</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">6×6 classic</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">6×6 classic</div>
     </div>
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('c4')" style="background:#f5f3ff;border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Med</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔵</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;">Connect Four</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Vs AI</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Vs AI</div>
     </div>
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('snake')" style="background:#f5f3ff;border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Med</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🐍</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;">Snake</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Nokia classic</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Nokia classic</div>
     </div>
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('pong')" style="background:#f5f3ff;border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#22c55e;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Easy</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🏓</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;">Pong</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Ball & paddle</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Ball & paddle</div>
     </div>
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('g2048')" style="background:#f5f3ff;border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Med</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔢</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;">2048</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Merge to 2048</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Merge to 2048</div>
     </div>
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('chess')" style="background:#f5f3ff;border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#ef4444;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Hard</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">♟️</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;">Chess Puzzles</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Mate in 1-2</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Mate in 1-2</div>
     </div>
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('tetris')" style="background:#f5f3ff;border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Med</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🟦</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;">Tetris Lite</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Falling blocks</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Falling blocks</div>
     </div>
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('flappy')" style="background:#f5f3ff;border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Med</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🐦</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;">Flappy Bird</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Fly through pipes</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Fly through pipes</div>
     </div>
   </div></div>
 
@@ -1016,55 +1016,55 @@ div[style*="background:#fff;border:1.5px solid #e2e8f0"] div[style*="color:#94a3
       <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Med</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(236,72,153,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🌈</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:3px;">Color Match</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Stroop challenge</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Stroop challenge</div>
     </div>
     <div class="game-card c-memory" data-cat="memory" onclick="openGame('simon')" style="background:#fdf4ff;border:1.5px solid #ec489933;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Med</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(236,72,153,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔴</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:3px;">Simon Says</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Repeat sequence</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Repeat sequence</div>
     </div>
     <div class="game-card c-memory" data-cat="memory" onclick="openGame('memory')" style="background:#fdf4ff;border:1.5px solid #ec489933;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#22c55e;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Easy</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(236,72,153,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🃏</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:3px;">Memory Cards</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Find all pairs</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Find all pairs</div>
     </div>
     <div class="game-card c-memory" data-cat="memory" onclick="openGame('patternmem')" style="background:#fdf4ff;border:1.5px solid #ec489933;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Med</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(236,72,153,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔲</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:3px;">Pattern Memory</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Repeat patterns</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Repeat patterns</div>
     </div>
     <div class="game-card c-memory" data-cat="memory" onclick="openGame('mineshard')" style="background:#fdf4ff;border:1.5px solid #ec489933;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#ef4444;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Hard</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(236,72,153,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">💣</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:3px;">Minesweeper Hard</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">10×10 grid</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">10×10 grid</div>
     </div>
     <div class="game-card c-memory" data-cat="memory" onclick="openGame('histquiz')" style="background:#fdf4ff;border:1.5px solid #ec489933;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Med</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(236,72,153,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">📜</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:3px;">History Quiz</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Dates & figures</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Dates & figures</div>
     </div>
     <div class="game-card c-memory" data-cat="memory" onclick="openGame('breakout')" style="background:#fdf4ff;border:1.5px solid #ec489933;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Med</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(236,72,153,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🧱</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:3px;">Breakout</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Break all bricks</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Break all bricks</div>
     </div>
     <div class="game-card c-memory" data-cat="memory" onclick="openGame('lightsout')" style="background:#fdf4ff;border:1.5px solid #ec489933;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#ef4444;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Hard</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(236,72,153,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">💡</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:3px;">Lights Out</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">Turn all off</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">Turn all off</div>
     </div>
     <div class="game-card c-memory" data-cat="memory" onclick="openGame('memhard')" style="background:#fdf4ff;border:1.5px solid #ec489933;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
       <span style="position:absolute;top:6px;right:6px;background:#8b5cf6;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Expert</span>
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(236,72,153,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🧩</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:3px;">Memory Pro</div>
-      <div class="g-desc" style="font-size:10px;color:#94a3b8;">5×4 challenge</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);">5×4 challenge</div>
     </div>
   </div></div>
 
@@ -1628,6 +1628,27 @@ function addRipple(e) {
   void btn.offsetWidth;
   btn.classList.add('ripple');
 }
+
+function disableQuizBtns(correctText, wrongText) {
+  var g = document.getElementById('gw'); if(!g) return;
+  g.querySelectorAll('button').forEach(function(b) {
+    b.disabled = true; b.style.cursor = 'not-allowed';
+    var t = b.textContent.trim();
+    if(correctText && t === correctText) {
+      b.style.background='#22c55e !important';b.style.background='#22c55e';b.style.color='#fff';b.style.borderColor='#22c55e';b.style.opacity='1';
+    } else if(wrongText && t === wrongText) {
+      b.style.background='#ef4444';b.style.color='#fff';b.style.borderColor='#ef4444';b.style.opacity='1';
+    } else {
+      b.style.opacity='0.4';
+    }
+  });
+}
+/* Disable ALL gw buttons (call before showing result) */
+function lockBtns() {
+  var g=document.getElementById('gw');if(!g)return;
+  g.querySelectorAll('button').forEach(function(b){b.disabled=true;b.style.pointerEvents='none';});
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.btn,.flt').forEach(function(btn) {
     btn.addEventListener('click', addRipple);
@@ -1946,21 +1967,13 @@ function gameColorQuiz() {
 
   window.cqAnswer = function(name) {
     if(window._cqTimer) clearInterval(window._cqTimer);
+    disableQuizBtns(correct.name, name !== correct.name ? name : null);
     if (name === correct.name) {
-      _LVL.win(20);
-      showScorePop('+' + (20+_LVL.level*2));
-      setTimeout(function() { gameColorQuiz(); }, 800);
+      _LVL.win(20); showScorePop('+20');
+      setTimeout(function() { gameColorQuiz(); }, 900);
     } else {
       var alive = _LVL.lose();
-      var g = gw(); if(!g) return;
-      // Show wrong answer feedback
-      var btns = g.querySelectorAll('button');
-      btns.forEach(function(btn) {
-        if(btn.textContent === correct.name) btn.style.background = '#22c55e';
-        else if(btn.textContent === name) btn.style.background = '#ef4444';
-        btn.disabled = true;
-      });
-      if(alive) setTimeout(function() { gameColorQuiz(); }, 1200);
+      if(alive) setTimeout(function() { gameColorQuiz(); }, 1400);
     }
   };
 
@@ -2829,7 +2842,7 @@ function gameOddOne(){
     var t=Math.max(5,15-Math.floor(level/3));
     window._ooTimer=setInterval(function(){t--;var te=document.getElementById('oo-timer');if(te)te.textContent='⏱ '+t+'s';if(t<=0){clearInterval(window._ooTimer);_LVL.lose();setTimeout(function(){gameOddOne();},800);}},1000);
   }
-  window.ooAns=function(val){
+  window.ooAns=function(val){lockBtns();
     if(window._ooTimer)clearInterval(window._ooTimer);
     if(val===item.odd){_LVL.win(30);showScorePop('+30');var g2=gw();if(g2){var fb=document.createElement('div');fb.style.cssText='text-align:center;padding:10px;background:rgba(34,197,94,.3);border-radius:10px;margin-top:8px;color:#fff;font-size:13px;';fb.textContent='Correct! '+item.reason;g2.appendChild(fb);}setTimeout(function(){gameOddOne();},1500);}
     else{var alive=_LVL.lose();var btns=g.querySelectorAll('button');btns.forEach(function(b){if(b.textContent===item.odd)b.style.background='rgba(34,197,94,.5)';else if(b.textContent===val)b.style.background='rgba(239,68,68,.5)';b.style.color='#fff';b.disabled=true;});if(alive)setTimeout(function(){gameOddOne();},1500);}
@@ -3071,7 +3084,7 @@ function gameGenQuiz(){
   if(level>=8){
     window._gqTimer=setInterval(function(){timer--;var te=document.getElementById('gq-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=5?'#ef4444':'#818cf8';}if(timer<=0){clearInterval(window._gqTimer);_LVL.lose();setTimeout(function(){gameGenQuiz();},800);}},1000);
   }
-  window.gqAns=function(val){
+  window.gqAns=function(val){lockBtns();
     if(window._gqTimer)clearInterval(window._gqTimer);
     if(val===q.a){_LVL.win(25);showScorePop('+25');setTimeout(function(){gameGenQuiz();},700);}
     else{var alive=_LVL.lose();var btns=g.querySelectorAll('button');btns.forEach(function(b){if(b.textContent===q.a)b.style.background='rgba(34,197,94,.5)';else if(b.textContent===val)b.style.background='rgba(239,68,68,.5)';b.disabled=true;});if(alive)setTimeout(function(){gameGenQuiz();},1300);}
@@ -3154,7 +3167,7 @@ function gameGeoQuiz(){
   if(level>=5){
     window._geoTimer=setInterval(function(){timer--;var te=document.getElementById('geo-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=5?'#ef4444':'#60a5fa';}if(timer<=0){clearInterval(window._geoTimer);_LVL.lose();setTimeout(function(){gameGeoQuiz();},800);}},1000);
   }
-  window.geoAns=function(val){
+  window.geoAns=function(val){lockBtns();
     if(window._geoTimer)clearInterval(window._geoTimer);
     if(val===q.a){_LVL.win(25);showScorePop('+25');setTimeout(function(){gameGeoQuiz();},700);}
     else{var alive=_LVL.lose();var btns=g.querySelectorAll('button');btns.forEach(function(b){if(b.textContent===q.a)b.style.background='rgba(34,197,94,.5)';else if(b.textContent===val)b.style.background='rgba(239,68,68,.5)';b.disabled=true;});if(alive)setTimeout(function(){gameGeoQuiz();},1200);}
@@ -3228,7 +3241,7 @@ function gameSciQuiz(){
   h+='</div>';
   g.innerHTML=h;
   if(level>=5){window._sciTimer=setInterval(function(){timer--;var te=document.getElementById('sci-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=5?'#ef4444':'#22d3ee';}if(timer<=0){clearInterval(window._sciTimer);_LVL.lose();setTimeout(function(){gameSciQuiz();},800);}},1000);}
-  window.sciAns=function(val){if(window._sciTimer)clearInterval(window._sciTimer);if(val===q.a){_LVL.win(25);showScorePop('+25');setTimeout(function(){gameSciQuiz();},700);}else{var alive=_LVL.lose();var btns=g.querySelectorAll('button');btns.forEach(function(b){if(b.textContent===q.a)b.style.background='rgba(34,197,94,.5)';else if(b.textContent===val)b.style.background='rgba(239,68,68,.5)';b.disabled=true;});if(alive)setTimeout(function(){gameSciQuiz();},1300);}};
+  window.sciAns=function(val){lockBtns();if(window._sciTimer)clearInterval(window._sciTimer);if(val===q.a){_LVL.win(25);showScorePop('+25');setTimeout(function(){gameSciQuiz();},700);}else{var alive=_LVL.lose();var btns=g.querySelectorAll('button');btns.forEach(function(b){if(b.textContent===q.a)b.style.background='rgba(34,197,94,.5)';else if(b.textContent===val)b.style.background='rgba(239,68,68,.5)';b.disabled=true;});if(alive)setTimeout(function(){gameSciQuiz();},1300);}};
 }
 
 
@@ -3283,7 +3296,7 @@ function gameHistQuiz(){
   h+='</div>';
   g.innerHTML=h;
   if(level>=5){window._hiTimer=setInterval(function(){timer--;var te=document.getElementById('hi-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=5?'#ef4444':'#f59e0b';}if(timer<=0){clearInterval(window._hiTimer);_LVL.lose();setTimeout(function(){gameHistQuiz();},800);}},1000);}
-  window.hiAns=function(val){if(window._hiTimer)clearInterval(window._hiTimer);if(val===q.a){_LVL.win(25);showScorePop('+25');setTimeout(function(){gameHistQuiz();},700);}else{var alive=_LVL.lose();var btns=g.querySelectorAll('button');btns.forEach(function(b){if(b.textContent===q.a)b.style.background='rgba(34,197,94,.5)';else if(b.textContent===val)b.style.background='rgba(239,68,68,.5)';b.disabled=true;});if(alive)setTimeout(function(){gameHistQuiz();},1300);}};
+  window.hiAns=function(val){lockBtns();if(window._hiTimer)clearInterval(window._hiTimer);if(val===q.a){_LVL.win(25);showScorePop('+25');setTimeout(function(){gameHistQuiz();},700);}else{var alive=_LVL.lose();var btns=g.querySelectorAll('button');btns.forEach(function(b){if(b.textContent===q.a)b.style.background='rgba(34,197,94,.5)';else if(b.textContent===val)b.style.background='rgba(239,68,68,.5)';b.disabled=true;});if(alive)setTimeout(function(){gameHistQuiz();},1300);}};
 }
 
 
@@ -3348,7 +3361,7 @@ function gameMovieQuiz(){
   h+='</div>';
   g.innerHTML=h;
   if(level>=5){window._mvTimer=setInterval(function(){timer--;var te=document.getElementById('mv-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=5?'#ef4444':'#818cf8';}if(timer<=0){clearInterval(window._mvTimer);_LVL.lose();setTimeout(function(){gameMovieQuiz();},800);}},1000);}
-  window.mvAns=function(val){if(window._mvTimer)clearInterval(window._mvTimer);if(val===q.a){_LVL.win(25);showScorePop('+25');setTimeout(function(){gameMovieQuiz();},700);}else{var alive=_LVL.lose();var btns=g.querySelectorAll('button');btns.forEach(function(b){if(b.textContent===q.a)b.style.background='rgba(34,197,94,.5)';else if(b.textContent===val)b.style.background='rgba(239,68,68,.5)';b.disabled=true;});if(alive)setTimeout(function(){gameMovieQuiz();},1300);}};
+  window.mvAns=function(val){lockBtns();if(window._mvTimer)clearInterval(window._mvTimer);if(val===q.a){_LVL.win(25);showScorePop('+25');setTimeout(function(){gameMovieQuiz();},700);}else{var alive=_LVL.lose();var btns=g.querySelectorAll('button');btns.forEach(function(b){if(b.textContent===q.a)b.style.background='rgba(34,197,94,.5)';else if(b.textContent===val)b.style.background='rgba(239,68,68,.5)';b.disabled=true;});if(alive)setTimeout(function(){gameMovieQuiz();},1300);}};
 }
 
 
@@ -3402,7 +3415,7 @@ function gameExpertQuiz(){
   h+='</div>';
   g.innerHTML=h;
   if(level>=5){window._exTimer=setInterval(function(){timer--;var te=document.getElementById('ex-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=8?'#ef4444':'#fbbf24';}if(timer<=0){clearInterval(window._exTimer);_LVL.lose();setTimeout(function(){gameExpertQuiz();},800);}},1000);}
-  window.exAns=function(val){if(window._exTimer)clearInterval(window._exTimer);if(val===q.a){_LVL.win(50);showScorePop('+50!');setTimeout(function(){gameExpertQuiz();},700);}else{var alive=_LVL.lose();var btns=g.querySelectorAll('button');btns.forEach(function(b){if(b.textContent===q.a)b.style.background='rgba(34,197,94,.5)';else if(b.textContent===val)b.style.background='rgba(239,68,68,.5)';b.disabled=true;});if(alive)setTimeout(function(){gameExpertQuiz();},1500);}};
+  window.exAns=function(val){lockBtns();if(window._exTimer)clearInterval(window._exTimer);if(val===q.a){_LVL.win(50);showScorePop('+50!');setTimeout(function(){gameExpertQuiz();},700);}else{var alive=_LVL.lose();var btns=g.querySelectorAll('button');btns.forEach(function(b){if(b.textContent===q.a)b.style.background='rgba(34,197,94,.5)';else if(b.textContent===val)b.style.background='rgba(239,68,68,.5)';b.disabled=true;});if(alive)setTimeout(function(){gameExpertQuiz();},1500);}};
 }
 
 
