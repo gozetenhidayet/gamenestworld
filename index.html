@@ -302,7 +302,7 @@ footer{background:#0f172a;color:rgba(255,255,255,.6);text-align:center;padding:2
     <div class="lb-item"><div class="lb-rank">🥇</div><div style="font-size:20px;margin-right:8px;">🦁</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;">GameMaster</div><div style="font-size:11px;color:var(--muted);">2048: Lv20</div></div><div style="font-weight:800;color:#f59e0b;">5,200 XP</div></div>
     <div class="lb-item"><div class="lb-rank">🥈</div><div style="font-size:20px;margin-right:8px;">🐯</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;">BrainStorm</div><div style="font-size:11px;color:var(--muted);">Wordle: Lv15</div></div><div style="font-weight:800;color:#f59e0b;">4,100 XP</div></div>
     <div class="lb-item"><div class="lb-rank">🥉</div><div style="font-size:20px;margin-right:8px;">🦊</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;">PuzzleKing</div><div style="font-size:11px;color:var(--muted);">Chess: Lv18</div></div><div style="font-weight:800;color:#f59e0b;">3,800 XP</div></div>
-    <div class="lb-item"><div class="lb-rank" style="color:#f59e0b">You</div><div style="font-size:20px;margin-right:8px;">😊</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;">You</div></div><div style="font-weight:800;color:#6366f1;" id="your-xp-lb">0 XP</div></div>
+    <div class="lb-item"><div class="lb-rank" style="color:#6366f1;">#6</div><div style="font-size:20px;margin-right:8px;">🎮</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;" id="your-xp-lb">You — 0 XP</div><div style="font-size:11px;color:var(--muted);">Keep playing to rank up!</div></div></div>
   </div>
 </div>
 
@@ -778,7 +778,103 @@ footer{background:#0f172a;color:rgba(255,255,255,.6);text-align:center;padding:2
 <!-- MODAL -->
 <div class="overlay" id="overlay" onclick="closeIfOut(event)"><div class="modal" id="modal-box"></div></div>
 
-<script>
+<script>var _LVL = {
+  game: null,
+  level: 1,
+  maxLevel: 50,
+  lives: 3,
+  score: 0,
+  streak: 0,
+  bestLevel: {},
+
+  init: function(gameKey, maxLvl) {
+    this.game = gameKey;
+    this.maxLevel = maxLvl || 50;
+    this.level = +(localStorage.getItem('lvl_'+gameKey) || 1);
+    this.lives = 3;
+    this.score = 0;
+    this.streak = 0;
+    this.bestLevel[gameKey] = +(localStorage.getItem('bestlvl_'+gameKey) || 1);
+  },
+
+  getConfig: function() {
+    var l = this.level;
+    return {
+      level: l,
+      difficulty: l <= 10 ? 'Easy' : l <= 25 ? 'Medium' : l <= 40 ? 'Hard' : 'Expert',
+      speed: Math.max(0.3, 1 - (l-1)*0.015),
+      timeLimit: Math.max(5, 30 - Math.floor(l/2)),
+      options: Math.min(6, 2 + Math.floor(l/8)),
+      lives: this.lives
+    };
+  },
+
+  win: function(pts) {
+    this.score += (pts || 10) + this.level * 2;
+    this.streak++;
+    this.level = Math.min(this.maxLevel, this.level + 1);
+    localStorage.setItem('lvl_'+this.game, this.level);
+    if(this.level > (this.bestLevel[this.game]||0)) {
+      this.bestLevel[this.game] = this.level;
+      localStorage.setItem('bestlvl_'+this.game, this.level);
+    }
+    var xp = pts + this.level * 3;
+    earnXP(xp, this.game + ' Level ' + (this.level-1));
+    playSound('score');
+    return this.level > this.maxLevel;
+  },
+
+  lose: function() {
+    this.streak = 0;
+    this.lives--;
+    updateLivesUI();
+    playSound('lose');
+    if(this.lives <= 0) {
+      this.level = Math.max(1, this.level - 2);
+      localStorage.setItem('lvl_'+this.game, this.level);
+      showNoLivesModal();
+      return false;
+    }
+    return true;
+  },
+
+  renderHeader: function(title, color) {
+    var cfg = this.getConfig();
+    var diffColors = {Easy:'#22c55e',Medium:'#f59e0b',Hard:'#ef4444',Expert:'#8b5cf6'};
+    var dc = diffColors[cfg.difficulty] || '#6366f1';
+    var h = '<div style="margin-bottom:12px;">';
+    h += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">';
+    h += '<div style="font-size:18px;font-weight:900;color:'+(color||'var(--text)')+';">'+title+'</div>';
+    h += '<div style="display:flex;gap:6px;align-items:center;">';
+    h += '<div style="background:'+dc+'22;color:'+dc+';border:1px solid '+dc+'44;border-radius:6px;padding:3px 8px;font-size:11px;font-weight:700;">'+cfg.difficulty+'</div>';
+    h += '<div id="modal-lives" style="display:flex;gap:2px;"></div>';
+    h += '</div></div>';
+    // Level progress bar
+    h += '<div style="display:flex;align-items:center;gap:8px;">';
+    h += '<div style="font-size:12px;font-weight:700;color:'+(color||'var(--muted)')+';">Lv '+this.level+'/'+this.maxLevel+'</div>';
+    h += '<div style="flex:1;background:rgba(255,255,255,.15);border-radius:99px;height:6px;">';
+    h += '<div style="background:'+(color||'#6366f1')+';height:6px;border-radius:99px;width:'+Math.round(this.level/this.maxLevel*100)+'%;transition:width .5s;"></div>';
+    h += '</div>';
+    h += '<div style="font-size:12px;font-weight:700;color:'+(color||'var(--muted)')+';">⭐ '+this.score+'</div>';
+    h += '</div></div>';
+    setTimeout(updateLivesUI, 50);
+    return h;
+  }
+};
+
+/* ══ SCORE POPUP ANIMATION ══ */
+function showScorePop(text) {
+  var box = document.getElementById('modal-box');
+  if(!box) return;
+  var pop = document.createElement('div');
+  pop.className = 'score-pop';
+  pop.textContent = text;
+  pop.style.cssText = 'position:fixed;top:30%;left:50%;transform:translateX(-50%);font-size:28px;font-weight:900;color:#ffd700;text-shadow:0 2px 8px rgba(0,0,0,.5);animation:scoreUp .9s ease forwards;pointer-events:none;z-index:9999;';
+  document.body.appendChild(pop);
+  setTimeout(function(){if(pop.parentNode)pop.parentNode.removeChild(pop);},900);
+}
+
+
 function safeRun(code){try{eval(code);}catch(e){}}
 
 function closeElem(id){var o=document.getElementById(id);if(o)o.remove();}
@@ -952,54 +1048,93 @@ function openGame(key){
   playSound('click');
   _currentGame=key;
   resetLives();
-  _gamePlayCount++;
-  if(_gamePlayCount%3===0)setTimeout(showInterstitial,800);
+  _gamePlayCount=(_gamePlayCount||0)+1;
+  if(_gamePlayCount%3===0)setTimeout(showInterstitial,600);
+
+  var CATS={'colorquiz': 'quiz', 'flagquiz': 'quiz', 'truefalse': 'quiz', 'riddles': 'quiz', 'emojiquiz': 'quiz', 'oddone': 'quiz', 'genquiz': 'quiz', 'geoquiz': 'quiz', 'sciquiz': 'quiz', 'moviequiz': 'quiz', 'expertquiz': 'quiz', 'histquiz': 'quiz', 'wordscramble': 'word', 'hangman': 'word', 'typing': 'word', 'anagram': 'word', 'wordchain': 'word', 'wordle': 'word', 'crossword': 'word', 'spelling': 'word', 'cipher': 'word', 'wordsearch': 'word', 'mathbasic': 'math', 'mathquiz': 'math', 'times': 'math', 'make24': 'math', 'mathsprint': 'math', 'numseq': 'math', 'sudoku': 'math', 'coin': 'classic', 'dice': 'classic', 'rps': 'classic', 'numguess': 'classic', 'reaction': 'classic', 'ttt': 'classic', 'mines': 'classic', 'c4': 'classic', 'snake': 'classic', 'pong': 'classic', 'g2048': 'classic', 'chess': 'classic', 'tetris': 'classic', 'flappy': 'classic', 'mineshard': 'classic', 'breakout': 'classic', 'lightsout': 'classic', 'colormatch': 'memory', 'simon': 'memory', 'memory': 'memory', 'patternmem': 'memory', 'memhard': 'memory'};
+  var THEMES={'quiz': {'bg': 'linear-gradient(145deg,#1e1b4b,#312e81)', 'accent': '#818cf8', 'border': 'rgba(129,140,248,.25)', 'text': '#e0e7ff'}, 'word': {'bg': 'linear-gradient(145deg,#052e16,#14532d)', 'accent': '#4ade80', 'border': 'rgba(74,222,128,.25)', 'text': '#dcfce7'}, 'math': {'bg': 'linear-gradient(145deg,#431407,#7c2d12)', 'accent': '#fb923c', 'border': 'rgba(251,146,60,.25)', 'text': '#fed7aa'}, 'classic': {'bg': 'linear-gradient(145deg,#1e1b4b,#4c1d95)', 'accent': '#a78bfa', 'border': 'rgba(167,139,250,.25)', 'text': '#ede9fe'}, 'memory': {'bg': 'linear-gradient(145deg,#4a044e,#831843)', 'accent': '#f472b6', 'border': 'rgba(244,114,182,.25)', 'text': '#fce7f3'}};
+  var DESCS={'colorquiz': 'Name the color shown!', 'flagquiz': 'Which country is this flag?', 'truefalse': 'True or false — quick!', 'riddles': 'Solve the brain teaser', 'emojiquiz': 'What do these emojis mean?', 'oddone': 'Which one does not belong?', 'genquiz': 'Test your general knowledge', 'geoquiz': 'Capitals & world geography', 'sciquiz': 'Physics, chemistry & biology', 'moviequiz': 'Can you name the movie?', 'expertquiz': 'Expert-level trivia challenge', 'histquiz': 'Dates & historical events', 'wordscramble': 'Unscramble the letters!', 'hangman': 'Guess letters to save the man', 'typing': 'Type fast! 60 second WPM test', 'anagram': 'Rearrange to make a new word', 'wordchain': 'Each word starts with last letter', 'wordle': 'Guess the 5-letter word', 'crossword': 'Fill in the crossword puzzle', 'spelling': 'Unscramble and spell correctly', 'cipher': 'Decode the Caesar cipher', 'wordsearch': 'Find all hidden words in grid', 'mathbasic': 'Addition, subtraction & more', 'mathquiz': 'Mixed math operations', 'times': 'Multiplication tables race', 'make24': 'Use 4 numbers to make 24', 'mathsprint': '30 math questions in 60 seconds', 'numseq': 'What number comes next?', 'sudoku': 'Fill the 9×9 number grid', 'coin': 'Heads or tails?', 'dice': 'Roll 1-6 dice!', 'rps': 'Rock, Paper, Scissors battle', 'numguess': 'Guess the number 1-100', 'reaction': 'Click when you see green!', 'ttt': 'Tic Tac Toe vs smart AI', 'mines': 'Clear the minefield!', 'c4': 'Connect 4 in a row!', 'snake': 'Eat food, grow longer', 'pong': 'Classic ball & paddle game', 'g2048': 'Merge tiles to reach 2048', 'chess': 'Find the best chess move', 'tetris': 'Falling blocks puzzle', 'flappy': 'Tap to fly through pipes', 'mineshard': '10×10 expert minesweeper', 'breakout': 'Break all the bricks!', 'lightsout': 'Turn all lights off', 'colormatch': 'Click the ink color, not the word!', 'simon': 'Repeat the color sequence', 'memory': 'Find all matching pairs', 'patternmem': 'Remember & repeat the pattern', 'memhard': 'Advanced 5×4 memory grid'};
+
+  var cat=CATS[key]||'classic';
+  var th=THEMES[cat]||THEMES.classic;
+  var desc=DESCS[key]||'Play and have fun!';
 
   var box=document.getElementById('modal-box');
   if(!box)return;
-  box.style.cssText='';
 
-  var fav=isFav(key);
+  /* Apply dark gradient theme */
+  box.style.background=th.bg;
+  box.style.border='1px solid '+th.border;
+
+  var fav=typeof isFav==='function'&&isFav(key);
+
   box.innerHTML=
-    '<div style="display:flex;align-items:center;gap:6px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid #e2e8f0;">'
-    +'<button onclick="closeGame()" style="background:#f1f5f9;border:none;border-radius:10px;width:32px;height:32px;cursor:pointer;font-size:18px;color:#1e293b;font-weight:700;flex-shrink:0;">&times;</button>'
-    +'<div id="modal-lives" style="display:flex;gap:2px;font-size:16px;margin-left:2px;"></div>'
+    '<div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid '+th.border+';">'
+    +'<button onclick="closeGame()" style="background:rgba(255,255,255,.15);border:none;border-radius:10px;width:32px;height:32px;cursor:pointer;font-size:17px;color:'+th.text+';font-weight:700;flex-shrink:0;">&times;</button>'
+    +'<div id="modal-lives" style="display:flex;gap:2px;font-size:16px;"></div>'
     +'<div style="flex:1"></div>'
-    +'<button data-gkey="'+key+'" onclick="toggleFav(this)" style="background:#f1f5f9;border:none;border-radius:8px;padding:5px 9px;cursor:pointer;font-size:15px;" title="Favorite">'+(fav?'❤️':'🤍')+'</button>'
-    +'<button onclick="shareGame(this)" data-gkey2="'+key+'" style="background:#f1f5f9;border:none;border-radius:8px;padding:5px 9px;cursor:pointer;font-size:12px;font-weight:700;color:#6366f1;">Share</button>'
-    +'<button onclick="goFullscreen()" style="background:#f1f5f9;border:none;border-radius:8px;padding:5px 9px;cursor:pointer;font-size:13px;" title="Fullscreen">⛶</button>'
-    +'<button id="sound-btn" onclick="toggleSound()" style="background:#f1f5f9;border:none;border-radius:8px;padding:5px 9px;cursor:pointer;font-size:13px;">'+(_soundOn?'🔊':'🔇')+'</button>'
+    +'<button data-gkey="'+key+'" onclick="toggleFav(this)" style="background:rgba(255,255,255,.12);border:1px solid '+th.border+';border-radius:8px;padding:5px 9px;cursor:pointer;font-size:15px;">'+(fav?'❤️':'🤍')+'</button>'
+    +'<button onclick="shareGame(this)" data-gkey2="'+key+'" style="background:rgba(255,255,255,.12);border:1px solid '+th.border+';border-radius:8px;padding:5px 9px;cursor:pointer;font-size:11px;font-weight:700;color:'+th.accent+';">Share</button>'
+    +'<button onclick="goFullscreen()" style="background:rgba(255,255,255,.12);border:1px solid '+th.border+';border-radius:8px;padding:5px 9px;cursor:pointer;font-size:12px;color:'+th.text+';">⛶</button>'
+    +'<button id="sound-btn" onclick="toggleSound()" style="background:rgba(255,255,255,.12);border:1px solid '+th.border+';border-radius:8px;padding:5px 9px;cursor:pointer;font-size:12px;">'+(_soundOn?'🔊':'🔇')+'</button>'
     +'</div>'
-    +'<div id="gw" style="min-height:200px;">'
-    +'<div style="text-align:center;padding:40px;"><div style="display:inline-block;width:32px;height:32px;border:3px solid #e2e8f0;border-top-color:#6366f1;border-radius:50%;animation:spin .7s linear infinite;"></div>'
-    +'<p style="margin-top:12px;color:#94a3b8;font-size:13px;">Loading...</p></div></div>';
+    /* Game description */
+    +'<div style="background:rgba(255,255,255,.08);border-radius:10px;padding:8px 12px;margin-bottom:10px;font-size:12px;color:'+th.text+';opacity:.8;">ℹ️ '+desc+'</div>'
+    /* Game area */
+    +'<div id="gw" style="color:'+th.text+';">'
+    +'<div style="text-align:center;padding:40px;">'
+    +'<div style="display:inline-block;width:32px;height:32px;border:3px solid rgba(255,255,255,.2);border-top-color:'+th.accent+';border-radius:50%;animation:spin .7s linear infinite;"></div>'
+    +'<p style="margin-top:12px;color:rgba(255,255,255,.5);font-size:13px;">Loading...</p>'
+    +'</div></div>';
+
+  /* Style btn inside modal for dark bg */
+  var style=document.createElement('style');
+  style.id='modal-btn-style';
+  style.textContent='#modal-box .btn{background:rgba(255,255,255,.2)!important;color:'+th.text+'!important;border:1px solid '+th.border+'!important;}'
+    +'#modal-box .btn:hover{background:rgba(255,255,255,.3)!important;}'
+    +'#modal-box .btn-sec{background:rgba(255,255,255,.08)!important;color:rgba(255,255,255,.8)!important;border:1px solid rgba(255,255,255,.15)!important;}'
+    +'#modal-box input[type=text],#modal-box input[type=number]{background:rgba(255,255,255,.12)!important;color:'+th.text+'!important;border:1.5px solid '+th.border+'!important;}'
+    +'#modal-box button.g-btn{background:rgba(255,255,255,.15)!important;color:'+th.text+'!important;border:1px solid rgba(255,255,255,.2)!important;}'
+    +'#modal-box select{background:rgba(255,255,255,.1);color:'+th.text+';border:1px solid '+th.border+';border-radius:8px;padding:4px 8px;}';
+  var old=document.getElementById('modal-btn-style');if(old)old.remove();
+  document.head.appendChild(style);
 
   updateLivesUI();
-  var ov=document.getElementById('overlay');
-  if(ov)ov.classList.add('active');
+  var ov=document.getElementById('overlay');if(ov)ov.classList.add('active');
   document.body.style.overflow='hidden';
 
   setTimeout(function(){
     if(typeof GAMES!=='undefined'&&GAMES[key]){
       try{GAMES[key]();}
       catch(e){
-        console.error(key,e);
+        console.error(key,e.message);
         var g=gw();
-        if(g)g.innerHTML='<div style="text-align:center;padding:30px;"><div style="font-size:40px;">⚠️</div><div style="color:#ef4444;font-weight:700;">'+e.message+'</div></div>';
+        if(g)g.innerHTML='<div style="text-align:center;padding:30px;">'
+          +'<div style="font-size:40px;margin-bottom:10px;">⚠️</div>'
+          +'<div style="color:#f87171;font-weight:700;margin-bottom:12px;">'+e.message+'</div>'
+          +'<button onclick="openGame(\''+key+'\')" class="btn" style="margin-top:10px;">Retry</button>'
+          +'</div>';
       }
     }else{
       var g=gw();
-      if(g)g.innerHTML='<div style="text-align:center;padding:30px;"><div style="font-size:40px;margin-bottom:10px;">🚧</div><div style="font-size:16px;font-weight:700;color:#64748b;">Coming Soon!</div></div>';
+      if(g)g.innerHTML='<div style="text-align:center;padding:30px;">'
+        +'<div style="font-size:40px;margin-bottom:10px;">🚧</div>'
+        +'<div style="font-size:16px;font-weight:700;color:rgba(255,255,255,.7);">Coming Soon!</div>'
+        +'</div>';
     }
   },60);
 }
+
 function closeGame(){
   if(window._gl){try{cancelAnimationFrame(window._gl);}catch(e){}try{clearTimeout(window._gl);}catch(e){}window._gl=null;}
   var ov=document.getElementById('overlay');if(ov)ov.classList.remove('active');
-  var box=document.getElementById('modal-box');if(box){box.innerHTML='';box.style.cssText='';}
+  var box=document.getElementById('modal-box');
+  if(box){box.innerHTML='';box.style.cssText='';box.style.background='';box.style.border='';}
+  var st=document.getElementById('modal-btn-style');if(st)st.remove();
   document.body.style.overflow='';
   _currentGame=null;
 }
+
 function closeIfOut(e){if(e.target===document.getElementById('overlay'))closeGame();}
 
 /* SEARCH */
@@ -1107,6 +1242,13 @@ document.addEventListener('DOMContentLoaded',function(){
   /* Support button */
   if(typeof addSupportButton==='function')addSupportButton();
   if(typeof renderAffiliateSection==='function')renderAffiliateSection();
+  
+  /* Patch _LVL.win */
+  if(typeof _LVL!=='undefined'&&_LVL.win){
+    var _ow=_LVL.win.bind(_LVL);
+    _LVL.win=function(pts){var r=_ow(pts);if(typeof checkAdPrompt==='function')checkAdPrompt(_LVL.level);return r;};
+  }
+
   console.log('GameNest World v6 - Ready!');
 });
 
@@ -4461,8 +4603,50 @@ function checkSudoku(){
 /* CIPHER DECODE */
 const CI_PHRASES=[['KHOOR','HELLO',3],['ZRUOG','WORLD',3],['DQQHB','DANNY',3],['FRGH','CODE',3],['VHFUHW','SECRET',3],['PDJLF','MAGIC',3]];
 function gameCipher(){
-  window._ciIdx=0;window._ciScore=0;window._ciPhrases=shuffle(CI_PHRASES);nextCipher();
+  _LVL.init('cipher',35);
+  var level=_LVL.level;
+  var PHRASES=[
+    ['HELLO WORLD','Easy'],['THE CAT SAT','Easy'],['PLAY MORE GAMES','Easy'],
+    ['BRAIN GAMES ARE FUN','Medium'],['THE QUICK BROWN FOX','Medium'],
+    ['PRACTICE MAKES PERFECT','Medium'],['KNOWLEDGE IS POWER','Medium'],
+    ['EVERY CLOUD HAS SILVER LINING','Hard'],['THE EARLY BIRD CATCHES THE WORM','Hard'],
+    ['NECESSITY IS MOTHER OF INVENTION','Expert']
+  ];
+  var tier=Math.min(PHRASES.length-1,Math.floor(level/35*PHRASES.length)+Math.floor(Math.random()*2));
+  var phrase=PHRASES[tier][0];
+  var shift=3+Math.floor(level%18);
+  var encoded=phrase.split('').map(function(ch){
+    if(ch>='A'&&ch<='Z')return String.fromCharCode((ch.charCodeAt(0)-65+shift)%26+65);
+    return ch;
+  }).join('');
+  var timeLimit=Math.max(15,45-level);var timer=timeLimit;
+  var g=gw();if(!g)return;
+  var h=_LVL.renderHeader('🔐 Cipher Decode','#818cf8');
+  h+='<div style="background:rgba(99,102,241,.08);border-radius:14px;padding:14px;margin-bottom:12px;">';
+  h+='<div style="font-size:11px;color:#818cf8;font-weight:700;margin-bottom:6px;">ENCODED (Caesar +'+shift+')</div>';
+  h+='<div style="font-size:20px;font-weight:900;color:#1e293b;letter-spacing:3px;word-break:break-all;">'+encoded+'</div>';
+  h+='</div>';
+  h+='<div style="font-size:12px;color:#64748b;text-align:center;margin-bottom:8px;">A→'+String.fromCharCode(65+shift)+', B→'+String.fromCharCode(66+shift>90?66+shift-26:66+shift)+'...</div>';
+  if(level>=5)h+='<div id="ci-timer" style="text-align:center;font-size:22px;font-weight:900;margin-bottom:10px;color:'+(timer<=10?'#ef4444':'#818cf8')+';">⏱ '+timer+'s</div>';
+  h+='<input id="ci-inp" type="text" placeholder="Type decoded message..." style="width:100%;padding:13px;border-radius:12px;border:2px solid #e2e8f0;font-size:14px;font-weight:700;font-family:inherit;text-transform:uppercase;letter-spacing:2px;outline:none;box-sizing:border-box;margin-bottom:10px;" autocorrect="off" autocapitalize="characters">';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
+  h+='<button class="btn" onclick="ciCheck()" style="padding:13px;">Decode!</button>';
+  h+='<button class="btn btn-sec" onclick="ciHint()" style="padding:13px;">💡 Hint</button>';
+  h+='</div><div id="ci-fb" style="text-align:center;margin-top:8px;font-size:12px;color:#64748b;"></div>';
+  g.innerHTML=h;
+  var inp=document.getElementById('ci-inp');
+  if(inp){inp.focus();inp.onkeydown=function(e){if(e.key==='Enter')ciCheck();};}
+  if(level>=5){window._ciTmr=setInterval(function(){timer--;var te=document.getElementById('ci-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=10?'#ef4444':'#818cf8';}if(timer<=0){clearInterval(window._ciTmr);_LVL.lose();setTimeout(function(){gameCipher();},800);}},1000);}
+  window.ciCheck=function(){
+    if(window._ciTmr)clearInterval(window._ciTmr);
+    var val=(document.getElementById('ci-inp').value||'').trim().toUpperCase();
+    if(val===phrase){_LVL.win(40);showScorePop('+40');setTimeout(function(){gameCipher();},1000);}
+    else{var alive=_LVL.lose();var fb=document.getElementById('ci-fb');if(fb)fb.textContent='Wrong! Answer: '+phrase;if(alive)setTimeout(function(){gameCipher();},1800);}
+  };
+  window.ciHint=function(){var fb=document.getElementById('ci-fb');if(fb)fb.textContent='First word: '+phrase.split(' ')[0];};
 }
+
+
 function nextCipher(){
   if(window._ciIdx>=window._ciPhrases.length){gw().innerHTML=`<h2>🔐 Cipher Decode</h2><div style="font-size:48px;">🏆</div><div style="font-size:24px;">Score: ${window._ciScore}/${window._ciPhrases.length}</div><button class="g-btn" style="margin-top:12px;" onclick="gameCipher()">Play Again</button>`;return;}
   const [encoded,decoded,shift]=window._ciPhrases[window._ciIdx];
@@ -5138,7 +5322,7 @@ function changeLang(l){localStorage.setItem('gnw_lang',l);}
 function joinTournament(){openGame('g2048');earnXP(10,'Tournament');}
 document.addEventListener('DOMContentLoaded',function(){
   var ylb=document.getElementById('your-xp-lb');
-  if(ylb)ylb.textContent=(_xp||0)+' XP';
+  if(ylb)ylb.textContent='You — '+(_xp||0)+' XP';
 });
 </script>
 </body>
