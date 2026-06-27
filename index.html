@@ -31,7 +31,7 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GMVJJQ96Y8"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GMVJJQ96Y8');</script>
 <!-- AdSense - activated after approval -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3359266836868361" crossorigin="anonymous"></script>
+<!-- AdSense disabled until approval -->
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -943,7 +943,9 @@ footer{background:rgba(0,0,0,.4);border-top:1px solid var(--border);color:rgba(2
 
 
 
+
 <script>
+
 
 
 
@@ -1317,7 +1319,7 @@ function openGame(key){
   _currentGame=key;
   resetLives();
   _gamePlayCount=(_gamePlayCount||0)+1;
-  if(_gamePlayCount%3===0)setTimeout(showInterstitial,600);
+  /* interstitial disabled */
 
   var CATS={'colorquiz': 'quiz', 'flagquiz': 'quiz', 'truefalse': 'quiz', 'riddles': 'quiz', 'emojiquiz': 'quiz', 'oddone': 'quiz', 'genquiz': 'quiz', 'geoquiz': 'quiz', 'sciquiz': 'quiz', 'moviequiz': 'quiz', 'expertquiz': 'quiz', 'histquiz': 'quiz', 'wordscramble': 'word', 'hangman': 'word', 'typing': 'word', 'anagram': 'word', 'wordchain': 'word', 'wordle': 'word', 'crossword': 'word', 'spelling': 'word', 'cipher': 'word', 'wordsearch': 'word', 'mathbasic': 'math', 'mathquiz': 'math', 'times': 'math', 'make24': 'math', 'mathsprint': 'math', 'numseq': 'math', 'sudoku': 'math', 'coin': 'classic', 'dice': 'classic', 'rps': 'classic', 'numguess': 'classic', 'reaction': 'classic', 'ttt': 'classic', 'mines': 'classic', 'c4': 'classic', 'snake': 'classic', 'pong': 'classic', 'g2048': 'classic', 'chess': 'classic', 'tetris': 'classic', 'flappy': 'classic', 'mineshard': 'classic', 'breakout': 'classic', 'lightsout': 'classic', 'colormatch': 'memory', 'simon': 'memory', 'memory': 'memory', 'patternmem': 'memory', 'memhard': 'memory'};
   var THEMES={'quiz': {'bg': 'linear-gradient(145deg,#1e1b4b,#312e81)', 'accent': '#818cf8', 'border': 'rgba(129,140,248,.25)', 'text': '#e0e7ff'}, 'word': {'bg': 'linear-gradient(145deg,#052e16,#14532d)', 'accent': '#4ade80', 'border': 'rgba(74,222,128,.25)', 'text': '#dcfce7'}, 'math': {'bg': 'linear-gradient(145deg,#431407,#7c2d12)', 'accent': '#fb923c', 'border': 'rgba(251,146,60,.25)', 'text': '#fed7aa'}, 'classic': {'bg': 'linear-gradient(145deg,#1e1b4b,#4c1d95)', 'accent': '#a78bfa', 'border': 'rgba(167,139,250,.25)', 'text': '#ede9fe'}, 'memory': {'bg': 'linear-gradient(145deg,#4a044e,#831843)', 'accent': '#f472b6', 'border': 'rgba(244,114,182,.25)', 'text': '#fce7f3'}};
@@ -5515,7 +5517,7 @@ function trackGamePlay() {
   }
 }
 
-function showInterstitial() {
+function showInterstitial() { return; /* disabled */
   var existing = document.getElementById('interstitial-modal');
   if (existing) return;
 
@@ -6041,7 +6043,9 @@ function gameG2048() {
 
 
 
+
 </script>
+
 
 
 
