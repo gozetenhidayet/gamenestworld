@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ImageBoostAI – Professional AI Photo Editor & 200+ Tools</title>
+<meta name="description" content="Remove backgrounds, upscale to 4K, AI headshots, retouch portraits. 200+ free AI tools. No signup needed.">
+<meta name="theme-color" content="#6C63FF">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3359266836868361" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --p:#6C63FF;--p2:#9F8FFF;--p3:#C4B8FF;
+  --a:#FF6B6B;--a2:#FF8E53;--g:#00D2FF;
+  --grn:#00D084;--yel:#FFD93D;
+  --dk:#07070F;--dk2:#0E0E1C;--dk3:#161628;
+  --t1:#FFFFFF;--t2:#A8A8C0;--t3:#5A5A78;
+  --br:rgba(255,255,255,.07);
+  --gp:linear-gradient(135deg,#6C63FF,#FF6B6B);
+  --gp2:linear-gradient(135deg,#6C63FF,#00D2FF);
+  --gp3:linear-gradient(135deg,#FF6B6B,#FF8E53);
+  --r:14px;--rL:20px;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Inter',sans-serif;background:var(--dk);color:var(--t1);overflow-x:hidden}
+button,input{font-family:inherit}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--p);border-radius:2px}
+
+/* ══ KEYFRAMES ══ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-14px) rotate(3deg)}}
+@keyframes float2{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes glow{0%,100%{box-shadow:0 0 20px rgba(108,99,255,.4)}50%{box-shadow:0 0 45px rgba(108,99,255,.8),0 0 80px rgba(108,99,255,.3)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes gradAnim{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes cardPop{from{opacity:0;transform:translateY(20px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes orb1{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,-30px) scale(1.1)}66%{transform:translate(-20px,20px) scale(.95)}}
+@keyframes orb2{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-40px,30px) scale(1.08)}66%{transform:translate(30px,-20px) scale(.97)}}
+@keyframes orb3{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-45%,-55%) scale(1.15)}}
+@keyframes dealAnim{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes countUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes borderGlow{0%,100%{border-color:rgba(108,99,255,.3)}50%{border-color:rgba(108,99,255,.8)}}
+@keyframes sparkle{0%,100%{opacity:0;transform:scale(0)}50%{opacity:1;transform:scale(1)}}
+
+/* ══ NAV ══ */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 1.2rem;background:rgba(7,7,15,.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--br);transition:all .3s}
+.logo{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:900;color:#fff;letter-spacing:-.03em;text-decoration:none}
+.logo-mark{width:36px;height:36px;background:var(--gp);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;flex-shrink:0;animation:glow 3s ease-in-out infinite;position:relative;overflow:hidden}
+.logo-mark::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.25),transparent);border-radius:10px}
+.logo-ai{background:var(--gp);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-right{display:flex;align-items:center;gap:8px}
+.lw{position:relative}
+.lb{padding:7px 12px;font-size:12px;font-weight:600;color:rgba(255,255,255,.65);border:1px solid var(--br);border-radius:9px;background:rgba(255,255,255,.05);cursor:pointer;transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:5px}
+.lb:hover{border-color:var(--p);color:var(--p3);background:rgba(108,99,255,.1)}
+.lb-globe{font-size:14px}
+.ld{position:fixed;top:62px;left:0;right:0;background:rgba(14,14,28,.97);border-bottom:1px solid var(--br);padding:.7rem .8rem;z-index:999;display:none;grid-template-columns:repeat(5,1fr);gap:3px;backdrop-filter:blur(20px)}
+@media(min-width:500px){.ld{position:absolute;top:calc(100%+8px);left:auto;right:0;width:270px;border:1px solid var(--br);border-radius:14px;grid-template-columns:repeat(3,1fr);box-shadow:0 20px 60px rgba(0,0,0,.6)}}
+.ld.open{display:grid}
+.lo{padding:7px 5px;font-size:11.5px;color:var(--t2);border-radius:8px;cursor:pointer;font-weight:500;text-align:center;transition:all .15s}
+.lo:hover,.lo:active,.lo.act{background:rgba(108,99,255,.2);color:var(--p3);font-weight:700}
+.nav-login{padding:7px 14px;font-size:13px;font-weight:600;color:rgba(255,255,255,.75);border:1px solid var(--br);border-radius:9px;background:transparent;cursor:pointer;transition:all .2s;display:none}
+@media(min-width:400px){.nav-login{display:block}}
+.nav-login:hover{border-color:var(--p);color:#fff;background:rgba(108,99,255,.12)}
+.nav-signup{padding:8px 16px;font-size:13px;font-weight:700;color:#fff;background:var(--gp);border-radius:10px;cursor:pointer;transition:all .22s;box-shadow:0 4px 16px rgba(108,99,255,.4);white-space:nowrap}
+.nav-signup:hover,.nav-signup:active{transform:translateY(-1px) scale(1.03);box-shadow:0 8px 28px rgba(108,99,255,.6)}
+
+/* ══ DEAL BAR ══ */
+.deal-bar{background:linear-gradient(270deg,#6C63FF,#FF6B6B,#FF8E53,#6C63FF);background-size:400%;animation:dealAnim 6s ease infinite;color:#fff;text-align:center;padding:.6rem 2.5rem;font-size:12.5px;font-weight:600;position:relative;line-height:1.4}
+.deal-bar strong{font-weight:800}
+.deal-bar a{color:#fff;text-decoration:underline;font-weight:800;cursor:pointer;text-underline-offset:2px}
+.deal-x{position:absolute;right:.7rem;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.2);border:none;color:#fff;width:22px;height:22px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.deal-x:hover{background:rgba(255,255,255,.35)}
+
+/* ══ HERO ══ */
+.hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:90px 1.2rem 4rem;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:var(--dk);z-index:0}
+.orb{position:absolute;border-radius:50%;pointer-events:none;filter:blur(60px)}
+.orb1{width:clamp(280px,40vw,500px);height:clamp(280px,40vw,500px);background:rgba(108,99,255,.2);top:-10%;left:-10%;animation:orb1 12s ease-in-out infinite}
+.orb2{width:clamp(220px,35vw,420px);height:clamp(220px,35vw,420px);background:rgba(255,107,107,.15);bottom:-10%;right:-10%;animation:orb2 15s ease-in-out infinite}
+.orb3{width:clamp(180px,25vw,340px);height:clamp(180px,25vw,340px);background:rgba(0,210,255,.1);top:50%;left:50%;transform:translate(-50%,-50%);animation:orb3 18s ease-in-out infinite}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(108,99,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(108,99,255,.05) 1px,transparent 1px);background-size:clamp(30px,5vw,60px) clamp(30px,5vw,60px);mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent)}
+.hero-in{position:relative;z-index:1;max-width:780px;margin:0 auto}
+.h-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(108,99,255,.12);border:1px solid rgba(108,99,255,.3);border-radius:100px;padding:6px 16px;font-size:12px;color:var(--p3);font-weight:600;margin-bottom:1.6rem;animation:fadeUp .5s ease both;animation:borderGlow 3s ease-in-out infinite,fadeUp .5s ease both}
+.bdot{width:7px;height:7px;background:var(--grn);border-radius:50%;flex-shrink:0;animation:pulse 1.5s infinite;box-shadow:0 0 8px rgba(0,208,132,.5)}
+h1{font-size:clamp(2.2rem,8vw,4.2rem);font-weight:900;line-height:1.05;letter-spacing:-.05em;margin-bottom:1.2rem;animation:fadeUp .5s ease .08s both}
+.gw{background:linear-gradient(135deg,#6C63FF,#FF6B6B,#FF8E53);background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradAnim 4s ease infinite}
+.h-sub{font-size:clamp(.9rem,3vw,1.08rem);color:var(--t2);line-height:1.78;max-width:580px;margin:0 auto 2rem;animation:fadeUp .5s ease .16s both}
+.h-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:1.8rem;animation:fadeUp .5s ease .24s both}
+.btn-main{background:var(--gp);color:#fff;padding:14px 28px;border-radius:13px;font-size:15px;font-weight:800;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;box-shadow:0 6px 24px rgba(108,99,255,.4)}
+.btn-main::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent,rgba(255,255,255,.08));transform:rotate(45deg) translateX(-100%);transition:transform .5s}
+.btn-main:hover::after{transform:rotate(45deg) translateX(60%)}
+.btn-main:hover,.btn-main:active{transform:translateY(-3px);box-shadow:0 14px 36px rgba(108,99,255,.55)}
+.btn-sec{background:rgba(255,255,255,.07);color:var(--t1);padding:14px 24px;border-radius:13px;font-size:15px;font-weight:600;border:1px solid var(--br);cursor:pointer;transition:all .22s}
+.btn-sec:hover,.btn-sec:active{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2)}
+.h-tags{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;animation:fadeUp .5s ease .32s both}
+.htag{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:7px 14px;font-size:12px;color:var(--t2);font-weight:600;cursor:pointer;transition:all .22s}
+.htag:hover,.htag:active{background:rgba(108,99,255,.2);border-color:rgba(108,99,255,.5);color:var(--p3);transform:translateY(-2px);box-shadow:0 6px 20px rgba(108,99,255,.25)}
+/* floating icons */
+.fi-wrap{position:absolute;inset:0;z-index:0;pointer-events:none;display:none}
+@media(min-width:900px){.fi-wrap{display:block}}
+.fi{position:absolute;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:12px 15px;font-size:22px;backdrop-filter:blur(10px);animation:float 7s ease-in-out infinite;box-shadow:0 4px 20px rgba(0,0,0,.3)}
+.fi:nth-child(1){top:18%;left:4%;animation-delay:0s}
+.fi:nth-child(2){top:42%;left:2%;animation-delay:-2.5s}
+.fi:nth-child(3){top:66%;left:5%;animation-delay:-5s}
+.fi:nth-child(4){top:20%;right:4%;animation-delay:-1.2s}
+.fi:nth-child(5){top:46%;right:2%;animation-delay:-3.5s}
+.fi:nth-child(6){top:64%;right:5%;animation-delay:-6s}
+
+/* ══ QUICK NAV ══ */
+.qnav{background:rgba(14,14,28,.95);border-bottom:1px solid var(--br);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;backdrop-filter:blur(12px)}
+.qnav::-webkit-scrollbar{display:none}
+.qnav-in{display:flex;min-width:max-content;padding:0 .5rem}
+.qn{display:flex;align-items:center;gap:5px;padding:12px 16px;font-size:12.5px;font-weight:600;color:var(--t3);cursor:pointer;transition:all .2s;border-bottom:2px solid transparent;white-space:nowrap}
+.qn:hover,.qn.on{color:var(--t1);border-bottom-color:var(--p)}
+
+/* ══ AD STRIP ══ */
+.ad-strip{background:linear-gradient(135deg,rgba(108,99,255,.08),rgba(0,210,255,.05));border-bottom:1px solid rgba(108,99,255,.15);padding:.9rem 1rem}
+.ad-strip-in{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap}
+.ad-strip-t{font-size:13.5px;color:var(--t1)}.ad-strip-t strong{color:var(--p3);font-weight:700}
+.ad-strip-btn{background:var(--gp);color:#fff;padding:9px 20px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(108,99,255,.35);transition:all .2s;white-space:nowrap;flex-shrink:0}
+.ad-strip-btn:active{transform:scale(.97)}
+
+/* ══ SECTIONS ══ */
+.sec{padding:4rem 1rem}
+@media(min-width:768px){.sec{padding:5.5rem 1.5rem}}
+.si{max-width:1100px;margin:0 auto}
+.ey{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:100px;margin-bottom:.9rem;border:1px solid}
+.ep{background:rgba(108,99,255,.1);color:var(--p3);border-color:rgba(108,99,255,.25)}
+.eo{background:rgba(255,107,107,.1);color:#FF9999;border-color:rgba(255,107,107,.25)}
+.eg{background:rgba(0,208,132,.1);color:#6EE7B7;border-color:rgba(0,208,132,.25)}
+.ey3{background:rgba(255,217,61,.1);color:#FFD93D;border-color:rgba(255,217,61,.25)}
+.sh{font-size:clamp(1.6rem,5vw,2.5rem);font-weight:900;color:var(--t1);margin-bottom:.7rem;letter-spacing:-.04em;line-height:1.1}
+.sp{color:var(--t2);font-size:.95rem;line-height:1.78;max-width:520px;margin-bottom:2.4rem}
+.ctr{text-align:center}.ctr .sp{margin:0 auto 2.4rem}
+.bg2{background:var(--dk2)}.bg3{background:var(--dk3)}
+
+/* ══ PHOTO TOOLS GRID ══ */
+.pgd{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:480px){.pgd{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:768px){.pgd{grid-template-columns:repeat(4,1fr);gap:14px}}
+@media(min-width:1100px){.pgd{grid-template-columns:repeat(5,1fr)}}
+.ptc{background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.07);border-radius:var(--rL);padding:1.3rem 1rem;cursor:pointer;transition:all .3s cubic-bezier(.34,1.56,.64,1);text-align:center;position:relative;overflow:hidden;-webkit-user-select:none}
+.ptc::before{content:'';position:absolute;inset:0;background:var(--gp);opacity:0;transition:opacity .3s;border-radius:var(--rL)}
+.ptc::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent,rgba(255,255,255,.04),transparent);transform:rotate(45deg) translateX(-100%);transition:transform .6s}
+.ptc:hover,.ptc:active{transform:translateY(-10px) scale(1.03);box-shadow:0 24px 60px rgba(108,99,255,.25);border-color:rgba(108,99,255,.5)}
+.ptc:hover::before{opacity:.08}
+.ptc:hover::after{transform:rotate(45deg) translateX(60%)}
+.ptc-icon-wrap{position:relative;display:inline-block;margin-bottom:12px}
+.ptc-ic{width:58px;height:58px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;transition:transform .35s cubic-bezier(.34,1.56,.64,1);position:relative;z-index:1;margin:0 auto}
+.ptc:hover .ptc-ic{transform:scale(1.3) rotate(-12deg)}
+.ptc-glow{position:absolute;inset:-4px;border-radius:20px;opacity:0;transition:opacity .3s;filter:blur(8px)}
+.ptc:hover .ptc-glow{opacity:.5}
+.ptc-n{font-size:12.5px;font-weight:800;color:var(--t1);margin-bottom:5px;position:relative;z-index:1;transition:color .2s}
+.ptc:hover .ptc-n{color:var(--p3)}
+.ptc-d{font-size:10.5px;color:var(--t3);line-height:1.42;margin-bottom:9px;position:relative;z-index:1}
+.try-l{font-size:11px;color:var(--p2);font-weight:700;display:inline-flex;align-items:center;gap:3px;position:relative;z-index:1;transition:all .2s}
+.ptc:hover .try-l{color:var(--p3);gap:7px}
+.bdg{display:inline-block;font-size:9px;padding:2px 8px;border-radius:100px;font-weight:700;margin-bottom:5px}
+.bh{background:rgba(255,107,107,.15);color:#FF9999}
+.bn{background:rgba(0,208,132,.15);color:#6EE7B7}
+.ba{background:rgba(108,99,255,.15);color:var(--p3)}
+.bp{background:rgba(255,217,61,.15);color:#FFD93D}
+.bf{background:rgba(0,210,255,.15);color:#7DD3FC}
+
+/* ══ IN-CONTENT ADS ══ */
+.ad-box{border-radius:var(--rL);padding:1.3rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap;margin:2rem 0;position:relative;overflow:hidden}
+.adb1{background:linear-gradient(135deg,rgba(108,99,255,.1),rgba(0,210,255,.05));border:1px solid rgba(108,99,255,.2)}
+.adb2{background:linear-gradient(135deg,rgba(255,107,107,.1),rgba(255,142,83,.05));border:1px solid rgba(255,107,107,.2)}
+.ad-box::before{content:'✨ SPONSORED';position:absolute;top:8px;right:10px;font-size:9px;color:var(--t3);font-weight:600;letter-spacing:.05em}
+.ad-l .ad-tag{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.25rem}
+.adb1 .ad-l .ad-tag{color:var(--p3)}
+.adb2 .ad-l .ad-tag{color:#FF9999}
+.ad-l p{font-size:14px;font-weight:800;color:var(--t1)}.ad-l span{font-size:12px;color:var(--t2);display:block;margin-top:2px}
+.ad-cta{color:#fff;padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;border:none}
+.adb1 .ad-cta{background:var(--gp);box-shadow:0 4px 14px rgba(108,99,255,.3)}
+.adb2 .ad-cta{background:var(--gp3);box-shadow:0 4px 14px rgba(255,107,107,.3)}
+.ad-cta:hover,.ad-cta:active{transform:translateY(-2px);filter:brightness(1.1)}
+
+/* ══ PROMO CARDS ══ */
+.prow{display:grid;grid-template-columns:1fr;gap:12px;margin:2rem 0}
+@media(min-width:600px){.prow{grid-template-columns:1fr 1fr}}
+.prc{border-radius:var(--rL);padding:1.5rem;position:relative;overflow:hidden;cursor:pointer;transition:all .25s}
+.prc:hover{transform:translateY(-4px);filter:brightness(1.05)}
+.prc:active{transform:scale(.98)}
+.pr1{background:linear-gradient(135deg,#6C63FF,#9F8FFF)}
+.pr2{background:linear-gradient(135deg,#FF6B6B,#FF8E53)}
+.prc-tag{font-size:10px;font-weight:800;opacity:.7;text-transform:uppercase;letter-spacing:.1em;color:#fff;margin-bottom:.4rem}
+.prc-h{font-size:16px;font-weight:900;color:#fff;line-height:1.25;margin-bottom:.35rem}
+.prc-s{font-size:12px;color:rgba(255,255,255,.75);line-height:1.5;margin-bottom:.9rem}
+.prc-btn{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.2);color:#fff;padding:8px 16px;border-radius:9px;font-size:12.5px;font-weight:700;border:1px solid rgba(255,255,255,.3);cursor:pointer;transition:all .2s}
+.prc-btn:hover{background:rgba(255,255,255,.32)}
+.prc-deco{position:absolute;right:-8px;bottom:-14px;font-size:90px;opacity:.12;line-height:1;pointer-events:none}
+
+/* ══ MORE TOOLS GRID ══ */
+.tgd{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+@media(min-width:480px){.tgd{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:768px){.tgd{grid-template-columns:repeat(4,1fr);gap:12px}}
+@media(min-width:1100px){.tgd{grid-template-columns:repeat(6,1fr)}}
+.tc{background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:1rem .85rem;cursor:pointer;transition:all .28s cubic-bezier(.34,1.56,.64,1);text-align:center;position:relative;overflow:hidden}
+.tc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gp);transform:scaleX(0);transition:transform .28s;transform-origin:left}
+.tc:hover,.tc:active{transform:translateY(-6px);box-shadow:0 16px 40px rgba(108,99,255,.18);border-color:rgba(108,99,255,.35)}
+.tc:hover::after,.tc:active::after{transform:scaleX(1)}
+.tc-ic{width:44px;height:44px;border-radius:12px;margin:0 auto 9px;display:flex;align-items:center;justify-content:center;font-size:20px;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+.tc:hover .tc-ic{transform:scale(1.25) rotate(-10deg)}
+.tc-n{font-size:11.5px;font-weight:800;color:var(--t1);margin-bottom:3px;transition:color .2s}
+.tc:hover .tc-n{color:var(--p3)}
+.tc-d{font-size:10px;color:var(--t3);line-height:1.38}
+
+/* ══ CATEGORIES ══ */
+.cgd{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+@media(min-width:480px){.cgd{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:768px){.cgd{grid-template-columns:repeat(4,1fr);gap:12px}}
+.ccd{background:rgba(255,255,255,.03);border:1px solid var(--br);border-radius:13px;padding:1rem;cursor:pointer;transition:all .22s;display:flex;align-items:center;gap:10px;position:relative;overflow:hidden}
+.ccd::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gp);transform:scaleY(0);transition:transform .22s;border-radius:2px}
+.ccd:hover,.ccd:active{border-color:rgba(108,99,255,.35);background:rgba(108,99,255,.07);transform:translateX(4px)}
+.ccd:hover::before,.ccd:active::before{transform:scaleY(1)}
+.cic{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;transition:transform .28s cubic-bezier(.34,1.56,.64,1)}
+.ccd:hover .cic{transform:scale(1.2) rotate(-6deg)}
+.cn{font-size:12.5px;font-weight:800;color:var(--t1)}.cc{font-size:10.5px;color:var(--t3);margin-top:1px}
+
+/* ══ HOW ══ */
+.hwgd{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:600px){.hwgd{grid-template-columns:repeat(3,1fr)}}
+.hwc{background:rgba(255,255,255,.03);border:1px solid var(--br);border-radius:var(--rL);padding:1.8rem 1.4rem;text-align:center;transition:all .25s;position:relative;overflow:hidden}
+.hwc::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gp);transform:scaleX(0);transition:transform .35s}
+.hwc:hover{box-shadow:0 16px 44px rgba(108,99,255,.12);transform:translateY(-4px)}
+.hwc:hover::after{transform:scaleX(1)}
+.hwn{width:52px;height:52px;background:var(--gp);border-radius:15px;margin:0 auto 1.1rem;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:900;box-shadow:0 8px 24px rgba(108,99,255,.4)}
+.hwt{font-size:.95rem;font-weight:800;color:var(--t1);margin-bottom:.4rem}
+.hwd{font-size:12.5px;color:var(--t2);line-height:1.65}
+
+/* ══ FEATURES ══ */
+.fgd{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:480px){.fgd{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:768px){.fgd{grid-template-columns:repeat(3,1fr)}}
+.fcard{padding:1.5rem;border:1px solid var(--br);border-radius:var(--rL);background:rgba(255,255,255,.03);transition:all .22s;position:relative;overflow:hidden}
+.fcard:hover{border-color:rgba(108,99,255,.35);box-shadow:0 12px 36px rgba(108,99,255,.12);transform:translateY(-3px)}
+.fi2{font-size:28px;margin-bottom:.9rem;display:block;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+.fcard:hover .fi2{transform:scale(1.2) rotate(-8deg)}
+.ft{font-size:.9rem;font-weight:800;color:var(--t1);margin-bottom:.4rem}
+.fd{font-size:12.5px;color:var(--t2);line-height:1.65}
+
+/* ══ PRICING ══ */
+.ptabs{display:flex;gap:6px;justify-content:center;margin-bottom:2.2rem;flex-wrap:wrap;background:rgba(255,255,255,.04);border:1px solid var(--br);border-radius:100px;padding:5px;max-width:fit-content;margin-left:auto;margin-right:auto}
+.ptab{padding:8px 18px;font-size:13px;font-weight:700;border-radius:100px;cursor:pointer;transition:all .2s;color:var(--t3);background:transparent;border:none}
+.ptab.on{background:var(--gp);color:#fff;box-shadow:0 4px 16px rgba(108,99,255,.4)}
+.pgrd{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:640px){.pgrd{grid-template-columns:repeat(3,1fr)}}
+.pc{background:rgba(255,255,255,.04);border:1px solid var(--br);border-radius:22px;padding:1.8rem;display:flex;flex-direction:column;transition:all .28s;position:relative}
+.pc:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.pc.star{border:1.5px solid var(--p);background:rgba(108,99,255,.06);box-shadow:0 0 0 4px rgba(108,99,255,.1),0 0 40px rgba(108,99,255,.15)}
+.pbdg{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--gp);color:#fff;font-size:10.5px;font-weight:800;padding:4px 15px;border-radius:100px;white-space:nowrap;box-shadow:0 4px 14px rgba(108,99,255,.4)}
+.pn{font-size:1.05rem;font-weight:900;color:var(--t1)}.pd{font-size:12px;color:var(--t3);margin-top:3px}
+.pamt{font-size:2.6rem;font-weight:900;color:var(--t1);margin:.9rem 0 .15rem;line-height:1;transition:all .3s}
+.pamt .cur{font-size:1.1rem;vertical-align:super;font-weight:700}
+.pamt .per{font-size:.75rem;color:var(--t3);font-weight:500}
+.psave{font-size:11px;color:var(--grn);font-weight:700;min-height:15px;margin-bottom:.35rem}
+.pdiv{height:1px;background:var(--br);margin:1.1rem 0}
+.pfl{list-style:none;display:flex;flex-direction:column;gap:.55rem;flex:1}
+.pfl li{font-size:12.5px;color:var(--t2);display:flex;align-items:flex-start;gap:7px}
+.ck{color:var(--grn);font-weight:700;flex-shrink:0;font-size:13px}
+.pfl li.no{color:var(--t3)}.pfl li.no .ck{color:var(--dk3)}
+.pbtn{margin-top:1.4rem;width:100%;padding:13px;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;transition:all .22s;border:1px solid var(--br);background:transparent;color:var(--t2)}
+.pbtn:hover{border-color:var(--p);color:var(--t1)}
+.pbtn.ps{background:var(--gp);color:#fff;border:none;box-shadow:0 6px 20px rgba(108,99,255,.35)}
+.pbtn.ps:hover,.pbtn.ps:active{transform:translateY(-2px);box-shadow:0 12px 32px rgba(108,99,255,.5)}
+
+/* ══ REVIEWS ══ */
+.rvgd{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:600px){.rvgd{grid-template-columns:repeat(3,1fr)}}
+.rvc{background:rgba(255,255,255,.03);border:1px solid var(--br);border-radius:var(--rL);padding:1.5rem;transition:all .22s;position:relative;overflow:hidden}
+.rvc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gp);opacity:0;transition:opacity .22s}
+.rvc:hover{box-shadow:0 14px 40px rgba(108,99,255,.12);transform:translateY(-3px);border-color:rgba(108,99,255,.25)}
+.rvc:hover::before{opacity:1}
+.stars{font-size:13px;margin-bottom:.75rem;color:var(--yel);letter-spacing:2px}
+.rq{font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:1rem;font-style:italic}
+.rau{display:flex;align-items:center;gap:9px}
+.rav{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:800;color:#fff;flex-shrink:0}
+.ran{font-size:13px;font-weight:700;color:var(--t1)}.rar{font-size:11px;color:var(--t3)}
+
+/* ══ FAQ ══ */
+.faqw{max-width:700px;margin:0 auto}
+.fqi{border-bottom:1px solid var(--br)}
+.fqq{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 0;cursor:pointer;font-size:14px;font-weight:700;color:var(--t1);gap:.75rem;user-select:none;-webkit-user-select:none;transition:color .15s}
+.fqq:hover,.fqq:active{color:var(--p3)}
+.farr{font-size:18px;color:var(--t3);transition:transform .22s;flex-shrink:0}
+.fqi.op .farr{transform:rotate(180deg);color:var(--p)}
+.fqa{font-size:13px;color:var(--t2);line-height:1.72;max-height:0;overflow:hidden;transition:max-height .32s ease,padding-bottom .22s}
+.fqi.op .fqa{max-height:220px;padding-bottom:1rem}
+
+/* ══ CTA ══ */
+.cta-s{padding:5.5rem 1rem;text-align:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#0A0015,#1A0535,#07070F)}
+.cta-g{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(108,99,255,.22),transparent 70%);pointer-events:none}
+.cta-in{position:relative;z-index:1;max-width:620px;margin:0 auto}
+.cta-h{font-size:clamp(1.9rem,6vw,3rem);font-weight:900;color:var(--t1);margin-bottom:.9rem;line-height:1.1;letter-spacing:-.04em}
+.cta-p{color:var(--t2);font-size:.95rem;line-height:1.78;margin-bottom:2rem}
+.cta-bs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.cb1{background:var(--gp);color:#fff;padding:14px 28px;border-radius:13px;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 6px 24px rgba(108,99,255,.4);transition:all .22s;border:none}
+.cb1:hover,.cb1:active{transform:translateY(-2px);box-shadow:0 14px 36px rgba(108,99,255,.55)}
+.cb2{background:rgba(255,255,255,.07);color:var(--t1);padding:14px 24px;border-radius:13px;font-size:15px;font-weight:600;border:1px solid var(--br);cursor:pointer;transition:all .22s}
+.cb2:hover{background:rgba(255,255,255,.12)}
+.cta-tr{margin-top:1.4rem;font-size:11.5px;color:var(--t3);display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap}
+
+/* ══ TRUST ══ */
+.trust{background:var(--dk2);border-top:1px solid var(--br);border-bottom:1px solid var(--br);padding:1.5rem 1rem}
+.t-in{max-width:1000px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap}
+@media(min-width:480px){.t-in{gap:3.5rem}}
+.tst{text-align:center}
+.tsn{font-size:1.5rem;font-weight:900;background:var(--gp);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.tsl{font-size:10.5px;color:var(--t3);margin-top:2px;font-weight:500}
+.tdv{width:1px;height:32px;background:var(--br);display:none}
+@media(min-width:480px){.tdv{display:block}}
+
+/* ══ FOOTER ══ */
+footer{background:#030308;padding:4rem 1rem 2rem;border-top:1px solid var(--br)}
+.ft-in{max-width:1100px;margin:0 auto}
+.ft-top{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2.5rem}
+@media(min-width:640px){.ft-top{grid-template-columns:2fr 1fr 1fr 1fr}}
+.ft-logo{display:flex;align-items:center;gap:9px;font-size:17px;font-weight:900;color:var(--t1);margin-bottom:.8rem;letter-spacing:-.03em}
+.ft-logo-mark{width:30px;height:30px;background:var(--gp);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;flex-shrink:0}
+.ft-p{font-size:12.5px;color:var(--t3);line-height:1.7;max-width:210px;margin-bottom:1.1rem}
+.nl-t{font-size:10px;color:var(--t3);font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.45rem}
+.nl-r{display:flex;gap:6px}
+.nl-i{flex:1;background:rgba(255,255,255,.05);border:1px solid var(--br);border-radius:8px;padding:9px 12px;font-size:13px;color:var(--t1);outline:none;min-width:0;transition:border-color .18s}
+.nl-i::placeholder{color:var(--t3)}.nl-i:focus{border-color:rgba(108,99,255,.5)}
+.nl-b{background:var(--gp);color:#fff;border:none;border-radius:8px;padding:9px 13px;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .18s}
+.nl-b:active{transform:scale(.97)}
+.sr{display:flex;gap:7px;margin-top:1rem}
+.soc{width:32px;height:32px;border:1px solid var(--br);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--t3);font-size:12px;cursor:pointer;transition:all .2s;font-weight:700}
+.soc:hover,.soc:active{border-color:var(--p);color:var(--p3);background:rgba(108,99,255,.1)}
+.ft-col h4{font-size:10.5px;font-weight:800;color:var(--t1);margin-bottom:.9rem;text-transform:uppercase;letter-spacing:.07em}
+.ft-col a{display:block;font-size:12.5px;color:var(--t3);margin-bottom:.45rem;cursor:pointer;transition:color .15s}
+.ft-col a:hover,.ft-col a:active{color:var(--t1)}
+.ft-bot{border-top:1px solid var(--br);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem}
+.ft-bot p{font-size:11.5px;color:var(--t3)}
+.ft-bs{display:flex;gap:6px;flex-wrap:wrap}
+.fb{display:flex;align-items:center;gap:3px;background:rgba(255,255,255,.03);border:1px solid var(--br);border-radius:6px;padding:3px 8px;font-size:10.5px;color:var(--t3)}
+
+/* ══ REVEAL ══ */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .45s ease,transform .45s ease}
+.rv.in{opacity:1;transform:translateY(0)}
+
+/* ══ MOBILE CTA ══ */
+.mob-cta{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:990;background:rgba(7,7,15,.96);border-top:1px solid var(--br);padding:.8rem 1rem;gap:.7rem;align-items:center;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+@media(min-width:641px){.mob-cta{display:none}}
+.mob-cta p{font-size:12px;color:var(--t2);flex:1;line-height:1.3}
+.mob-cta p strong{color:var(--t1);display:block;font-size:13px}
+.mob-cta button{background:var(--gp);color:#fff;padding:11px 18px;border-radius:11px;font-size:13px;font-weight:800;white-space:nowrap;box-shadow:0 4px 16px rgba(108,99,255,.4);cursor:pointer;border:none;transition:all .2s}
+.mob-cta button:active{transform:scale(.96)}
+@media(max-width:640px){footer{padding-bottom:5.5rem}}
+</style>
+</head>
+<body>
+<!-- DEAL BAR -->
+<div class="deal-bar" id="deal-bar">
+  🔥 <strong data-i="db">Black Friday — Pro 60% OFF!</strong> &nbsp;
+  <a onclick="go('pricing')" data-i="da">Grab Deal →</a>
+  <button class="deal-x" onclick="document.getElementById('deal-bar').style.display='none'">✕</button>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="logo" href="#home">
+    <div class="logo-mark">I</div>
+    ImageBoost<span class="logo-ai">AI</span>
+  </a>
+  <div class="nav-right">
+    <div class="lw">
+      <button class="lb" id="lb" onclick="tgl()">
+        <span class="lb-globe">🌐</span><span id="lcode">EN</span>
+      </button>
+      <div class="ld" id="ld">
+        <div class="lo" onclick="sl('en')">🇺🇸 EN</div>
+        <div class="lo" onclick="sl('tr')">🇹🇷 TR</div>
+        <div class="lo" onclick="sl('es')">🇪🇸 ES</div>
+        <div class="lo" onclick="sl('fr')">🇫🇷 FR</div>
+        <div class="lo" onclick="sl('de')">🇩🇪 DE</div>
+        <div class="lo" onclick="sl('pt')">🇧🇷 PT</div>
+        <div class="lo" onclick="sl('it')">🇮🇹 IT</div>
+        <div class="lo" onclick="sl('ru')">🇷🇺 RU</div>
+        <div class="lo" onclick="sl('ja')">🇯🇵 JA</div>
+        <div class="lo" onclick="sl('zh')">🇨🇳 ZH</div>
+        <div class="lo" onclick="sl('ko')">🇰🇷 KO</div>
+        <div class="lo" onclick="sl('ar')">🇸🇦 AR</div>
+        <div class="lo" onclick="sl('hi')">🇮🇳 HI</div>
+        <div class="lo" onclick="sl('nl')">🇳🇱 NL</div>
+        <div class="lo" onclick="sl('pl')">🇵🇱 PL</div>
+      </div>
+    </div>
+    <button class="nav-login" onclick="alert('Login — connect your auth system!')" data-i="nlog">Log In</button>
+    <button class="nav-signup" onclick="go('pricing')" data-i="nsup">Sign Up Free →</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+    <div class="hero-grid"></div>
+  </div>
+  <div class="fi-wrap">
+    <div class="fi">🎭</div><div class="fi">✨</div><div class="fi">🪄</div>
+    <div class="fi">📄</div><div class="fi">🎨</div><div class="fi">🤖</div>
+  </div>
+  <div class="hero-in">
+    <div class="h-badge"><span class="bdot"></span><span data-i="hbadge">AI Photo Tools · 200+ Free · No Registration</span></div>
+    <h1><span data-i="h1a">Professional Photo</span><br><span class="gw" data-i="h1b">Editing with AI</span></h1>
+    <p class="h-sub" data-i="hsub">Remove backgrounds, upscale to 4K, AI headshots, retouch portraits — studio results in seconds. Completely free, no signup needed.</p>
+    <div class="h-btns">
+      <button class="btn-main" onclick="go('photo')" data-i="hb1">🎨 Start Editing Free</button>
+      <button class="btn-sec" onclick="go('how')" data-i="hb2">▶ How It Works</button>
+    </div>
+    <div class="h-tags">
+      <span class="htag" onclick="go('photo')">🎭 <span data-i="ht1">Remove BG</span></span>
+      <span class="htag" onclick="go('photo')">✨ <span data-i="ht2">Upscaler 4K</span></span>
+      <span class="htag" onclick="go('photo')">💄 <span data-i="ht3">Face Retouch</span></span>
+      <span class="htag" onclick="go('photo')">🤖 <span data-i="ht4">AI Headshot</span></span>
+      <span class="htag" onclick="go('tools')">📄 <span data-i="ht5">PDF Tools</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- QUICK NAV -->
+<div class="qnav">
+  <div class="qnav-in">
+    <div class="qn on" onclick="go('photo');setQn(this)">📸 <span data-i="qn1">AI Photo</span></div>
+    <div class="qn" onclick="go('photo');setQn(this)">🎭 <span data-i="qn2">Remove BG</span></div>
+    <div class="qn" onclick="go('photo');setQn(this)">✨ <span data-i="qn3">Upscaler</span></div>
+    <div class="qn" onclick="go('tools');setQn(this)">📄 <span data-i="qn4">PDF</span></div>
+    <div class="qn" onclick="go('cats');setQn(this)">📂 <span data-i="qn5">Categories</span></div>
+    <div class="qn" onclick="go('pricing');setQn(this)">💎 <span data-i="qn6">Pricing</span></div>
+    <div class="qn" onclick="go('faq');setQn(this)">❓ FAQ</div>
+    <div class="qn" onclick="alert('API docs coming soon!')">⚙️ API</div>
+  </div>
+</div>
+
+<!-- AD STRIP -->
+<div class="ad-strip">
+  <div class="ad-strip-in">
+    <div class="ad-strip-t">⚡ <strong data-i="ast">Pro Plan:</strong> <span data-i="asd">Unlimited tools, 4K export, zero watermarks — from $9/month</span></div>
+    <button class="ad-strip-btn" onclick="go('pricing')" data-i="asb">Upgrade Now →</button>
+  </div>
+</div>
+
+<!-- AI PHOTO STUDIO -->
+<section class="sec" id="photo">
+<div class="si">
+  <div class="ey ep rv">📸 <span data-i="pey">AI Photo Studio</span></div>
+  <h2 class="sh rv" data-i="psh">Professional Photo Editing with AI</h2>
+  <p class="sp rv" data-i="psp">Studio-quality results in seconds. No Photoshop skills needed.</p>
+
+  <div class="ad-box adb1 rv">
+    <div class="ad-l">
+      <div class="ad-tag" data-i="ad1tag">✨ Pro Feature</div>
+      <p data-i="ad1h">Remove backgrounds from 100 photos at once</p>
+      <span data-i="ad1s">HD export · Zero watermarks · Pro from $9/mo</span>
+    </div>
+    <button class="ad-cta" onclick="go('pricing')" data-i="ad1b">Start Free Trial →</button>
+  </div>
+
+  <div class="pgd">
+    <div class="ptc rv" onclick="toolClick('Remove Background')">
+      <div class="ptc-ic" style="background:linear-gradient(135deg,#1a2a4a,#3B82F6)">🎭</div>
+      <span class="bdg bh">🔥 #1</span>
+      <div class="ptc-n" data-i="t_rbg">Remove Background</div>
+      <div class="ptc-d" data-i="t_rbgd">Precise AI cutout in 3 sec. Perfect edges every time.</div>
+      <div class="try-l">Try Free →</div>
+    </div>
+    <div class="ptc rv" onclick="toolClick('Object Remover')">
+      <div class="ptc-ic" style="background:linear-gradient(135deg,#2d1a4a,#9F67FF)">🗑️</div>
+      <span class="bdg ba">AI</span>
+      <div class="ptc-n" data-i="t_obj">Object Remover</div>
+      <div class="ptc-d" data-i="t_objd">Paint over anything. AI fills it seamlessly.</div>
+      <div class="try-l">Try Free →</div>
+    </div>
+    <div class="ptc rv" onclick="toolClick('Magic Eraser')">
+      <div class="ptc-ic" style="background:linear-gradient(135deg,#1a3a2a,#10B981)">🪄</div>
+      <span class="bdg bn">New</span>
+      <div class="ptc-n" data-i="t_me">Magic Eraser</div>
+      <div class="ptc-d" data-i="t_med">One click removes unwanted objects or watermarks.</div>
+      <div class="try-l">Try Free →</div>
+    </div>
+    <div class="ptc rv" onclick="toolClick('Face Retouch')">
+      <div class="ptc-ic" style="background:linear-gradient(135deg,#3a1a2a,#EC4899)">💄</div>
+      <span class="bdg ba">AI</span>
+      <div class="ptc-n" data-i="t_fr">Face Retouch</div>
+      <div class="ptc-d" data-i="t_frd">Smooth skin, brighten eyes, whiten teeth.</div>
+      <div class="try-l">Try Free →</div>
+    </div>
+    <div class="ptc rv" onclick="toolClick('AI Upscaler 4K')">
+      <div class="ptc-ic" style="background:linear-gradient(135deg,#3a1a1a,#EF4444)">📐</div>
+      <span class="bdg bh">Hot</span>
+      <div class="ptc-n" data-i="t_up">AI Upscaler 4K</div>
+      <div class="ptc-d" data-i="t_upd">2x–8x upscale without blur. Ultra sharp.</div>
+      <div class="try-l">Try Free →</div>
+    </div>
+    <div class="ptc rv" onclick="toolClick('AI Enhancer')">
+      <div class="ptc-ic" style="background:linear-gradient(135deg,#1a3a1a,#22C55E)">✨</div>
+      <span class="bdg ba">AI</span>
+      <div class="ptc-n" data-i="t_enh">AI Enhancer</div>
+      <div class="ptc-d" data-i="t_enhd">Fix lighting, colors, contrast. One click.</div>
+      <div class="try-l">Try Free →</div>
+    </div>
+    <div class="ptc rv" onclick="toolClick('Restore Old Photo')">
+      <div class="ptc-ic" style="background:linear-gradient(135deg,#1a2a3a,#0EA5E9)">🕰️</div>
+      <span class="bdg ba">AI</span>
+      <div class="ptc-n" data-i="t_rp">Restore Old Photo</div>
+      <div class="ptc-d" data-i="t_rpd">Bring damaged photos back to life.</div>
+      <div class="try-l">Try Free →</div>
+    </div>
+    <div class="ptc rv" onclick="toolClick('Colorize Photo')">
+      <div class="ptc-ic" style="background:linear-gradient(135deg,#1a2a3a,#06B6D4)">🎨</div>
+      <span class="bdg bn">New</span>
+      <div class="ptc-n" data-i="t_col">Colorize Photo</div>
+      <div class="ptc-d" data-i="t_cold">Add realistic colors to B&W photos.</div>
+      <div class="try-l">Try Free →</div>
+    </div>
+    <div class="ptc rv" onclick="toolClick('AI Headshot')">
+      <div class="ptc-ic" style="background:linear-gradient(135deg,#2a2a1a,#F59E0B)">🤖</div>
+      <span class="bdg bp">Pro</span>
+      <div class="ptc-n" data-i="t_hs">AI Headshot</div>
+      <div class="ptc-d" data-i="t_hsd">Professional LinkedIn headshots from any photo.</div>
+      <div class="try-l">Try Free →</div>
+    </div>
+    <div class="ptc rv" onclick="toolClick('Passport Photo')">
+      <div class="ptc-ic" style="background:linear-gradient(135deg,#1a1a3a,#6366F1)">👤</div>
+      <span class="bdg bf">Free</span>
+      <div class="ptc-n" data-i="t_pp">Passport Photo</div>
+      <div class="ptc-d" data-i="t_ppd">Official passport photos for any country.</div>
+      <div class="try-l">Try Free →</div>
+    </div>
+  </div>
+
+  <div class="prow rv">
+    <div class="prc pr1" onclick="go('pricing')">
+      <div class="prc-tag">💎 Pro Feature</div>
+      <div class="prc-h" data-i="pr1h">Batch Background Removal</div>
+      <div class="prc-s" data-i="pr1s">Process 50 images at once. Save hours every week.</div>
+      <div class="prc-btn">Upgrade to Pro →</div>
+      <div class="prc-deco">🎭</div>
+    </div>
+    <div class="prc pr2" onclick="toolClick('AI Image Generator')">
+      <div class="prc-tag">🚀 New Tool</div>
+      <div class="prc-h" data-i="pr2h">AI Image Generator</div>
+      <div class="prc-s" data-i="pr2s">Create stunning AI art from text prompts.</div>
+      <div class="prc-btn">Try It Free →</div>
+      <div class="prc-deco">🎨</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- MORE TOOLS -->
+<section class="sec bg2" id="tools">
+<div class="si">
+  <div class="ey eo rv">🔥 <span data-i="tey">More Tools</span></div>
+  <h2 class="sh rv" data-i="tsh">PDF, Video, Design & More</h2>
+  <p class="sp rv" data-i="tsp">200+ tools for every task — all free to start.</p>
+  <div class="ad-box adb2 rv">
+    <div class="ad-l">
+      <div class="ad-tag">💰 Business Plan</div>
+      <p data-i="ad2h">REST API — integrate any tool into your apps</p>
+      <span data-i="ad2s">99.9% uptime · 200 files/batch · White-label · $29/mo</span>
+    </div>
+    <button class="ad-cta" onclick="go('pricing')" data-i="ad2b">Get API Access →</button>
+  </div>
+  <div class="tgd">
+    <div class="tc rv" onclick="toolClick('PDF to Word')"><div class="tc-ic" style="background:linear-gradient(135deg,#1a2a4a,#3B82F6)">📄</div><span class="bdg bh">Hot</span><div class="tc-n" data-i="t_pw">PDF to Word</div><div class="tc-d" data-i="t_pwd">Convert any PDF to editable Word instantly</div></div>
+    <div class="tc rv" onclick="toolClick('Merge PDF')"><div class="tc-ic" style="background:linear-gradient(135deg,#1a3a2a,#10B981)">🔗</div><span class="bdg bf">Free</span><div class="tc-n" data-i="t_pm">Merge PDF</div><div class="tc-d" data-i="t_pmd">Combine multiple PDFs into one</div></div>
+    <div class="tc rv" onclick="toolClick('Split PDF')"><div class="tc-ic" style="background:linear-gradient(135deg,#2a2a1a,#F59E0B)">✂️</div><span class="bdg bf">Free</span><div class="tc-n" data-i="t_sp">Split PDF</div><div class="tc-d" data-i="t_spd">Extract pages from any PDF</div></div>
+    <div class="tc rv" onclick="toolClick('Image Compressor')"><div class="tc-ic" style="background:linear-gradient(135deg,#3a1a1a,#EF4444)">🗜️</div><span class="bdg bh">Hot</span><div class="tc-n" data-i="t_ic">Image Compressor</div><div class="tc-d" data-i="t_icd">Reduce file size without quality loss</div></div>
+    <div class="tc rv" onclick="toolClick('HEIC to JPG')"><div class="tc-ic" style="background:linear-gradient(135deg,#1a2a3a,#06B6D4)">🔄</div><span class="bdg bf">Fast</span><div class="tc-n" data-i="t_hj">HEIC to JPG</div><div class="tc-d" data-i="t_hjd">Convert iPhone photos instantly</div></div>
+    <div class="tc rv" onclick="toolClick('QR Code Generator')"><div class="tc-ic" style="background:linear-gradient(135deg,#1a1a3a,#6366F1)">📱</div><span class="bdg bf">Free</span><div class="tc-n" data-i="t_qr">QR Code</div><div class="tc-d" data-i="t_qrd">Create custom QR codes for any URL</div></div>
+    <div class="tc rv" onclick="toolClick('YouTube Thumbnail')"><div class="tc-ic" style="background:linear-gradient(135deg,#3a1a1a,#F43F5E)">📺</div><span class="bdg bh">Hot</span><div class="tc-n" data-i="t_yt">YT Thumbnail</div><div class="tc-d" data-i="t_ytd">Design click-worthy YouTube thumbnails</div></div>
+    <div class="tc rv" onclick="toolClick('AI Logo Maker')"><div class="tc-ic" style="background:linear-gradient(135deg,#2d1a4a,#9F67FF)">🏷️</div><span class="bdg bp">Pro</span><div class="tc-n" data-i="t_lg">AI Logo Maker</div><div class="tc-d" data-i="t_lgd">Generate professional logos with AI</div></div>
+    <div class="tc rv" onclick="toolClick('AI Resume Builder')"><div class="tc-ic" style="background:linear-gradient(135deg,#1a3a2a,#22C55E)">📝</div><span class="bdg bh">Hot</span><div class="tc-n" data-i="t_cv">AI Resume</div><div class="tc-d" data-i="t_cvd">Build a job-winning resume with AI</div></div>
+    <div class="tc rv" onclick="toolClick('AI Translator')"><div class="tc-ic" style="background:linear-gradient(135deg,#1a2a3a,#0EA5E9)">🌐</div><span class="bdg ba">AI</span><div class="tc-n" data-i="t_tr">AI Translator</div><div class="tc-d" data-i="t_trd">Translate to 100+ languages accurately</div></div>
+    <div class="tc rv" onclick="toolClick('Video BG Remover')"><div class="tc-ic" style="background:linear-gradient(135deg,#1a2a4a,#6366F1)">🎬</div><span class="bdg bn">New</span><div class="tc-n" data-i="t_vb">Video BG Remover</div><div class="tc-d" data-i="t_vbd">Remove background from videos</div></div>
+    <div class="tc rv" onclick="toolClick('OCR Tool')"><div class="tc-ic" style="background:linear-gradient(135deg,#2a2a1a,#D97706)">📊</div><span class="bdg ba">AI</span><div class="tc-n" data-i="t_oc">OCR Tool</div><div class="tc-d" data-i="t_ocd">Extract text from any image</div></div>
+  </div>
+</div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="sec" id="cats">
+<div class="si">
+  <div class="ey eg rv">📂 <span data-i="cey">Categories</span></div>
+  <h2 class="sh rv" data-i="csh">200+ Tools, 12 Categories</h2>
+  <p class="sp rv" data-i="csp">Everything you need in one place.</p>
+  <div class="cgd">
+    <div class="ccd rv" onclick="go('photo')"><div class="cic" style="background:rgba(59,130,246,.15)">🤖</div><div><div class="cn" data-i="c1">AI Photo</div><div class="cc">28 tools</div></div></div>
+    <div class="ccd rv" onclick="go('tools')"><div class="cic" style="background:rgba(99,102,241,.15)">🖼️</div><div><div class="cn" data-i="c2">Image</div><div class="cc">32 tools</div></div></div>
+    <div class="ccd rv" onclick="go('tools')"><div class="cic" style="background:rgba(245,158,11,.15)">📄</div><div><div class="cn" data-i="c3">PDF</div><div class="cc">18 tools</div></div></div>
+    <div class="ccd rv" onclick="go('tools')"><div class="cic" style="background:rgba(239,68,68,.15)">🎬</div><div><div class="cn" data-i="c4">Video</div><div class="cc">24 tools</div></div></div>
+    <div class="ccd rv" onclick="go('tools')"><div class="cic" style="background:rgba(16,185,129,.15)">🎵</div><div><div class="cn" data-i="c5">Audio</div><div class="cc">14 tools</div></div></div>
+    <div class="ccd rv" onclick="go('tools')"><div class="cic" style="background:rgba(6,182,212,.15)">📝</div><div><div class="cn" data-i="c6">Text</div><div class="cc">22 tools</div></div></div>
+    <div class="ccd rv" onclick="go('tools')"><div class="cic" style="background:rgba(159,67,255,.15)">🎨</div><div><div class="cn" data-i="c7">Design</div><div class="cc">20 tools</div></div></div>
+    <div class="ccd rv" onclick="go('tools')"><div class="cic" style="background:rgba(244,63,94,.15)">💼</div><div><div class="cn" data-i="c8">Business</div><div class="cc">26 tools</div></div></div>
+    <div class="ccd rv" onclick="go('tools')"><div class="cic" style="background:rgba(34,197,94,.15)">📱</div><div><div class="cn" data-i="c9">Social Media</div><div class="cc">16 tools</div></div></div>
+    <div class="ccd rv" onclick="go('tools')"><div class="cic" style="background:rgba(108,99,255,.15)">⚙️</div><div><div class="cn" data-i="c10">Developer</div><div class="cc">18 tools</div></div></div>
+    <div class="ccd rv" onclick="go('tools')"><div class="cic" style="background:rgba(14,165,233,.15)">🔄</div><div><div class="cn" data-i="c11">Converter</div><div class="cc">30 tools</div></div></div>
+    <div class="ccd rv" onclick="go('tools')"><div class="cic" style="background:rgba(217,119,6,.15)">🧮</div><div><div class="cn" data-i="c12">Calculator</div><div class="cc">12 tools</div></div></div>
+  </div>
+</div>
+</section>
+
+<!-- HOW -->
+<section class="sec bg2" id="how">
+<div class="si ctr">
+  <div class="ey ep rv">⚡ <span data-i="hey">Simple</span></div>
+  <h2 class="sh rv" data-i="hsh">How It Works</h2>
+  <p class="sp rv" data-i="hsp">From upload to result in under 10 seconds.</p>
+  <div class="hwgd">
+    <div class="hwc rv"><div class="hwn">1</div><div class="hwt" data-i="hw1t">Upload Your File</div><div class="hwd" data-i="hw1d">Drag & drop, paste URL, or click browse. 50+ formats. No account needed.</div></div>
+    <div class="hwc rv"><div class="hwn">2</div><div class="hwt" data-i="hw2t">AI Processes It</div><div class="hwd" data-i="hw2d">Advanced AI processes your file in 2–4 seconds automatically.</div></div>
+    <div class="hwc rv"><div class="hwn">3</div><div class="hwt" data-i="hw3t">Download & Share</div><div class="hwd" data-i="hw3d">Instant result. Files auto-deleted after 1 hour for privacy.</div></div>
+  </div>
+</div>
+</section>
+
+<!-- WHY US -->
+<section class="sec" id="why">
+<div class="si ctr">
+  <div class="ey ep rv">💡 <span data-i="wey">Why Us</span></div>
+  <h2 class="sh rv" data-i="wsh">Built for Speed & Privacy</h2>
+  <p class="sp rv" data-i="wsp">Everything designed to save your time.</p>
+  <div class="fgd">
+    <div class="fcard rv"><span class="fi2">⚡</span><div class="ft" data-i="f1t">Lightning Fast</div><div class="fd" data-i="f1d">GPU-accelerated AI. Average under 4 seconds.</div></div>
+    <div class="fcard rv"><span class="fi2">🔒</span><div class="ft" data-i="f2t">Privacy First</div><div class="fd" data-i="f2d">Files auto-deleted after 1hr. GDPR compliant. Never train on your data.</div></div>
+    <div class="fcard rv"><span class="fi2">🌍</span><div class="ft" data-i="f3t">No Registration</div><div class="fd" data-i="f3d">Start instantly — no account, no email, no credit card.</div></div>
+    <div class="fcard rv"><span class="fi2">📱</span><div class="ft" data-i="f4t">Works Everywhere</div><div class="fd" data-i="f4d">Mobile, tablet, desktop — iOS, Android, all browsers.</div></div>
+    <div class="fcard rv"><span class="fi2">🔄</span><div class="ft" data-i="f5t">Batch Processing</div><div class="fd" data-i="f5d">Pro: process up to 100 files at once.</div></div>
+    <div class="fcard rv"><span class="fi2">🛡️</span><div class="ft" data-i="f6t">Enterprise API</div><div class="fd" data-i="f6d">REST API with 99.9% uptime SLA.</div></div>
+  </div>
+</div>
+</section>
+
+<!-- PRICING -->
+<section class="sec bg2" id="pricing">
+<div class="si ctr">
+  <div class="ey ep rv">💎 <span data-i="prey">Pricing</span></div>
+  <h2 class="sh rv" data-i="prsh">Simple, Transparent Pricing</h2>
+  <p class="sp rv" data-i="prsp">Start free. Upgrade when ready. Cancel anytime.</p>
+  <div class="ptabs rv">
+    <button class="ptab on" id="tb-m" onclick="setBill('m')" data-i="tbm">Monthly</button>
+    <button class="ptab" id="tb-y" onclick="setBill('y')"><span data-i="tby">Yearly</span> <span style="background:#00D084;color:#fff;font-size:9px;padding:1px 7px;border-radius:100px;margin-left:4px">-40%</span></button>
+    <button class="ptab" id="tb-f" onclick="setBill('f')" data-i="tbf">14-Day Free Trial</button>
+  </div>
+  <div class="pgrd">
+    <div class="pc rv">
+      <div class="pn" data-i="pl1">Free</div><div class="pd" data-i="pd1">Personal use</div>
+      <div class="pamt"><span class="cur">$</span><span id="pa1">0</span><span class="per">/mo</span></div>
+      <div class="psave" id="ps1"></div>
+      <div class="pdiv"></div>
+      <ul class="pfl">
+        <li><span class="ck">✓</span><span data-i="f1a">20 uses per day</span></li>
+        <li><span class="ck">✓</span><span data-i="f1b">Standard quality</span></li>
+        <li><span class="ck">✓</span><span data-i="f1c">50+ basic tools</span></li>
+        <li><span class="ck">✓</span><span data-i="f1g">Max 10MB per file</span></li>
+        <li class="no"><span class="ck">✕</span><span data-i="f1d">HD / 4K export</span></li>
+        <li class="no"><span class="ck">✕</span><span data-i="f1e">Batch processing</span></li>
+        <li class="no"><span class="ck">✕</span><span data-i="f1f">No watermark</span></li>
+      </ul>
+      <button class="pbtn" onclick="go('photo')" data-i="pb1">Start for Free</button>
+    </div>
+    <div class="pc star rv">
+      <div class="pbdg" data-i="pop">⭐ Most Popular</div>
+      <div class="pn" data-i="pl2">Pro</div><div class="pd" data-i="pd2">For creators</div>
+      <div class="pamt"><span class="cur">$</span><span id="pa2">9</span><span class="per">/mo</span></div>
+      <div class="psave" id="ps2"></div>
+      <div class="pdiv"></div>
+      <ul class="pfl">
+        <li><span class="ck">✓</span><strong data-i="f2a">Unlimited</strong>&nbsp;<span data-i="f2a2">daily uses</span></li>
+        <li><span class="ck">✓</span><span data-i="f2b">HD & 4K export</span></li>
+        <li><span class="ck">✓</span><span data-i="f2c">All 200+ tools</span></li>
+        <li><span class="ck">✓</span><span data-i="f2g">Max 100MB per file</span></li>
+        <li><span class="ck">✓</span><span data-i="f2d">Batch: 50 files</span></li>
+        <li><span class="ck">✓</span><span data-i="f2e">Zero watermarks</span></li>
+        <li><span class="ck">✓</span><span data-i="f2f">Priority queue</span></li>
+      </ul>
+      <button class="pbtn ps" id="pb2btn" onclick="alert('Connect Stripe to activate!')" data-i="pb2">Start 14-Day Free Trial</button>
+    </div>
+    <div class="pc rv">
+      <div class="pn" data-i="pl3">Business</div><div class="pd" data-i="pd3">For teams</div>
+      <div class="pamt"><span class="cur">$</span><span id="pa3">29</span><span class="per">/mo</span></div>
+      <div class="psave" id="ps3"></div>
+      <div class="pdiv"></div>
+      <ul class="pfl">
+        <li><span class="ck">✓</span><span data-i="f3a">Everything in Pro</span></li>
+        <li><span class="ck">✓</span><span data-i="f3b">REST API access</span></li>
+        <li><span class="ck">✓</span><span data-i="f3c">50GB cloud storage</span></li>
+        <li><span class="ck">✓</span><span data-i="f3d">Batch: 200 files</span></li>
+        <li><span class="ck">✓</span><span data-i="f3e">White-label exports</span></li>
+        <li><span class="ck">✓</span><span data-i="f3f">5 team seats</span></li>
+        <li><span class="ck">✓</span><span data-i="f3g">Dedicated manager</span></li>
+      </ul>
+      <button class="pbtn" onclick="alert('Contact: business@imageboostai.com')" data-i="pb3">Contact Sales</button>
+    </div>
+  </div>
+  <p style="margin-top:1.1rem;font-size:12px;color:var(--t3)" data-i="prn">✅ No credit card required · Cancel anytime · 30-day money-back guarantee</p>
+</div>
+</section>
+
+<!-- REVIEWS -->
+<section class="sec" id="reviews">
+<div class="si ctr">
+  <div class="ey eg rv">💬 Reviews</div>
+  <h2 class="sh rv" data-i="rsh">Loved by 2M+ Users</h2>
+  <p class="sp rv" data-i="rsp">Real reviews from real users worldwide.</p>
+  <div class="rvgd">
+    <div class="rvc rv"><div class="stars">★★★★★</div><div class="rq">"Background removal is the best I've ever tried. Even complex hair works perfectly. Saves me 3 hours every week."</div><div class="rau"><div class="rav" style="background:linear-gradient(135deg,#6C63FF,#9F8FFF)">SK</div><div><div class="ran">Sarah K.</div><div class="rar">Graphic Designer · 🇺🇸</div></div></div></div>
+    <div class="rvc rv"><div class="stars">★★★★★</div><div class="rq">"PDF tools are incredible. I cancelled 3 different subscriptions after finding ImageBoostAI. One tool does it all."</div><div class="rau"><div class="rav" style="background:linear-gradient(135deg,#0EA5E9,#6C63FF)">MR</div><div><div class="ran">Marcus R.</div><div class="rar">Marketing Manager · 🇬🇧</div></div></div></div>
+    <div class="rvc rv"><div class="stars">★★★★★</div><div class="rq">"Generated a professional AI headshot for LinkedIn. Got 5× more recruiter messages the next week. Mind-blowing!"</div><div class="rau"><div class="rav" style="background:linear-gradient(135deg,#00D084,#0EA5E9)">AL</div><div><div class="ran">Aisha L.</div><div class="rar">Software Engineer · 🇩🇪</div></div></div></div>
+  </div>
+</div>
+</section>
+
+<!-- FAQ -->
+<section class="sec bg2" id="faq">
+<div class="si ctr">
+  <div class="ey ep rv">❓ FAQ</div>
+  <h2 class="sh rv" data-i="fsh">Frequently Asked Questions</h2>
+  <p class="sp rv" data-i="fsp">Everything you need to know.</p>
+  <div class="faqw">
+    <div class="fqi"><div class="fqq" onclick="faqT(this)"><span data-i="q1">Is ImageBoostAI really free?</span><span class="farr">⌄</span></div><div class="fqa" data-i="a1">Yes! All core tools are free. 20 uses/day, no registration. Pro = unlimited usage, HD 4K, batch processing.</div></div>
+    <div class="fqi"><div class="fqq" onclick="faqT(this)"><span data-i="q2">Are my files private?</span><span class="farr">⌄</span></div><div class="fqa" data-i="a2">Absolutely. Files auto-deleted after 1 hour. SSL encrypted. GDPR compliant. We never train AI on your data.</div></div>
+    <div class="fqi"><div class="fqq" onclick="faqT(this)"><span data-i="q3">What file formats are supported?</span><span class="farr">⌄</span></div><div class="fqa" data-i="a3">50+ formats: PNG, JPG, WEBP, HEIC, GIF, PDF, DOCX, MP4, MOV and more. Free max 10MB, Pro max 100MB.</div></div>
+    <div class="fqi"><div class="fqq" onclick="faqT(this)"><span data-i="q4">Do I need an account?</span><span class="farr">⌄</span></div><div class="fqa" data-i="a4">No account needed for free tools. Create one to save history and access Pro features.</div></div>
+    <div class="fqi"><div class="fqq" onclick="faqT(this)"><span data-i="q5">Do you have an API?</span><span class="farr">⌄</span></div><div class="fqa" data-i="a5">Yes! Business plan includes full REST API with documentation. 99.9% uptime SLA.</div></div>
+    <div class="fqi"><div class="fqq" onclick="faqT(this)"><span data-i="q6">Can I cancel anytime?</span><span class="farr">⌄</span></div><div class="fqa" data-i="a6">Yes, cancel anytime. 30-day money-back guarantee — no conditions asked.</div></div>
+  </div>
+</div>
+</section>
+
+<!-- CTA -->
+<div class="cta-s">
+  <div class="cta-g"></div>
+  <div class="cta-in">
+    <h2 class="cta-h" data-i="ctah">Start Creating with AI Today</h2>
+    <p class="cta-p" data-i="ctap">Join 2M+ users. Free forever for core tools. No credit card, no registration.</p>
+    <div class="cta-bs">
+      <button class="cb1" onclick="go('photo')" data-i="ctab1">🎨 Start Editing Free</button>
+      <button class="cb2" onclick="go('pricing')" data-i="ctab2">💎 View Pricing</button>
+    </div>
+    <div class="cta-tr"><span>🔒 SSL</span><span>🗑️ Auto-deleted</span><span>✅ No signup</span><span>💳 No card</span></div>
+  </div>
+</div>
+
+<!-- TRUST -->
+<div class="trust" id="trust">
+  <div class="t-in">
+    <div class="tst"><div class="tsn" id="s1">2M+</div><div class="tsl" data-i="ts1">Active Users</div></div>
+    <div class="tdv"></div>
+    <div class="tst"><div class="tsn">4.9★</div><div class="tsl" data-i="ts2">Rating</div></div>
+    <div class="tdv"></div>
+    <div class="tst"><div class="tsn" id="s2">50M+</div><div class="tsl" data-i="ts3">Files Processed</div></div>
+    <div class="tdv"></div>
+    <div class="tst"><div class="tsn">150+</div><div class="tsl" data-i="ts4">Countries</div></div>
+    <div class="tdv"></div>
+    <div class="tst"><div class="tsn">99.9%</div><div class="tsl" data-i="ts5">Uptime</div></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+<div class="ft-in">
+  <div class="ft-top">
+    <div>
+      <div class="ft-logo">
+        <div class="ft-logo-mark">I</div>
+        ImageBoost<span class="logo-ai">AI</span>
+      </div>
+      <p class="ft-p" data-i="ftd">Professional AI photo editing & 200+ tools. Free, fast, private.</p>
+      <div class="nl-t" data-i="nlt">Newsletter</div>
+      <div class="nl-r">
+        <input type="email" class="nl-i" id="nli" placeholder="your@email.com" data-i-ph="nlp">
+        <button class="nl-b" onclick="newsletter()" data-i="nlb">Join</button>
+      </div>
+      <div class="sr">
+        <div class="soc" onclick="window.open('https://x.com','_blank')">𝕏</div>
+        <div class="soc" onclick="window.open('https://linkedin.com','_blank')">in</div>
+        <div class="soc" onclick="window.open('https://youtube.com','_blank')">▶</div>
+        <div class="soc" onclick="window.open('https://instagram.com','_blank')">◎</div>
+      </div>
+    </div>
+    <div class="ft-col">
+      <h4 data-i="fc1">AI Photo</h4>
+      <a onclick="toolClick('Remove Background')">Remove Background</a>
+      <a onclick="toolClick('AI Upscaler')">AI Upscaler</a>
+      <a onclick="toolClick('Face Retouch')">Face Retouch</a>
+      <a onclick="toolClick('AI Headshot')">AI Headshot</a>
+      <a onclick="toolClick('Colorize Photo')">Colorize Photo</a>
+      <a onclick="toolClick('Magic Eraser')">Magic Eraser</a>
+    </div>
+    <div class="ft-col">
+      <h4 data-i="fc2">More Tools</h4>
+      <a onclick="toolClick('PDF to Word')">PDF to Word</a>
+      <a onclick="toolClick('Merge PDF')">PDF Merge</a>
+      <a onclick="toolClick('OCR Tool')">OCR Tool</a>
+      <a onclick="toolClick('QR Code')">QR Code</a>
+      <a onclick="toolClick('AI Resume')">AI Resume</a>
+      <a onclick="toolClick('AI Translator')">AI Translator</a>
+    </div>
+    <div class="ft-col">
+      <h4 data-i="fc3">Company</h4>
+      <a data-i="fca">About Us</a>
+      <a data-i="fcb">Blog</a>
+      <a data-i="fcc" onclick="window.open('mailto:api@imageboostai.com')">API Docs</a>
+      <a data-i="fcd" onclick="window.open('mailto:contact@imageboostai.com')">Contact</a>
+      <a href="/privacy.html" data-i="fce">Privacy Policy</a>
+      <a href="/terms.html" data-i="fcf">Terms of Service</a>
+      <a href="/cookie.html" data-i="fcg">Cookie Policy</a>
+    </div>
+  </div>
+  <div class="ft-bot">
+    <p data-i="copy">© 2025 ImageBoostAI · Sunrise NN LLC. All rights reserved.</p>
+    <div class="ft-bs">
+      <span class="fb">🔒 SSL</span><span class="fb">🗑️ Auto-delete 1hr</span><span class="fb">✅ GDPR</span><span class="fb">🌍 150+ Countries</span>
+    </div>
+  </div>
+</div>
+</footer>
+
+<!-- MOBILE CTA -->
+<div class="mob-cta" id="mob-cta">
+  <p><strong data-i="mcta1">🎨 Try Free — No Signup</strong><span data-i="mcta2">200+ AI tools · No credit card</span></p>
+  <button onclick="go('photo')" data-i="mctab">Start Now →</button>
+</div>
+<script>
+/* ═══════════════════════ TRANSLATIONS ═══════════════════════ */
+const T={
+en:{db:"🔥 Black Friday — Pro 60% OFF today only!",da:"Grab Deal →",nlog:"Log In",nsup:"Sign Up Free →",hbadge:"AI Photo Tools · 200+ Free · No Registration",h1a:"Professional Photo",h1b:"Editing with AI",hsub:"Remove backgrounds, upscale to 4K, AI headshots, retouch portraits — studio results in seconds. Completely free, no signup needed.",hb1:"🎨 Start Editing Free",hb2:"▶ How It Works",ht1:"Remove BG",ht2:"Upscaler 4K",ht3:"Face Retouch",ht4:"AI Headshot",ht5:"PDF Tools",qn1:"AI Photo",qn2:"Remove BG",qn3:"Upscaler",qn4:"PDF",qn5:"Categories",qn6:"Pricing",ast:"Pro Plan:",asd:"Unlimited tools, 4K export, zero watermarks — from $9/month",asb:"Upgrade Now →",pey:"AI Photo Studio",psh:"Professional Photo Editing with AI",psp:"Studio-quality results in seconds. No Photoshop skills needed.",ad1tag:"✨ Pro Feature",ad1h:"Remove backgrounds from 100 photos at once",ad1s:"HD export · Zero watermarks · Pro from $9/mo",ad1b:"Start Free Trial →",t_rbg:"Remove Background",t_rbgd:"Precise AI cutout in 3 sec. Perfect edges every time.",t_obj:"Object Remover",t_objd:"Paint over anything. AI fills it seamlessly.",t_me:"Magic Eraser",t_med:"One click removes unwanted objects or watermarks.",t_fr:"Face Retouch",t_frd:"Smooth skin, brighten eyes, whiten teeth.",t_up:"AI Upscaler 4K",t_upd:"2x–8x upscale without blur. Ultra sharp.",t_enh:"AI Enhancer",t_enhd:"Fix lighting, colors, contrast. One click.",t_rp:"Restore Old Photo",t_rpd:"Bring damaged photos back to life.",t_col:"Colorize Photo",t_cold:"Add realistic colors to B&W photos.",t_hs:"AI Headshot",t_hsd:"Professional LinkedIn headshots from any photo.",t_pp:"Passport Photo",t_ppd:"Official passport photos for any country.",pr1h:"Batch Background Removal",pr1s:"Process 50 images at once. Save hours every week.",pr2h:"AI Image Generator",pr2s:"Create stunning AI art from text prompts.",tey:"More Tools",tsh:"PDF, Video, Design & More",tsp:"200+ tools for every task — all free to start.",ad2h:"REST API — integrate any tool into your apps",ad2s:"99.9% uptime · 200 files/batch · White-label · $29/mo",ad2b:"Get API Access →",t_pw:"PDF to Word",t_pwd:"Convert any PDF to editable Word instantly",t_pm:"Merge PDF",t_pmd:"Combine multiple PDFs into one",t_sp:"Split PDF",t_spd:"Extract pages from any PDF",t_ic:"Image Compressor",t_icd:"Reduce file size without quality loss",t_hj:"HEIC to JPG",t_hjd:"Convert iPhone photos instantly",t_qr:"QR Code",t_qrd:"Create custom QR codes for any URL",t_yt:"YT Thumbnail",t_ytd:"Design click-worthy YouTube thumbnails",t_lg:"AI Logo Maker",t_lgd:"Generate professional logos with AI",t_cv:"AI Resume",t_cvd:"Build a job-winning resume with AI",t_tr:"AI Translator",t_trd:"Translate to 100+ languages accurately",t_vb:"Video BG Remover",t_vbd:"Remove background from videos",t_oc:"OCR Tool",t_ocd:"Extract text from any image",cey:"Categories",csh:"200+ Tools, 12 Categories",csp:"Everything you need in one place.",c1:"AI Photo",c2:"Image",c3:"PDF",c4:"Video",c5:"Audio",c6:"Text",c7:"Design",c8:"Business",c9:"Social Media",c10:"Developer",c11:"Converter",c12:"Calculator",hey:"Simple",hsh:"How It Works",hsp:"From upload to result in under 10 seconds.",hw1t:"Upload Your File",hw1d:"Drag & drop, paste URL, or click browse. 50+ formats. No account needed.",hw2t:"AI Processes It",hw2d:"Advanced AI processes your file in 2–4 seconds automatically.",hw3t:"Download & Share",hw3d:"Instant result. Files auto-deleted after 1 hour for privacy.",wey:"Why Us",wsh:"Built for Speed & Privacy",wsp:"Everything designed to save your time.",f1t:"Lightning Fast",f1d:"GPU-accelerated AI. Average under 4 seconds.",f2t:"Privacy First",f2d:"Files auto-deleted after 1hr. GDPR compliant. Never train on your data.",f3t:"No Registration",f3d:"Start instantly — no account, no email, no credit card.",f4t:"Works Everywhere",f4d:"Mobile, tablet, desktop — iOS, Android, all browsers.",f5t:"Batch Processing",f5d:"Pro: process up to 100 files at once.",f6t:"Enterprise API",f6d:"REST API with 99.9% uptime SLA.",prey:"Pricing",prsh:"Simple, Transparent Pricing",prsp:"Start free. Upgrade when ready. Cancel anytime.",tbm:"Monthly",tby:"Yearly",tbf:"14-Day Free Trial",pl1:"Free",pd1:"Personal use",f1a:"20 uses per day",f1b:"Standard quality",f1c:"50+ basic tools",f1d:"HD / 4K export",f1e:"Batch processing",f1f:"No watermark",f1g:"Max 10MB per file",pb1:"Start for Free",pl2:"Pro",pd2:"For creators",f2a:"Unlimited",f2a2:"daily uses",f2b:"HD & 4K export",f2c:"All 200+ tools",f2d:"Batch: 50 files",f2e:"Zero watermarks",f2f:"Priority queue",f2g:"Max 100MB per file",pb2:"Start 14-Day Free Trial",pop:"⭐ Most Popular",pl3:"Business",pd3:"For teams",f3a:"Everything in Pro",f3b:"REST API access",f3c:"50GB cloud storage",f3d:"Batch: 200 files",f3e:"White-label exports",f3f:"5 team seats",f3g:"Dedicated manager",pb3:"Contact Sales",prn:"✅ No credit card · Cancel anytime · 30-day money-back",rsh:"Loved by 2M+ Users",rsp:"Real reviews from real users worldwide.",fsh:"Frequently Asked Questions",fsp:"Everything you need to know.",q1:"Is ImageBoostAI really free?",a1:"Yes! Core tools free, no registration. 20 uses/day. Pro = unlimited.",q2:"Are my files private?",a2:"Files auto-deleted after 1hr. SSL encrypted. GDPR compliant.",q3:"What file formats are supported?",a3:"50+ formats: PNG, JPG, WEBP, HEIC, PDF, MP4 and more.",q4:"Do I need an account?",a4:"No account needed for free tools. Create one for history & Pro.",q5:"Do you have an API?",a5:"Yes! Business plan: full REST API, docs, 99.9% SLA.",q6:"Can I cancel anytime?",a6:"Yes. 30-day money-back guarantee, no questions asked.",ctah:"Start Creating with AI Today",ctap:"Join 2M+ users. Free forever for core tools.",ctab1:"🎨 Start Editing Free",ctab2:"💎 View Pricing",ts1:"Active Users",ts2:"Rating",ts3:"Files Processed",ts4:"Countries",ts5:"Uptime",ftd:"Professional AI photo editing & 200+ tools. Free, fast, private.",nlt:"Newsletter",nlp:"your@email.com",nlb:"Join",fc1:"AI Photo",fc2:"More Tools",fc3:"Company",fca:"About Us",fcb:"Blog",fcc:"API Docs",fcd:"Contact",fce:"Privacy Policy",fcf:"Terms of Service",fcg:"Cookie Policy",copy:"© 2025 ImageBoostAI · Sunrise NN LLC. All rights reserved.",mcta1:"🎨 Try Free — No Signup",mcta2:"200+ AI tools · No credit card",mctab:"Start Now →"},
+
+tr:{db:"🔥 Black Friday — Pro %60 İNDİRİM bugün!",da:"Fırsatı Yakala →",nlog:"Giriş Yap",nsup:"Ücretsiz Kayıt →",hbadge:"AI Fotoğraf Araçları · 200+ Ücretsiz · Kayıt Yok",h1a:"Profesyonel Fotoğraf",h1b:"AI ile Düzenleme",hsub:"Arka plan kaldır, 4K'ya yükselt, AI vesikalık, portre düzenle — saniyeler içinde stüdyo kalitesi. Tamamen ücretsiz, kayıt gerekmez.",hb1:"🎨 Ücretsiz Başla",hb2:"▶ Nasıl Çalışır",ht1:"Arka Plan Kaldır",ht2:"4K Upscaler",ht3:"Yüz Rötuşu",ht4:"AI Vesikalık",ht5:"PDF Araçları",qn1:"AI Fotoğraf",qn2:"Arka Plan Kaldır",qn3:"Upscaler",qn4:"PDF",qn5:"Kategoriler",qn6:"Fiyatlar",ast:"Pro Plan:",asd:"Sınırsız araç, 4K çıktı, filigransız — aylık $9'dan",asb:"Şimdi Yükselt →",pey:"AI Fotoğraf Stüdyosu",psh:"AI ile Profesyonel Fotoğraf Düzenleme",psp:"Saniyeler içinde stüdyo kalitesi. Photoshop gerekmez.",ad1tag:"✨ Pro Özellik",ad1h:"100 fotoğrafın arka planını aynı anda kaldır",ad1s:"HD çıktı · Sıfır filigran · Pro $9/ay'dan",ad1b:"Ücretsiz Dene →",t_rbg:"Arka Plan Kaldır",t_rbgd:"3 saniyede hassas AI kesiği. Her zaman mükemmel kenarlar.",t_obj:"Nesne Kaldırıcı",t_objd:"Her şeyin üzerine boya. AI arka planla sorunsuz doldurur.",t_me:"Sihirli Silgi",t_med:"Bir tıkla istenmeyen nesneleri veya filigranları kaldırır.",t_fr:"Yüz Rötuşu",t_frd:"Cildi düzelt, gözleri parlat, dişleri beyazlat.",t_up:"AI Upscaler 4K",t_upd:"2x–8x büyütme, bulanıklık yok. Ultra net.",t_enh:"AI Geliştirici",t_enhd:"Işık, renk ve kontrastı düzelt. Tek tık.",t_rp:"Eski Fotoğraf Restore",t_rpd:"Eski, hasarlı fotoğrafları hayata döndür.",t_col:"Fotoğraf Renklendirme",t_cold:"Siyah beyaz fotoğraflara gerçekçi renkler ekle.",t_hs:"AI Vesikalık",t_hsd:"Herhangi bir fotoğraftan profesyonel LinkedIn fotoğrafı.",t_pp:"Pasaport Fotoğrafı",t_ppd:"Her ülke için resmi pasaport boyutlu fotoğraf.",pr1h:"Toplu Arka Plan Kaldırma",pr1s:"50 görseli aynı anda işle. Her hafta saatler kazan.",pr2h:"AI Görsel Oluşturucu",pr2s:"Metin istemlerinden çarpıcı AI sanatı yarat.",tey:"Daha Fazla Araç",tsh:"PDF, Video, Tasarım ve Daha Fazlası",tsp:"200+ araç, hepsi ücretsiz başlar.",ad2h:"REST API — herhangi bir aracı uygulamana entegre et",ad2s:"%99,9 çalışma süresi · 200 dosya/toplu · Beyaz etiket · $29/ay",ad2b:"API Erişimi Al →",t_pw:"PDF'den Word'e",t_pwd:"Herhangi bir PDF'yi anında Word'e dönüştür",t_pm:"PDF Birleştir",t_pmd:"Birden fazla PDF'yi tek dosyada birleştir",t_sp:"PDF Böl",t_spd:"Herhangi bir PDF'den sayfa çıkar",t_ic:"Görüntü Sıkıştırıcı",t_icd:"Kalite kaybetmeden dosya boyutunu küçült",t_hj:"HEIC'den JPG'ye",t_hjd:"iPhone fotoğraflarını anında dönüştür",t_qr:"QR Kod",t_qrd:"Herhangi bir URL için özel QR kodları oluştur",t_yt:"YT Küçük Resim",t_ytd:"Tıklatıcı YouTube küçük resimleri tasarla",t_lg:"AI Logo Yapıcı",t_lgd:"AI ile profesyonel logolar oluştur",t_cv:"AI Özgeçmiş",t_cvd:"AI yardımıyla iş kazanan özgeçmiş oluştur",t_tr:"AI Çevirmen",t_trd:"Metni 100+ dile doğru çevir",t_vb:"Video Arka Plan Kaldırıcı",t_vbd:"AI ile videoların arka planını kaldır",t_oc:"OCR Aracı",t_ocd:"Herhangi bir görüntüden metin çıkar",cey:"Kategoriler",csh:"200+ Araç, 12 Kategori",csp:"Her şey tek yerde.",c1:"AI Fotoğraf",c2:"Görüntü",c3:"PDF",c4:"Video",c5:"Ses",c6:"Metin",c7:"Tasarım",c8:"İş",c9:"Sosyal Medya",c10:"Geliştirici",c11:"Dönüştürücü",c12:"Hesaplayıcı",hey:"Basit",hsh:"Nasıl Çalışır",hsp:"Yüklemeden sonuca 10 saniyenin altında.",hw1t:"Dosyanızı Yükleyin",hw1d:"Sürükle-bırak, URL yapıştır veya gözat. 50+ format.",hw2t:"AI İşler",hw2d:"AI modellerimiz dosyanızı 2-4 saniyede işler.",hw3t:"İndir ve Paylaş",hw3d:"Anında sonuç. Dosyalar 1 saatte otomatik silinir.",wey:"Neden Biz",wsh:"Hız ve Gizlilik",wsp:"Her şey zamanınızı kurtarmak için.",f1t:"Şimşek Hızı",f1d:"GPU tabanlı AI. Ortalama 4 saniyenin altında.",f2t:"Gizlilik Öncelikli",f2d:"1 saatte siliniyor. GDPR uyumlu.",f3t:"Kayıt Yok",f3d:"Anında başla — hesap, e-posta, kart gerekmez.",f4t:"Her Yerde Çalışır",f4d:"Mobil, tablet, masaüstü — iOS, Android, tüm tarayıcılar.",f5t:"Toplu İşleme",f5d:"Pro: 100 dosyayı aynı anda işle.",f6t:"Kurumsal API",f6d:"%99,9 çalışma süresi SLA'sı ile REST API.",prey:"Fiyatlar",prsh:"Basit, Şeffaf Fiyatlar",prsp:"Ücretsiz başla. Hazır olunca yükselt. İstediğin zaman iptal.",tbm:"Aylık",tby:"Yıllık",tbf:"14 Günlük Ücretsiz",pl1:"Ücretsiz",pd1:"Kişisel kullanım",f1a:"Günde 20 kullanım",f1b:"Standart kalite",f1c:"50+ temel araç",f1d:"HD / 4K çıktı",f1e:"Toplu işleme",f1f:"Filigransız",f1g:"Dosya başına max 10MB",pb1:"Ücretsiz Başla",pl2:"Pro",pd2:"Yaratıcılar için",f2a:"Sınırsız",f2a2:"günlük kullanım",f2b:"HD & 4K çıktı",f2c:"Tüm 200+ araç",f2d:"Toplu: 50 dosya",f2e:"Sıfır filigran",f2f:"Öncelikli kuyruk",f2g:"Dosya başına max 100MB",pb2:"14 Günlük Ücretsiz Dene",pop:"⭐ En Popüler",pl3:"Business",pd3:"Ekipler için",f3a:"Pro'daki her şey",f3b:"REST API erişimi",f3c:"50GB bulut depolama",f3d:"Toplu: 200 dosya",f3e:"Beyaz etiket çıktı",f3f:"5 ekip üyesi",f3g:"Özel hesap yöneticisi",pb3:"Satışla İletişim",prn:"✅ Kart gerekmez · İstediğin zaman iptal · 30 gün iade",rsh:"2M+ Kullanıcının Tercihi",rsp:"Dünya genelinden gerçek kullanıcı yorumları.",fsh:"Sık Sorulan Sorular",fsp:"Bilmeniz gereken her şey.",q1:"Gerçekten ücretsiz mi?",a1:"Evet! Temel araçlar kayıt olmadan ücretsiz. Günde 20 kullanım. Pro sınırsız.",q2:"Dosyalarım güvende mi?",a2:"1 saatte siliniyor. SSL şifreli. GDPR uyumlu.",q3:"Hangi formatlar?",a3:"50+: PNG, JPG, WEBP, HEIC, PDF, MP4 ve daha fazlası.",q4:"Hesap açmam gerekiyor mu?",a4:"Hayır! Ücretsiz araçlar için hesap gerekmez.",q5:"API var mı?",a5:"Evet! Business plan: REST API, belgeler, %99,9 SLA.",q6:"İstediğimde iptal edebilir miyim?",a6:"Evet. 30 gün iade garantisi, soru sorulmadan.",ctah:"Bugün AI ile Yaratmaya Başlayın",ctap:"2M+ kullanıcıya katılın. Temel araçlar sonsuza dek ücretsiz.",ctab1:"🎨 Ücretsiz Başla",ctab2:"💎 Fiyatları Gör",ts1:"Aktif Kullanıcı",ts2:"Puan",ts3:"İşlenen Dosya",ts4:"Ülke",ts5:"Çalışma Süresi",ftd:"Profesyonel AI fotoğraf düzenleme & 200+ araç. Ücretsiz, hızlı, gizli.",nlt:"Bülten",nlp:"e-posta@adresiniz.com",nlb:"Katıl",fc1:"AI Fotoğraf",fc2:"Daha Fazla Araç",fc3:"Şirket",fca:"Hakkımızda",fcb:"Blog",fcc:"API Belgeleri",fcd:"İletişim",fce:"Gizlilik Politikası",fcf:"Kullanım Şartları",fcg:"Çerez Politikası",copy:"© 2025 ImageBoostAI · Sunrise NN LLC. Tüm hakları saklıdır.",mcta1:"🎨 Ücretsiz Dene — Kayıt Yok",mcta2:"200+ AI araç · Kart gerekmez",mctab:"Hemen Başla →"},
+
+es:{db:"🔥 Black Friday — ¡Pro 60% DESCUENTO hoy!",da:"Ver oferta →",nlog:"Iniciar sesión",nsup:"Registrarse Gratis →",hbadge:"Herramientas IA · 200+ Gratis · Sin Registro",h1a:"Edición Fotográfica",h1b:"Profesional con IA",hsub:"Elimina fondos, mejora a 4K, fotos IA, retoca retratos — resultados de estudio en segundos. Completamente gratis.",hb1:"🎨 Empezar Gratis",hb2:"▶ Cómo Funciona",ht1:"Quitar Fondo",ht2:"Upscaler 4K",ht3:"Retocar Cara",ht4:"Foto IA",ht5:"Herramientas PDF",qn1:"Foto IA",qn2:"Quitar Fondo",qn3:"Upscaler",qn4:"PDF",qn5:"Categorías",qn6:"Precios",ast:"Plan Pro:",asd:"Ilimitado, 4K, sin marcas — desde $9/mes",asb:"Actualizar →",pey:"Estudio Foto IA",psh:"Edición Fotográfica Profesional con IA",psp:"Resultados de estudio en segundos. Sin Photoshop.",ad1tag:"✨ Función Pro",ad1h:"Elimina fondos de 100 fotos a la vez",ad1s:"Export HD · Cero marcas · Pro desde $9/mes",ad1b:"Prueba Gratis →",t_rbg:"Quitar Fondo",t_rbgd:"Recorte AI preciso en 3 seg. Bordes perfectos.",t_obj:"Eliminar Objetos",t_objd:"Pinta sobre cualquier cosa. AI rellena perfectamente.",t_me:"Borrador Mágico",t_med:"Un clic elimina objetos no deseados.",t_fr:"Retocar Cara",t_frd:"Suaviza piel, ilumina ojos, blanquea dientes.",t_up:"AI Upscaler 4K",t_upd:"2x–8x sin desenfoque. Ultra nítido.",t_enh:"AI Mejorador",t_enhd:"Corrige iluminación, colores. Un clic.",t_rp:"Restaurar Foto",t_rpd:"Revive fotos antiguas con AI.",t_col:"Colorizar Foto",t_cold:"Añade colores realistas a fotos B&N.",t_hs:"Foto IA Profesional",t_hsd:"Fotos LinkedIn profesionales de cualquier foto.",t_pp:"Foto Pasaporte",t_ppd:"Fotos pasaporte para cualquier país.",pr1h:"Eliminación Fondo en Lote",pr1s:"50 imágenes a la vez. Ahorra horas.",pr2h:"Generador IA de Imágenes",pr2s:"Crea arte IA desde texto.",tey:"Más Herramientas",tsh:"PDF, Video, Diseño y Más",tsp:"200+ herramientas, gratis para empezar.",ad2h:"API REST — integra cualquier herramienta",ad2s:"99.9% disponibilidad · 200 archivos · $29/mes",ad2b:"Acceso API →",t_pw:"PDF a Word",t_pwd:"Convierte PDF a Word editable",t_pm:"Fusionar PDF",t_pmd:"Combina PDFs en uno",t_sp:"Dividir PDF",t_spd:"Extrae páginas de PDF",t_ic:"Compresor",t_icd:"Reduce tamaño sin perder calidad",t_hj:"HEIC a JPG",t_hjd:"Convierte fotos iPhone",t_qr:"Código QR",t_qrd:"Crea QR personalizados",t_yt:"Miniatura YouTube",t_ytd:"Diseña miniaturas irresistibles",t_lg:"Logo IA",t_lgd:"Logos profesionales con IA",t_cv:"CV IA",t_cvd:"CV ganador con IA",t_tr:"Traductor IA",t_trd:"Traduce a 100+ idiomas",t_vb:"Quitar Fondo Video",t_vbd:"Elimina fondo de videos",t_oc:"OCR",t_ocd:"Extrae texto de imágenes",cey:"Categorías",csh:"200+ Herramientas, 12 Categorías",csp:"Todo lo que necesitas en un lugar.",c1:"Foto IA",c2:"Imagen",c3:"PDF",c4:"Video",c5:"Audio",c6:"Texto",c7:"Diseño",c8:"Negocio",c9:"Redes",c10:"Dev",c11:"Convertir",c12:"Calculadora",hey:"Simple",hsh:"Cómo Funciona",hsp:"Del upload al resultado en 10 segundos.",hw1t:"Sube tu Archivo",hw1d:"Arrastra o haz clic. 50+ formatos.",hw2t:"La IA Procesa",hw2d:"En 2-4 segundos automáticamente.",hw3t:"Descarga y Comparte",hw3d:"Resultado instantáneo. Borrado en 1hr.",wey:"Por qué Nosotros",wsh:"Velocidad y Privacidad",wsp:"Todo para ahorrar tu tiempo.",f1t:"Ultra Rápido",f1d:"Menos de 4 segundos.",f2t:"Privacidad",f2d:"Borrado en 1hr. GDPR.",f3t:"Sin Registro",f3d:"Empieza al instante.",f4t:"En Todo Dispositivo",f4d:"Móvil, tablet, escritorio.",f5t:"Batch",f5d:"100 archivos a la vez.",f6t:"API",f6d:"REST API 99.9% SLA.",prey:"Precios",prsh:"Precios Simples",prsp:"Empieza gratis. Cancela cuando quieras.",tbm:"Mensual",tby:"Anual",tbf:"Prueba 14 Días",pl1:"Gratis",pd1:"Uso personal",f1a:"20 usos/día",f1b:"Calidad estándar",f1c:"50+ herramientas",f1d:"HD/4K",f1e:"Batch",f1f:"Sin marca",f1g:"Max 10MB",pb1:"Empezar Gratis",pl2:"Pro",pd2:"Para creadores",f2a:"Ilimitado",f2a2:"usos diarios",f2b:"HD & 4K",f2c:"200+ herramientas",f2d:"Batch (50)",f2e:"Sin marcas",f2f:"Prioridad",f2g:"Max 100MB",pb2:"Prueba 14 Días Gratis",pop:"⭐ Más Popular",pl3:"Business",pd3:"Para equipos",f3a:"Todo en Pro",f3b:"API REST",f3c:"50GB",f3d:"Batch: 200",f3e:"Marca blanca",f3f:"5 miembros",f3g:"Gestor dedicado",pb3:"Contactar",prn:"✅ Sin tarjeta · Cancela · 30 días",rsh:"2M+ Usuarios",rsp:"Reseñas reales verificadas.",fsh:"Preguntas Frecuentes",fsp:"Todo sobre ImageBoostAI.",q1:"¿Es gratis?",a1:"¡Sí! 20/día sin registro. Pro = ilimitado.",q2:"¿Privacidad?",a2:"Borrado en 1hr. GDPR.",q3:"¿Formatos?",a3:"50+: PNG, JPG, PDF, MP4...",q4:"¿Cuenta?",a4:"¡No! Solo sube y descarga.",q5:"¿API?",a5:"Sí! Plan Business.",q6:"¿Cancelar?",a6:"Sí. 30 días garantía.",ctah:"Empieza a Crear con IA Hoy",ctap:"Únete a 2M+. Gratis para siempre.",ctab1:"🎨 Empezar Gratis",ctab2:"💎 Ver Precios",ts1:"Usuarios",ts2:"Calificación",ts3:"Archivos",ts4:"Países",ts5:"Disponibilidad",ftd:"Edición foto IA & 200+ herramientas. Gratis.",nlt:"Newsletter",nlp:"tu@correo.com",nlb:"Unirse",fc1:"Foto IA",fc2:"Más Herramientas",fc3:"Empresa",fca:"Sobre Nosotros",fcb:"Blog",fcc:"API",fcd:"Contacto",fce:"Privacidad",fcf:"Términos",fcg:"Cookies",copy:"© 2025 ImageBoostAI · Sunrise NN LLC.",mcta1:"🎨 Prueba Gratis",mcta2:"200+ herramientas · Sin tarjeta",mctab:"Empezar →"},
+
+fr:{db:"🔥 Black Friday — Pro -60% aujourd'hui!",da:"Voir l'offre →",nlog:"Connexion",nsup:"S'inscrire Gratuit →",hbadge:"Outils IA · 200+ Gratuits · Sans Inscription",h1a:"Retouche Photo",h1b:"Professionnelle avec l'IA",hsub:"Supprimez les arrière-plans, améliorez en 4K, photos IA, retouchez — résultats studio en secondes. Gratuit.",hb1:"🎨 Commencer Gratuitement",hb2:"▶ Voir Comment",ht1:"Supprimer Fond",ht2:"Upscaler 4K",ht3:"Retouche Visage",ht4:"Photo IA",ht5:"Outils PDF",qn1:"Photo IA",qn2:"Supprimer Fond",qn3:"Upscaler",qn4:"PDF",qn5:"Catégories",qn6:"Tarifs",ast:"Plan Pro:",asd:"Illimité, 4K, sans filigranes — dès 9$/mois",asb:"Mettre à niveau →",pey:"Studio Photo IA",psh:"Retouche Photo Professionnelle avec l'IA",psp:"Résultats studio en secondes. Sans Photoshop.",ad1tag:"✨ Fonction Pro",ad1h:"Supprimez les arrière-plans de 100 photos à la fois",ad1s:"Export HD · Zéro filigranes · Pro dès 9$/mois",ad1b:"Essai Gratuit →",t_rbg:"Supprimer Fond",t_rbgd:"Découpe AI précise en 3 sec. Bords parfaits.",t_obj:"Supprimer Objets",t_objd:"Peignez n'importe où. L'IA comble parfaitement.",t_me:"Gomme Magique",t_med:"Un clic efface les objets indésirables.",t_fr:"Retouche Visage",t_frd:"Lissez la peau, illuminez les yeux.",t_up:"AI Upscaler 4K",t_upd:"2x–8x sans flou. Ultra net.",t_enh:"AI Améliorateur",t_enhd:"Corrigez éclairage, couleurs. Un clic.",t_rp:"Restaurer Photo",t_rpd:"Redonnez vie aux vieilles photos.",t_col:"Coloriser Photo",t_cold:"Ajoutez des couleurs réalistes.",t_hs:"Photo IA Pro",t_hsd:"Photos LinkedIn depuis n'importe quelle photo.",t_pp:"Photo Passeport",t_ppd:"Photos passeport officielles.",pr1h:"Suppression Fond en Lot",pr1s:"50 images à la fois. Gagnez des heures.",pr2h:"Générateur d'Images IA",pr2s:"Créez de l'art IA depuis du texte.",tey:"Plus d'Outils",tsh:"PDF, Vidéo, Design et Plus",tsp:"200+ outils, gratuits pour commencer.",ad2h:"API REST — intégrez n'importe quel outil",ad2s:"99.9% disponibilité · 200 fichiers · 29$/mois",ad2b:"Accès API →",t_pw:"PDF en Word",t_pwd:"Convertissez PDF en Word",t_pm:"Fusionner PDF",t_pmd:"Combinez PDFs",t_sp:"Diviser PDF",t_spd:"Extrayez des pages",t_ic:"Compresseur",t_icd:"Réduisez la taille",t_hj:"HEIC en JPG",t_hjd:"Convertissez photos iPhone",t_qr:"QR Code",t_qrd:"Créez des QR personnalisés",t_yt:"Miniature YouTube",t_ytd:"Miniatures irrésistibles",t_lg:"Logo IA",t_lgd:"Logos professionnels avec IA",t_cv:"CV IA",t_cvd:"CV gagnant avec IA",t_tr:"Traducteur IA",t_trd:"Traduisez en 100+ langues",t_vb:"Suppr. Fond Vidéo",t_vbd:"Supprimez le fond des vidéos",t_oc:"OCR",t_ocd:"Extrayez du texte",cey:"Catégories",csh:"200+ Outils, 12 Catégories",csp:"Tout ce qu'il vous faut.",c1:"Photo IA",c2:"Image",c3:"PDF",c4:"Vidéo",c5:"Audio",c6:"Texte",c7:"Design",c8:"Business",c9:"Réseaux",c10:"Dev",c11:"Convertir",c12:"Calculatrice",hey:"Simple",hsh:"Comment Ça Marche",hsp:"Du téléversement au résultat en 10 secondes.",hw1t:"Téléversez",hw1d:"Glissez ou cliquez. 50+ formats.",hw2t:"L'IA Traite",hw2d:"En 2-4 secondes.",hw3t:"Téléchargez",hw3d:"Résultat instantané. Supprimé en 1h.",wey:"Pourquoi Nous",wsh:"Vitesse et Confidentialité",wsp:"Tout pour gagner du temps.",f1t:"Ultra Rapide",f1d:"Moins de 4 secondes.",f2t:"Confidentialité",f2d:"Supprimé en 1h. RGPD.",f3t:"Sans Inscription",f3d:"Commencez instantanément.",f4t:"Partout",f4d:"Mobile, tablette, bureau.",f5t:"Batch",f5d:"100 fichiers simultanément.",f6t:"API",f6d:"REST API 99.9% SLA.",prey:"Tarifs",prsh:"Tarifs Simples",prsp:"Commencez gratuitement.",tbm:"Mensuel",tby:"Annuel",tbf:"Essai 14 Jours",pl1:"Gratuit",pd1:"Personnel",f1a:"20/jour",f1b:"Standard",f1c:"50+ outils",f1d:"HD/4K",f1e:"Batch",f1f:"Sans filigrane",f1g:"Max 10Mo",pb1:"Commencer Gratuit",pl2:"Pro",pd2:"Créateurs",f2a:"Illimité",f2a2:"utilisations",f2b:"HD & 4K",f2c:"200+ outils",f2d:"Batch (50)",f2e:"Sans filigrane",f2f:"Priorité",f2g:"Max 100Mo",pb2:"Essai 14 Jours Gratuit",pop:"⭐ Le Plus Populaire",pl3:"Business",pd3:"Équipes",f3a:"Tout en Pro",f3b:"API REST",f3c:"50Go",f3d:"Batch: 200",f3e:"Marque blanche",f3f:"5 membres",f3g:"Gestionnaire dédié",pb3:"Contacter",prn:"✅ Sans CB · Annulez · 30j",rsh:"2M+ Utilisateurs",rsp:"Vrais avis vérifiés.",fsh:"FAQ",fsp:"Tout sur ImageBoostAI.",q1:"Gratuit?",a1:"Oui! 20/jour. Pro = illimité.",q2:"Privé?",a2:"Supprimé en 1h. RGPD.",q3:"Formats?",a3:"50+: PNG, JPG, PDF, MP4...",q4:"Compte?",a4:"Non! Uploadez.",q5:"API?",a5:"Oui! Plan Business.",q6:"Annulation?",a6:"Oui. 30j.",ctah:"Commencez Aujourd'hui",ctap:"Rejoignez 2M+.",ctab1:"🎨 Commencer Gratuit",ctab2:"💎 Tarifs",ts1:"Utilisateurs",ts2:"Note",ts3:"Fichiers",ts4:"Pays",ts5:"Disponibilité",ftd:"Retouche photo IA & 200+ outils. Gratuit.",nlt:"Newsletter",nlp:"votre@email.com",nlb:"Rejoindre",fc1:"Photo IA",fc2:"Plus d'Outils",fc3:"Entreprise",fca:"À Propos",fcb:"Blog",fcc:"API",fcd:"Contact",fce:"Confidentialité",fcf:"CGU",fcg:"Cookies",copy:"© 2025 ImageBoostAI · Sunrise NN LLC.",mcta1:"🎨 Essayer Gratuit",mcta2:"200+ outils · Sans CB",mctab:"Commencer →"},
+
+de:{db:"🔥 Black Friday — Pro 60% RABATT heute!",da:"Angebot sichern →",nlog:"Anmelden",nsup:"Kostenlos registrieren →",hbadge:"KI-Fototools · 200+ Kostenlos · Ohne Anmeldung",h1a:"Professionelle Foto-",h1b:"bearbeitung mit KI",hsub:"Hintergründe entfernen, auf 4K hochskalieren, KI-Fotos, Porträts retuschieren — Studio-Qualität in Sekunden. Völlig kostenlos.",hb1:"🎨 Kostenlos starten",hb2:"▶ Wie es funktioniert",ht1:"Hintergrund entfernen",ht2:"4K Upscaler",ht3:"Gesicht retuschieren",ht4:"KI-Foto",ht5:"PDF-Tools",qn1:"KI Foto",qn2:"Hintergrund",qn3:"Upscaler",qn4:"PDF",qn5:"Kategorien",qn6:"Preise",ast:"Pro-Plan:",asd:"Unbegrenzt, 4K, kein Wasserzeichen — ab 9$/Monat",asb:"Jetzt upgraden →",pey:"KI Foto Studio",psh:"Professionelle Fotobearbeitung mit KI",psp:"Studio-Qualität in Sekunden.",ad1tag:"✨ Pro-Funktion",ad1h:"100 Fotos gleichzeitig Hintergrund entfernen",ad1s:"HD-Export · Kein Wasserzeichen · Pro ab 9$/Monat",ad1b:"Kostenlos testen →",t_rbg:"Hintergrund entfernen",t_rbgd:"KI-Ausschnitt in 3 Sek. Perfekte Kanten.",t_obj:"Objekte entfernen",t_objd:"AI füllt nahtlos aus.",t_me:"Magischer Radierer",t_med:"Ein Klick — weg.",t_fr:"Gesicht retuschieren",t_frd:"Haut glätten, Augen aufhellen.",t_up:"KI Upscaler 4K",t_upd:"2x–8x ohne Unschärfe.",t_enh:"KI Verbesserer",t_enhd:"Belichtung, Farben korrigieren.",t_rp:"Foto restaurieren",t_rpd:"Alte Fotos neu beleben.",t_col:"Foto kolorieren",t_cold:"Farben zu S/W-Fotos.",t_hs:"KI Bewerbungsfoto",t_hsd:"Professionelle LinkedIn-Fotos.",t_pp:"Passfoto",t_ppd:"Offizielle Passfotos.",pr1h:"Batch Hintergrund entfernen",pr1s:"50 Bilder gleichzeitig.",pr2h:"KI Bildgenerator",pr2s:"KI-Kunst aus Text erstellen.",tey:"Mehr Tools",tsh:"PDF, Video, Design und mehr",tsp:"200+ Tools, alle kostenlos.",ad2h:"REST API — beliebige Tools integrieren",ad2s:"99.9% SLA · 200 Dateien · 29$/Mo",ad2b:"API-Zugang →",t_pw:"PDF zu Word",t_pwd:"PDF sofort konvertieren",t_pm:"PDF zusammenführen",t_pmd:"PDFs kombinieren",t_sp:"PDF aufteilen",t_spd:"Seiten extrahieren",t_ic:"Kompressor",t_icd:"Dateigröße reduzieren",t_hj:"HEIC zu JPG",t_hjd:"iPhone-Fotos konvertieren",t_qr:"QR-Code",t_qrd:"QR-Codes erstellen",t_yt:"YouTube Thumbnail",t_ytd:"Klickstarke Thumbnails",t_lg:"KI Logo",t_lgd:"Logos mit KI",t_cv:"KI Lebenslauf",t_cvd:"Gewinnenden Lebenslauf",t_tr:"KI Übersetzer",t_trd:"100+ Sprachen",t_vb:"Video Hintergrund",t_vbd:"Hintergrund aus Videos",t_oc:"OCR",t_ocd:"Text extrahieren",cey:"Kategorien",csh:"200+ Tools, 12 Kategorien",csp:"Alles an einem Ort.",c1:"KI Foto",c2:"Bild",c3:"PDF",c4:"Video",c5:"Audio",c6:"Text",c7:"Design",c8:"Business",c9:"Social",c10:"Dev",c11:"Konverter",c12:"Rechner",hey:"Einfach",hsh:"So Funktioniert Es",hsp:"In unter 10 Sekunden.",hw1t:"Datei hochladen",hw1d:"Drag & Drop oder klicken.",hw2t:"KI verarbeitet",hw2d:"In 2-4 Sekunden.",hw3t:"Herunterladen",hw3d:"Sofort. Nach 1Std gelöscht.",wey:"Warum Wir",wsh:"Geschwindigkeit & Datenschutz",wsp:"Alles um Zeit zu sparen.",f1t:"Blitzschnell",f1d:"Unter 4 Sekunden.",f2t:"Datenschutz",f2d:"Nach 1Std gelöscht. DSGVO.",f3t:"Ohne Anmeldung",f3d:"Sofort starten.",f4t:"Überall",f4d:"Mobil, Tablet, Desktop.",f5t:"Stapel",f5d:"100 Dateien gleichzeitig.",f6t:"API",f6d:"REST API 99,9% SLA.",prey:"Preise",prsh:"Einfache Preise",prsp:"Kostenlos starten.",tbm:"Monatlich",tby:"Jährlich",tbf:"14 Tage kostenlos",pl1:"Kostenlos",pd1:"Persönlich",f1a:"20/Tag",f1b:"Standard",f1c:"50+ Tools",f1d:"HD/4K",f1e:"Stapel",f1f:"Kein Wasserzeichen",f1g:"Max 10MB",pb1:"Kostenlos starten",pl2:"Pro",pd2:"Kreative",f2a:"Unbegrenzt",f2a2:"täglich",f2b:"HD & 4K",f2c:"200+ Tools",f2d:"Stapel (50)",f2e:"Kein Wasserzeichen",f2f:"Priorität",f2g:"Max 100MB",pb2:"14 Tage kostenlos",pop:"⭐ Beliebteste",pl3:"Business",pd3:"Teams",f3a:"Alles in Pro",f3b:"REST API",f3c:"50GB",f3d:"Stapel: 200",f3e:"White-Label",f3f:"5 Mitglieder",f3g:"Persönlicher Berater",pb3:"Vertrieb",prn:"✅ Keine Karte · Kündigung · 30 Tage",rsh:"2M+ Nutzer",rsp:"Echte Bewertungen.",fsh:"FAQ",fsp:"Alles über ImageBoostAI.",q1:"Kostenlos?",a1:"Ja! 20/Tag. Pro = unbegrenzt.",q2:"Datenschutz?",a2:"Nach 1Std gelöscht. DSGVO.",q3:"Formate?",a3:"50+: PNG, JPG, PDF...",q4:"Konto?",a4:"Nein! Einfach hochladen.",q5:"API?",a5:"Ja! Business-Plan.",q6:"Kündigung?",a6:"Ja. 30 Tage.",ctah:"Heute mit KI starten",ctap:"2M+ Nutzer beitreten.",ctab1:"🎨 Kostenlos starten",ctab2:"💎 Preise",ts1:"Nutzer",ts2:"Bewertung",ts3:"Dateien",ts4:"Länder",ts5:"Verfügbarkeit",ftd:"KI-Fotobearbeitung & 200+ Tools. Kostenlos.",nlt:"Newsletter",nlp:"ihre@email.de",nlb:"Abonnieren",fc1:"KI Foto",fc2:"Mehr Tools",fc3:"Unternehmen",fca:"Über Uns",fcb:"Blog",fcc:"API",fcd:"Kontakt",fce:"Datenschutz",fcf:"AGB",fcg:"Cookies",copy:"© 2025 ImageBoostAI · Sunrise NN LLC.",mcta1:"🎨 Kostenlos testen",mcta2:"200+ Tools · Ohne Karte",mctab:"Jetzt starten →"}
+};
+
+/* ═══ COUNTRY → LANG MAP ═══ */
+const CL={TR:'tr',DE:'de',AT:'de',CH:'de',FR:'fr',BE:'fr',LU:'fr',ES:'es',MX:'es',AR:'es',CO:'es',PE:'es',CL:'es',VE:'es',BR:'pt',PT:'pt',IT:'it',RU:'ru',UA:'uk',PL:'pl',NL:'nl',SE:'sv',NO:'no',DK:'da',FI:'fi',JP:'ja',CN:'zh',TW:'zh',HK:'zh',KR:'ko',SA:'ar',AE:'ar',EG:'ar',IQ:'ar',IN:'hi',ID:'id',TH:'th',VN:'vi',KZ:'ru',BY:'ru'};
+const LN={en:'EN',tr:'TR',es:'ES',fr:'FR',de:'DE',pt:'PT',it:'IT',ru:'RU',ja:'JA',zh:'ZH',ko:'KO',ar:'AR',hi:'HI',nl:'NL',pl:'PL',sv:'SV',id:'ID',th:'TH',vi:'VI',uk:'UK'};
+let LANG=localStorage.getItem('iba')||null;
+
+async function detectLang(){
+  if(LANG){apply(LANG);mark(LANG);return;}
+  try{
+    const r=await fetch('https://ipapi.co/json/',{signal:AbortSignal.timeout(3000)});
+    const d=await r.json();
+    const cc=d.country_code||'';
+    const det=CL[cc]||(navigator.language||'en').split('-')[0];
+    LANG=T[det]?det:'en';
+  }catch{
+    LANG=(navigator.language||'en').split('-')[0];
+    if(!T[LANG])LANG='en';
+  }
+  apply(LANG);mark(LANG);
+}
+
+function apply(l){
+  const d=T[l]||T.en;
+  document.querySelectorAll('[data-i]').forEach(el=>{
+    const v=d[el.getAttribute('data-i')];
+    if(v!==undefined)el.textContent=v;
+  });
+  document.querySelectorAll('[data-i-ph]').forEach(el=>{
+    const v=d[el.getAttribute('data-i-ph')];
+    if(v)el.placeholder=v;
+  });
+  document.documentElement.lang=l;
+  document.documentElement.dir=l==='ar'?'rtl':'ltr';
+  const lc=document.getElementById('lcode');
+  if(lc)lc.textContent=LN[l]||l.toUpperCase();
+}
+function mark(l){
+  document.querySelectorAll('.lo').forEach(o=>{
+    const m=o.onclick?.toString().match(/'([a-z]{2,3})'/);
+    if(m)o.classList.toggle('act',m[1]===l);
+  });
+}
+function sl(l){LANG=l;localStorage.setItem('iba',l);apply(l);mark(l);cls();}
+function tgl(){document.getElementById('ld').classList.toggle('open');}
+function cls(){document.getElementById('ld').classList.remove('open');}
+document.addEventListener('click',e=>{if(!e.target.closest('.lw'))cls();});
+
+/* ═══ NAV ═══ */
+function go(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'});}
+function setQn(el){document.querySelectorAll('.qn').forEach(q=>q.classList.remove('on'));el.classList.add('on');}
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav')?.classList.toggle('nav-scrolled',scrollY>10);
+},{passive:true});
+
+/* ═══ FAQ ═══ */
+function faqT(q){
+  const i=q.parentElement,op=i.classList.contains('op');
+  document.querySelectorAll('.fqi').forEach(f=>f.classList.remove('op'));
+  if(!op)i.classList.add('op');
+}
+
+/* ═══ PRICING ═══ */
+const P={
+  m:{a1:'0',a2:'9',a3:'29',s1:'',s2:'',s3:'',btn:'Start 14-Day Free Trial'},
+  y:{a1:'0',a2:'5',a3:'17',s1:'',s2:'Save $48/year',s3:'Save $144/year',btn:'Start 14-Day Free Trial'},
+  f:{a1:'0',a2:'0',a3:'0',s1:'',s2:'Free for 14 days, then $9/mo',s3:'Free for 14 days, then $29/mo',btn:'Start Free — No Card Required'}
+};
+function setBill(t){
+  ['m','y','f'].forEach(x=>document.getElementById('tb-'+x)?.classList.remove('on'));
+  document.getElementById('tb-'+t)?.classList.add('on');
+  const p=P[t];
+  ['1','2','3'].forEach(n=>{
+    const a=document.getElementById('pa'+n);const s=document.getElementById('ps'+n);
+    if(a)a.textContent=p['a'+n];if(s)s.textContent=p['s'+n];
+  });
+  const b=document.getElementById('pb2btn');if(b)b.textContent=p.btn;
+}
+
+/* ═══ TOOL CLICK ═══ */
+function toolClick(name){
+  alert('🛠 '+name+'\n\nThis tool is coming soon!\nConnect your AI backend to activate.\n\nEmail: tools@imageboostai.com');
+}
+
+/* ═══ NEWSLETTER ═══ */
+function newsletter(){
+  const el=document.getElementById('nli');
+  if(!el||!el.value.includes('@')){alert('Please enter a valid email address!');return;}
+  alert('✅ Thank you! You\'re subscribed to ImageBoostAI updates.\n\nEmail: '+el.value);
+  el.value='';
+}
+
+/* ═══ SCROLL REVEAL ═══ */
+const ro=new IntersectionObserver(es=>{
+  es.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*40);ro.unobserve(e.target);}});
+},{threshold:0.06});
+document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+
+/* ═══ COUNT UP ═══ */
+function cUp(el,t,s){
+  let v=0;const iv=setInterval(()=>{
+    v+=t/60;if(v>=t){v=t;clearInterval(iv);}
+    el.textContent=v>=1e6?Math.floor(v/1e6)+'M'+s:v>=1e3?Math.floor(v/1e3)+'K'+s:Math.floor(v)+s;
+  },28);
+}
+const trustEl=document.getElementById('trust');
+if(trustEl){
+  new IntersectionObserver(en=>{
+    if(en[0].isIntersecting){
+      const s1=document.getElementById('s1'),s2=document.getElementById('s2');
+      if(s1)cUp(s1,2000000,'+');if(s2)cUp(s2,50000000,'+');
+    }
+  },{threshold:.3}).observe(trustEl);
+}
+
+/* ═══ MOBILE CTA ═══ */
+const mc=document.getElementById('mob-cta');
+window.addEventListener('scroll',()=>{
+  if(!mc)return;
+  const pr=document.getElementById('pricing');
+  if(!pr)return;
+  const r=pr.getBoundingClientRect();
+  mc.style.transform=(r.top<window.innerHeight&&r.bottom>0)?'translateY(100%)':'';
+},{passive:true});
+
+/* ═══ INIT ═══ */
+detectLang();
+setBill('m');
+</script>
+</body>
+</html>
