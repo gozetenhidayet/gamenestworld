@@ -260,12 +260,21 @@ nav,section,.hero,.filter-bar,.search-wrap,
 }
 
 /* ── ACHIEVEMENTS & LEADERBOARD ── */
+.ach-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
+  gap:10px;
+}
 .ach-item{
   background:rgba(255,255,255,.05);border:1px solid var(--border);
   border-radius:12px;padding:14px;text-align:center;
   transition:all .2s;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
 }
 .ach-item:hover{background:rgba(255,255,255,.1);transform:translateY(-3px);}
+@media (max-width:480px){
+  .ach-grid{grid-template-columns:repeat(3,1fr);}
+}
 .lb-item{
   display:flex;align-items:center;padding:10px 0;
   border-bottom:1px solid rgba(255,255,255,.05);color:#fff;
@@ -914,7 +923,7 @@ footer{background:rgba(0,0,0,.4);border-top:1px solid var(--border);color:rgba(2
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2025 GameNest World · <a href="#" style="color:rgba(255,255,255,.5);">Privacy</a> · <a href="#" style="color:rgba(255,255,255,.5);">Terms</a> · 51 Free Browser Games</p>
+  <p>© 2025 GameNest World · <a href="/blog/" style="color:rgba(255,255,255,.5);">Blog</a> · <a href="/about.html" style="color:rgba(255,255,255,.5);">About</a> · <a href="/contact.html" style="color:rgba(255,255,255,.5);">Contact</a> · <a href="/faq.html" style="color:rgba(255,255,255,.5);">FAQ</a> · <a href="/privacy-policy.html" style="color:rgba(255,255,255,.5);">Privacy</a> · <a href="/terms.html" style="color:rgba(255,255,255,.5);">Terms</a> · <a href="/cookie-policy.html" style="color:rgba(255,255,255,.5);">Cookies</a> · 51 Free Browser Games</p>
   <p style="margin-top:6px;font-size:11px;">free online games · browser games · no download games · quiz games · word games · math games · memory games · brain training</p>
 </footer>
 
