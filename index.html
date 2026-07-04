@@ -2365,13 +2365,15 @@ function gameFlagQuiz() {
   g.innerHTML = h;
 
   window.fqAnswer = function(name) {
+    var btns = g.querySelectorAll('button');
+    btns.forEach(function(b){ b.disabled = true; });
     if(name === correct.name) {
+      btns.forEach(function(btn){if(btn.textContent===correct.name){btn.style.background='#22c55e';btn.style.color='#fff';btn.style.borderColor='#22c55e';}});
       _LVL.win(25); showScorePop('+25');
       setTimeout(function(){gameFlagQuiz();}, 700);
     } else {
       var alive = _LVL.lose();
-      var btns = g.querySelectorAll('button');
-      btns.forEach(function(btn){if(btn.textContent===correct.name)btn.style.background='#22c55e';else if(btn.textContent===name)btn.style.background='#ef4444';btn.style.color='#fff';btn.disabled=true;});
+      btns.forEach(function(btn){if(btn.textContent===correct.name)btn.style.background='#22c55e';else if(btn.textContent===name)btn.style.background='#ef4444';btn.style.color='#fff';});
       if(alive) setTimeout(function(){gameFlagQuiz();},1200);
     }
   };
