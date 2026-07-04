@@ -2050,7 +2050,7 @@ function gameRPS() {
     if(round < maxRounds){
       h+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">';
       choices.forEach(function(c2){
-        h+='<button onclick="rpsClick(\''+c2+'\')" style="padding:16px 8px;border-radius:14px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);color:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;" onmouseover="this.style.background=\'rgba(255,255,255,.18)\';this.style.transform=\'scale(1.08)\'" onmouseout="this.style.background=\'rgba(255,255,255,.08)\';this.style.transform=\'scale(1)\'">';
+        h+='<button onclick="rpsClick(\''+c2+'\')" style="padding:16px 8px;border-radius:14px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);color:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;" onmouseover="if(this.disabled)return;this.style.background=\'rgba(255,255,255,.18)\';this.style.transform=\'scale(1.08)\'" onmouseout="if(this.disabled)return;this.style.background=\'rgba(255,255,255,.08)\';this.style.transform=\'scale(1)\'">';
         h+='<div style="font-size:32px;margin-bottom:4px;">'+emojis[c2]+'</div>'+c2+'</button>';
       });
       h+='</div>';
@@ -2133,7 +2133,7 @@ function gameColorQuiz() {
     h += '</div>';
     h += '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">';
     opts.forEach(function(opt) {
-      h += '<button onclick="cqAnswer(\''+opt.name+'\')" style="padding:12px;border-radius:12px;border:2px solid #e2e8f0;background:#fff;cursor:pointer;font-size:14px;font-weight:700;color:#1e293b;transition:all .2s;" onmouseover="this.style.background=\''+opt.hex+'\';this.style.color=\'#fff\';this.style.borderColor=\''+opt.hex+'\';" onmouseout="this.style.background=\'#fff\';this.style.color=\'#1e293b\';this.style.borderColor=\'#e2e8f0\';">'+opt.name+'</button>';
+      h += '<button onclick="cqAnswer(\''+opt.name+'\')" style="padding:12px;border-radius:12px;border:2px solid #e2e8f0;background:#fff;cursor:pointer;font-size:14px;font-weight:700;color:#1e293b;transition:all .2s;" onmouseover="if(this.disabled)return;this.style.background=\''+opt.hex+'\';this.style.color=\'#fff\';this.style.borderColor=\''+opt.hex+'\';" onmouseout="if(this.disabled)return;this.style.background=\'#fff\';this.style.color=\'#1e293b\';this.style.borderColor=\'#e2e8f0\';">'+opt.name+'</button>';
     });
     h += '</div>';
     g.innerHTML = h;
@@ -2216,7 +2216,7 @@ function gameMathBasic() {
   h += '</div>';
   h += '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">';
   opts.forEach(function(opt){
-    h += '<button onclick="mbAnswer('+opt+')" style="padding:16px;border-radius:12px;border:2px solid #e2e8f0;background:#fff;cursor:pointer;font-size:22px;font-weight:900;color:#1e293b;transition:all .15s;" onmouseover="this.style.background=\'#6366f1\';this.style.color=\'#fff\';" onmouseout="this.style.background=\'#fff\';this.style.color=\'#1e293b\';">'+opt+'</button>';
+    h += '<button onclick="mbAnswer('+opt+')" style="padding:16px;border-radius:12px;border:2px solid #e2e8f0;background:#fff;cursor:pointer;font-size:22px;font-weight:900;color:#1e293b;transition:all .15s;" onmouseover="if(this.disabled)return;this.style.background=\'#6366f1\';this.style.color=\'#fff\';" onmouseout="if(this.disabled)return;this.style.background=\'#fff\';this.style.color=\'#1e293b\';">'+opt+'</button>';
   });
   h += '</div>';
   g.innerHTML = h;
@@ -2294,7 +2294,7 @@ function gameFlagQuiz() {
   h += '</div>';
   h += '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">';
   opts.forEach(function(opt) {
-    h += '<button onclick="fqAnswer(\''+opt.name+'\')" style="padding:12px;border-radius:12px;border:2px solid #e2e8f0;background:#fff;cursor:pointer;font-size:13px;font-weight:700;color:#1e293b;transition:all .15s;" onmouseover="this.style.background=\'#6366f1\';this.style.color=\'#fff\';this.style.borderColor=\'#6366f1\';" onmouseout="this.style.background=\'#fff\';this.style.color=\'#1e293b\';this.style.borderColor=\'#e2e8f0\';">'+opt.name+'</button>';
+    h += '<button onclick="fqAnswer(\''+opt.name+'\')" style="padding:12px;border-radius:12px;border:2px solid #e2e8f0;background:#fff;cursor:pointer;font-size:13px;font-weight:700;color:#1e293b;transition:all .15s;" onmouseover="if(this.disabled)return;this.style.background=\'#6366f1\';this.style.color=\'#fff\';this.style.borderColor=\'#6366f1\';" onmouseout="if(this.disabled)return;this.style.background=\'#fff\';this.style.color=\'#1e293b\';this.style.borderColor=\'#e2e8f0\';">'+opt.name+'</button>';
   });
   h += '</div>';
   g.innerHTML = h;
@@ -2312,8 +2312,6 @@ function gameFlagQuiz() {
   };
 }
 
-
-function flagAns(chosen,correct){if(chosen===correct)window._fqScore++;nextFlagQ();}
 
 /* NUMBER GUESS */
 function gameNumGuess(){
@@ -2505,8 +2503,8 @@ function gameTrueFalse() {
   h += '</div>';
   if(level >= 5) h += '<div id="tf-timer" style="text-align:center;font-size:22px;font-weight:900;color:'+(timer<=5?'#ef4444':'#6366f1')+';margin-bottom:12px;">⏱ '+timer+'s</div>';
   h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">';
-  h += '<button onclick="tfAns(true)" style="padding:20px;border-radius:14px;background:#22c55e;color:#fff;font-size:20px;font-weight:900;border:none;cursor:pointer;transition:all .15s;" onmouseover="this.style.transform=\'scale(1.05)\'" onmouseout="this.style.transform=\'scale(1)\'">✅ TRUE</button>';
-  h += '<button onclick="tfAns(false)" style="padding:20px;border-radius:14px;background:#ef4444;color:#fff;font-size:20px;font-weight:900;border:none;cursor:pointer;transition:all .15s;" onmouseover="this.style.transform=\'scale(1.05)\'" onmouseout="this.style.transform=\'scale(1)\'">❌ FALSE</button>';
+  h += '<button id="tf-btn-true" onclick="tfAns(true)" style="padding:20px;border-radius:14px;background:#22c55e;color:#fff;font-size:20px;font-weight:900;border:none;cursor:pointer;transition:all .15s;" onmouseover="if(this.disabled)return;this.style.transform=\'scale(1.05)\'" onmouseout="if(this.disabled)return;this.style.transform=\'scale(1)\'">✅ TRUE</button>';
+  h += '<button id="tf-btn-false" onclick="tfAns(false)" style="padding:20px;border-radius:14px;background:#ef4444;color:#fff;font-size:20px;font-weight:900;border:none;cursor:pointer;transition:all .15s;" onmouseover="if(this.disabled)return;this.style.transform=\'scale(1.05)\'" onmouseout="if(this.disabled)return;this.style.transform=\'scale(1)\'">❌ FALSE</button>';
   h += '</div>';
   g.innerHTML = h;
 
@@ -2521,29 +2519,27 @@ function gameTrueFalse() {
 
   window.tfAns = function(val) {
     if(window._tfTimer) clearInterval(window._tfTimer);
+    var trueBtn = document.getElementById('tf-btn-true');
+    var falseBtn = document.getElementById('tf-btn-false');
+    if(trueBtn) trueBtn.disabled = true;
+    if(falseBtn) falseBtn.disabled = true;
+    var correctBtn = ans ? trueBtn : falseBtn;
+    var wrongBtn = ans ? falseBtn : trueBtn;
+    if(correctBtn){correctBtn.style.background='#16a34a';correctBtn.style.outline='3px solid #4ade80';correctBtn.style.transform='scale(1.05)';}
     if(val === ans) {
       _LVL.win(20); showScorePop('+20');
-      setTimeout(function(){gameTrueFalse();},600);
+      setTimeout(function(){gameTrueFalse();},700);
     } else {
+      if(wrongBtn){wrongBtn.style.background='#7f1d1d';wrongBtn.style.opacity='.6';}
       var alive = _LVL.lose();
-      var g2=gw();if(g2){
-        var fb=document.createElement('div');
-        fb.style.cssText='text-align:center;padding:12px;background:'+(ans?'#dcfce7':'#fef2f2')+';border-radius:10px;margin-top:10px;font-weight:700;';
-        fb.textContent='The answer was: '+(ans?'TRUE ✅':'FALSE ❌');
-        g2.appendChild(fb);
-      }
-      if(alive) setTimeout(function(){gameTrueFalse();},1500);
+      setTimeout(function(){gameTrueFalse();},1500);
     }
   };
 }
 
 
-function nextTF(){
-  if(window._tfQ>=10){gw().innerHTML=`<h2>✅ True or False</h2><div style="font-size:48px;">🏆</div><div style="font-size:24px;">Score: ${window._tfScore}/10</div><button class="g-btn" style="margin-top:12px;" onclick="gameTrueFalse()">Play Again</button>`;return;}
-  var [q,a]=window._tfQs[window._tfQ];
-  gw().innerHTML=`<h2>✅ True or False</h2><div style="font-size:14px;color:#888;">Q ${window._tfQ+1}/10 | Score:${window._tfScore}</div><div style="font-size:18px;margin:20px 10px;line-height:1.5;">"${q}"</div><div style="display:flex;gap:16px;justify-content:center;"><button class="g-btn" onclick="tfAns(true,${a})">✅ True</button><button class="g-btn" onclick="tfAns(false,${a})">❌ False</button></div>`;
-}
-function tfAns(chosen,correct){window._tfQ++;if(chosen===correct)window._tfScore++;nextTF();}
+
+
 
 /* SIMON SAYS */
 var SIMON_COLS=['#ef5350','#4caf50','#2196f3','#ffc107'];
@@ -2880,7 +2876,7 @@ function gameEmojiQuiz(){
   h+='</div>';
   h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
   opts.forEach(function(opt){
-    h+='<button onclick="eqAns(\''+opt+'\')" style="padding:12px;border-radius:12px;border:2px solid #e2e8f0;background:#fff;cursor:pointer;font-size:13px;font-weight:700;color:#1e293b;transition:all .15s;" onmouseover="this.style.background=\'#ec4899\';this.style.color=\'#fff\';" onmouseout="this.style.background=\'#fff\';this.style.color=\'#1e293b\';">'+opt+'</button>';
+    h+='<button onclick="eqAns(\''+opt+'\')" style="padding:12px;border-radius:12px;border:2px solid #e2e8f0;background:#fff;cursor:pointer;font-size:13px;font-weight:700;color:#1e293b;transition:all .15s;" onmouseover="if(this.disabled)return;this.style.background=\'#ec4899\';this.style.color=\'#fff\';" onmouseout="if(this.disabled)return;this.style.background=\'#fff\';this.style.color=\'#1e293b\';">'+opt+'</button>';
   });
   h+='</div>';
   g.innerHTML=h;
@@ -2967,7 +2963,7 @@ function gameOddOne(){
   h+='<div style="text-align:center;font-size:14px;color:var(--muted);margin-bottom:16px;">Which one does NOT belong?</div>';
   h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">';
   shuffled.forEach(function(opt){
-    h+='<button onclick="ooAns(\''+opt+'\')" style="padding:16px 12px;border-radius:14px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:15px;font-weight:700;color:var(--text);transition:all .2s;" onmouseover="this.style.background=\'rgba(251,146,60,.4)\';" onmouseout="this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';
+    h+='<button onclick="ooAns(\''+opt+'\')" style="padding:16px 12px;border-radius:14px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:15px;font-weight:700;color:var(--text);transition:all .2s;" onmouseover="if(this.disabled)return;this.style.background=\'rgba(251,146,60,.4)\';" onmouseout="if(this.disabled)return;this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';
   });
   h+='</div>';
   if(level>=20)h+='<div id="oo-timer" style="text-align:center;margin-top:10px;font-size:18px;font-weight:800;color:#fb923c;">⏱ '+(15-Math.floor(level/3))+'s</div>';
@@ -3017,7 +3013,7 @@ function gameColorMatch(){
   if(level>=5)h+='<div id="cm-timer" style="font-size:22px;font-weight:900;color:'+(timer<=2?'#ef4444':'#f472b6')+';">⏱ '+timer+'s</div>';
   h+='</div>';
   h+='<div style="display:grid;grid-template-columns:repeat('+(opts.length<=4?2:3)+',1fr);gap:8px;">';
-  opts.forEach(function(c2){h+='<button onclick="cmAns(\''+c2+'\')" style="padding:14px;border-radius:12px;border:2px solid '+HEX[c2]+'66;background:'+HEX[c2]+'22;cursor:pointer;font-size:14px;font-weight:700;color:'+HEX[c2]+';transition:all .15s;" onmouseover="this.style.background=\''+HEX[c2]+'44\';" onmouseout="this.style.background=\''+HEX[c2]+'22\';">'+c2+'</button>';});
+  opts.forEach(function(c2){h+='<button onclick="cmAns(\''+c2+'\')" style="padding:14px;border-radius:12px;border:2px solid '+HEX[c2]+'66;background:'+HEX[c2]+'22;cursor:pointer;font-size:14px;font-weight:700;color:'+HEX[c2]+';transition:all .15s;" onmouseover="if(this.disabled)return;this.style.background=\''+HEX[c2]+'44\';" onmouseout="if(this.disabled)return;this.style.background=\''+HEX[c2]+'22\';">'+c2+'</button>';});
   h+='</div>';
   g.innerHTML=h;
   if(level>=5){window._cmTimer=setInterval(function(){timer--;var te=document.getElementById('cm-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=2?'#ef4444':'#f472b6';}if(timer<=0){clearInterval(window._cmTimer);_LVL.lose();setTimeout(function(){gameColorMatch();},600);}},1000);}
@@ -3186,7 +3182,7 @@ function gameGenQuiz(){
   h+='</div>';
   h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
   opts.forEach(function(opt){
-    h+='<button onclick="gqAns(\''+opt.replace(/'/g,"\\'")+'\')" style="padding:12px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:13px;font-weight:700;color:var(--text);transition:all .15s;" onmouseover="this.style.background=\'rgba(129,140,248,.4)\';" onmouseout="this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';
+    h+='<button onclick="gqAns(\''+opt.replace(/'/g,"\\'")+'\')" style="padding:12px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:13px;font-weight:700;color:var(--text);transition:all .15s;" onmouseover="if(this.disabled)return;this.style.background=\'rgba(129,140,248,.4)\';" onmouseout="if(this.disabled)return;this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';
   });
   h+='</div>';
   g.innerHTML=h;
@@ -3269,7 +3265,7 @@ function gameGeoQuiz(){
   h+='</div>';
   h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
   opts.forEach(function(opt){
-    h+='<button onclick="geoAns(\''+opt.replace(/'/g,"\\'")+'\')" style="padding:12px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:13px;font-weight:700;color:var(--text);transition:all .15s;" onmouseover="this.style.background=\'rgba(96,165,250,.4)\';" onmouseout="this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';
+    h+='<button onclick="geoAns(\''+opt.replace(/'/g,"\\'")+'\')" style="padding:12px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:13px;font-weight:700;color:var(--text);transition:all .15s;" onmouseover="if(this.disabled)return;this.style.background=\'rgba(96,165,250,.4)\';" onmouseout="if(this.disabled)return;this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';
   });
   h+='</div>';
   g.innerHTML=h;
@@ -3346,7 +3342,7 @@ function gameSciQuiz(){
   if(level>=5)h+='<div id="sci-timer" style="font-size:20px;font-weight:900;margin-top:8px;color:'+(timer<=5?'#ef4444':'#22d3ee')+';">⏱ '+timer+'s</div>';
   h+='</div>';
   h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
-  opts.forEach(function(opt){h+='<button onclick="sciAns(\''+opt.replace(/'/g,"\\'")+'\')" style="padding:12px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:13px;font-weight:700;color:var(--text);transition:all .15s;" onmouseover="this.style.background=\'rgba(34,211,238,.3)\';" onmouseout="this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';});
+  opts.forEach(function(opt){h+='<button onclick="sciAns(\''+opt.replace(/'/g,"\\'")+'\')" style="padding:12px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:13px;font-weight:700;color:var(--text);transition:all .15s;" onmouseover="if(this.disabled)return;this.style.background=\'rgba(34,211,238,.3)\';" onmouseout="if(this.disabled)return;this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';});
   h+='</div>';
   g.innerHTML=h;
   if(level>=5){window._sciTimer=setInterval(function(){timer--;var te=document.getElementById('sci-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=5?'#ef4444':'#22d3ee';}if(timer<=0){clearInterval(window._sciTimer);_LVL.lose();setTimeout(function(){gameSciQuiz();},800);}},1000);}
@@ -3401,7 +3397,7 @@ function gameHistQuiz(){
   if(level>=5)h+='<div id="hi-timer" style="font-size:20px;font-weight:900;margin-top:8px;color:'+(timer<=5?'#ef4444':'#f59e0b')+';">⏱ '+timer+'s</div>';
   h+='</div>';
   h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
-  opts.forEach(function(opt){h+='<button onclick="hiAns(\''+opt.replace(/'/g,"\\'")+'\')" style="padding:12px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:13px;font-weight:700;color:var(--text);transition:all .15s;" onmouseover="this.style.background=\'rgba(245,158,11,.3)\';" onmouseout="this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';});
+  opts.forEach(function(opt){h+='<button onclick="hiAns(\''+opt.replace(/'/g,"\\'")+'\')" style="padding:12px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:13px;font-weight:700;color:var(--text);transition:all .15s;" onmouseover="if(this.disabled)return;this.style.background=\'rgba(245,158,11,.3)\';" onmouseout="if(this.disabled)return;this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';});
   h+='</div>';
   g.innerHTML=h;
   if(level>=5){window._hiTimer=setInterval(function(){timer--;var te=document.getElementById('hi-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=5?'#ef4444':'#f59e0b';}if(timer<=0){clearInterval(window._hiTimer);_LVL.lose();setTimeout(function(){gameHistQuiz();},800);}},1000);}
@@ -3466,7 +3462,7 @@ function gameMovieQuiz(){
   if(level>=5)h+='<div id="mv-timer" style="text-align:center;font-size:20px;font-weight:900;margin-top:8px;color:'+(timer<=5?'#ef4444':'#818cf8')+';">⏱ '+timer+'s</div>';
   h+='</div>';
   h+='<div style="display:grid;grid-template-columns:1fr;gap:8px;">';
-  opts.forEach(function(opt){h+='<button onclick="mvAns(\''+opt.replace(/'/g,"\\'")+'\')" style="padding:12px 16px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:14px;font-weight:600;color:var(--text);text-align:left;transition:all .15s;" onmouseover="this.style.background=\'rgba(129,140,248,.3)\';" onmouseout="this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';});
+  opts.forEach(function(opt){h+='<button onclick="mvAns(\''+opt.replace(/'/g,"\\'")+'\')" style="padding:12px 16px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:14px;font-weight:600;color:var(--text);text-align:left;transition:all .15s;" onmouseover="if(this.disabled)return;this.style.background=\'rgba(129,140,248,.3)\';" onmouseout="if(this.disabled)return;this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';});
   h+='</div>';
   g.innerHTML=h;
   if(level>=5){window._mvTimer=setInterval(function(){timer--;var te=document.getElementById('mv-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=5?'#ef4444':'#818cf8';}if(timer<=0){clearInterval(window._mvTimer);_LVL.lose();setTimeout(function(){gameMovieQuiz();},800);}},1000);}
@@ -3520,7 +3516,7 @@ function gameExpertQuiz(){
   if(level>=5)h+='<div id="ex-timer" style="font-size:20px;font-weight:900;margin-top:8px;color:'+(timer<=8?'#ef4444':'#fbbf24')+';">⏱ '+timer+'s</div>';
   h+='</div>';
   h+='<div style="display:grid;grid-template-columns:1fr;gap:8px;">';
-  opts.forEach(function(opt){h+='<button onclick="exAns(\''+opt.replace(/'/g,"\\'")+'\')" style="padding:12px 16px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:13px;font-weight:600;color:var(--text);text-align:left;transition:all .15s;" onmouseover="this.style.background=\'rgba(251,191,36,.3)\';" onmouseout="this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';});
+  opts.forEach(function(opt){h+='<button onclick="exAns(\''+opt.replace(/'/g,"\\'")+'\')" style="padding:12px 16px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:13px;font-weight:600;color:var(--text);text-align:left;transition:all .15s;" onmouseover="if(this.disabled)return;this.style.background=\'rgba(251,191,36,.3)\';" onmouseout="if(this.disabled)return;this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';});
   h+='</div>';
   g.innerHTML=h;
   if(level>=5){window._exTimer=setInterval(function(){timer--;var te=document.getElementById('ex-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=8?'#ef4444':'#fbbf24';}if(timer<=0){clearInterval(window._exTimer);_LVL.lose();setTimeout(function(){gameExpertQuiz();},800);}},1000);}
@@ -3641,7 +3637,7 @@ function gameTTT(){
     h+='<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:240px;margin:0 auto 12px;">';
     board.forEach(function(cell,i){
       var col=cell==='X'?'#60a5fa':cell==='O'?'#f472b6':'rgba(255,255,255,.8)';
-      h+='<div onclick="tttClick('+i+')" style="aspect-ratio:1;border-radius:12px;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:900;cursor:pointer;color:'+col+';transition:all .15s;" onmouseover="this.style.background=\'rgba(255,255,255,.2)\'" onmouseout="this.style.background=\'rgba(255,255,255,.1)\'">'+( cell||'')+'</div>';
+      h+='<div onclick="tttClick('+i+')" style="aspect-ratio:1;border-radius:12px;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:900;cursor:pointer;color:'+col+';transition:all .15s;" onmouseover="if(this.disabled)return;this.style.background=\'rgba(255,255,255,.2)\'" onmouseout="if(this.disabled)return;this.style.background=\'rgba(255,255,255,.1)\'">'+( cell||'')+'</div>';
     });
     h+='</div>';
     h+='<div style="text-align:center;"><button onclick="gameTTT()" class="btn btn-sec" style="padding:8px 20px;font-size:13px;border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.7);">New Game</button></div>';
@@ -3788,7 +3784,7 @@ function gameMathQuiz(){
   h+='</div>';
   h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
   opts.forEach(function(opt){
-    h+='<button onclick="mqAns('+opt+')" style="padding:18px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:24px;font-weight:900;color:var(--text);transition:all .15s;" onmouseover="this.style.background=\'rgba(251,146,60,.4)\';" onmouseout="this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';
+    h+='<button onclick="mqAns('+opt+')" style="padding:18px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:24px;font-weight:900;color:var(--text);transition:all .15s;" onmouseover="if(this.disabled)return;this.style.background=\'rgba(251,146,60,.4)\';" onmouseout="if(this.disabled)return;this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';
   });
   h+='</div>';
   g.innerHTML=h;
@@ -3952,7 +3948,7 @@ function gameTimes(){
   if(level>=5)h+='<div id="tt-timer" style="font-size:22px;font-weight:900;margin-top:8px;color:'+(timer<=3?'#ef4444':'#fb923c')+';">⏱ '+timer+'s</div>';
   h+='</div>';
   h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
-  opts.forEach(function(opt){h+='<button onclick="ttAns('+opt+')" style="padding:18px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:26px;font-weight:900;color:var(--text);transition:all .15s;" onmouseover="this.style.background=\'rgba(251,146,60,.4)\';" onmouseout="this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';});
+  opts.forEach(function(opt){h+='<button onclick="ttAns('+opt+')" style="padding:18px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:26px;font-weight:900;color:var(--text);transition:all .15s;" onmouseover="if(this.disabled)return;this.style.background=\'rgba(251,146,60,.4)\';" onmouseout="if(this.disabled)return;this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';});
   h+='</div>';
   g.innerHTML=h;
   if(level>=5){window._ttTimer=setInterval(function(){timer--;var te=document.getElementById('tt-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=3?'#ef4444':'#fb923c';}if(timer<=0){clearInterval(window._ttTimer);_LVL.lose();setTimeout(function(){gameTimes();},600);}},1000);}
@@ -4779,7 +4775,7 @@ function gameNumSeq(){
   if(level>=8)h+='<div id="ns-timer" style="font-size:20px;font-weight:900;margin-top:8px;color:'+(timer<=5?'#ef4444':'#fb923c')+';">⏱ '+timer+'s</div>';
   h+='</div>';
   h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">';
-  opts.forEach(function(opt){h+='<button onclick="nsAns('+opt+')" style="padding:16px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:22px;font-weight:900;color:var(--text);transition:all .15s;" onmouseover="this.style.background=\'rgba(251,146,60,.3)\';" onmouseout="this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';});
+  opts.forEach(function(opt){h+='<button onclick="nsAns('+opt+')" style="padding:16px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:22px;font-weight:900;color:var(--text);transition:all .15s;" onmouseover="if(this.disabled)return;this.style.background=\'rgba(251,146,60,.3)\';" onmouseout="if(this.disabled)return;this.style.background=\'rgba(255,255,255,.1)\';">'+opt+'</button>';});
   h+='</div>';
   h+='<div style="text-align:center;margin-top:10px;"><button onclick="nsHint()" style="background:none;border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:5px 12px;color:rgba(255,255,255,.5);cursor:pointer;font-size:12px;">💡 Hint: '+seq.rule+'</button></div>';
   g.innerHTML=h;
@@ -5139,7 +5135,7 @@ function gameChess(){
   if(level>=5)h+='<div id="chess-timer" style="text-align:center;font-size:20px;font-weight:800;margin-bottom:10px;color:'+(timer<=10?'#ef4444':'#a78bfa')+';">⏱ '+timer+'s</div>';
   h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">';
   allMoves.forEach(function(move){
-    h+='<button onclick="chessAns(\''+move+'\')" style="padding:14px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:16px;font-weight:900;color:var(--text);font-family:monospace;transition:all .15s;" onmouseover="this.style.background=\'rgba(167,139,250,.4)\';" onmouseout="this.style.background=\'rgba(255,255,255,.1)\';">'+move+'</button>';
+    h+='<button onclick="chessAns(\''+move+'\')" style="padding:14px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:16px;font-weight:900;color:var(--text);font-family:monospace;transition:all .15s;" onmouseover="if(this.disabled)return;this.style.background=\'rgba(167,139,250,.4)\';" onmouseout="if(this.disabled)return;this.style.background=\'rgba(255,255,255,.1)\';">'+move+'</button>';
   });
   h+='</div>';
   h+='<div style="text-align:center;"><button onclick="chessHint()" style="background:none;border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:6px 14px;color:rgba(255,255,255,.6);cursor:pointer;font-size:12px;">💡 Hint (-10pts)</button></div>';
@@ -5501,7 +5497,6 @@ function rewardedModalHTML(r, cd, done) {
     + '<div style="color:#374151;font-size:12px;text-align:center;padding:20px;">'
     + '<div style="font-size:32px;margin-bottom:8px;">📺</div>'
     + '<div>Advertisement</div>'
-    + '<div style="font-size:10px;margin-top:4px;color:#6b7280;">(AdSense Video Ad)</div>'
     + '</div>'
     + '<div style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,.7);color:#fff;font-size:11px;padding:3px 8px;border-radius:4px;" id="rwrd-countdown">'+cd+'s</div>'
     + '</div>'
@@ -5537,8 +5532,6 @@ function showInterstitial() {
     + '<div style="background:#1a1a2e;border-radius:16px;padding:40px 20px;margin-bottom:16px;">'
     + '<div style="font-size:14px;color:#6b7280;margin-bottom:16px;">Advertisement</div>'
     + '<div style="font-size:48px;margin-bottom:12px;">📺</div>'
-    + '<div style="color:#9ca3af;font-size:13px;">AdSense Interstitial Ad</div>'
-    + '<div style="color:#6b7280;font-size:11px;margin-top:4px;">ca-pub-3359266836868361</div>'
     + '</div>'
     + '<button id="skip-btn" onclick="closeInterstitial()" style="background:#374151;color:#9ca3af;border:none;border-radius:8px;padding:10px 24px;font-size:14px;cursor:pointer;" disabled>'
     + 'Skip in <span id="skip-cd">'+skip+'</span>s'
