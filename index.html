@@ -66,20 +66,156 @@ nav,section,.hero,.filter-bar,.gami-strip,footer,#toast,.achievement-popup{posit
 .search-inp::placeholder,.nav-search input::placeholder{color:rgba(255,255,255,.3);}
 .search-inp:focus,.nav-search input:focus{border-color:#7c3aed;background:rgba(124,58,237,.12);}
 /* FILTER BAR */
-.filter-bar{position:sticky;top:54px;z-index:100;background:rgba(7,5,15,.88);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.06);}
-.filter-inner{max-width:1240px;margin:0 auto;padding:8px 16px;display:flex;gap:6px;align-items:center;overflow-x:auto;scrollbar-width:none;}
+.filter-bar{
+  position:sticky;top:54px;z-index:100;
+  background:rgba(7,5,15,.92);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.filter-inner{
+  max-width:100%;
+  padding:10px 16px;
+  display:flex;gap:8px;align-items:center;
+  overflow-x:auto;scrollbar-width:none;
+}
 .filter-inner::-webkit-scrollbar{display:none;}
+
 /* COLORFUL FILTER BUTTONS */
-.flt{display:flex;align-items:center;gap:6px;padding:8px 16px;border-radius:12px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:rgba(255,255,255,.75);font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit;transition:all .2s cubic-bezier(.34,1.56,.64,1);}
-.flt-icon{font-size:16px;}
-.flt:hover{transform:translateY(-2px);background:rgba(255,255,255,.12);color:#fff;}
-.flt[data-cat="all"].active,.flt.active{background:linear-gradient(135deg,#7c3aed,#a855f7);border-color:#7c3aed;color:#fff;box-shadow:0 4px 20px rgba(124,58,237,.5);}
-.flt-quiz.active{background:linear-gradient(135deg,#4f46e5,#6366f1);border-color:#4f46e5;color:#fff;box-shadow:0 4px 20px rgba(79,70,229,.5);}
-.flt-word.active{background:linear-gradient(135deg,#059669,#10b981);border-color:#059669;color:#fff;box-shadow:0 4px 20px rgba(5,150,105,.5);}
-.flt-math.active{background:linear-gradient(135deg,#d97706,#f59e0b);border-color:#d97706;color:#fff;box-shadow:0 4px 20px rgba(217,119,6,.5);}
-.flt-classic.active{background:linear-gradient(135deg,#7c3aed,#8b5cf6);border-color:#7c3aed;color:#fff;box-shadow:0 4px 20px rgba(124,58,237,.5);}
-.flt-memory.active{background:linear-gradient(135deg,#be185d,#ec4899);border-color:#be185d;color:#fff;box-shadow:0 4px 20px rgba(190,24,93,.5);}
-.flt-quiz:hover{border-color:#6366f1;color:#a5b4fc;} .flt-word:hover{border-color:#10b981;color:#6ee7b7;} .flt-math:hover{border-color:#f59e0b;color:#fde68a;} .flt-classic:hover{border-color:#8b5cf6;color:#c4b5fd;} .flt-memory:hover{border-color:#ec4899;color:#f9a8d4;}
+.flt{
+  flex:1;
+  min-width:0;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  padding:11px 14px;
+  border-radius:14px;
+  border:2px solid transparent;
+  font-size:13px;font-weight:800;
+  cursor:pointer;white-space:nowrap;
+  font-family:inherit;
+  transition:all .25s cubic-bezier(.34,1.56,.64,1);
+  position:relative;overflow:hidden;
+  letter-spacing:.01em;
+}
+/* Ripple effect */
+.flt::before{
+  content:'';
+  position:absolute;
+  width:0;height:0;
+  border-radius:50%;
+  background:rgba(255,255,255,.25);
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  transition:width .4s ease, height .4s ease, opacity .4s;
+  opacity:0;
+}
+.flt:active::before{
+  width:200px;height:200px;opacity:0;
+}
+
+/* DEFAULT state — tinted per category */
+.flt-all  {background:rgba(124,58,237,.18); border-color:rgba(124,58,237,.35); color:rgba(255,255,255,.8);}
+.flt-quiz {background:rgba(79,70,229,.18);  border-color:rgba(79,70,229,.35);  color:rgba(255,255,255,.8);}
+.flt-word {background:rgba(5,150,105,.18);  border-color:rgba(5,150,105,.35);  color:rgba(255,255,255,.8);}
+.flt-math {background:rgba(217,119,6,.18);  border-color:rgba(217,119,6,.35);  color:rgba(255,255,255,.8);}
+.flt-classic{background:rgba(109,40,217,.18);border-color:rgba(109,40,217,.35);color:rgba(255,255,255,.8);}
+.flt-memory{background:rgba(190,24,93,.18); border-color:rgba(190,24,93,.35);  color:rgba(255,255,255,.8);}
+
+/* HOVER state */
+.flt-all:hover  {background:rgba(124,58,237,.35);border-color:rgba(167,139,250,.6);color:#fff;transform:translateY(-3px);}
+.flt-quiz:hover {background:rgba(79,70,229,.35); border-color:rgba(129,140,248,.6);color:#fff;transform:translateY(-3px);}
+.flt-word:hover {background:rgba(5,150,105,.35); border-color:rgba(52,211,153,.6); color:#fff;transform:translateY(-3px);}
+.flt-math:hover {background:rgba(217,119,6,.35); border-color:rgba(251,191,36,.6); color:#fff;transform:translateY(-3px);}
+.flt-classic:hover{background:rgba(109,40,217,.35);border-color:rgba(196,181,253,.6);color:#fff;transform:translateY(-3px);}
+.flt-memory:hover{background:rgba(190,24,93,.35); border-color:rgba(249,168,212,.6);color:#fff;transform:translateY(-3px);}
+
+/* ACTIVE state — vivid gradient + glow */
+.flt-all.active{
+  background:linear-gradient(135deg,#7c3aed,#a855f7) !important;
+  border-color:#c084fc !important;color:#fff !important;
+  box-shadow:0 6px 24px rgba(124,58,237,.6),0 0 0 1px rgba(192,132,252,.3);
+  transform:translateY(-2px) scale(1.04);
+}
+.flt-quiz.active{
+  background:linear-gradient(135deg,#4338ca,#6366f1) !important;
+  border-color:#a5b4fc !important;color:#fff !important;
+  box-shadow:0 6px 24px rgba(67,56,202,.6),0 0 0 1px rgba(165,180,252,.3);
+  transform:translateY(-2px) scale(1.04);
+}
+.flt-word.active{
+  background:linear-gradient(135deg,#047857,#10b981) !important;
+  border-color:#6ee7b7 !important;color:#fff !important;
+  box-shadow:0 6px 24px rgba(4,120,87,.6),0 0 0 1px rgba(110,231,183,.3);
+  transform:translateY(-2px) scale(1.04);
+}
+.flt-math.active{
+  background:linear-gradient(135deg,#b45309,#f59e0b) !important;
+  border-color:#fde68a !important;color:#fff !important;
+  box-shadow:0 6px 24px rgba(180,83,9,.6),0 0 0 1px rgba(253,230,138,.3);
+  transform:translateY(-2px) scale(1.04);
+}
+.flt-classic.active{
+  background:linear-gradient(135deg,#6d28d9,#8b5cf6) !important;
+  border-color:#c4b5fd !important;color:#fff !important;
+  box-shadow:0 6px 24px rgba(109,40,217,.6),0 0 0 1px rgba(196,181,253,.3);
+  transform:translateY(-2px) scale(1.04);
+}
+.flt-memory.active{
+  background:linear-gradient(135deg,#9d174d,#ec4899) !important;
+  border-color:#f9a8d4 !important;color:#fff !important;
+  box-shadow:0 6px 24px rgba(157,23,77,.6),0 0 0 1px rgba(249,168,212,.3);
+  transform:translateY(-2px) scale(1.04);
+}
+
+/* Button inner elements */
+.flt-em{font-size:18px;flex-shrink:0;transition:transform .3s cubic-bezier(.34,1.56,.64,1);}
+.flt.active .flt-em{transform:scale(1.25) rotate(-8deg);}
+.flt:hover .flt-em{transform:scale(1.2) rotate(-5deg);}
+.flt-lbl{font-size:13px;font-weight:800;}
+.flt-count{
+  background:rgba(255,255,255,.2);
+  border-radius:99px;
+  padding:1px 7px;
+  font-size:10px;font-weight:800;
+  min-width:24px;text-align:center;
+  transition:background .2s;
+}
+.flt.active .flt-count{background:rgba(255,255,255,.3);}
+
+/* Bounce animation on click */
+@keyframes fltBounce{
+  0%{transform:translateY(-2px) scale(1.04);}
+  30%{transform:translateY(-6px) scale(1.08);}
+  60%{transform:translateY(-1px) scale(1.05);}
+  100%{transform:translateY(-2px) scale(1.04);}
+}
+.flt.active{animation:fltBounce .35s ease;}
+
+/* Search */
+.flt-search-wrap{flex-shrink:0;width:180px;}
+.search-inp{
+  width:100%;padding:10px 14px;
+  border-radius:12px;
+  border:2px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.07);
+  color:#fff;font-size:12px;
+  font-family:inherit;outline:none;
+  transition:all .2s;
+}
+.search-inp::placeholder{color:rgba(255,255,255,.3);}
+.search-inp:focus{
+  border-color:#7c3aed;
+  background:rgba(124,58,237,.15);
+  box-shadow:0 0 0 3px rgba(124,58,237,.2);
+}
+
+/* Responsive */
+@media(max-width:640px){
+  .flt-lbl{display:none;}
+  .flt-count{display:none;}
+  .flt{padding:10px 12px;flex:0 0 auto;}
+  .flt-em{font-size:20px;}
+  .flt-search-wrap{width:130px;}
+}
+
 /* HERO */
 .hero{text-align:center;padding:36px 20px 28px;max-width:700px;margin:0 auto;}
 .hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3);border-radius:99px;padding:5px 16px;font-size:11px;font-weight:700;color:#a78bfa;margin-bottom:18px;letter-spacing:.05em;text-transform:uppercase;}
@@ -176,6 +312,103 @@ footer a{color:rgba(255,255,255,.35);text-decoration:none;}
 .confetti-piece{position:fixed;border-radius:2px;animation:confettiFall 3s ease-in forwards;pointer-events:none;z-index:99999;}
 .spark{position:fixed;width:4px;height:4px;border-radius:50%;pointer-events:none;z-index:99999;animation:sparkFly .8s ease-out forwards;}
 @media(max-width:640px){.hero-stats{gap:14px;}.hnum-n{font-size:22px;}.gami-strip{grid-template-columns:1fr;}.game-card:hover{transform:translateY(-4px) scale(1.02);}.flt-label{display:none;}.flt{padding:8px 12px;}}
+@keyframes cardFadeIn{from{opacity:0;transform:translateY(8px) scale(.97);}to{opacity:1;transform:translateY(0) scale(1);}}
+@keyframes fltPress{0%{transform:scale(1);}50%{transform:scale(.94);}100%{transform:scale(1);}}
+
+/* ── ANIMATED GAME CARD ICONS ── */
+@keyframes iconFloat{
+  0%,100%{transform:translateY(0) rotate(0deg);}
+  25%{transform:translateY(-4px) rotate(-3deg);}
+  75%{transform:translateY(-2px) rotate(3deg);}
+}
+@keyframes iconSpin{
+  0%{transform:rotate(0deg) scale(1);}
+  50%{transform:rotate(180deg) scale(1.15);}
+  100%{transform:rotate(360deg) scale(1);}
+}
+@keyframes iconPulse{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.18);}
+}
+@keyframes iconWiggle{
+  0%,100%{transform:rotate(0deg);}
+  20%{transform:rotate(-8deg);}
+  40%{transform:rotate(8deg);}
+  60%{transform:rotate(-5deg);}
+  80%{transform:rotate(5deg);}
+}
+.game-card:hover .g-em{animation:iconWiggle .5s ease;}
+.c-quiz:hover .g-em{animation:iconSpin .6s ease;}
+.c-word:hover .g-em{animation:iconWiggle .5s ease;}
+.c-math:hover .g-em{animation:iconPulse .4s ease infinite alternate;}
+.c-classic:hover .g-em{animation:iconFloat .6s ease infinite;}
+.c-memory:hover .g-em{animation:iconPulse .35s ease infinite alternate;}
+.g-em{display:inline-block;transition:transform .2s;}
+
+/* TOP12 icon animations */
+.top12-card:hover .t-icon{animation:iconWiggle .5s ease;transform:scale(1.12);}
+.t-icon{transition:transform .2s;}
+
+/* Achievement badge animations */
+.ach-badge:hover{transform:translateY(-3px) scale(1.08);}
+.ach-game:hover{animation:iconWiggle .4s ease;}
+.ach-fire:hover{animation:iconPulse .3s ease infinite alternate;}
+.ach-brain:hover{animation:iconFloat .5s ease;}
+.ach-bolt:hover{animation:iconSpin .5s ease;}
+.ach-book:hover{animation:iconWiggle .4s ease;}
+
+/* TOP12 card colored backgrounds */
+.top12-card{
+  background:rgba(255,255,255,.07) !important;
+  border:1px solid rgba(255,255,255,.12) !important;
+  border-radius:16px !important;
+  padding:16px 12px 14px !important;
+  cursor:pointer;text-align:center;position:relative;
+  transition:all .25s cubic-bezier(.34,1.56,.64,1) !important;
+  overflow:hidden;
+}
+.top12-card:hover{
+  transform:translateY(-8px) scale(1.05) !important;
+  border-color:rgba(255,255,255,.3) !important;
+  box-shadow:0 16px 40px rgba(0,0,0,.4) !important;
+}
+.t-icon{
+  width:64px !important;height:64px !important;
+  border-radius:16px !important;
+  display:flex;align-items:center;justify-content:center;
+  font-size:32px !important;
+  margin:6px auto 12px !important;
+  box-shadow:0 4px 16px rgba(0,0,0,.3);
+}
+.t-name{font-size:12px !important;font-weight:800 !important;color:#fff !important;margin-bottom:3px !important;}
+.t-plays{font-size:10px !important;color:rgba(255,255,255,.45) !important;}
+.t-rank{position:absolute;top:7px;left:9px;font-size:10px;font-weight:900;color:rgba(255,255,255,.5);}
+
+/* ── FOOTER ── */
+footer{
+  background:linear-gradient(135deg,#1e1b4b 0%,#312e81 40%,#4c1d95 100%);
+  border-top:1px solid rgba(167,139,250,.3);
+  padding:32px 20px;
+  margin-top:40px;
+  position:relative;z-index:1;
+  overflow:hidden;
+}
+footer::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 50%,rgba(124,58,237,.3) 0%,transparent 60%),
+             radial-gradient(ellipse at 70% 50%,rgba(236,72,153,.2) 0%,transparent 60%);
+  pointer-events:none;
+}
+.footer-inner{position:relative;z-index:1;text-align:center;max-width:800px;margin:0 auto;}
+.footer-logo{font-size:22px;font-weight:900;color:#fff;margin-bottom:8px;letter-spacing:-.3px;}
+.footer-logo span{color:#c084fc;}
+.footer-tagline{font-size:13px;color:rgba(255,255,255,.65);margin-bottom:16px;line-height:1.6;}
+.footer-links{display:flex;justify-content:center;gap:20px;margin-bottom:14px;flex-wrap:wrap;}
+.footer-links a{color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;font-weight:600;transition:color .2s;}
+.footer-links a:hover{color:#c084fc;}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.35);margin-bottom:8px;}
+.footer-seo{font-size:10px;color:rgba(255,255,255,.18);line-height:1.8;}
+
 </style>
 </head>
 <body>
@@ -206,13 +439,24 @@ footer a{color:rgba(255,255,255,.35);text-decoration:none;}
 <!-- FILTER BAR -->
 <div class="filter-bar">
   <div class="filter-inner">
-    <button class="flt active" onclick="setFilter('all',this)" data-cat="all"><span class="flt-icon">🎮</span><span class="flt-label">All Games</span></button>
-    <button class="flt flt-quiz" onclick="setFilter('quiz',this)" data-cat="quiz"><span class="flt-icon">🧠</span><span class="flt-label">Quiz</span></button>
-    <button class="flt flt-word" onclick="setFilter('word',this)" data-cat="word"><span class="flt-icon">📝</span><span class="flt-label">Word</span></button>
-    <button class="flt flt-math" onclick="setFilter('math',this)" data-cat="math"><span class="flt-icon">➕</span><span class="flt-label">Math</span></button>
-    <button class="flt flt-classic" onclick="setFilter('classic',this)" data-cat="classic"><span class="flt-icon">🕹️</span><span class="flt-label">Classic</span></button>
-    <button class="flt flt-memory" onclick="setFilter('memory',this)" data-cat="memory"><span class="flt-icon">🧩</span><span class="flt-label">Memory</span></button>
-    <div style="flex:1;min-width:130px;max-width:200px;"><input class="search-inp" type="text" placeholder="🔍 Search..." oninput="searchGames(this.value)"></div>
+    <button class="flt flt-all active" onclick="setFilter('all',this)" data-cat="all">
+      <span class="flt-em">🎮</span><span class="flt-lbl">All Games</span><span class="flt-count">51</span>
+    </button>
+    <button class="flt flt-quiz" onclick="setFilter('quiz',this)" data-cat="quiz">
+      <span class="flt-em">🧠</span><span class="flt-lbl">Quiz</span><span class="flt-count">11</span>
+    </button>
+    <button class="flt flt-word" onclick="setFilter('word',this)" data-cat="word">
+      <span class="flt-em">📝</span><span class="flt-lbl">Word</span><span class="flt-count">10</span>
+    </button>
+    <button class="flt flt-math" onclick="setFilter('math',this)" data-cat="math">
+      <span class="flt-em">➕</span><span class="flt-lbl">Math</span><span class="flt-count">7</span>
+    </button>
+    <button class="flt flt-classic" onclick="setFilter('classic',this)" data-cat="classic">
+      <span class="flt-em">🕹️</span><span class="flt-lbl">Classic</span><span class="flt-count">14</span>
+    </button>
+    <button class="flt flt-memory" onclick="setFilter('memory',this)" data-cat="memory">
+      <span class="flt-em">🧩</span><span class="flt-lbl">Memory</span><span class="flt-count">9</span>
+    </button>
   </div>
 </div>
 
@@ -244,8 +488,13 @@ footer a{color:rgba(255,255,255,.35);text-decoration:none;}
 <div style="max-width:1160px;margin:0 auto;padding:0 16px 14px;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
   <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:12px;">
     <div style="font-size:12px;font-weight:800;color:rgba(255,255,255,.8);margin-bottom:10px;">🏅 Achievements</div>
-    <div style="display:flex;gap:7px;flex-wrap:wrap;">
-      <div class="ach-badge">🎮 <span>First Game</span></div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;">
+      <div class="ach-badge ach-game" title="Play any game">🎮<span>First Game</span></div>
+      <div class="ach-badge ach-fire" title="Play 3 days in a row">🔥<span>3-Day Streak</span></div>
+      <div class="ach-badge ach-brain" title="Win 10 quiz games">🧠<span>Quiz Master</span></div>
+      <div class="ach-badge ach-bolt" title="Reaction under 200ms">⚡<span>Speed Demon</span></div>
+      <div class="ach-badge ach-book" title="Win 10 word games">📚<span>Word Wizard</span></div>
+    </div>
       <div class="ach-badge">🔥 <span>3-Day Streak</span></div>
       <div class="ach-badge">🧠 <span>Quiz Master</span></div>
       <div class="ach-badge">⚡ <span>Speed Demon</span></div>
@@ -267,75 +516,75 @@ footer a{color:rgba(255,255,255,.35);text-decoration:none;}
   <div style="max-width:1160px;margin:0 auto;">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;"><span style="font-size:22px;">🔥</span><div><div style="font-size:17px;font-weight:900;color:#fff;">Most Popular Games</div><div style="font-size:10px;color:rgba(255,255,255,.35);">Most played today</div></div><div style="margin-left:auto;background:rgba(245,158,11,.15);color:#fbbf24;border:1px solid rgba(251,191,36,.25);border-radius:8px;padding:3px 10px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;">TOP 12</div></div>
     <div class="top12-grid">
-      <div class="top12-card" onclick="openGame('g2048')" onmouseover="this.style.borderColor='#f59e0b'" onmouseout="this.style.borderColor='rgba(255,255,255,.09)'">
+      <div class="top12-card" onclick="openGame('g2048')">
         <div class="t-rank">#1</div>
-        <div class="t-icon" style="background:#fef3c7;">🔢</div>
+        <div class="t-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706);">🔢</div>
         <div class="t-name">2048</div>
         <div class="t-plays">2.4M/day</div>
       </div>
-      <div class="top12-card" onclick="openGame('sudoku')" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='rgba(255,255,255,.09)'">
+      <div class="top12-card" onclick="openGame('sudoku')">
         <div class="t-rank">#2</div>
-        <div class="t-icon" style="background:#eef2ff;">🔲</div>
+        <div class="t-icon" style="background:linear-gradient(135deg,#6366f1,#4338ca);">🔲</div>
         <div class="t-name">Sudoku</div>
         <div class="t-plays">1.9M/day</div>
       </div>
-      <div class="top12-card" onclick="openGame('snake')" onmouseover="this.style.borderColor='#22c55e'" onmouseout="this.style.borderColor='rgba(255,255,255,.09)'">
+      <div class="top12-card" onclick="openGame('snake')">
         <div class="t-rank">#3</div>
-        <div class="t-icon" style="background:#dcfce7;">🐍</div>
+        <div class="t-icon" style="background:linear-gradient(135deg,#10b981,#047857);">🐍</div>
         <div class="t-name">Snake</div>
         <div class="t-plays">1.6M/day</div>
       </div>
-      <div class="top12-card" onclick="openGame('tetris')" onmouseover="this.style.borderColor='#8b5cf6'" onmouseout="this.style.borderColor='rgba(255,255,255,.09)'">
+      <div class="top12-card" onclick="openGame('tetris')">
         <div class="t-rank">#4</div>
-        <div class="t-icon" style="background:#ede9fe;">🟦</div>
+        <div class="t-icon" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);">🟦</div>
         <div class="t-name">Tetris</div>
         <div class="t-plays">1.4M/day</div>
       </div>
-      <div class="top12-card" onclick="openGame('mines')" onmouseover="this.style.borderColor='#ef4444'" onmouseout="this.style.borderColor='rgba(255,255,255,.09)'">
+      <div class="top12-card" onclick="openGame('mines')">
         <div class="t-rank">#5</div>
-        <div class="t-icon" style="background:rgba(239,68,68,.15);">💣</div>
+        <div class="t-icon" style="background:linear-gradient(135deg,#ef4444,#b91c1c);">💣</div>
         <div class="t-name">Minesweeper</div>
         <div class="t-plays">1.1M/day</div>
       </div>
-      <div class="top12-card" onclick="openGame('wordsearch')" onmouseover="this.style.borderColor='#10b981'" onmouseout="this.style.borderColor='rgba(255,255,255,.09)'">
+      <div class="top12-card" onclick="openGame('wordsearch')">
         <div class="t-rank">#6</div>
-        <div class="t-icon" style="background:#d1fae5;">🔠</div>
+        <div class="t-icon" style="background:linear-gradient(135deg,#06b6d4,#0891b2);">🔠</div>
         <div class="t-name">Word Search</div>
         <div class="t-plays">980K/day</div>
       </div>
-      <div class="top12-card" onclick="openGame('crossword')" onmouseover="this.style.borderColor='#eab308'" onmouseout="this.style.borderColor='rgba(255,255,255,.09)'">
+      <div class="top12-card" onclick="openGame('crossword')">
         <div class="t-rank">#7</div>
-        <div class="t-icon" style="background:#fefce8;">📰</div>
+        <div class="t-icon" style="background:linear-gradient(135deg,#eab308,#ca8a04);">📰</div>
         <div class="t-name">Crossword</div>
         <div class="t-plays">870K/day</div>
       </div>
-      <div class="top12-card" onclick="openGame('chess')" onmouseover="this.style.borderColor='#94a3b8'" onmouseout="this.style.borderColor='rgba(255,255,255,.09)'">
+      <div class="top12-card" onclick="openGame('chess')">
         <div class="t-rank">#8</div>
-        <div class="t-icon" style="background:rgba(100,116,139,.2);">♟️</div>
+        <div class="t-icon" style="background:linear-gradient(135deg,#64748b,#334155);">♟️</div>
         <div class="t-name">Chess</div>
         <div class="t-plays">760K/day</div>
       </div>
-      <div class="top12-card" onclick="openGame('hangman')" onmouseover="this.style.borderColor='#f97316'" onmouseout="this.style.borderColor='rgba(255,255,255,.09)'">
+      <div class="top12-card" onclick="openGame('hangman')">
         <div class="t-rank">#9</div>
-        <div class="t-icon" style="background:#fff7ed;">🪝</div>
+        <div class="t-icon" style="background:linear-gradient(135deg,#f97316,#ea580c);">🪝</div>
         <div class="t-name">Hangman</div>
         <div class="t-plays">640K/day</div>
       </div>
-      <div class="top12-card" onclick="openGame('memory')" onmouseover="this.style.borderColor='#a855f7'" onmouseout="this.style.borderColor='rgba(255,255,255,.09)'">
+      <div class="top12-card" onclick="openGame('memory')">
         <div class="t-rank">#10</div>
-        <div class="t-icon" style="background:rgba(168,85,247,.2);">🃏</div>
+        <div class="t-icon" style="background:linear-gradient(135deg,#a855f7,#7c3aed);">🃏</div>
         <div class="t-name">Memory Cards</div>
         <div class="t-plays">590K/day</div>
       </div>
-      <div class="top12-card" onclick="openGame('ttt')" onmouseover="this.style.borderColor='#ec4899'" onmouseout="this.style.borderColor='rgba(255,255,255,.09)'">
+      <div class="top12-card" onclick="openGame('ttt')">
         <div class="t-rank">#11</div>
-        <div class="t-icon" style="background:rgba(236,72,153,.15);">⭕</div>
+        <div class="t-icon" style="background:linear-gradient(135deg,#ec4899,#be185d);">⭕</div>
         <div class="t-name">Tic Tac Toe</div>
         <div class="t-plays">480K/day</div>
       </div>
-      <div class="top12-card" onclick="openGame('flappy')" onmouseover="this.style.borderColor='#3b82f6'" onmouseout="this.style.borderColor='rgba(255,255,255,.09)'">
+      <div class="top12-card" onclick="openGame('flappy')">
         <div class="t-rank">#12</div>
-        <div class="t-icon" style="background:#dbeafe;">🐦</div>
+        <div class="t-icon" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8);">🐦</div>
         <div class="t-name">Flappy Bird</div>
         <div class="t-plays">430K/day</div>
       </div>
@@ -344,7 +593,7 @@ footer a{color:rgba(255,255,255,.35);text-decoration:none;}
 </div>
 <style>@media(max-width:600px){.top12-grid{grid-template-columns:repeat(2,1fr)!important;}}</style>
 
-<div class="sec-hdr quiz-section" style="max-width:1160px;margin:0 auto;padding:20px 20px 12px;display:flex;align-items:center;gap:10px;">
+<div id="section-quiz" class="sec-hdr quiz-section" style="max-width:1160px;margin:0 auto;padding:20px 20px 12px;display:flex;align-items:center;gap:10px;">
     <div style="width:32px;height:32px;background:#6366f122;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;">🧠</div>
     <h2 style="margin:0;font-size:18px;font-weight:900;color:#1e293b;">Quiz Games</h2>
     <span style="background:#6366f118;color:#6366f1;border:1px solid #6366f144;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700;">TEST YOUR KNOWLEDGE</span>
@@ -420,7 +669,7 @@ footer a{color:rgba(255,255,255,.35);text-decoration:none;}
     </div>
   </div></div>
 
-  <div class="sec-hdr word-section" style="max-width:1160px;margin:0 auto;padding:20px 20px 12px;display:flex;align-items:center;gap:10px;">
+  <div id="section-word" class="sec-hdr word-section" style="max-width:1160px;margin:0 auto;padding:20px 20px 12px;display:flex;align-items:center;gap:10px;">
     <div style="width:32px;height:32px;background:#22c55e22;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;">📝</div>
     <h2 style="margin:0;font-size:18px;font-weight:900;color:#1e293b;">Word Games</h2>
     <span style="background:#22c55e18;color:#22c55e;border:1px solid #22c55e44;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700;">LETTERS & LANGUAGE</span>
@@ -490,7 +739,7 @@ footer a{color:rgba(255,255,255,.35);text-decoration:none;}
     </div>
   </div></div>
 
-  <div class="sec-hdr math-section" style="max-width:1160px;margin:0 auto;padding:20px 20px 12px;display:flex;align-items:center;gap:10px;">
+  <div id="section-math" class="sec-hdr math-section" style="max-width:1160px;margin:0 auto;padding:20px 20px 12px;display:flex;align-items:center;gap:10px;">
     <div style="width:32px;height:32px;background:#f9731622;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;">➕</div>
     <h2 style="margin:0;font-size:18px;font-weight:900;color:#1e293b;">Math Games</h2>
     <span style="background:#f9731618;color:#f97316;border:1px solid #f9731644;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700;">NUMBERS & LOGIC</span>
@@ -542,7 +791,7 @@ footer a{color:rgba(255,255,255,.35);text-decoration:none;}
     </div>
   </div></div>
 
-  <div class="sec-hdr classic-section" style="max-width:1160px;margin:0 auto;padding:20px 20px 12px;display:flex;align-items:center;gap:10px;">
+  <div id="section-classic" class="sec-hdr classic-section" style="max-width:1160px;margin:0 auto;padding:20px 20px 12px;display:flex;align-items:center;gap:10px;">
     <div style="width:32px;height:32px;background:#8b5cf622;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;">🕹️</div>
     <h2 style="margin:0;font-size:18px;font-weight:900;color:#1e293b;">Classic Games</h2>
     <span style="background:#8b5cf618;color:#8b5cf6;border:1px solid #8b5cf644;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700;">TIMELESS FUN</span>
@@ -636,7 +885,7 @@ footer a{color:rgba(255,255,255,.35);text-decoration:none;}
     </div>
   </div></div>
 
-  <div class="sec-hdr mem-section" style="max-width:1160px;margin:0 auto;padding:20px 20px 12px;display:flex;align-items:center;gap:10px;">
+  <div id="section-memory" class="sec-hdr mem-section" style="max-width:1160px;margin:0 auto;padding:20px 20px 12px;display:flex;align-items:center;gap:10px;">
     <div style="width:32px;height:32px;background:#ec489922;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;">🧩</div>
     <h2 style="margin:0;font-size:18px;font-weight:900;color:#1e293b;">Memory & Focus</h2>
     <span style="background:#ec489918;color:#ec4899;border:1px solid #ec489944;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700;">TRAIN YOUR BRAIN</span>
@@ -721,12 +970,17 @@ footer a{color:rgba(255,255,255,.35);text-decoration:none;}
 
 <!-- FOOTER -->
 <footer>
-  <p style="margin-bottom:8px;">© 2025 GameNest World · 51 Free Browser Games · No Download Required</p>
-  <p><a href="/about.html" style="color:rgba(255,255,255,.4);text-decoration:none;margin:0 8px;">About</a>
-  <a href="/privacy.html" style="color:rgba(255,255,255,.4);text-decoration:none;margin:0 8px;">Privacy Policy</a>
-  <a href="/blog.html" style="color:rgba(255,255,255,.4);text-decoration:none;margin:0 8px;">Game Tips Blog</a></p>
-  <p style="margin-top:8px;font-size:11px;color:rgba(255,255,255,.2);">free online games · browser games · no download · quiz games · word games · math games · memory games · brain training · 2048 · snake · tetris · wordle · sudoku</p>
-  <p style="margin-top:6px;font-size:11px;">free online games · browser games · no download games · quiz games · word games · math games · memory games · brain training</p>
+  <div class="footer-inner">
+    <div class="footer-logo">🎮 <span>Game</span>Nest World</div>
+    <p class="footer-tagline">51 free browser games · No download · No signup · 100% free forever</p>
+    <div class="footer-links">
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/blog.html">Game Tips Blog</a>
+    </div>
+    <p class="footer-copy">© 2025 GameNest World · Free online games for everyone</p>
+    <p class="footer-seo">free online games · browser games · quiz games · word games · math games · memory games · 2048 · snake · tetris · wordle · sudoku</p>
+  </div>
 </footer>
 
 <!-- MODAL -->
@@ -757,7 +1011,13 @@ footer a{color:rgba(255,255,255,.35);text-decoration:none;}
 
 
 
+
+
+
 <script>
+
+
+
 
 
 
@@ -1295,19 +1555,34 @@ function searchGames(q){
 /* FILTER */
 function setFilter(cat,btn){
   document.querySelectorAll('.flt').forEach(function(b){b.classList.remove('active');});
-  if(btn)btn.classList.add('active');
+  if(btn){
+    btn.classList.add('active');
+    btn.style.animation='none';
+    void btn.offsetWidth;
+    btn.style.animation='';
+  }
   document.querySelectorAll('.game-card').forEach(function(card){
-    card.style.display=(cat==='all'||card.dataset.cat===cat)?'':'none';
+    if(cat==='all'||card.dataset.cat===cat){
+      card.style.display='';
+      card.style.animation='cardFadeIn .3s ease';
+    } else {
+      card.style.display='none';
+    }
   });
-  if(cat!=='all'){
-    var map={quiz:'.quiz-section',word:'.word-section',math:'.math-section',classic:'.classic-section',memory:'.mem-section'};
-    var sec=document.querySelector(map[cat]);
-    if(sec)sec.scrollIntoView({behavior:'smooth',block:'start'});
+  if(cat==='all'){
+    document.getElementById('games').scrollIntoView({behavior:'smooth',block:'start'});
+  } else {
+    var ids={quiz:'section-quiz',word:'section-word',math:'section-math',classic:'section-classic',memory:'section-memory'};
+    var el=document.getElementById(ids[cat]);
+    if(el){
+      setTimeout(function(){
+        var top=el.getBoundingClientRect().top+window.scrollY-110;
+        window.scrollTo({top:top,behavior:'smooth'});
+      },80);
+    }
   }
 }
 
-/* LEVEL UP REWARD */
-var _lastLvlPrompt=0;
 function checkAdPrompt(level){
   if(level>0&&level%5===0&&level!==_lastLvlPrompt){
     _lastLvlPrompt=level;
@@ -5864,7 +6139,13 @@ function gameG2048() {
 
 
 
+
+
+
 </script>
+
+
+
 
 
 
