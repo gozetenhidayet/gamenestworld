@@ -35,8 +35,6 @@
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GMVJJQ96Y8"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GMVJJQ96Y8');</script>
-<!-- AdSense - activated after approval -->
-<!-- AdSense disabled until approval -->
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -231,11 +229,11 @@ footer::before{content:'';position:absolute;inset:0;background:radial-gradient(e
 .footer-links{display:flex;justify-content:center;gap:6px 20px;margin-bottom:18px;flex-wrap:wrap;}
 .footer-links a{color:rgba(255,255,255,.7);text-decoration:none;font-size:13px;font-weight:600;padding:3px 0;border-bottom:1px solid transparent;transition:all .2s;}
 .footer-links a:hover{color:#c084fc;border-bottom-color:#c084fc;}
-.footer-adsense{background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px 18px;margin-bottom:18px;text-align:left;}
-.footer-adsense p{font-size:11px;color:rgba(255,255,255,.4);line-height:1.7;margin-bottom:5px;}
-.footer-adsense p:last-child{margin-bottom:0;}
-.footer-adsense a{color:rgba(167,139,250,.8);text-decoration:underline;}
-.footer-adsense a:hover{color:#c084fc;}
+.footer-info{background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px 18px;margin-bottom:18px;text-align:left;}
+.footer-info p{font-size:11px;color:rgba(255,255,255,.4);line-height:1.7;margin-bottom:5px;}
+.footer-info p:last-child{margin-bottom:0;}
+.footer-info a{color:rgba(167,139,250,.8);text-decoration:underline;}
+.footer-info a:hover{color:#c084fc;}
 .footer-cats{display:flex;justify-content:center;gap:6px 16px;flex-wrap:wrap;margin-bottom:10px;}
 .footer-cats a{color:rgba(255,255,255,.45);text-decoration:none;font-size:12px;font-weight:600;transition:color .2s;}
 .footer-cats a:hover{color:#a78bfa;}
@@ -543,13 +541,13 @@ footer::before{
   background:#fff !important;
   transform:translateY(-1px) !important;
 }
-.footer-adsense{
+.footer-info{
   background:rgba(255,255,255,.72) !important;
   border-color:rgba(255,255,255,.82) !important;
   color:#475569 !important;
 }
-.footer-adsense p,.footer-seo{color:#64748b !important;}
-.footer-adsense a{color:#7c3aed !important;}
+.footer-info p,.footer-seo{color:#64748b !important;}
+.footer-info a{color:#7c3aed !important;}
 .footer-hr{border-top-color:rgba(51,65,85,.16) !important;}
 @media(max-width:640px){
   .nav-inner{height:auto;min-height:54px;flex-wrap:wrap;padding:8px 0;}
@@ -557,6 +555,145 @@ footer::before{
   .top12-card{border-radius:18px !important;}
   .footer-inner{border-radius:20px !important;padding:20px 12px !important;}
   .footer-links,.footer-cats,.footer-games{gap:8px !important;}
+}
+
+
+/* ===== FINAL READABILITY + CLEAN FOOTER FIX ===== */
+.filter-bar{
+  background:rgba(255,255,255,.88) !important;
+  border-bottom:1px solid rgba(148,163,184,.28) !important;
+  box-shadow:0 8px 24px rgba(15,23,42,.07) !important;
+}
+.flt:not(.active){
+  color:#172033 !important;
+  text-shadow:none !important;
+  font-weight:900 !important;
+}
+.flt:not(.active) .flt-lbl,
+.flt:not(.active) .flt-em,
+.flt:not(.active) .flt-count{
+  color:#172033 !important;
+  text-shadow:none !important;
+  opacity:1 !important;
+}
+.flt:not(.active) .flt-count{
+  background:rgba(255,255,255,.82) !important;
+  border:1px solid rgba(15,23,42,.10) !important;
+  color:#111827 !important;
+}
+.flt-all:not(.active){background:#ede9fe !important;border-color:#8b5cf6 !important;}
+.flt-quiz:not(.active){background:#dbeafe !important;border-color:#818cf8 !important;}
+.flt-word:not(.active){background:#ccfbf1 !important;border-color:#14b8a6 !important;}
+.flt-math:not(.active){background:#ffedd5 !important;border-color:#fb923c !important;}
+.flt-classic:not(.active){background:#e9d5ff !important;border-color:#a855f7 !important;}
+.flt-memory:not(.active){background:#fce7f3 !important;border-color:#ec4899 !important;}
+.flt:not(.active):hover{
+  filter:saturate(1.12) brightness(1.02) !important;
+  color:#0f172a !important;
+  transform:translateY(-2px) !important;
+  box-shadow:0 10px 22px rgba(15,23,42,.12) !important;
+}
+.flt:not(.active):hover .flt-lbl,
+.flt:not(.active):hover .flt-count{color:#0f172a !important;}
+.flt.active .flt-lbl,
+.flt.active .flt-em,
+.flt.active .flt-count{
+  opacity:1 !important;
+  text-shadow:0 1px 2px rgba(0,0,0,.25) !important;
+}
+.flt.active .flt-count{
+  background:rgba(255,255,255,.28) !important;
+  color:#fff !important;
+}
+
+footer{
+  background:linear-gradient(135deg,#dbeafe 0%,#fce7f3 48%,#ffedd5 100%) !important;
+  border-top:1px solid rgba(148,163,184,.25) !important;
+  padding:28px 16px 26px !important;
+  margin-top:36px !important;
+  color:#1e293b !important;
+  box-shadow:0 -10px 30px rgba(15,23,42,.06) !important;
+}
+footer::before{display:none !important;}
+.footer-inner{
+  max-width:1060px !important;
+  background:rgba(255,255,255,.72) !important;
+  border:1px solid rgba(255,255,255,.9) !important;
+  border-radius:22px !important;
+  padding:22px 18px 18px !important;
+  box-shadow:0 14px 34px rgba(15,23,42,.08) !important;
+}
+.footer-logo{
+  font-size:23px !important;
+  line-height:1.2 !important;
+  margin-bottom:6px !important;
+  color:#172033 !important;
+}
+.footer-logo span{color:#ff4fa3 !important;}
+.footer-tagline{
+  color:#475569 !important;
+  font-size:13px !important;
+  margin:0 0 16px !important;
+}
+.footer-links,
+.footer-cats{
+  display:flex !important;
+  justify-content:center !important;
+  align-items:center !important;
+  flex-wrap:wrap !important;
+  gap:9px !important;
+  margin-bottom:13px !important;
+}
+.footer-links a,
+.footer-cats a{
+  color:#243044 !important;
+  background:#fff !important;
+  border:1px solid rgba(148,163,184,.24) !important;
+  border-radius:999px !important;
+  padding:8px 14px !important;
+  text-decoration:none !important;
+  font-size:12px !important;
+  font-weight:800 !important;
+  box-shadow:0 4px 12px rgba(15,23,42,.05) !important;
+}
+.footer-cats a{
+  background:rgba(255,255,255,.62) !important;
+  padding:6px 12px !important;
+  font-size:11px !important;
+}
+.footer-links a:hover,
+.footer-cats a:hover{
+  color:#be123c !important;
+  background:#fff7ed !important;
+  transform:translateY(-1px) !important;
+}
+.footer-info,
+.footer-games,
+.footer-hr{display:none !important;}
+.footer-bottom{
+  border-top:1px solid rgba(148,163,184,.22) !important;
+  padding-top:12px !important;
+  margin-top:4px !important;
+}
+.footer-copy{
+  color:#334155 !important;
+  font-size:12px !important;
+  margin-bottom:6px !important;
+}
+.footer-seo{
+  max-width:760px !important;
+  margin:0 auto !important;
+  color:#64748b !important;
+  font-size:10px !important;
+  line-height:1.65 !important;
+}
+@media(max-width:640px){
+  .filter-inner{grid-template-columns:repeat(2,1fr) !important;}
+  .flt{padding:9px 6px !important;}
+  .flt-lbl{font-size:11px !important;}
+  footer{padding:22px 10px !important;}
+  .footer-inner{border-radius:18px !important;padding:18px 12px 16px !important;}
+  .footer-links a{padding:7px 11px !important;}
 }
 
 </style>
@@ -1121,44 +1258,30 @@ footer::before{
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-logo">🎮 <span>Game</span>Nest World</div>
-    <p class="footer-tagline">51 free browser games · No download required · No account needed · 100% free forever</p>
-    <div class="footer-links">
+    <div class="footer-brand-row">
+      <div class="footer-logo">🎮 <span>Game</span>Nest World</div>
+      <p class="footer-tagline">51 free browser games · No download · No account needed</p>
+    </div>
+
+    <nav class="footer-links" aria-label="Footer links">
       <a href="/about.html">About Us</a>
-      <a href="/blog.html">Game Tips</a>
       <a href="/privacy.html">Privacy Policy</a>
       <a href="/terms.html">Terms of Use</a>
       <a href="/contact.html">Contact Us</a>
+    </nav>
+
+    <nav class="footer-cats" aria-label="Game categories">
+      <a href="/#section-quiz">Quiz</a>
+      <a href="/#section-word">Word</a>
+      <a href="/#section-math">Math</a>
+      <a href="/#section-classic">Classic</a>
+      <a href="/#section-memory">Memory</a>
+    </nav>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 GameNest World · All rights reserved</p>
+      <p class="footer-seo">Free online browser games: 2048, Snake, Tetris, Wordle, Sudoku, Minesweeper, Hangman, Chess, Flappy Bird and Memory Cards.</p>
     </div>
-    <div class="footer-adsense">
-      <p>GameNest World is ad-supported. Ads help us keep all 51 games 100% free for everyone.</p>
-      <p>We use Google AdSense to show relevant ads. By using this site you agree to our
-        <a href="/privacy.html">Privacy Policy</a> and <a href="/terms.html">Terms of Use</a>.
-        To manage ad preferences, visit <a href="https://adssettings.google.com" target="_blank" rel="noopener">Google Ad Settings</a>.
-      </p>
-    </div>
-    <div class="footer-cats">
-      <a href="/#section-quiz">Quiz Games</a>
-      <a href="/#section-word">Word Games</a>
-      <a href="/#section-math">Math Games</a>
-      <a href="/#section-classic">Classic Games</a>
-      <a href="/#section-memory">Memory Games</a>
-    </div>
-    <div class="footer-games">
-      <a href="/2048.html">2048</a>
-      <a href="/snake.html">Snake</a>
-      <a href="/tetris.html">Tetris</a>
-      <a href="/wordle.html">Wordle</a>
-      <a href="/sudoku.html">Sudoku</a>
-      <a href="/minesweeper.html">Minesweeper</a>
-      <a href="/hangman.html">Hangman</a>
-      <a href="/chess.html">Chess</a>
-      <a href="/flappy.html">Flappy Bird</a>
-      <a href="/memory.html">Memory Cards</a>
-    </div>
-    <hr class="footer-hr">
-    <p class="footer-copy">© 2026 GameNest World · All rights reserved · Free Browser Games</p>
-    <p class="footer-seo">free online games · browser games no download · quiz games online · word games free · math games for adults · memory games · brain training games · play 2048 online · snake game · tetris online · wordle game · sudoku free</p>
   </div>
 </footer>
 
@@ -4250,6 +4373,52 @@ function startMines(rows,cols,mines,key){
   window._msBoard=board;window._msRows=rows;window._msCols=cols;window._msMines=mines;window._msKey=key;window._msOver=false;
   renderMines();
 }
+function renderMines(){
+  var g=gw();
+  var b=window._msBoard||[];
+  var rows=window._msRows||6, cols=window._msCols||6, mines=window._msMines||8;
+  if(!g||!b.length)return;
+  var flagged=b.filter(function(c){return c.flagged;}).length;
+  var safeLeft=b.filter(function(c){return !c.mine&&!c.revealed;}).length;
+  var isHard=rows>=10;
+  var maxW=isHard?460:320;
+  var cellSize=isHard?34:42;
+  var h='';
+  h+='<div style="text-align:center;margin-bottom:12px;">';
+  h+='<div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:10px;">';
+  h+='<span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:800;color:#fff;">💣 Mines: '+mines+'</span>';
+  h+='<span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:800;color:#fff;">🚩 Flags: '+flagged+'</span>';
+  h+='<span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:800;color:#fff;">✅ Safe left: '+safeLeft+'</span>';
+  h+='</div>';
+  h+='<div style="font-size:11px;color:rgba(255,255,255,.6);margin-bottom:10px;">Left click: open cell · Right click: flag</div>';
+  h+='</div>';
+  h+='<div style="display:grid;grid-template-columns:repeat('+cols+','+cellSize+'px);gap:5px;justify-content:center;max-width:'+maxW+'px;margin:0 auto;touch-action:manipulation;">';
+  for(var i=0;i<b.length;i++){
+    var c=b[i];
+    var label='';
+    var bg='linear-gradient(135deg,rgba(255,255,255,.22),rgba(255,255,255,.10))';
+    var border='rgba(255,255,255,.28)';
+    var color='#fff';
+    if(c.revealed){
+      bg='rgba(255,255,255,.9)';
+      border='rgba(255,255,255,.65)';
+      color='#312e81';
+      if(c.mine){label='💣';bg='linear-gradient(135deg,#fecaca,#f87171)';color='#7f1d1d';}
+      else if(c.adj>0){label=c.adj;var numColors=['','#2563eb','#16a34a','#dc2626','#7c3aed','#ea580c','#0891b2','#be123c','#111827'];color=numColors[c.adj]||'#111827';}
+    }else if(c.flagged){
+      label='🚩';
+      bg='linear-gradient(135deg,#fde68a,#fbbf24)';
+      color='#78350f';
+      border='rgba(251,191,36,.8)';
+    }
+    h+='<button onclick="msClick('+i+')" oncontextmenu="event.preventDefault();msFlag('+i+');return false;" title="Cell '+(i+1)+'" style="width:'+cellSize+'px;height:'+cellSize+'px;border-radius:10px;border:1px solid '+border+';background:'+bg+';color:'+color+';font-size:'+(isHard?15:18)+'px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.35);user-select:none;">'+label+'</button>';
+  }
+  h+='</div>';
+  h+='<div style="text-align:center;margin-top:14px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;">';
+  h+='<button class="btn" onclick="startMines('+rows+','+cols+','+mines+',\''+(window._msKey||'mines')+'\')" style="padding:8px 14px;font-size:12px;">New Game</button>';
+  h+='</div>';
+  g.innerHTML=h;
+}
 function msClick(i){
   if(window._msOver)return;
   var b=window._msBoard;if(b[i].revealed||b[i].flagged)return;
@@ -5684,9 +5853,9 @@ function gameFlappy(){
    Revenue streams: Rewarded Video, Interstitial, Affiliate
    ══════════════════════════════════════════════════════════ */
 
-/* ── AD CONFIG (Replace with real AdSense after approval) ──
-   AdSense pub-id: ca-pub-3359266836868361
-   For rewarded ads: use AdSense Rewarded API when approved
+/* ── AD CONFIG (Replace with real advertising code after approval) ──
+   Advertising publisher id: ca-pub-3359266836868361
+   For rewarded ads: use rewarded video API when approved
    For now: simulated 5s countdown = same UX as real rewarded ads */
 
 var AD_CONFIG = {
@@ -5772,7 +5941,7 @@ function rewardedModalHTML(r, cd, done) {
     + '<div style="color:#374151;font-size:12px;text-align:center;padding:20px;">'
     + '<div style="font-size:32px;margin-bottom:8px;">📺</div>'
     + '<div>Advertisement</div>'
-    + '<div style="font-size:10px;margin-top:4px;color:#6b7280;">(AdSense Video Ad)</div>'
+    + '<div style="font-size:10px;margin-top:4px;color:#6b7280;">(Video Reward)</div>'
     + '</div>'
     + '<div style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,.7);color:#fff;font-size:11px;padding:3px 8px;border-radius:4px;" id="rwrd-countdown">'+cd+'s</div>'
     + '</div>'
@@ -5808,7 +5977,7 @@ function showInterstitial() { return; /* disabled */
     + '<div style="background:#1a1a2e;border-radius:16px;padding:40px 20px;margin-bottom:16px;">'
     + '<div style="font-size:14px;color:#6b7280;margin-bottom:16px;">Advertisement</div>'
     + '<div style="font-size:48px;margin-bottom:12px;">📺</div>'
-    + '<div style="color:#9ca3af;font-size:13px;">AdSense Interstitial Ad</div>'
+    + '<div style="color:#9ca3af;font-size:13px;">Interstitial Message</div>'
     + '<div style="color:#6b7280;font-size:11px;margin-top:4px;">ca-pub-3359266836868361</div>'
     + '</div>'
     + '<button id="skip-btn" onclick="closeInterstitial()" style="background:#374151;color:#9ca3af;border:none;border-radius:8px;padding:10px 24px;font-size:14px;cursor:pointer;" disabled>'
