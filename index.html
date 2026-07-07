@@ -732,12 +732,29 @@ footer::before{display:none !important;}
       <div class="xp-progress"><div class="xp-bar" id="xp-bar"></div></div>
     </div>
     <div class="streak" id="streak-el">🔥 1 days</div>
-    <select class="lang-sel" onchange="changeLang(this.value)">
+    <select class="lang-sel" onchange="changeLang(this.value)" aria-label="Language selector">
+      <option value="auto">🌍 Auto</option>
       <option value="en">EN English</option><option value="tr">TR Türkçe</option>
       <option value="es">ES Español</option><option value="fr">FR Français</option>
       <option value="de">DE Deutsch</option><option value="pt">PT Português</option>
+      <option value="it">IT Italiano</option><option value="nl">NL Nederlands</option>
+      <option value="pl">PL Polski</option><option value="uk">UK Українська</option>
       <option value="ru">RU Русский</option><option value="ar">AR العربية</option>
+      <option value="fa">FA فارسی</option><option value="he">HE עברית</option>
       <option value="zh">ZH 中文</option><option value="ja">JA 日本語</option>
+      <option value="ko">KO 한국어</option><option value="hi">HI हिन्दी</option>
+      <option value="bn">BN বাংলা</option><option value="ur">UR اردو</option>
+      <option value="id">ID Indonesia</option><option value="ms">MS Melayu</option>
+      <option value="vi">VI Tiếng Việt</option><option value="th">TH ไทย</option>
+      <option value="fil">FIL Filipino</option><option value="el">EL Ελληνικά</option>
+      <option value="ro">RO Română</option><option value="sv">SV Svenska</option>
+      <option value="no">NO Norsk</option><option value="da">DA Dansk</option>
+      <option value="fi">FI Suomi</option><option value="cs">CS Čeština</option>
+      <option value="hu">HU Magyar</option><option value="bg">BG Български</option>
+      <option value="hr">HR Hrvatski</option><option value="sr">SR Српски</option>
+      <option value="sk">SK Slovenčina</option><option value="sl">SL Slovenščina</option>
+      <option value="lt">LT Lietuvių</option><option value="lv">LV Latviešu</option>
+      <option value="et">ET Eesti</option><option value="sw">SW Kiswahili</option>
     </select>
   
     <div class="nav-search"><input type="text" placeholder="Search games..." oninput="searchGames(this.value)"></div></div>
@@ -6569,6 +6586,259 @@ function gameG2048() {
 
 
 
+
+
+
+<!-- GameNest World stability + language + quiz progression patch -->
+<script>
+(function(){
+  'use strict';
+
+  /* --- Wider language list + browser-language auto detect --- */
+  var SUPPORTED_LANGS = ['en','tr','es','fr','de','pt','it','nl','pl','uk','ru','ar','fa','he','zh','ja','ko','hi','bn','ur','id','ms','vi','th','fil','el','ro','sv','no','da','fi','cs','hu','bg','hr','sr','sk','sl','lt','lv','et','sw'];
+  var RTL_LANGS = {ar:1,fa:1,he:1,ur:1};
+  var UI_TEXT = {
+    en:{search:'Search games...',all:'All Games',quiz:'Quiz',word:'Word',math:'Math',classic:'Classic',memory:'Memory',daily:'Daily Challenge',watch:'Watch',play:'Play →',next:'Next question...',great:'Great! ✅',tryAgain:'Try again!',correctWas:'Correct answer:'},
+    tr:{search:'Oyun ara...',all:'Tüm Oyunlar',quiz:'Bilgi',word:'Kelime',math:'Matematik',classic:'Klasik',memory:'Hafıza',daily:'Günlük Görev',watch:'İzle',play:'Oyna →',next:'Sonraki soru...',great:'Harika! ✅',tryAgain:'Tekrar dene!',correctWas:'Doğru cevap:'},
+    es:{search:'Buscar juegos...',all:'Todos',quiz:'Quiz',word:'Palabras',math:'Mate',classic:'Clásicos',memory:'Memoria',daily:'Reto diario',watch:'Ver',play:'Jugar →',next:'Siguiente pregunta...',great:'¡Genial! ✅',tryAgain:'Inténtalo otra vez',correctWas:'Respuesta correcta:'},
+    fr:{search:'Rechercher...',all:'Tous',quiz:'Quiz',word:'Mots',math:'Maths',classic:'Classiques',memory:'Mémoire',daily:'Défi du jour',watch:'Regarder',play:'Jouer →',next:'Question suivante...',great:'Super ! ✅',tryAgain:'Réessaie !',correctWas:'Bonne réponse :'},
+    de:{search:'Spiele suchen...',all:'Alle Spiele',quiz:'Quiz',word:'Wörter',math:'Mathe',classic:'Klassisch',memory:'Gedächtnis',daily:'Tagesaufgabe',watch:'Ansehen',play:'Spielen →',next:'Nächste Frage...',great:'Super! ✅',tryAgain:'Nochmal versuchen!',correctWas:'Richtige Antwort:'},
+    pt:{search:'Buscar jogos...',all:'Todos',quiz:'Quiz',word:'Palavras',math:'Matemática',classic:'Clássicos',memory:'Memória',daily:'Desafio diário',watch:'Assistir',play:'Jogar →',next:'Próxima pergunta...',great:'Ótimo! ✅',tryAgain:'Tente novamente!',correctWas:'Resposta correta:'},
+    ar:{search:'ابحث عن ألعاب...',all:'كل الألعاب',quiz:'اختبار',word:'كلمات',math:'رياضيات',classic:'كلاسيكي',memory:'ذاكرة',daily:'تحدي اليوم',watch:'شاهد',play:'العب →',next:'السؤال التالي...',great:'رائع! ✅',tryAgain:'حاول مرة أخرى!',correctWas:'الإجابة الصحيحة:'},
+    zh:{search:'搜索游戏...',all:'全部游戏',quiz:'问答',word:'文字',math:'数学',classic:'经典',memory:'记忆',daily:'每日挑战',watch:'观看',play:'开始 →',next:'下一题...',great:'太棒了! ✅',tryAgain:'再试一次!',correctWas:'正确答案:'},
+    ja:{search:'ゲーム検索...',all:'すべて',quiz:'クイズ',word:'単語',math:'数学',classic:'定番',memory:'記憶',daily:'デイリー',watch:'見る',play:'遊ぶ →',next:'次の問題...',great:'すごい! ✅',tryAgain:'もう一度!',correctWas:'正解:'},
+    ko:{search:'게임 검색...',all:'전체 게임',quiz:'퀴즈',word:'단어',math:'수학',classic:'클래식',memory:'기억',daily:'오늘의 도전',watch:'보기',play:'시작 →',next:'다음 문제...',great:'좋아요! ✅',tryAgain:'다시 시도!',correctWas:'정답:'}
+  };
+  function normalizeLang(code){
+    code = (code || 'en').toLowerCase();
+    if(code.indexOf('zh')===0) return 'zh';
+    if(code.indexOf('pt')===0) return 'pt';
+    if(code.indexOf('fil')===0 || code.indexOf('tl')===0) return 'fil';
+    var base = code.split('-')[0];
+    return SUPPORTED_LANGS.indexOf(base) >= 0 ? base : 'en';
+  }
+  function detectLang(){
+    var list = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || navigator.userLanguage || 'en'];
+    for(var i=0;i<list.length;i++){ var l = normalizeLang(list[i]); if(l) return l; }
+    return 'en';
+  }
+  function getUIText(lang){ return UI_TEXT[lang] || UI_TEXT.en; }
+  window.applyGameNestLanguage = function(lang){
+    lang = normalizeLang(lang);
+    var t = getUIText(lang);
+    document.documentElement.lang = lang;
+    document.documentElement.dir = RTL_LANGS[lang] ? 'rtl' : 'ltr';
+    var search = document.querySelector('.nav-search input'); if(search) search.placeholder = t.search;
+    var labels = {all:t.all, quiz:t.quiz, word:t.word, math:t.math, classic:t.classic, memory:t.memory};
+    document.querySelectorAll('.flt').forEach(function(btn){
+      var cat = btn.getAttribute('data-cat');
+      var span = btn.querySelector('.flt-lbl');
+      if(span && labels[cat]) span.textContent = labels[cat];
+    });
+    var dailyBadge = document.querySelector('.daily-badge'); if(dailyBadge) dailyBadge.textContent = '🔥 ' + t.daily;
+    var dailyBtn = document.getElementById('daily-btn'); if(dailyBtn) dailyBtn.textContent = t.play;
+    document.querySelectorAll('.watch-btn').forEach(function(b){ if(b.textContent.trim()) b.textContent = '▶ ' + t.watch; });
+    var sel = document.querySelector('.lang-sel');
+    if(sel && sel.value !== lang && [].slice.call(sel.options).some(function(o){return o.value===lang;})) sel.value = lang;
+  };
+  window.changeLang = function(lang){
+    if(lang === 'auto'){
+      localStorage.removeItem('gnw_lang');
+      lang = detectLang();
+    } else {
+      lang = normalizeLang(lang);
+      localStorage.setItem('gnw_lang', lang);
+    }
+    window.applyGameNestLanguage(lang);
+  };
+  document.addEventListener('DOMContentLoaded', function(){
+    var selected = localStorage.getItem('gnw_lang') || detectLang();
+    window.applyGameNestLanguage(selected);
+  });
+
+  /* --- Safe quiz progression fix: answer -> feedback -> next question --- */
+  function t(){ return getUIText(normalizeLang(localStorage.getItem('gnw_lang') || detectLang())); }
+  function clearGameTimers(){
+    ['_cqTimer','_fqTimer','_tfTimer','_mbTimer','_genTimer','_geoTimer','_sciTimer','_histTimer','_movieTimer','_expertTimer'].forEach(function(k){
+      if(window[k]){ try{ clearInterval(window[k]); clearTimeout(window[k]); }catch(e){} window[k]=null; }
+    });
+  }
+  function nextGame(fn, delay){
+    setTimeout(function(){
+      try{ window._gnwAnswerLocked = false; fn(); }
+      catch(e){
+        window._gnwAnswerLocked = false;
+        var g = (typeof gw === 'function') ? gw() : document.getElementById('gw');
+        if(g){ g.innerHTML = '<div style="text-align:center;padding:28px;color:#172033;"><div style="font-size:42px;">⚠️</div><div style="font-weight:900;margin:8px 0;">Game reload needed</div><button class="g-btn" onclick="openGame(_currentGame||\'colorquiz\')">Retry</button></div>'; }
+        console.error('Next game failed:', e);
+      }
+    }, delay || 800);
+  }
+  function levelWin(gameKey, maxLevel, xp){
+    var ok = false;
+    try{ if(window._LVL){ _LVL.win(xp || 20); ok = true; } }catch(e){ console.warn('Level win fallback:', e); }
+    if(!ok){
+      try{
+        var lv = +(localStorage.getItem('lvl_'+gameKey) || 1);
+        localStorage.setItem('lvl_'+gameKey, Math.min(maxLevel || 50, lv + 1));
+        if(typeof earnXP === 'function') earnXP(xp || 20, gameKey);
+        if(typeof playSound === 'function') playSound('score');
+      }catch(e){}
+    }
+  }
+  function levelLose(){
+    try{ return window._LVL ? _LVL.lose() : true; }
+    catch(e){ console.warn('Level lose fallback:', e); return true; }
+  }
+  function markAnswer(correctText, chosenText){
+    var g = (typeof gw === 'function') ? gw() : document.getElementById('gw');
+    if(!g) return;
+    g.querySelectorAll('button[data-answer]').forEach(function(b){
+      b.disabled = true;
+      b.style.pointerEvents = 'none';
+      b.style.cursor = 'not-allowed';
+      var val = b.getAttribute('data-answer');
+      if(val === correctText){
+        b.style.background = '#22c55e'; b.style.color = '#fff'; b.style.borderColor = '#22c55e'; b.style.opacity = '1';
+      } else if(val === chosenText){
+        b.style.background = '#ef4444'; b.style.color = '#fff'; b.style.borderColor = '#ef4444'; b.style.opacity = '1';
+      } else { b.style.opacity = '.45'; }
+    });
+  }
+  function feedback(msg, good){
+    var g = (typeof gw === 'function') ? gw() : document.getElementById('gw');
+    if(!g) return;
+    var old = document.getElementById('gnw-answer-feedback'); if(old) old.remove();
+    var div = document.createElement('div');
+    div.id = 'gnw-answer-feedback';
+    div.style.cssText = 'margin-top:12px;text-align:center;border-radius:14px;padding:10px 12px;font-weight:900;color:#172033;background:'+(good?'#dcfce7':'#fee2e2')+';border:2px solid '+(good?'#22c55e':'#ef4444')+';box-shadow:0 8px 18px rgba(15,23,42,.10);';
+    div.textContent = msg;
+    g.appendChild(div);
+  }
+  function safeText(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function jsArg(s){ return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+  function header(title, color){
+    try{ return _LVL.renderHeader(title, color); }
+    catch(e){ return '<div style="font-size:18px;font-weight:900;color:#172033;margin-bottom:12px;">'+title+'</div>'; }
+  }
+
+  window.gameColorQuiz = function(){
+    window._gnwAnswerLocked = false; clearGameTimers();
+    _LVL.init('colorquiz', 40);
+    var ALL_COLORS = [
+      {hex:'#ff0000',name:'Red'},{hex:'#00c853',name:'Green'},{hex:'#0000ff',name:'Blue'},
+      {hex:'#ffd600',name:'Yellow'},{hex:'#ff00ff',name:'Magenta'},{hex:'#00bcd4',name:'Cyan'},
+      {hex:'#ff8000',name:'Orange'},{hex:'#8b5cf6',name:'Purple'},{hex:'#00ff80',name:'Spring Green'},
+      {hex:'#ff0080',name:'Rose'},{hex:'#0080ff',name:'Azure'},{hex:'#80ff00',name:'Chartreuse'},
+      {hex:'#800000',name:'Maroon'},{hex:'#008000',name:'Dark Green'},{hex:'#000080',name:'Navy'},
+      {hex:'#808000',name:'Olive'},{hex:'#008080',name:'Teal'},{hex:'#e74c3c',name:'Crimson'},
+      {hex:'#f39c12',name:'Amber'},{hex:'#1abc9c',name:'Turquoise'},{hex:'#3498db',name:'Sky Blue'},
+      {hex:'#9b59b6',name:'Amethyst'},{hex:'#bdc3c7',name:'Silver'},{hex:'#f8bbd0',name:'Pink'}
+    ];
+    var level = _LVL.level || 1;
+    var pool = ALL_COLORS.slice(0, Math.min(ALL_COLORS.length, 8 + Math.floor(level * .75)));
+    var correct = pool[Math.floor(Math.random()*pool.length)];
+    var numOpts = Math.min(6, 2 + Math.floor(level/8));
+    var opts = [correct];
+    while(opts.length < numOpts){ var c = pool[Math.floor(Math.random()*pool.length)]; if(!opts.some(function(o){return o.name===c.name;})) opts.push(c); }
+    opts.sort(function(){return Math.random()-.5;});
+    var g = (typeof gw === 'function') ? gw() : document.getElementById('gw'); if(!g) return;
+    var h = header('🎨 Color Quiz', '#818cf8');
+    h += '<div style="text-align:center;margin-bottom:16px;">';
+    h += '<div style="width:140px;height:140px;border-radius:50%;background:'+correct.hex+';margin:0 auto 12px;box-shadow:0 10px 30px '+correct.hex+'77;border:6px solid rgba(255,255,255,.72);"></div>';
+    h += '<div style="font-size:16px;font-weight:900;margin-bottom:8px;color:#172033;">What color is this?</div></div>';
+    h += '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;">';
+    opts.forEach(function(opt){
+      h += '<button type="button" data-answer="'+safeText(opt.name)+'" onclick="gnwColorAnswer(\''+jsArg(opt.name)+'\')" style="pointer-events:auto;padding:14px;border-radius:14px;border:2px solid #dbeafe;background:#fff;cursor:pointer;font-size:14px;font-weight:900;color:#172033;transition:all .15s;">'+safeText(opt.name)+'</button>';
+    });
+    h += '</div>';
+    g.innerHTML = h;
+    window.gnwColorAnswer = function(name){
+      if(window._gnwAnswerLocked) return; window._gnwAnswerLocked = true; clearGameTimers();
+      markAnswer(correct.name, name);
+      if(name === correct.name){ levelWin('colorquiz', 40, 20); if(typeof showScorePop==='function') showScorePop('+20'); feedback(t().great+' '+t().next, true); nextGame(window.gameColorQuiz, 750); }
+      else { var alive = levelLose(); feedback(t().correctWas+' '+correct.name, false); if(alive) nextGame(window.gameColorQuiz, 1200); else window._gnwAnswerLocked=false; }
+    };
+  };
+
+  window.gameFlagQuiz = function(){
+    window._gnwAnswerLocked = false; clearGameTimers();
+    _LVL.init('flagquiz', 50);
+    var ALL_FLAGS = [
+      {flag:'🇺🇸',name:'USA'},{flag:'🇬🇧',name:'United Kingdom'},{flag:'🇫🇷',name:'France'},{flag:'🇩🇪',name:'Germany'},{flag:'🇯🇵',name:'Japan'},{flag:'🇨🇳',name:'China'},
+      {flag:'🇧🇷',name:'Brazil'},{flag:'🇮🇹',name:'Italy'},{flag:'🇨🇦',name:'Canada'},{flag:'🇦🇺',name:'Australia'},{flag:'🇪🇸',name:'Spain'},{flag:'🇲🇽',name:'Mexico'},
+      {flag:'🇷🇺',name:'Russia'},{flag:'🇮🇳',name:'India'},{flag:'🇰🇷',name:'South Korea'},{flag:'🇸🇦',name:'Saudi Arabia'},{flag:'🇦🇷',name:'Argentina'},{flag:'🇿🇦',name:'South Africa'},
+      {flag:'🇹🇷',name:'Turkey'},{flag:'🇳🇱',name:'Netherlands'},{flag:'🇸🇪',name:'Sweden'},{flag:'🇳🇴',name:'Norway'},{flag:'🇩🇰',name:'Denmark'},{flag:'🇫🇮',name:'Finland'},
+      {flag:'🇵🇹',name:'Portugal'},{flag:'🇬🇷',name:'Greece'},{flag:'🇵🇱',name:'Poland'},{flag:'🇺🇦',name:'Ukraine'},{flag:'🇨🇭',name:'Switzerland'},{flag:'🇦🇹',name:'Austria'},
+      {flag:'🇧🇪',name:'Belgium'},{flag:'🇨🇿',name:'Czech Republic'},{flag:'🇭🇺',name:'Hungary'},{flag:'🇷🇴',name:'Romania'},{flag:'🇧🇬',name:'Bulgaria'},{flag:'🇭🇷',name:'Croatia'},
+      {flag:'🇸🇰',name:'Slovakia'},{flag:'🇸🇮',name:'Slovenia'},{flag:'🇱🇹',name:'Lithuania'},{flag:'🇱🇻',name:'Latvia'},{flag:'🇪🇪',name:'Estonia'},{flag:'🇮🇸',name:'Iceland'},
+      {flag:'🇮🇪',name:'Ireland'},{flag:'🇳🇿',name:'New Zealand'},{flag:'🇸🇬',name:'Singapore'},{flag:'🇲🇾',name:'Malaysia'},{flag:'🇹🇭',name:'Thailand'},{flag:'🇻🇳',name:'Vietnam'},
+      {flag:'🇵🇭',name:'Philippines'},{flag:'🇮🇩',name:'Indonesia'}
+    ];
+    var level = _LVL.level || 1;
+    var pool = ALL_FLAGS.slice(0, Math.min(ALL_FLAGS.length, 5 + level));
+    var correct = pool[Math.floor(Math.random()*pool.length)];
+    var opts = [correct], numOpts = Math.min(6, 3 + Math.floor(level/10));
+    while(opts.length < numOpts){ var f = pool[Math.floor(Math.random()*pool.length)]; if(!opts.some(function(o){return o.name===f.name;})) opts.push(f); }
+    opts.sort(function(){return Math.random()-.5;});
+    var g = (typeof gw === 'function') ? gw() : document.getElementById('gw'); if(!g) return;
+    var h = header('🏳️ Flag Quiz', '#4ade80');
+    h += '<div style="text-align:center;margin-bottom:16px;"><div style="font-size:96px;margin-bottom:8px;line-height:1;filter:drop-shadow(0 8px 16px rgba(15,23,42,.12));">'+correct.flag+'</div><div style="font-size:15px;font-weight:800;color:#64748b;">Which country is this flag?</div></div>';
+    h += '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;">';
+    opts.forEach(function(opt){ h += '<button type="button" data-answer="'+safeText(opt.name)+'" onclick="gnwFlagAnswer(\''+jsArg(opt.name)+'\')" style="pointer-events:auto;padding:14px;border-radius:14px;border:2px solid #dbeafe;background:#fff;cursor:pointer;font-size:14px;font-weight:900;color:#172033;transition:all .15s;">'+safeText(opt.name)+'</button>'; });
+    h += '</div>'; g.innerHTML = h;
+    window.gnwFlagAnswer = function(name){
+      if(window._gnwAnswerLocked) return; window._gnwAnswerLocked = true;
+      markAnswer(correct.name, name);
+      if(name === correct.name){ levelWin('flagquiz', 50, 25); if(typeof showScorePop==='function') showScorePop('+25'); feedback(t().great+' '+t().next, true); nextGame(window.gameFlagQuiz, 750); }
+      else { var alive = levelLose(); feedback(t().correctWas+' '+correct.name, false); if(alive) nextGame(window.gameFlagQuiz, 1200); else window._gnwAnswerLocked=false; }
+    };
+  };
+
+  window.gameTrueFalse = function(){
+    window._gnwAnswerLocked = false; clearGameTimers();
+    _LVL.init('truefalse', 50);
+    var FACTS = [
+      ['The sky is blue.',true],['Fish can fly.',false],['The sun is a star.',true],['Cats have 6 legs.',false],['Water boils at 100°C.',true],['The moon is a planet.',false],['Humans have 5 senses.',true],['A triangle has 4 sides.',false],['Dogs are mammals.',true],['Ice is hotter than fire.',false],
+      ['The Earth orbits the Sun.',true],['Sound travels faster than light.',false],['Diamonds are made of carbon.',true],['Whales are fish.',false],['Bats are blind.',false],['DNA stands for deoxyribonucleic acid.',true],['Spiders have 8 legs.',true],['Penguins live in the Arctic.',false],
+      ['Light travels at about 299,792 km/s.',true],['The human body has 206 bones.',true],['Photosynthesis produces oxygen.',true],['Goldfish have a 3-second memory.',false],['Honey never expires.',true],['The Eiffel Tower was built in 1889.',true],['Butterflies taste with their feet.',true],
+      ['A day on Venus is longer than its year.',true],['Oxford University is older than the Aztec Empire.',true],['Nintendo was founded in 1889.',true],['Bananas are technically berries.',true],['Strawberries are not berries.',true]
+    ];
+    var level = _LVL.level || 1;
+    var fact = FACTS[Math.floor(Math.random()*Math.min(FACTS.length, level+7))];
+    var stmt = fact[0], ans = fact[1];
+    var g = (typeof gw === 'function') ? gw() : document.getElementById('gw'); if(!g) return;
+    var h = header('✅ True or False', '#22c55e');
+    h += '<div style="background:rgba(255,255,255,.82);border-radius:18px;padding:24px;margin-bottom:20px;min-height:82px;display:flex;align-items:center;justify-content:center;text-align:center;border:1px solid rgba(255,255,255,.9);"><div style="font-size:17px;font-weight:900;line-height:1.5;color:#172033;">'+safeText(stmt)+'</div></div>';
+    h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">';
+    h += '<button type="button" data-answer="true" onclick="gnwTFAnswer(true)" style="pointer-events:auto;padding:21px;border-radius:16px;background:#22c55e;color:#fff;font-size:20px;font-weight:900;border:2px solid #22c55e;cursor:pointer;transition:all .15s;">✅ TRUE</button>';
+    h += '<button type="button" data-answer="false" onclick="gnwTFAnswer(false)" style="pointer-events:auto;padding:21px;border-radius:16px;background:#ef4444;color:#fff;font-size:20px;font-weight:900;border:2px solid #ef4444;cursor:pointer;transition:all .15s;">❌ FALSE</button>';
+    h += '</div>'; g.innerHTML = h;
+    window.gnwTFAnswer = function(val){
+      if(window._gnwAnswerLocked) return; window._gnwAnswerLocked = true; clearGameTimers();
+      markAnswer(String(ans), String(val));
+      if(val === ans){ levelWin('truefalse', 50, 20); if(typeof showScorePop==='function') showScorePop('+20'); feedback(t().great+' '+t().next, true); nextGame(window.gameTrueFalse, 700); }
+      else { var alive = levelLose(); feedback(t().correctWas+' '+(ans?'TRUE':'FALSE'), false); if(alive) nextGame(window.gameTrueFalse, 1200); else window._gnwAnswerLocked=false; }
+    };
+  };
+
+  /* Replace old game registry pointers with fixed versions. */
+  function installFixedGames(){
+    if(window.GAMES){
+      GAMES.colorquiz = window.gameColorQuiz;
+      GAMES.flagquiz = window.gameFlagQuiz;
+      GAMES.truefalse = window.gameTrueFalse;
+    }
+  }
+  installFixedGames();
+  document.addEventListener('DOMContentLoaded', installFixedGames);
+
+  /* Make answer buttons always clickable unless our answer lock intentionally disables them. */
+  var st = document.createElement('style');
+  st.textContent = '#gw button[data-answer]{pointer-events:auto!important;user-select:none!important;touch-action:manipulation!important;}#gw button[data-answer]:not(:disabled):hover{transform:translateY(-2px) scale(1.015)!important;box-shadow:0 10px 20px rgba(15,23,42,.10)!important;}';
+  document.head.appendChild(st);
+})();
+</script>
 
 </body>
 </html>
