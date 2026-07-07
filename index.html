@@ -1,7 +1,12 @@
+<!-- GameNest World v8 | Build 202607060938 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="version" content="202607060938">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <title>Free Online Games - Play 51 Browser Games | GameNest World</title>
 <meta name="description" content="Play 51 free online browser games instantly - no download, no signup! 2048, Sudoku, Snake, Tetris, Flappy Bird, Chess, Wordle, Hangman, Minesweeper, Word Search, Math games, Quiz games. 100% free forever!">
@@ -40,329 +45,137 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Are GameNest World games really free?","acceptedAnswer":{"@type":"Answer","text":"Yes! All 51 games are 100% free, forever. No download, no signup needed."}},{"@type":"Question","name":"Do I need to download anything?","acceptedAnswer":{"@type":"Answer","text":"No download needed. All games run in your browser on any device."}},{"@type":"Question","name":"Can I play on mobile?","acceptedAnswer":{"@type":"Answer","text":"Yes! All games are mobile-friendly with touch controls."}}]}</script>
 
 <style>
-/* ═══════════════════════════════════════════════════
-   GAMENEST WORLD - Clean Dark Theme CSS
-   ═══════════════════════════════════════════════════ */
-
-/* RESET */
 *{box-sizing:border-box;margin:0;padding:0;}
-
-/* VARIABLES */
-:root{
-  --bg:#0f0c29;
-  --bg2:#1a1733;
-  --surface:rgba(255,255,255,.06);
-  --border:rgba(255,255,255,.12);
-  --text:#ffffff;
-  --muted:rgba(255,255,255,.5);
-  --accent:#6366f1;
-  --accent2:#818cf8;
-  --green:#22c55e;
-  --orange:#f97316;
-  --pink:#ec4899;
-  --purple:#8b5cf6;
-  --r:14px;
-}
-
-/* BODY - Dark gradient background */
-body{
-  font-family:'Inter','Plus Jakarta Sans',sans-serif;
-  background:linear-gradient(135deg,#0f0c29 0%,#1a1040 50%,#0d1b2a 100%);
-  background-attachment:fixed;
-  color:var(--text);
-  min-height:100vh;
-}
-
-/* Subtle ambient glow */
-body::after{
-  content:'';
-  position:fixed;
-  inset:0;
-  background:
-    radial-gradient(ellipse at 20% 30%,rgba(99,102,241,.12) 0%,transparent 60%),
-    radial-gradient(ellipse at 80% 70%,rgba(139,92,246,.10) 0%,transparent 60%);
-  pointer-events:none;
-  z-index:0;
-}
-
-/* All main content above background */
-nav,section,.hero,.filter-bar,.search-wrap,
-.gami-strip,footer,#toast,.achievement-popup{
-  position:relative;z-index:1;
-}
-
-/* ── NAV ── */
-.nav{
-  position:sticky;top:0;z-index:100;
-  background:rgba(15,12,41,.85);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
-  padding:0 20px;
-}
-.nav-inner{
-  max-width:1200px;margin:0 auto;height:52px;
-  display:flex;align-items:center;gap:10px;
-}
-.logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:900;color:#fff;text-decoration:none;}
-.logo span{color:var(--accent2);}
-.logo-badge{background:rgba(34,197,94,.2);color:#4ade80;border:1px solid rgba(74,222,128,.3);font-size:10px;font-weight:800;padding:2px 8px;border-radius:99px;margin-left:4px;}
-.xp-pill{background:rgba(255,255,255,.08);border:1px solid var(--border);border-radius:99px;padding:4px 12px;font-size:12px;font-weight:700;color:rgba(255,255,255,.9);display:flex;align-items:center;gap:6px;min-width:140px;}
-.xp-progress{flex:1;height:4px;background:rgba(255,255,255,.1);border-radius:99px;overflow:hidden;}
-.xp-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px;width:10%;transition:width .4s;}
-.streak{font-size:12px;font-weight:700;color:#fb923c;}
-.lang-sel{margin-left:auto;padding:5px 10px;border:1px solid var(--border);border-radius:8px;font-size:12px;font-family:inherit;background:rgba(255,255,255,.06);color:#fff;cursor:pointer;}
-.nav-search{flex:1;max-width:240px;margin:0 6px;}
-.nav-search input{width:100%;padding:7px 12px;border-radius:20px;border:1px solid var(--border);background:rgba(255,255,255,.08);color:#fff;font-size:12px;font-family:inherit;outline:none;}
-.nav-search input::placeholder{color:rgba(255,255,255,.3);}
-.nav-search input:focus{border-color:var(--accent);background:rgba(255,255,255,.12);}
-
-/* ── FILTER BAR ── */
-.filter-bar{
-  background:rgba(15,12,41,.7);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--border);
-  position:sticky;top:52px;z-index:90;
-}
-.filter-inner{
-  max-width:1160px;margin:0 auto;
-  padding:10px 20px;
-  display:flex;gap:8px;align-items:center;
-  overflow-x:auto;scrollbar-width:none;
-}
+:root{--bg:#07050f;--s1:rgba(255,255,255,.06);--s2:rgba(255,255,255,.10);--border:rgba(255,255,255,.09);--text:#fff;--muted:rgba(255,255,255,.45);--accent:#7c3aed;}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 60% 50% at 10% 20%,rgba(124,58,237,.18) 0%,transparent 70%),radial-gradient(ellipse 50% 60% at 90% 80%,rgba(236,72,153,.12) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 60% 50%,rgba(59,130,246,.07) 0%,transparent 70%);pointer-events:none;}
+nav,section,.hero,.filter-bar,.gami-strip,footer,#toast,.achievement-popup{position:relative;z-index:1;}
+/* NAV */
+.nav{position:sticky;top:0;z-index:200;background:rgba(7,5,15,.88);backdrop-filter:blur(24px);border-bottom:1px solid rgba(255,255,255,.07);padding:0 16px;}
+.nav-inner{max-width:1240px;margin:0 auto;height:54px;display:flex;align-items:center;gap:10px;}
+.logo{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:21px;font-weight:900;color:#fff;text-decoration:none;letter-spacing:-.3px;}
+.logo span{color:#a78bfa;}
+.logo-badge{background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;margin-left:4px;letter-spacing:.04em;text-transform:uppercase;}
+.xp-pill{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:99px;padding:4px 12px;font-size:11px;font-weight:700;color:rgba(255,255,255,.85);display:flex;align-items:center;gap:7px;min-width:150px;}
+.xp-progress{flex:1;height:3px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden;}
+.xp-bar{height:100%;background:linear-gradient(90deg,#7c3aed,#ec4899);border-radius:99px;width:10%;transition:width .5s;}
+.streak{font-size:12px;font-weight:700;color:#f97316;}
+.lang-sel{margin-left:auto;padding:5px 10px;border:1px solid rgba(255,255,255,.1);border-radius:8px;font-size:12px;font-family:inherit;background:rgba(255,255,255,.06);color:#fff;cursor:pointer;}
+.nav-search{max-width:200px;flex:1;}
+.search-inp,.nav-search input{width:100%;padding:6px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.07);color:#fff;font-size:12px;font-family:inherit;outline:none;}
+.search-inp::placeholder,.nav-search input::placeholder{color:rgba(255,255,255,.3);}
+.search-inp:focus,.nav-search input:focus{border-color:#7c3aed;background:rgba(124,58,237,.12);}
+/* FILTER BAR */
+.filter-bar{position:sticky;top:54px;z-index:100;background:rgba(7,5,15,.88);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.06);}
+.filter-inner{max-width:1240px;margin:0 auto;padding:8px 16px;display:flex;gap:6px;align-items:center;overflow-x:auto;scrollbar-width:none;}
 .filter-inner::-webkit-scrollbar{display:none;}
-.flt{
-  padding:7px 16px;border-radius:99px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.06);
-  color:rgba(255,255,255,.7);
-  font-size:13px;font-weight:700;
-  cursor:pointer;white-space:nowrap;font-family:inherit;
-  transition:all .2s;
-}
-.flt:hover{background:rgba(255,255,255,.12);color:#fff;}
-.flt.active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 4px 16px rgba(99,102,241,.4);}
-.flt-word.active{background:#16a34a;border-color:#16a34a;box-shadow:0 4px 16px rgba(22,163,74,.4);}
-.flt-math.active{background:#ea580c;border-color:#ea580c;box-shadow:0 4px 16px rgba(234,88,12,.4);}
-.flt-classic.active{background:#7c3aed;border-color:#7c3aed;box-shadow:0 4px 16px rgba(124,58,237,.4);}
-.flt-memory.active{background:#be185d;border-color:#be185d;box-shadow:0 4px 16px rgba(190,24,93,.4);}
-
-/* ── HERO ── */
-.hero{text-align:center;padding:40px 20px 32px;max-width:700px;margin:0 auto;}
-.hero-badge{
-  display:inline-flex;align-items:center;gap:6px;
-  background:rgba(255,255,255,.06);border:1px solid var(--border);
-  border-radius:99px;padding:5px 14px;
-  font-size:12px;font-weight:700;color:rgba(255,255,255,.5);
-  margin-bottom:16px;
-}
-.hero-title{
-  font-family:'Plus Jakarta Sans',sans-serif;
-  font-size:clamp(32px,5vw,52px);
-  font-weight:900;line-height:1.1;margin-bottom:12px;
-}
-.hero-title .purple{color:var(--accent2);text-shadow:0 0 30px rgba(99,102,241,.4);}
-.hero-title .green{color:#4ade80;text-shadow:0 0 30px rgba(34,197,94,.4);}
-.hero-sub{font-size:16px;color:rgba(255,255,255,.55);margin-bottom:24px;line-height:1.6;}
-.hero-stats{display:flex;justify-content:center;gap:32px;margin-top:24px;}
-.hnum{text-align:center;}
-.hnum-n{font-size:28px;font-weight:900;color:#fff;}
-.hnum-l{font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.06em;margin-top:2px;}
-
-/* ── BUTTONS ── */
-.btn{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:12px 24px;border-radius:12px;border:none;
-  background:linear-gradient(135deg,var(--accent),var(--purple));
-  color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;
-  box-shadow:0 4px 20px rgba(99,102,241,.4);
-  transition:all .2s;position:relative;overflow:hidden;
-}
-.btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(99,102,241,.5);}
-.btn-sec{background:rgba(255,255,255,.1)!important;color:rgba(255,255,255,.8)!important;border:1px solid var(--border)!important;box-shadow:none!important;}
-.btn-sec:hover{background:rgba(255,255,255,.15)!important;}
-
-/* ── GAMI STRIP ── */
-.gami-strip{
-  display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:14px;
-  max-width:1160px;margin:0 auto;padding:0 20px 20px;
-}
-@media(max-width:768px){.gami-strip{grid-template-columns:1fr;}}
-.daily-card,.tourney-card,.watch-card{
-  background:rgba(255,255,255,.05);
-  border:1px solid var(--border);border-radius:16px;padding:16px;
-}
-.watch-card{background:rgba(245,158,11,.12);border-color:rgba(251,191,36,.25);}
-.daily-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(245,158,11,.2);color:#fbbf24;font-size:11px;font-weight:800;padding:3px 10px;border-radius:99px;margin-bottom:8px;}
-.tourney-badge{display:inline-block;background:rgba(139,92,246,.2);color:#c084fc;font-size:11px;font-weight:800;padding:3px 10px;border-radius:99px;margin-bottom:8px;}
-.tourney-title{font-size:16px;font-weight:800;color:#fff;margin-bottom:4px;}
-.tourney-prize{font-size:12px;color:rgba(255,255,255,.5);margin-bottom:8px;}
-.tourney-btn{background:linear-gradient(135deg,#7c3aed,#8b5cf6);color:#fff;border:none;border-radius:10px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;width:100%;}
-.watch-btn{background:linear-gradient(135deg,#d97706,#f59e0b);color:#fff;border:none;border-radius:10px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;width:100%;}
-
-/* ── SECTIONS ── */
-.sec-hdr{display:flex;align-items:center;gap:10px;max-width:1160px;margin:0 auto;padding:20px 20px 12px;}
-.sec-ttl h2{margin:0;font-size:18px;font-weight:900;color:#fff;}
-.sec-cnt{color:rgba(255,255,255,.3);font-size:13px;}
-.sec-line{flex:1;height:1px;background:var(--border);}
-.sec-badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;opacity:.8;}
-
-/* ── GAME CARDS ── */
-.game-card{
-  background:rgba(255,255,255,.06);
-  border:1px solid var(--border);
-  border-radius:16px;padding:16px 12px 14px;
-  cursor:pointer;text-align:center;position:relative;
-  transition:all .25s cubic-bezier(.34,1.56,.64,1);
-  overflow:hidden;
-}
-.game-card::before{
-  content:'';position:absolute;
-  top:-60%;left:-60%;width:60%;height:200%;
-  background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.06) 50%,transparent 60%);
-  transition:left .5s;pointer-events:none;
-}
-.game-card:hover::before{left:160%;}
-.game-card:hover{
-  transform:translateY(-8px) scale(1.04);
-  background:rgba(255,255,255,.1);
-}
-.c-quiz:hover{box-shadow:0 0 20px rgba(99,102,241,.4),0 16px 32px rgba(0,0,0,.3);border-color:#818cf8;}
-.c-word:hover{box-shadow:0 0 20px rgba(34,197,94,.4),0 16px 32px rgba(0,0,0,.3);border-color:#4ade80;}
-.c-math:hover{box-shadow:0 0 20px rgba(249,115,22,.4),0 16px 32px rgba(0,0,0,.3);border-color:#fb923c;}
-.c-classic:hover{box-shadow:0 0 20px rgba(139,92,246,.4),0 16px 32px rgba(0,0,0,.3);border-color:#a78bfa;}
-.c-memory:hover{box-shadow:0 0 20px rgba(236,72,153,.4),0 16px 32px rgba(0,0,0,.3);border-color:#f472b6;}
-.game-card .g-iw{
-  width:56px;height:56px;border-radius:14px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:28px;margin:0 auto 8px;
-  transition:transform .3s cubic-bezier(.34,1.56,.64,1);
-}
-.game-card:hover .g-iw{transform:scale(1.2) rotate(-5deg);}
-.c-quiz .g-iw{background:rgba(99,102,241,.2);}
-.c-word .g-iw{background:rgba(34,197,94,.2);}
-.c-math .g-iw{background:rgba(249,115,22,.2);}
-.c-classic .g-iw{background:rgba(139,92,246,.2);}
-.c-memory .g-iw{background:rgba(236,72,153,.2);}
-.c-quiz .g-name{color:var(--accent2);}
-.c-word .g-name{color:#4ade80;}
-.c-math .g-name{color:#fb923c;}
-.c-classic .g-name{color:#c084fc;}
-.c-memory .g-name{color:#f472b6;}
-.g-name{font-size:12px;font-weight:800;margin-bottom:3px;}
-.g-desc{font-size:10px;color:rgba(255,255,255,.4);}
-.g-hot{position:absolute;top:-8px;left:8px;background:linear-gradient(135deg,#ef4444,#f97316);color:#fff;font-size:9px;font-weight:900;padding:2px 7px;border-radius:99px;}
-
-/* ── GAME GRID ── */
-.game-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));
-  gap:10px;max-width:1160px;margin:0 auto;padding:0 20px 16px;
-}
-
-/* ── ACHIEVEMENTS & LEADERBOARD ── */
-.ach-item{
-  background:rgba(255,255,255,.05);border:1px solid var(--border);
-  border-radius:12px;padding:14px;text-align:center;
-  transition:all .2s;
-}
-.ach-item:hover{background:rgba(255,255,255,.1);transform:translateY(-3px);}
-.lb-item{
-  display:flex;align-items:center;padding:10px 0;
-  border-bottom:1px solid rgba(255,255,255,.05);color:#fff;
-}
-
-/* ── OVERLAY & MODAL ── */
-.overlay{
-  display:none;position:fixed;inset:0;
-  background:rgba(0,0,0,.82);backdrop-filter:blur(12px);
-  z-index:2000;align-items:center;justify-content:center;
-  padding:20px;box-sizing:border-box;
-}
+/* COLORFUL FILTER BUTTONS */
+.flt{display:flex;align-items:center;gap:6px;padding:8px 16px;border-radius:12px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:rgba(255,255,255,.75);font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit;transition:all .2s cubic-bezier(.34,1.56,.64,1);}
+.flt-icon{font-size:16px;}
+.flt:hover{transform:translateY(-2px);background:rgba(255,255,255,.12);color:#fff;}
+.flt[data-cat="all"].active,.flt.active{background:linear-gradient(135deg,#7c3aed,#a855f7);border-color:#7c3aed;color:#fff;box-shadow:0 4px 20px rgba(124,58,237,.5);}
+.flt-quiz.active{background:linear-gradient(135deg,#4f46e5,#6366f1);border-color:#4f46e5;color:#fff;box-shadow:0 4px 20px rgba(79,70,229,.5);}
+.flt-word.active{background:linear-gradient(135deg,#059669,#10b981);border-color:#059669;color:#fff;box-shadow:0 4px 20px rgba(5,150,105,.5);}
+.flt-math.active{background:linear-gradient(135deg,#d97706,#f59e0b);border-color:#d97706;color:#fff;box-shadow:0 4px 20px rgba(217,119,6,.5);}
+.flt-classic.active{background:linear-gradient(135deg,#7c3aed,#8b5cf6);border-color:#7c3aed;color:#fff;box-shadow:0 4px 20px rgba(124,58,237,.5);}
+.flt-memory.active{background:linear-gradient(135deg,#be185d,#ec4899);border-color:#be185d;color:#fff;box-shadow:0 4px 20px rgba(190,24,93,.5);}
+.flt-quiz:hover{border-color:#6366f1;color:#a5b4fc;} .flt-word:hover{border-color:#10b981;color:#6ee7b7;} .flt-math:hover{border-color:#f59e0b;color:#fde68a;} .flt-classic:hover{border-color:#8b5cf6;color:#c4b5fd;} .flt-memory:hover{border-color:#ec4899;color:#f9a8d4;}
+/* HERO */
+.hero{text-align:center;padding:36px 20px 28px;max-width:700px;margin:0 auto;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3);border-radius:99px;padding:5px 16px;font-size:11px;font-weight:700;color:#a78bfa;margin-bottom:18px;letter-spacing:.05em;text-transform:uppercase;}
+.hero-title{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(30px,5vw,52px);font-weight:900;line-height:1.1;margin-bottom:12px;}
+.hero-title .purple{color:#c084fc;text-shadow:0 0 40px rgba(192,132,252,.4);}
+.hero-title .green{color:#34d399;text-shadow:0 0 40px rgba(52,211,153,.3);}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.5);margin-bottom:22px;line-height:1.7;}
+.hero-stats{display:flex;justify-content:center;gap:28px;margin-top:20px;}
+.hnum{text-align:center;} .hnum-n{font-size:26px;font-weight:900;color:#fff;} .hnum-l{font-size:10px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.08em;margin-top:2px;}
+/* BTN */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:12px;border:none;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 20px rgba(124,58,237,.4);transition:all .2s;position:relative;overflow:hidden;}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(124,58,237,.5);}
+.btn-sec{background:rgba(255,255,255,.08)!important;color:rgba(255,255,255,.8)!important;border:1px solid rgba(255,255,255,.12)!important;box-shadow:none!important;}
+/* GAMI STRIP */
+.gami-strip{display:grid;grid-template-columns:1fr 1.1fr 1fr;gap:12px;max-width:1160px;margin:0 auto;padding:0 16px 16px;}
+@media(max-width:760px){.gami-strip{grid-template-columns:1fr;}}
+.daily-card,.tourney-card,.watch-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;}
+.watch-card{background:linear-gradient(135deg,rgba(217,119,6,.18),rgba(245,158,11,.1));border-color:rgba(251,191,36,.25);}
+.daily-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(245,158,11,.2);color:#fbbf24;font-size:10px;font-weight:800;padding:3px 10px;border-radius:99px;margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em;}
+.tourney-badge{display:inline-block;background:rgba(124,58,237,.2);color:#c084fc;font-size:10px;font-weight:800;padding:3px 10px;border-radius:99px;margin-bottom:8px;}
+.tourney-title{font-size:15px;font-weight:800;color:#fff;margin-bottom:3px;} .tourney-prize{font-size:11px;color:rgba(255,255,255,.45);margin-bottom:8px;}
+.tourney-btn{background:linear-gradient(135deg,#7c3aed,#8b5cf6);color:#fff;border:none;border-radius:10px;padding:9px;font-size:12px;font-weight:700;cursor:pointer;width:100%;}
+.watch-btn{background:linear-gradient(135deg,#d97706,#f59e0b);color:#fff;border:none;border-radius:10px;padding:9px;font-size:13px;font-weight:700;cursor:pointer;width:100%;}
+#daily-name{color:#fff!important;font-size:15px;font-weight:800;margin-bottom:4px;} #daily-timer{color:#a78bfa!important;font-family:monospace;}
+/* COMPACT ACH */
+.ach-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;color:rgba(255,255,255,.7);cursor:pointer;transition:all .2s;}
+.ach-badge:hover{background:rgba(255,255,255,.14);transform:translateY(-1px);}
+.ach-badge span{display:none;} @media(min-width:600px){.ach-badge span{display:inline;}}
+/* LB */
+.lb-item{display:flex;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05);color:#fff;}
+.lb-item:last-child{border-bottom:none;}
+/* SECTION HEADERS */
+.sec-hdr{display:flex;align-items:center;gap:10px;max-width:1160px;margin:0 auto;padding:18px 16px 10px;}
+.sec-ttl h2{margin:0;font-size:17px;font-weight:900;color:#fff;}
+.sec-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;text-transform:uppercase;letter-spacing:.05em;}
+.sec-line{flex:1;height:1px;background:rgba(255,255,255,.07);} .sec-cnt{color:rgba(255,255,255,.25);font-size:12px;}
+/* GAME GRID */
+.game-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(108px,1fr));gap:9px;max-width:1160px;margin:0 auto;padding:0 16px 12px;}
+/* GAME CARDS */
+.game-card{background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.09);border-radius:16px;padding:14px 10px 12px;cursor:pointer;text-align:center;position:relative;transition:all .25s cubic-bezier(.34,1.56,.64,1);overflow:hidden;}
+.game-card::after{content:'';position:absolute;inset:-100% -100% auto -100%;height:100%;padding-bottom:100%;background:linear-gradient(135deg,rgba(255,255,255,0) 40%,rgba(255,255,255,.08) 50%,rgba(255,255,255,0) 60%);transition:inset .5s;pointer-events:none;}
+.game-card:hover::after{inset:100% -100% auto -100%;}
+.game-card:hover{transform:translateY(-8px) scale(1.04);background:rgba(255,255,255,.1);}
+.c-quiz{border-color:rgba(79,70,229,.3);} .c-quiz:hover{box-shadow:0 0 24px rgba(79,70,229,.4),0 14px 28px rgba(0,0,0,.4);border-color:#6366f1;}
+.c-word{border-color:rgba(5,150,105,.3);} .c-word:hover{box-shadow:0 0 24px rgba(5,150,105,.4),0 14px 28px rgba(0,0,0,.4);border-color:#10b981;}
+.c-math{border-color:rgba(217,119,6,.3);} .c-math:hover{box-shadow:0 0 24px rgba(217,119,6,.4),0 14px 28px rgba(0,0,0,.4);border-color:#f59e0b;}
+.c-classic{border-color:rgba(124,58,237,.3);} .c-classic:hover{box-shadow:0 0 24px rgba(124,58,237,.4),0 14px 28px rgba(0,0,0,.4);border-color:#8b5cf6;}
+.c-memory{border-color:rgba(190,24,93,.3);} .c-memory:hover{box-shadow:0 0 24px rgba(190,24,93,.4),0 14px 28px rgba(0,0,0,.4);border-color:#ec4899;}
+.g-iw{width:52px;height:52px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);}
+.game-card:hover .g-iw{transform:scale(1.2) rotate(-6deg);}
+.c-quiz .g-iw{background:linear-gradient(135deg,rgba(79,70,229,.3),rgba(99,102,241,.15));} .c-word .g-iw{background:linear-gradient(135deg,rgba(5,150,105,.3),rgba(16,185,129,.15));} .c-math .g-iw{background:linear-gradient(135deg,rgba(217,119,6,.3),rgba(245,158,11,.15));} .c-classic .g-iw{background:linear-gradient(135deg,rgba(124,58,237,.3),rgba(139,92,246,.15));} .c-memory .g-iw{background:linear-gradient(135deg,rgba(190,24,93,.3),rgba(236,72,153,.15));}
+.c-quiz .g-name{color:#a5b4fc;} .c-word .g-name{color:#6ee7b7;} .c-math .g-name{color:#fde68a;} .c-classic .g-name{color:#c4b5fd;} .c-memory .g-name{color:#f9a8d4;}
+.g-name{font-size:11px;font-weight:800;margin-bottom:2px;} .g-desc{font-size:9px;color:rgba(255,255,255,.35);}
+/* TOP 12 */
+.top12-section{background:rgba(255,255,255,.025);border-bottom:1px solid rgba(255,255,255,.06);padding:20px 16px 16px;}
+.top12-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:1160px;margin:0 auto;}
+@media(max-width:640px){.top12-grid{grid-template-columns:repeat(2,1fr)!important;}}
+.top12-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:14px 10px 12px;cursor:pointer;text-align:center;position:relative;transition:all .2s cubic-bezier(.34,1.56,.64,1);}
+.top12-card:hover{transform:translateY(-6px);background:rgba(255,255,255,.1);}
+.top12-card .t-name{font-size:11px;font-weight:800;color:#fff;margin-bottom:2px;} .top12-card .t-plays{font-size:9px;color:rgba(255,255,255,.35);} .top12-card .t-rank{position:absolute;top:6px;left:8px;font-size:9px;font-weight:900;color:rgba(255,255,255,.4);}
+.top12-card .t-icon{width:56px;height:56px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:28px;margin:6px auto 10px;}
+/* OVERLAY & MODAL */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(16px);z-index:2000;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;}
 .overlay.active{display:flex;}
-.modal{
-  background:linear-gradient(145deg,#1e1b4b,#0f172a);
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:20px;padding:20px;
-  width:100%;max-width:540px;max-height:90vh;
-  overflow-y:auto;position:relative;
-  box-shadow:0 25px 60px rgba(0,0,0,.6);
-}
-
-/* ── IN-GAME ELEMENTS ── */
+.modal{background:linear-gradient(145deg,#1a1535,#0d0b1f);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:18px;width:100%;max-width:580px;max-height:92vh;overflow-y:auto;position:relative;box-shadow:0 30px 80px rgba(0,0,0,.7);}
 .modal .btn{background:rgba(255,255,255,.15)!important;border:1px solid rgba(255,255,255,.2)!important;}
 .modal .btn:hover{background:rgba(255,255,255,.25)!important;}
-#gw{color:#fff;}
-#gw button{
-  background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);
-  border-radius:12px;padding:12px 16px;cursor:pointer;
-  font-size:14px;font-weight:700;color:#fff;font-family:inherit;
-  transition:all .15s;
-}
-#gw button:hover{background:rgba(255,255,255,.2);transform:translateY(-1px);}
-#gw button:disabled{opacity:.4;cursor:not-allowed;transform:none;}
-#gw input{
-  background:rgba(255,255,255,.1)!important;color:#fff!important;
-  border:1.5px solid rgba(255,255,255,.2)!important;
-  border-radius:12px;padding:12px 16px;width:100%;
-  box-sizing:border-box;font-size:15px;font-family:inherit;outline:none;
-}
-#gw input::placeholder{color:rgba(255,255,255,.3)!important;}
-#gw input:focus{border-color:var(--accent)!important;}
-.g-btn{background:rgba(255,255,255,.1)!important;color:#fff!important;border:1px solid rgba(255,255,255,.15)!important;border-radius:8px;padding:8px;cursor:pointer;font-size:15px;font-family:inherit;transition:all .15s;}
-.g-btn:hover{background:rgba(255,255,255,.2)!important;}
-
-/* ── WIN/LOSE OVERLAY ── */
-.win-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;z-index:9999;backdrop-filter:blur(10px);}
-.win-box{background:linear-gradient(145deg,rgba(30,27,75,.97),rgba(15,23,42,.97));border:1px solid rgba(129,140,248,.3);border-radius:20px;padding:32px 24px;text-align:center;max-width:320px;width:90%;box-shadow:0 0 60px rgba(99,102,241,.25);}
-
-/* ── TOAST ── */
-#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(30,27,75,.95);color:#fff;padding:10px 22px;border-radius:99px;font-size:13px;font-weight:700;opacity:0;transition:all .3s;z-index:9998;pointer-events:none;border:1px solid rgba(129,140,248,.3);}
-
-/* ── ACHIEVEMENT POPUP ── */
-.achievement-popup{position:fixed;top:70px;right:-320px;width:290px;background:linear-gradient(135deg,rgba(30,27,75,.97),rgba(49,46,129,.97));border:1px solid rgba(129,140,248,.4);border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px;z-index:9998;box-shadow:0 8px 32px rgba(0,0,0,.4);transition:right .4s cubic-bezier(.34,1.56,.64,1);}
-.achievement-popup.show{right:16px;}
-
-/* ── FOOTER ── */
-footer{background:rgba(0,0,0,.4);border-top:1px solid var(--border);color:rgba(255,255,255,.3);text-align:center;padding:20px;font-size:12px;margin-top:40px;position:relative;z-index:1;}
-
-/* ── ANIMATIONS ── */
+.modal .btn-sec{background:rgba(255,255,255,.08)!important;color:rgba(255,255,255,.8)!important;border:1px solid rgba(255,255,255,.12)!important;}
+#gw{color:#fff;} #gw button{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.18);border-radius:10px;padding:10px 14px;cursor:pointer;font-size:13px;font-weight:700;color:#fff;font-family:inherit;transition:all .15s;}
+#gw button:hover{background:rgba(255,255,255,.2);transform:translateY(-1px);} #gw button:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+#gw input{background:rgba(255,255,255,.1)!important;color:#fff!important;border:1.5px solid rgba(255,255,255,.2)!important;border-radius:10px;padding:11px 14px;width:100%;box-sizing:border-box;font-size:14px;font-family:inherit;outline:none;}
+#gw input::placeholder{color:rgba(255,255,255,.3)!important;} #gw input:focus{border-color:#7c3aed!important;}
+.g-btn{background:rgba(255,255,255,.1)!important;color:#fff!important;border:1px solid rgba(255,255,255,.15)!important;border-radius:8px;padding:7px;cursor:pointer;font-size:14px;font-family:inherit;transition:all .15s;}
+/* WIN */
+.win-overlay{position:fixed;inset:0;background:rgba(0,0,0,.78);display:flex;align-items:center;justify-content:center;z-index:9999;backdrop-filter:blur(12px);}
+.win-box{background:linear-gradient(145deg,rgba(26,21,53,.98),rgba(13,11,31,.98));border:1px solid rgba(167,139,250,.25);border-radius:20px;padding:28px 22px;text-align:center;max-width:300px;width:90%;box-shadow:0 0 60px rgba(124,58,237,.2);animation:winPop .4s ease;}
+/* TOAST */
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(26,21,53,.96);color:#fff;padding:10px 20px;border-radius:99px;font-size:13px;font-weight:700;opacity:0;transition:all .3s;z-index:9998;pointer-events:none;border:1px solid rgba(167,139,250,.3);}
+/* ACHIEVEMENT POPUP */
+.achievement-popup{position:fixed;top:66px;right:-310px;width:280px;background:linear-gradient(135deg,rgba(26,21,53,.97),rgba(49,46,129,.97));border:1px solid rgba(167,139,250,.3);border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px;z-index:9998;box-shadow:0 8px 32px rgba(0,0,0,.5);transition:right .4s cubic-bezier(.34,1.56,.64,1);}
+.achievement-popup.show{right:14px;}
+/* FOOTER */
+footer{background:rgba(0,0,0,.5);border-top:1px solid rgba(255,255,255,.06);color:rgba(255,255,255,.25);text-align:center;padding:20px;font-size:12px;margin-top:40px;position:relative;z-index:1;}
+footer a{color:rgba(255,255,255,.35);text-decoration:none;}
+/* ANIMATIONS */
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes scoreUp{0%{transform:translateX(-50%) scale(1);opacity:1}100%{transform:translateX(-50%) translateY(-60px) scale(1.3);opacity:0}}
-@keyframes winPop{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
-@keyframes iconBounce{0%{transform:scale(1) translateY(0)}100%{transform:scale(1.2) translateY(-4px)}}
-@keyframes coinSpin{0%{transform:rotateY(0)scale(1)}50%{transform:rotateY(180deg)scale(1.2)}100%{transform:rotateY(360deg)scale(1)}}
-@keyframes rollDice{0%{transform:rotate(0)}25%{transform:rotate(-15deg)scale(1.1)}75%{transform:rotate(15deg)scale(1.1)}100%{transform:rotate(0)}}
+@keyframes winPop{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+@keyframes coinSpin{0%{transform:rotateY(0) scale(1)}50%{transform:rotateY(180deg) scale(1.2)}100%{transform:rotateY(360deg) scale(1)}}
+@keyframes rollDice{0%{transform:rotate(0)}25%{transform:rotate(-15deg) scale(1.1)}75%{transform:rotate(15deg) scale(1.1)}100%{transform:rotate(0)}}
 @keyframes confettiFall{0%{transform:translateY(-100px) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg) scale(.5);opacity:0}}
 @keyframes sparkFly{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--tx),var(--ty)) scale(0);opacity:0}}
-@keyframes iconRise{0%{transform:translateY(0) rotate(0);opacity:.06}50%{opacity:.1}100%{transform:translateY(-110vh) rotate(360deg);opacity:0}}
-@keyframes slideIn{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
-
-.win-box{animation:winPop .4s ease;}
+@keyframes iconRise{0%{transform:translateY(0) rotate(0);opacity:.05}50%{opacity:.09}100%{transform:translateY(-110vh) rotate(360deg);opacity:0}}
 .confetti-piece{position:fixed;border-radius:2px;animation:confettiFall 3s ease-in forwards;pointer-events:none;z-index:99999;}
 .spark{position:fixed;width:4px;height:4px;border-radius:50%;pointer-events:none;z-index:99999;animation:sparkFly .8s ease-out forwards;}
-
-/* ── RESPONSIVE ── */
-@media(max-width:640px){
-  .hero-stats{gap:16px;}
-  .hnum-n{font-size:22px;}
-  .gami-strip{grid-template-columns:1fr;}
-  .game-card:hover{transform:translateY(-4px) scale(1.02);}
-}
-
-/* ── MOST POPULAR ── */
-.top12-section{background:rgba(255,255,255,.03);border-bottom:1px solid var(--border);padding:24px 20px 20px;}
-.top12-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:1160px;margin:0 auto;}
-@media(max-width:640px){.top12-grid{grid-template-columns:repeat(2,1fr)!important;}}
-.top12-card{background:rgba(255,255,255,.07);border:1px solid var(--border);border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;backdrop-filter:blur(8px);transition:all .22s cubic-bezier(.34,1.56,.64,1);}
-.top12-card:hover{transform:translateY(-6px);background:rgba(255,255,255,.12);}
-.top12-card .t-name{font-size:12px;font-weight:800;color:#fff;margin-bottom:3px;}
-.top12-card .t-plays{font-size:10px;color:rgba(255,255,255,.4);}
-.top12-card .t-rank{position:absolute;top:6px;left:8px;font-size:10px;font-weight:900;}
-.top12-card .t-icon{width:60px;height:60px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:30px;margin:8px auto 10px;}
-
-/* Invite */
-.invite-box{background:rgba(34,197,94,.08);border:1px solid rgba(74,222,128,.2);border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
-.invite-box input{flex:1;min-width:180px;padding:8px 12px;border-radius:8px;border:1px solid rgba(74,222,128,.3);font-size:13px;background:rgba(255,255,255,.08);color:#4ade80;}
+@media(max-width:640px){.hero-stats{gap:14px;}.hnum-n{font-size:22px;}.gami-strip{grid-template-columns:1fr;}.game-card:hover{transform:translateY(-4px) scale(1.02);}.flt-label{display:none;}.flt{padding:8px 12px;}}
 </style>
 </head>
 <body>
@@ -393,12 +206,13 @@ footer{background:rgba(0,0,0,.4);border-top:1px solid var(--border);color:rgba(2
 <!-- FILTER BAR -->
 <div class="filter-bar">
   <div class="filter-inner">
-    <button class="flt active" onclick="setFilter('all',this)">🎮 All Games</button>
-    <button class="flt flt-quiz" onclick="setFilter('quiz',this)">🧠 Quiz Games</button>
-    <button class="flt flt-word" onclick="setFilter('word',this)">📝 Word Games</button>
-    <button class="flt flt-math" onclick="setFilter('math',this)">➕ Math Games</button>
-    <button class="flt flt-classic" onclick="setFilter('classic',this)">🕹️ Classic Games</button>
-    <button class="flt flt-memory" onclick="setFilter('memory',this)">🧩 Memory & Focus</button>
+    <button class="flt active" onclick="setFilter('all',this)" data-cat="all"><span class="flt-icon">🎮</span><span class="flt-label">All Games</span></button>
+    <button class="flt flt-quiz" onclick="setFilter('quiz',this)" data-cat="quiz"><span class="flt-icon">🧠</span><span class="flt-label">Quiz</span></button>
+    <button class="flt flt-word" onclick="setFilter('word',this)" data-cat="word"><span class="flt-icon">📝</span><span class="flt-label">Word</span></button>
+    <button class="flt flt-math" onclick="setFilter('math',this)" data-cat="math"><span class="flt-icon">➕</span><span class="flt-label">Math</span></button>
+    <button class="flt flt-classic" onclick="setFilter('classic',this)" data-cat="classic"><span class="flt-icon">🕹️</span><span class="flt-label">Classic</span></button>
+    <button class="flt flt-memory" onclick="setFilter('memory',this)" data-cat="memory"><span class="flt-icon">🧩</span><span class="flt-label">Memory</span></button>
+    <div style="flex:1;min-width:130px;max-width:200px;"><input class="search-inp" type="text" placeholder="🔍 Search..." oninput="searchGames(this.value)"></div>
   </div>
 </div>
 
@@ -426,118 +240,111 @@ footer{background:rgba(0,0,0,.4);border-top:1px solid var(--border);color:rgba(2
   </div>
 </div>
 
-<!-- ACHIEVEMENTS -->
-<div style="max-width:1160px;margin:0 auto;padding:0 20px 16px;">
-  <div style="font-size:14px;font-weight:800;color:#fff;margin-bottom:10px;" style="color:#fff!important;">🏅 ACHIEVEMENTS</div>
-  <div class="ach-grid">
-    <div class="ach-item"><div style="font-size:32px;margin-bottom:6px;">🎮</div><div style="font-size:11px;font-weight:700;color:#fff;">First Game</div><div style="font-size:10px;color:var(--muted);">Play any game</div></div>
-    <div class="ach-item"><div style="font-size:28px;margin-bottom:6px;filter:drop-shadow(0 0 6px rgba(255,255,255,.3));">🔥</div><div style="font-size:11px;font-weight:700;color:#fff;">3-Day Streak</div><div style="font-size:10px;color:var(--muted);">Play 3 days in a row</div></div>
-    <div class="ach-item"><div style="font-size:28px;margin-bottom:6px;filter:drop-shadow(0 0 6px rgba(255,255,255,.3));">🧠</div><div style="font-size:11px;font-weight:700;color:#fff;">Quiz Master</div><div style="font-size:10px;color:var(--muted);">Win 10 quiz games</div></div>
-    <div class="ach-item"><div style="font-size:28px;margin-bottom:6px;filter:drop-shadow(0 0 6px rgba(255,255,255,.3));">⚡</div><div style="font-size:11px;font-weight:700;color:#fff;">Speed Demon</div><div style="font-size:10px;color:var(--muted);">Reaction under 200ms</div></div>
-    <div class="ach-item"><div style="font-size:28px;margin-bottom:6px;filter:drop-shadow(0 0 6px rgba(255,255,255,.3));">📚</div><div style="font-size:11px;font-weight:700;color:#fff;">Word Wizard</div><div style="font-size:10px;color:var(--muted);">Win 10 word games</div></div>
+<!-- COMPACT ACH + LB -->
+<div style="max-width:1160px;margin:0 auto;padding:0 16px 14px;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:12px;">
+    <div style="font-size:12px;font-weight:800;color:rgba(255,255,255,.8);margin-bottom:10px;">🏅 Achievements</div>
+    <div style="display:flex;gap:7px;flex-wrap:wrap;">
+      <div class="ach-badge">🎮 <span>First Game</span></div>
+      <div class="ach-badge">🔥 <span>3-Day Streak</span></div>
+      <div class="ach-badge">🧠 <span>Quiz Master</span></div>
+      <div class="ach-badge">⚡ <span>Speed Demon</span></div>
+      <div class="ach-badge">📚 <span>Word Wizard</span></div>
+    </div>
+  </div>
+  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:12px;">
+    <div style="font-size:12px;font-weight:800;color:rgba(255,255,255,.8);margin-bottom:10px;">🏆 Leaderboard</div>
+    <div class="lb-item"><span style="width:22px;font-size:13px;">🥇</span><span style="font-size:16px;margin-right:5px;">🦁</span><span style="flex:1;font-size:12px;font-weight:700;">GameMaster <span style="color:rgba(255,255,255,.35);font-weight:400;">· Lv20</span></span><span style="font-size:12px;font-weight:800;color:#f59e0b;">5,200 XP</span></div>
+    <div class="lb-item"><span style="width:22px;font-size:13px;">🥈</span><span style="font-size:16px;margin-right:5px;">🐯</span><span style="flex:1;font-size:12px;font-weight:700;">BrainStorm <span style="color:rgba(255,255,255,.35);font-weight:400;">· Lv15</span></span><span style="font-size:12px;font-weight:800;color:#f59e0b;">4,100 XP</span></div>
+    <div class="lb-item"><span style="width:22px;font-size:13px;">🥉</span><span style="font-size:16px;margin-right:5px;">🦊</span><span style="flex:1;font-size:12px;font-weight:700;">PuzzleKing <span style="color:rgba(255,255,255,.35);font-weight:400;">· Lv18</span></span><span style="font-size:12px;font-weight:800;color:#f59e0b;">3,800 XP</span></div>
+    <div class="lb-item" style="border:none;"><span style="width:22px;font-size:11px;font-weight:800;color:#a78bfa;">#6</span><span style="font-size:16px;margin-right:5px;">🎮</span><span style="flex:1;font-size:12px;font-weight:700;color:#a78bfa;" id="your-xp-lb">You — 0 XP</span></div>
   </div>
 </div>
-
-<!-- LEADERBOARD -->
-<div style="max-width:1160px;margin:0 auto;padding:0 20px 20px;">
-  <div style="background:#fff;border:1.5px solid var(--border);border-radius:16px;padding:16px;">
-    <div style="font-size:16px;font-weight:800;color:#fff;margin-bottom:12px;">🏆 Leaderboard</div>
-    <div class="lb-item"><div class="lb-rank">🥇</div><div style="font-size:20px;margin-right:8px;">🦁</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;">GameMaster</div><div style="font-size:11px;color:rgba(255,255,255,.5);">2048: Lv20</div></div><div style="font-weight:800;color:#f59e0b;">5,200 XP</div></div>
-    <div class="lb-item"><div class="lb-rank">🥈</div><div style="font-size:20px;margin-right:8px;">🐯</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;">BrainStorm</div><div style="font-size:11px;color:rgba(255,255,255,.5);">Wordle: Lv15</div></div><div style="font-weight:800;color:#f59e0b;">4,100 XP</div></div>
-    <div class="lb-item"><div class="lb-rank">🥉</div><div style="font-size:20px;margin-right:8px;">🦊</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;">PuzzleKing</div><div style="font-size:11px;color:rgba(255,255,255,.5);">Chess: Lv18</div></div><div style="font-weight:800;color:#f59e0b;">3,800 XP</div></div>
-    <div class="lb-item"><div class="lb-rank" style="color:#6366f1;">#6</div><div style="font-size:20px;margin-right:8px;">🎮</div><div style="flex:1;"><div style="font-size:13px;font-weight:700;" id="your-xp-lb">You — 0 XP</div><div style="font-size:11px;color:var(--muted);">Keep playing to rank up!</div></div></div>
-  </div>
-</div>
-
-<!-- GAMES SECTION -->
 <section id="games">
 
-  <div style="background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.06);padding:24px 20px 20px;">
-    <div style="max-width:1160px;margin:0 auto;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
-        <span style="font-size:24px;">🔥</span>
-        <div><div style="font-size:20px;font-weight:900;color:#fff;">Most Popular Games</div><div style="font-size:12px;color:rgba(255,255,255,.4);">Most played today</div></div>
-        <div style="margin-left:auto;background:rgba(245,158,11,.2);color:#fbbf24;border:1px solid rgba(251,191,36,.3);border-radius:8px;padding:3px 10px;font-size:11px;font-weight:800;">TOP 12</div>
+  
+<div class="top12-section">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;"><span style="font-size:22px;">🔥</span><div><div style="font-size:17px;font-weight:900;color:#fff;">Most Popular Games</div><div style="font-size:10px;color:rgba(255,255,255,.35);">Most played today</div></div><div style="margin-left:auto;background:rgba(245,158,11,.15);color:#fbbf24;border:1px solid rgba(251,191,36,.25);border-radius:8px;padding:3px 10px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;">TOP 12</div></div>
+    <div class="top12-grid">
+      <div class="top12-card" onclick="openGame('g2048')" onmouseover="this.style.borderColor='#f59e0b'" onmouseout="this.style.borderColor='rgba(255,255,255,.09)'">
+        <div class="t-rank">#1</div>
+        <div class="t-icon" style="background:#fef3c7;">🔢</div>
+        <div class="t-name">2048</div>
+        <div class="t-plays">2.4M/day</div>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
-        <div onclick="openGame('g2048')" data-hot="true" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;backdrop-filter:blur(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#f59e0b'" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='rgba(255,255,255,.12)'">
-          <div style="position:absolute;top:6px;left:8px;color:#f59e0b;font-size:10px;font-weight:900;text-shadow:0 0 8px currentColor;">#1</div>
-          <div style="width:60px;height:60px;border-radius:14px;background:#fef3c7;display:flex;align-items:center;justify-content:center;font-size:30px;margin:8px auto 10px;">🔢</div>
-          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px;">2048</div>
-          <div style="font-size:10px;color:rgba(255,255,255,.4);">2.4M plays/day</div>
-        </div>
-        <div onclick="openGame('sudoku')" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;backdrop-filter:blur(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#6366f1'" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='rgba(255,255,255,.12)'">
-          <div style="position:absolute;top:6px;left:8px;color:#6366f1;font-size:10px;font-weight:900;text-shadow:0 0 8px currentColor;">#2</div>
-          <div style="width:60px;height:60px;border-radius:14px;background:#eef2ff;display:flex;align-items:center;justify-content:center;font-size:30px;margin:8px auto 10px;">🔲</div>
-          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px;">Sudoku</div>
-          <div style="font-size:10px;color:rgba(255,255,255,.4);">1.9M plays/day</div>
-        </div>
-        <div onclick="openGame('snake')" data-hot="true" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;backdrop-filter:blur(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#22c55e'" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='rgba(255,255,255,.12)'">
-          <div style="position:absolute;top:6px;left:8px;color:#22c55e;font-size:10px;font-weight:900;text-shadow:0 0 8px currentColor;">#3</div>
-          <div style="width:60px;height:60px;border-radius:14px;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:30px;margin:8px auto 10px;">🐍</div>
-          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px;">Snake</div>
-          <div style="font-size:10px;color:rgba(255,255,255,.4);">1.6M plays/day</div>
-        </div>
-        <div onclick="openGame('tetris')" data-hot="true" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;backdrop-filter:blur(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#8b5cf6'" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='rgba(255,255,255,.12)'">
-          <div style="position:absolute;top:6px;left:8px;color:#8b5cf6;font-size:10px;font-weight:900;text-shadow:0 0 8px currentColor;">#4</div>
-          <div style="width:60px;height:60px;border-radius:14px;background:#ede9fe;display:flex;align-items:center;justify-content:center;font-size:30px;margin:8px auto 10px;">🟦</div>
-          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px;">Tetris</div>
-          <div style="font-size:10px;color:rgba(255,255,255,.4);">1.4M plays/day</div>
-        </div>
-        <div onclick="openGame('mines')" data-hot="true" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;backdrop-filter:blur(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#ef4444'" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='rgba(255,255,255,.12)'">
-          <div style="position:absolute;top:6px;left:8px;color:#ef4444;font-size:10px;font-weight:900;text-shadow:0 0 8px currentColor;">#5</div>
-          <div style="width:60px;height:60px;border-radius:14px;background:#fef2f2;display:flex;align-items:center;justify-content:center;font-size:30px;margin:8px auto 10px;">💣</div>
-          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px;">Minesweeper</div>
-          <div style="font-size:10px;color:rgba(255,255,255,.4);">1.1M plays/day</div>
-        </div>
-        <div onclick="openGame('wordsearch')" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;backdrop-filter:blur(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#10b981'" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='rgba(255,255,255,.12)'">
-          <div style="position:absolute;top:6px;left:8px;color:#10b981;font-size:10px;font-weight:900;text-shadow:0 0 8px currentColor;">#6</div>
-          <div style="width:60px;height:60px;border-radius:14px;background:#d1fae5;display:flex;align-items:center;justify-content:center;font-size:30px;margin:8px auto 10px;">🔠</div>
-          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px;">Word Search</div>
-          <div style="font-size:10px;color:rgba(255,255,255,.4);">980K plays/day</div>
-        </div>
-        <div onclick="openGame('crossword')" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;backdrop-filter:blur(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#eab308'" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='rgba(255,255,255,.12)'">
-          <div style="position:absolute;top:6px;left:8px;color:#eab308;font-size:10px;font-weight:900;text-shadow:0 0 8px currentColor;">#7</div>
-          <div style="width:60px;height:60px;border-radius:14px;background:#fefce8;display:flex;align-items:center;justify-content:center;font-size:30px;margin:8px auto 10px;">📰</div>
-          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px;">Crossword</div>
-          <div style="font-size:10px;color:rgba(255,255,255,.4);">870K plays/day</div>
-        </div>
-        <div onclick="openGame('chess')" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;backdrop-filter:blur(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#475569'" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='rgba(255,255,255,.12)'">
-          <div style="position:absolute;top:6px;left:8px;color:#475569;font-size:10px;font-weight:900;text-shadow:0 0 8px currentColor;">#8</div>
-          <div style="width:60px;height:60px;border-radius:14px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;font-size:30px;margin:8px auto 10px;">♟️</div>
-          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px;">Chess</div>
-          <div style="font-size:10px;color:rgba(255,255,255,.4);">760K plays/day</div>
-        </div>
-        <div onclick="openGame('hangman')" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;backdrop-filter:blur(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#f97316'" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='rgba(255,255,255,.12)'">
-          <div style="position:absolute;top:6px;left:8px;color:#f97316;font-size:10px;font-weight:900;text-shadow:0 0 8px currentColor;">#9</div>
-          <div style="width:60px;height:60px;border-radius:14px;background:#fff7ed;display:flex;align-items:center;justify-content:center;font-size:30px;margin:8px auto 10px;">🪝</div>
-          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px;">Hangman</div>
-          <div style="font-size:10px;color:rgba(255,255,255,.4);">640K plays/day</div>
-        </div>
-        <div onclick="openGame('memory')" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;backdrop-filter:blur(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#a855f7'" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='rgba(255,255,255,.12)'">
-          <div style="position:absolute;top:6px;left:8px;color:#a855f7;font-size:10px;font-weight:900;text-shadow:0 0 8px currentColor;">#10</div>
-          <div style="width:60px;height:60px;border-radius:14px;background:#fdf4ff;display:flex;align-items:center;justify-content:center;font-size:30px;margin:8px auto 10px;">🃏</div>
-          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px;">Memory Cards</div>
-          <div style="font-size:10px;color:rgba(255,255,255,.4);">590K plays/day</div>
-        </div>
-        <div onclick="openGame('ttt')" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;backdrop-filter:blur(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#ec4899'" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='rgba(255,255,255,.12)'">
-          <div style="position:absolute;top:6px;left:8px;color:#ec4899;font-size:10px;font-weight:900;text-shadow:0 0 8px currentColor;">#11</div>
-          <div style="width:60px;height:60px;border-radius:14px;background:#fdf2f8;display:flex;align-items:center;justify-content:center;font-size:30px;margin:8px auto 10px;">⭕</div>
-          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px;">Tic Tac Toe</div>
-          <div style="font-size:10px;color:rgba(255,255,255,.4);">480K plays/day</div>
-        </div>
-        <div onclick="openGame('flappy')" data-hot="true" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;backdrop-filter:blur(10px);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)';this.style.borderColor='#3b82f6'" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='rgba(255,255,255,.12)'">
-          <div style="position:absolute;top:6px;left:8px;color:#3b82f6;font-size:10px;font-weight:900;text-shadow:0 0 8px currentColor;">#12</div>
-          <div style="width:60px;height:60px;border-radius:14px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-size:30px;margin:8px auto 10px;">🐦</div>
-          <div style="font-size:12px;font-weight:800;color:#fff;margin-bottom:3px;">Flappy Bird</div>
-          <div style="font-size:10px;color:rgba(255,255,255,.4);">430K plays/day</div>
-        </div>
+      <div class="top12-card" onclick="openGame('sudoku')" onmouseover="this.style.borderColor='#6366f1'" onmouseout="this.style.borderColor='rgba(255,255,255,.09)'">
+        <div class="t-rank">#2</div>
+        <div class="t-icon" style="background:#eef2ff;">🔲</div>
+        <div class="t-name">Sudoku</div>
+        <div class="t-plays">1.9M/day</div>
+      </div>
+      <div class="top12-card" onclick="openGame('snake')" onmouseover="this.style.borderColor='#22c55e'" onmouseout="this.style.borderColor='rgba(255,255,255,.09)'">
+        <div class="t-rank">#3</div>
+        <div class="t-icon" style="background:#dcfce7;">🐍</div>
+        <div class="t-name">Snake</div>
+        <div class="t-plays">1.6M/day</div>
+      </div>
+      <div class="top12-card" onclick="openGame('tetris')" onmouseover="this.style.borderColor='#8b5cf6'" onmouseout="this.style.borderColor='rgba(255,255,255,.09)'">
+        <div class="t-rank">#4</div>
+        <div class="t-icon" style="background:#ede9fe;">🟦</div>
+        <div class="t-name">Tetris</div>
+        <div class="t-plays">1.4M/day</div>
+      </div>
+      <div class="top12-card" onclick="openGame('mines')" onmouseover="this.style.borderColor='#ef4444'" onmouseout="this.style.borderColor='rgba(255,255,255,.09)'">
+        <div class="t-rank">#5</div>
+        <div class="t-icon" style="background:rgba(239,68,68,.15);">💣</div>
+        <div class="t-name">Minesweeper</div>
+        <div class="t-plays">1.1M/day</div>
+      </div>
+      <div class="top12-card" onclick="openGame('wordsearch')" onmouseover="this.style.borderColor='#10b981'" onmouseout="this.style.borderColor='rgba(255,255,255,.09)'">
+        <div class="t-rank">#6</div>
+        <div class="t-icon" style="background:#d1fae5;">🔠</div>
+        <div class="t-name">Word Search</div>
+        <div class="t-plays">980K/day</div>
+      </div>
+      <div class="top12-card" onclick="openGame('crossword')" onmouseover="this.style.borderColor='#eab308'" onmouseout="this.style.borderColor='rgba(255,255,255,.09)'">
+        <div class="t-rank">#7</div>
+        <div class="t-icon" style="background:#fefce8;">📰</div>
+        <div class="t-name">Crossword</div>
+        <div class="t-plays">870K/day</div>
+      </div>
+      <div class="top12-card" onclick="openGame('chess')" onmouseover="this.style.borderColor='#94a3b8'" onmouseout="this.style.borderColor='rgba(255,255,255,.09)'">
+        <div class="t-rank">#8</div>
+        <div class="t-icon" style="background:rgba(100,116,139,.2);">♟️</div>
+        <div class="t-name">Chess</div>
+        <div class="t-plays">760K/day</div>
+      </div>
+      <div class="top12-card" onclick="openGame('hangman')" onmouseover="this.style.borderColor='#f97316'" onmouseout="this.style.borderColor='rgba(255,255,255,.09)'">
+        <div class="t-rank">#9</div>
+        <div class="t-icon" style="background:#fff7ed;">🪝</div>
+        <div class="t-name">Hangman</div>
+        <div class="t-plays">640K/day</div>
+      </div>
+      <div class="top12-card" onclick="openGame('memory')" onmouseover="this.style.borderColor='#a855f7'" onmouseout="this.style.borderColor='rgba(255,255,255,.09)'">
+        <div class="t-rank">#10</div>
+        <div class="t-icon" style="background:rgba(168,85,247,.2);">🃏</div>
+        <div class="t-name">Memory Cards</div>
+        <div class="t-plays">590K/day</div>
+      </div>
+      <div class="top12-card" onclick="openGame('ttt')" onmouseover="this.style.borderColor='#ec4899'" onmouseout="this.style.borderColor='rgba(255,255,255,.09)'">
+        <div class="t-rank">#11</div>
+        <div class="t-icon" style="background:rgba(236,72,153,.15);">⭕</div>
+        <div class="t-name">Tic Tac Toe</div>
+        <div class="t-plays">480K/day</div>
+      </div>
+      <div class="top12-card" onclick="openGame('flappy')" onmouseover="this.style.borderColor='#3b82f6'" onmouseout="this.style.borderColor='rgba(255,255,255,.09)'">
+        <div class="t-rank">#12</div>
+        <div class="t-icon" style="background:#dbeafe;">🐦</div>
+        <div class="t-name">Flappy Bird</div>
+        <div class="t-plays">430K/day</div>
       </div>
     </div>
   </div>
-  <style>@media(max-width:600px){div[style*="grid-template-columns:repeat(4,1fr)"]{grid-template-columns:repeat(2,1fr)!important;}}</style>
+</div>
+<style>@media(max-width:600px){.top12-grid{grid-template-columns:repeat(2,1fr)!important;}}</style>
 
-  <div class="sec-hdr quiz-section" style="max-width:1160px;margin:0 auto;padding:20px 20px 12px;display:flex;align-items:center;gap:10px;">
+<div class="sec-hdr quiz-section" style="max-width:1160px;margin:0 auto;padding:20px 20px 12px;display:flex;align-items:center;gap:10px;">
     <div style="width:32px;height:32px;background:#6366f122;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;">🧠</div>
     <h2 style="margin:0;font-size:18px;font-weight:900;color:#1e293b;">Quiz Games</h2>
     <span style="background:#6366f118;color:#6366f1;border:1px solid #6366f144;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700;">TEST YOUR KNOWLEDGE</span>
@@ -948,7 +755,11 @@ footer{background:rgba(0,0,0,.4);border-top:1px solid var(--border);color:rgba(2
 
 
 
+
+
 <script>
+
+
 
 
 
@@ -1402,7 +1213,7 @@ function openGame(key){
     +'<div style="flex:1"></div>'
     +'<button data-gkey="'+key+'" onclick="toggleFav(this)" style="background:rgba(255,255,255,.12);border:1px solid '+th.border+';border-radius:8px;padding:5px 9px;cursor:pointer;font-size:15px;">'+(fav?'❤️':'🤍')+'</button>'
     +'<button onclick="shareGame(this)" data-gkey2="'+key+'" style="background:rgba(255,255,255,.12);border:1px solid '+th.border+';border-radius:8px;padding:5px 9px;cursor:pointer;font-size:11px;font-weight:700;color:'+th.accent+';">Share</button>'
-    +'<button onclick="goFullscreen()" style="background:rgba(255,255,255,.12);border:1px solid '+th.border+';border-radius:8px;padding:5px 9px;cursor:pointer;font-size:12px;color:'+th.text+';">⛶</button>'
+    +'<button onclick="expandModal()" style="background:rgba(255,255,255,.12);border:1px solid '+th.border+';border-radius:8px;padding:5px 9px;cursor:pointer;font-size:12px;color:'+th.text+';">⛶</button>'
     +'<button id="sound-btn" onclick="toggleSound()" style="background:rgba(255,255,255,.12);border:1px solid '+th.border+';border-radius:8px;padding:5px 9px;cursor:pointer;font-size:12px;">'+(_soundOn?'🔊':'🔇')+'</button>'
     +'</div>'
     /* Game description */
@@ -1463,7 +1274,7 @@ function closeGame(){
   if(window._gl){try{cancelAnimationFrame(window._gl);}catch(e){}try{clearTimeout(window._gl);}catch(e){}window._gl=null;}
   var ov=document.getElementById('overlay');if(ov)ov.classList.remove('active');
   var box=document.getElementById('modal-box');
-  if(box){box.innerHTML='';box.style.cssText='';box.style.background='';box.style.border='';}
+  if(box){box.innerHTML='';box.style.cssText='';box.style.background='';box.style.border='';}if(typeof _modalExp!=='undefined'){_modalExp=false;}
   var st=document.getElementById('modal-btn-style');if(st)st.remove();
   document.body.style.overflow='';
   _currentGame=null;
@@ -1664,6 +1475,9 @@ function lockBtns() {
   g.querySelectorAll('button').forEach(function(b){b.disabled=true;b.style.pointerEvents='none';});
 }
 
+
+var _modalExp=false;
+function expandModal(){var m=document.getElementById("modal-box");if(!m)return;_modalExp=!_modalExp;if(_modalExp){m.style.maxWidth="min(860px,95vw)";m.style.maxHeight="95vh";}else{m.style.maxWidth="";m.style.maxHeight="";}}
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.btn,.flt').forEach(function(btn) {
     btn.addEventListener('click', addRipple);
@@ -1815,7 +1629,7 @@ document.addEventListener('DOMContentLoaded',function(){
     _LVL.win=function(pts){var r=_ow(pts);if(typeof checkAdPrompt==='function')checkAdPrompt(_LVL.level);return r;};
   }
 
-  console.log('GameNest World v6 - Ready!');
+  console.log('GameNest World v8 Build 202607060938 - Ready! Dark theme + Colorful filters');
 });
 
 
@@ -6048,7 +5862,11 @@ function gameG2048() {
 
 
 
+
+
 </script>
+
+
 
 
 
