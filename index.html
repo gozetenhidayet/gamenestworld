@@ -74,18 +74,23 @@ nav,section,.hero,.filter-bar,.gami-strip,footer,#toast,.achievement-popup{posit
 }
 .filter-inner{
   max-width:100%;
-  padding:10px 16px;
-  display:flex;gap:8px;align-items:center;
-  overflow-x:auto;scrollbar-width:none;
+  padding:8px 12px;
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:6px;
+  align-items:center;
 }
-.filter-inner::-webkit-scrollbar{display:none;}
+@media(max-width:900px){
+  .filter-inner{grid-template-columns:repeat(3,1fr);}
+}
+@media(max-width:500px){
+  .filter-inner{grid-template-columns:repeat(3,1fr);gap:5px;padding:6px 8px;}
+}
 
 /* COLORFUL FILTER BUTTONS */
 .flt{
-  flex:1;
-  min-width:0;
-  display:flex;align-items:center;justify-content:center;gap:7px;
-  padding:11px 14px;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  padding:11px 8px;
   border-radius:14px;
   border:2px solid transparent;
   font-size:13px;font-weight:800;
@@ -93,127 +98,54 @@ nav,section,.hero,.filter-bar,.gami-strip,footer,#toast,.achievement-popup{posit
   font-family:inherit;
   transition:all .25s cubic-bezier(.34,1.56,.64,1);
   position:relative;overflow:hidden;
-  letter-spacing:.01em;
+  width:100%;
 }
-/* Ripple effect */
 .flt::before{
-  content:'';
-  position:absolute;
-  width:0;height:0;
-  border-radius:50%;
+  content:'';position:absolute;
+  width:0;height:0;border-radius:50%;
   background:rgba(255,255,255,.25);
   top:50%;left:50%;
   transform:translate(-50%,-50%);
-  transition:width .4s ease, height .4s ease, opacity .4s;
+  transition:width .4s ease,height .4s ease,opacity .4s;
   opacity:0;
 }
-.flt:active::before{
-  width:200px;height:200px;opacity:0;
-}
+.flt:active::before{width:200px;height:200px;opacity:0;}
 
-/* DEFAULT state — tinted per category */
-.flt-all  {background:rgba(124,58,237,.18); border-color:rgba(124,58,237,.35); color:rgba(255,255,255,.8);}
-.flt-quiz {background:rgba(79,70,229,.18);  border-color:rgba(79,70,229,.35);  color:rgba(255,255,255,.8);}
-.flt-word {background:rgba(5,150,105,.18);  border-color:rgba(5,150,105,.35);  color:rgba(255,255,255,.8);}
-.flt-math {background:rgba(217,119,6,.18);  border-color:rgba(217,119,6,.35);  color:rgba(255,255,255,.8);}
-.flt-classic{background:rgba(109,40,217,.18);border-color:rgba(109,40,217,.35);color:rgba(255,255,255,.8);}
-.flt-memory{background:rgba(190,24,93,.18); border-color:rgba(190,24,93,.35);  color:rgba(255,255,255,.8);}
+.flt-all  {background:rgba(124,58,237,.2); border-color:rgba(124,58,237,.4); color:rgba(255,255,255,.85);}
+.flt-quiz {background:rgba(79,70,229,.2);  border-color:rgba(79,70,229,.4);  color:rgba(255,255,255,.85);}
+.flt-word {background:rgba(5,150,105,.2);  border-color:rgba(5,150,105,.4);  color:rgba(255,255,255,.85);}
+.flt-math {background:rgba(217,119,6,.2);  border-color:rgba(217,119,6,.4);  color:rgba(255,255,255,.85);}
+.flt-classic{background:rgba(109,40,217,.2);border-color:rgba(109,40,217,.4);color:rgba(255,255,255,.85);}
+.flt-memory{background:rgba(190,24,93,.2); border-color:rgba(190,24,93,.4);  color:rgba(255,255,255,.85);}
 
-/* HOVER state */
-.flt-all:hover  {background:rgba(124,58,237,.35);border-color:rgba(167,139,250,.6);color:#fff;transform:translateY(-3px);}
-.flt-quiz:hover {background:rgba(79,70,229,.35); border-color:rgba(129,140,248,.6);color:#fff;transform:translateY(-3px);}
-.flt-word:hover {background:rgba(5,150,105,.35); border-color:rgba(52,211,153,.6); color:#fff;transform:translateY(-3px);}
-.flt-math:hover {background:rgba(217,119,6,.35); border-color:rgba(251,191,36,.6); color:#fff;transform:translateY(-3px);}
-.flt-classic:hover{background:rgba(109,40,217,.35);border-color:rgba(196,181,253,.6);color:#fff;transform:translateY(-3px);}
-.flt-memory:hover{background:rgba(190,24,93,.35); border-color:rgba(249,168,212,.6);color:#fff;transform:translateY(-3px);}
+.flt-all:hover  {background:rgba(124,58,237,.4);border-color:rgba(167,139,250,.7);color:#fff;transform:translateY(-2px);}
+.flt-quiz:hover {background:rgba(79,70,229,.4); border-color:rgba(129,140,248,.7);color:#fff;transform:translateY(-2px);}
+.flt-word:hover {background:rgba(5,150,105,.4); border-color:rgba(52,211,153,.7); color:#fff;transform:translateY(-2px);}
+.flt-math:hover {background:rgba(217,119,6,.4); border-color:rgba(251,191,36,.7); color:#fff;transform:translateY(-2px);}
+.flt-classic:hover{background:rgba(109,40,217,.4);border-color:rgba(196,181,253,.7);color:#fff;transform:translateY(-2px);}
+.flt-memory:hover{background:rgba(190,24,93,.4); border-color:rgba(249,168,212,.7);color:#fff;transform:translateY(-2px);}
 
-/* ACTIVE state — vivid gradient + glow */
-.flt-all.active{
-  background:linear-gradient(135deg,#7c3aed,#a855f7) !important;
-  border-color:#c084fc !important;color:#fff !important;
-  box-shadow:0 6px 24px rgba(124,58,237,.6),0 0 0 1px rgba(192,132,252,.3);
-  transform:translateY(-2px) scale(1.04);
-}
-.flt-quiz.active{
-  background:linear-gradient(135deg,#4338ca,#6366f1) !important;
-  border-color:#a5b4fc !important;color:#fff !important;
-  box-shadow:0 6px 24px rgba(67,56,202,.6),0 0 0 1px rgba(165,180,252,.3);
-  transform:translateY(-2px) scale(1.04);
-}
-.flt-word.active{
-  background:linear-gradient(135deg,#047857,#10b981) !important;
-  border-color:#6ee7b7 !important;color:#fff !important;
-  box-shadow:0 6px 24px rgba(4,120,87,.6),0 0 0 1px rgba(110,231,183,.3);
-  transform:translateY(-2px) scale(1.04);
-}
-.flt-math.active{
-  background:linear-gradient(135deg,#b45309,#f59e0b) !important;
-  border-color:#fde68a !important;color:#fff !important;
-  box-shadow:0 6px 24px rgba(180,83,9,.6),0 0 0 1px rgba(253,230,138,.3);
-  transform:translateY(-2px) scale(1.04);
-}
-.flt-classic.active{
-  background:linear-gradient(135deg,#6d28d9,#8b5cf6) !important;
-  border-color:#c4b5fd !important;color:#fff !important;
-  box-shadow:0 6px 24px rgba(109,40,217,.6),0 0 0 1px rgba(196,181,253,.3);
-  transform:translateY(-2px) scale(1.04);
-}
-.flt-memory.active{
-  background:linear-gradient(135deg,#9d174d,#ec4899) !important;
-  border-color:#f9a8d4 !important;color:#fff !important;
-  box-shadow:0 6px 24px rgba(157,23,77,.6),0 0 0 1px rgba(249,168,212,.3);
-  transform:translateY(-2px) scale(1.04);
-}
+.flt-all.active{background:linear-gradient(135deg,#7c3aed,#a855f7)!important;border-color:#c084fc!important;color:#fff!important;box-shadow:0 6px 20px rgba(124,58,237,.55);transform:translateY(-2px) scale(1.03);}
+.flt-quiz.active{background:linear-gradient(135deg,#4338ca,#6366f1)!important;border-color:#a5b4fc!important;color:#fff!important;box-shadow:0 6px 20px rgba(67,56,202,.55);transform:translateY(-2px) scale(1.03);}
+.flt-word.active{background:linear-gradient(135deg,#047857,#10b981)!important;border-color:#6ee7b7!important;color:#fff!important;box-shadow:0 6px 20px rgba(4,120,87,.55);transform:translateY(-2px) scale(1.03);}
+.flt-math.active{background:linear-gradient(135deg,#b45309,#f59e0b)!important;border-color:#fde68a!important;color:#fff!important;box-shadow:0 6px 20px rgba(180,83,9,.55);transform:translateY(-2px) scale(1.03);}
+.flt-classic.active{background:linear-gradient(135deg,#6d28d9,#8b5cf6)!important;border-color:#c4b5fd!important;color:#fff!important;box-shadow:0 6px 20px rgba(109,40,217,.55);transform:translateY(-2px) scale(1.03);}
+.flt-memory.active{background:linear-gradient(135deg,#9d174d,#ec4899)!important;border-color:#f9a8d4!important;color:#fff!important;box-shadow:0 6px 20px rgba(157,23,77,.55);transform:translateY(-2px) scale(1.03);}
 
-/* Button inner elements */
-.flt-em{font-size:18px;flex-shrink:0;transition:transform .3s cubic-bezier(.34,1.56,.64,1);}
-.flt.active .flt-em{transform:scale(1.25) rotate(-8deg);}
-.flt:hover .flt-em{transform:scale(1.2) rotate(-5deg);}
-.flt-lbl{font-size:13px;font-weight:800;}
-.flt-count{
-  background:rgba(255,255,255,.2);
-  border-radius:99px;
-  padding:1px 7px;
-  font-size:10px;font-weight:800;
-  min-width:24px;text-align:center;
-  transition:background .2s;
-}
+.flt-em{font-size:17px;flex-shrink:0;transition:transform .3s cubic-bezier(.34,1.56,.64,1);}
+.flt.active .flt-em,.flt:hover .flt-em{transform:scale(1.25) rotate(-8deg);}
+.flt-lbl{font-size:12px;font-weight:800;}
+.flt-count{background:rgba(255,255,255,.2);border-radius:99px;padding:1px 6px;font-size:10px;font-weight:800;min-width:20px;text-align:center;transition:background .2s;}
 .flt.active .flt-count{background:rgba(255,255,255,.3);}
 
-/* Bounce animation on click */
-@keyframes fltBounce{
-  0%{transform:translateY(-2px) scale(1.04);}
-  30%{transform:translateY(-6px) scale(1.08);}
-  60%{transform:translateY(-1px) scale(1.05);}
-  100%{transform:translateY(-2px) scale(1.04);}
-}
+@keyframes fltBounce{0%{transform:translateY(-2px) scale(1.03);}40%{transform:translateY(-5px) scale(1.07);}70%{transform:translateY(-1px) scale(1.04);}100%{transform:translateY(-2px) scale(1.03);}}
 .flt.active{animation:fltBounce .35s ease;}
 
-/* Search */
-.flt-search-wrap{flex-shrink:0;width:180px;}
-.search-inp{
-  width:100%;padding:10px 14px;
-  border-radius:12px;
-  border:2px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.07);
-  color:#fff;font-size:12px;
-  font-family:inherit;outline:none;
-  transition:all .2s;
-}
-.search-inp::placeholder{color:rgba(255,255,255,.3);}
-.search-inp:focus{
-  border-color:#7c3aed;
-  background:rgba(124,58,237,.15);
-  box-shadow:0 0 0 3px rgba(124,58,237,.2);
-}
-
-/* Responsive */
-@media(max-width:640px){
-  .flt-lbl{display:none;}
+@media(max-width:500px){
+  .flt-lbl{font-size:11px;}
   .flt-count{display:none;}
-  .flt{padding:10px 12px;flex:0 0 auto;}
-  .flt-em{font-size:20px;}
-  .flt-search-wrap{width:130px;}
+  .flt{padding:9px 6px;gap:4px;}
+  .flt-em{font-size:16px;}
 }
 
 /* HERO */
@@ -484,31 +416,31 @@ footer::before{
   </div>
 </div>
 
-<!-- COMPACT ACH + LB -->
-<div style="max-width:1160px;margin:0 auto;padding:0 16px 14px;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:12px;">
-    <div style="font-size:12px;font-weight:800;color:rgba(255,255,255,.8);margin-bottom:10px;">🏅 Achievements</div>
+<!-- ACH + LB SIDE BY SIDE -->
+<div style="max-width:1160px;margin:0 auto;padding:0 16px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+  <!-- Achievements LEFT -->
+  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:14px;">
+    <div style="font-size:12px;font-weight:800;color:rgba(255,255,255,.8);margin-bottom:10px;display:flex;align-items:center;gap:6px;">🏅 Achievements</div>
     <div style="display:flex;gap:6px;flex-wrap:wrap;">
-      <div class="ach-badge ach-game" title="Play any game">🎮<span>First Game</span></div>
-      <div class="ach-badge ach-fire" title="Play 3 days in a row">🔥<span>3-Day Streak</span></div>
-      <div class="ach-badge ach-brain" title="Win 10 quiz games">🧠<span>Quiz Master</span></div>
-      <div class="ach-badge ach-bolt" title="Reaction under 200ms">⚡<span>Speed Demon</span></div>
-      <div class="ach-badge ach-book" title="Win 10 word games">📚<span>Word Wizard</span></div>
-    </div>
-      <div class="ach-badge">🔥 <span>3-Day Streak</span></div>
-      <div class="ach-badge">🧠 <span>Quiz Master</span></div>
-      <div class="ach-badge">⚡ <span>Speed Demon</span></div>
-      <div class="ach-badge">📚 <span>Word Wizard</span></div>
+      <div class="ach-badge ach-game">🎮<span> First Game</span></div>
+      <div class="ach-badge ach-fire">🔥<span> 3-Day Streak</span></div>
+      <div class="ach-badge ach-brain">🧠<span> Quiz Master</span></div>
+      <div class="ach-badge ach-bolt">⚡<span> Speed Demon</span></div>
+      <div class="ach-badge ach-book">📚<span> Word Wizard</span></div>
     </div>
   </div>
-  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:12px;">
+  <!-- Leaderboard RIGHT -->
+  <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:14px;">
     <div style="font-size:12px;font-weight:800;color:rgba(255,255,255,.8);margin-bottom:10px;">🏆 Leaderboard</div>
-    <div class="lb-item"><span style="width:22px;font-size:13px;">🥇</span><span style="font-size:16px;margin-right:5px;">🦁</span><span style="flex:1;font-size:12px;font-weight:700;">GameMaster <span style="color:rgba(255,255,255,.35);font-weight:400;">· Lv20</span></span><span style="font-size:12px;font-weight:800;color:#f59e0b;">5,200 XP</span></div>
-    <div class="lb-item"><span style="width:22px;font-size:13px;">🥈</span><span style="font-size:16px;margin-right:5px;">🐯</span><span style="flex:1;font-size:12px;font-weight:700;">BrainStorm <span style="color:rgba(255,255,255,.35);font-weight:400;">· Lv15</span></span><span style="font-size:12px;font-weight:800;color:#f59e0b;">4,100 XP</span></div>
-    <div class="lb-item"><span style="width:22px;font-size:13px;">🥉</span><span style="font-size:16px;margin-right:5px;">🦊</span><span style="flex:1;font-size:12px;font-weight:700;">PuzzleKing <span style="color:rgba(255,255,255,.35);font-weight:400;">· Lv18</span></span><span style="font-size:12px;font-weight:800;color:#f59e0b;">3,800 XP</span></div>
-    <div class="lb-item" style="border:none;"><span style="width:22px;font-size:11px;font-weight:800;color:#a78bfa;">#6</span><span style="font-size:16px;margin-right:5px;">🎮</span><span style="flex:1;font-size:12px;font-weight:700;color:#a78bfa;" id="your-xp-lb">You — 0 XP</span></div>
+    <div class="lb-item"><span style="width:22px;font-size:13px;">🥇</span><span style="font-size:15px;margin-right:5px;">🦁</span><span style="flex:1;font-size:12px;font-weight:700;color:#fff;">GameMaster <span style="color:rgba(255,255,255,.35);font-weight:400;">· Lv20</span></span><span style="font-size:12px;font-weight:800;color:#f59e0b;">5,200 XP</span></div>
+    <div class="lb-item"><span style="width:22px;font-size:13px;">🥈</span><span style="font-size:15px;margin-right:5px;">🐯</span><span style="flex:1;font-size:12px;font-weight:700;color:#fff;">BrainStorm <span style="color:rgba(255,255,255,.35);font-weight:400;">· Lv15</span></span><span style="font-size:12px;font-weight:800;color:#f59e0b;">4,100 XP</span></div>
+    <div class="lb-item"><span style="width:22px;font-size:13px;">🥉</span><span style="font-size:15px;margin-right:5px;">🦊</span><span style="flex:1;font-size:12px;font-weight:700;color:#fff;">PuzzleKing <span style="color:rgba(255,255,255,.35);font-weight:400;">· Lv18</span></span><span style="font-size:12px;font-weight:800;color:#f59e0b;">3,800 XP</span></div>
+    <div class="lb-item" style="border:none;"><span style="width:22px;font-size:11px;font-weight:800;color:#a78bfa;">#6</span><span style="font-size:15px;margin-right:5px;">🎮</span><span style="flex:1;font-size:12px;font-weight:700;color:#a78bfa;" id="your-xp-lb">You — 0 XP</span></div>
   </div>
 </div>
+<!-- Mobile: stack vertically -->
+<style>@media(max-width:600px){div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important;}}</style>
+
 <section id="games">
 
   
@@ -1014,7 +946,9 @@ footer::before{
 
 
 
+
 <script>
+
 
 
 
@@ -6142,7 +6076,9 @@ function gameG2048() {
 
 
 
+
 </script>
+
 
 
 
