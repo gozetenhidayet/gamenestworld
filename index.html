@@ -7815,5 +7815,268 @@ function gameG2048() {
 })();
 </script>
 
+
+
+<!-- =========================================================
+     FIX PACK: new popular games working + no overflow + coloring book
+     ========================================================= -->
+<style id="gnw-new-games-fit-fix">
+  /* Prevent game screens from spilling outside the modal */
+  .overlay.active{padding:12px !important;align-items:center !important;justify-content:center !important;}
+  .modal{width:min(96vw,900px) !important;max-width:900px !important;max-height:94vh !important;overflow-y:auto !important;overflow-x:hidden !important;}
+  #gw,#gw *{max-width:100%;box-sizing:border-box;}
+  #gw{overflow-x:hidden !important;}
+  .kid-game-card{width:min(100%,860px) !important;max-width:860px !important;margin-left:auto !important;margin-right:auto !important;overflow:hidden !important;}
+  .kid-stat-row{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;}
+  .kid-btn{min-height:44px;}
+  .gnw-fit-wrap{width:100%;display:flex;justify-content:center;align-items:center;overflow:hidden;}
+  .gnw-fit-grid{display:grid;gap:8px;justify-content:center;align-items:center;width:100%;max-width:100%;}
+  .gnw-fruit-grid{grid-template-columns:repeat(6,minmax(42px,64px));}
+  .gnw-bubble-grid{grid-template-columns:repeat(7,minmax(36px,58px));}
+  .gnw-park-grid{grid-template-columns:repeat(5,minmax(48px,72px));}
+  .gnw-color-page{width:min(100%,620px);margin:0 auto;background:#fff;border:4px solid #111827;border-radius:18px;box-shadow:0 18px 38px rgba(15,23,42,.16);padding:12px;}
+  .gnw-color-page svg{width:100%;height:auto;display:block;background:#fff;border-radius:12px;}
+  .gnw-color-part{fill:#fff;stroke:#111827;stroke-width:5;cursor:pointer;transition:fill .15s,filter .15s;}
+  .gnw-color-part:hover{filter:drop-shadow(0 0 7px rgba(59,130,246,.55));}
+  .gnw-outline{fill:none;stroke:#111827;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;}
+  .gnw-fruit-cell,.gnw-bubble-cell,.gnw-park-cell{aspect-ratio:1/1;border-radius:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;touch-action:manipulation;user-select:none;}
+  .gnw-fruit-cell{font-size:clamp(28px,5.8vw,46px);background:linear-gradient(135deg,#ffffff,#fff7ed);border:3px solid #fecdd3;box-shadow:0 5px 12px rgba(15,23,42,.06);}
+  .gnw-fruit-cell.sel{background:linear-gradient(135deg,#fef08a,#fbcfe8);border-color:#f59e0b;transform:scale(.96);}
+  .gnw-bubble-cell{background:linear-gradient(135deg,#eff6ff,#ffffff);border:3px solid #bae6fd;}
+  .gnw-ball{width:72%;height:72%;border-radius:50%;box-shadow:inset 0 -10px 12px rgba(15,23,42,.18),inset 0 8px 11px rgba(255,255,255,.55),0 7px 11px rgba(15,23,42,.12);}
+  .gnw-park-cell{font-size:clamp(28px,5vw,44px);border:3px solid #bfdbfe;background:#f8fafc;box-shadow:inset 0 0 0 1px rgba(255,255,255,.7);}
+  .gnw-park-cell.goal{background:linear-gradient(135deg,#bbf7d0,#86efac);}
+  .gnw-park-cell.block{background:#dbeafe;}
+  .gnw-park-controls{display:grid;grid-template-columns:repeat(3,minmax(54px,76px));gap:8px;justify-content:center;margin-top:14px;}
+  .gnw-park-controls .kid-btn{font-size:24px;padding:8px 12px;}
+  .gnw-fullscreen-on .modal{width:98vw !important;max-width:1280px !important;max-height:98vh !important;}
+  .gnw-fullscreen-on .kid-game-card{max-width:1120px !important;}
+  .gnw-fullscreen-on #gw{font-size:1.13em;}
+  .gnw-fullscreen-on .gnw-fruit-grid{grid-template-columns:repeat(6,minmax(58px,82px));}
+  .gnw-fullscreen-on .gnw-bubble-grid{grid-template-columns:repeat(7,minmax(50px,72px));}
+  .gnw-fullscreen-on .gnw-park-grid{grid-template-columns:repeat(5,minmax(68px,88px));}
+  .gnw-fullscreen-on .gnw-color-page{width:min(100%,760px);}
+  @media(max-width:640px){
+    .modal{width:96vw !important;padding:10px !important;}
+    .kid-game-card{padding:14px 10px !important;}
+    .gnw-fit-grid{gap:5px;}
+    .gnw-fruit-grid{grid-template-columns:repeat(6,minmax(38px,1fr));}
+    .gnw-bubble-grid{grid-template-columns:repeat(7,minmax(31px,1fr));}
+    .gnw-park-grid{grid-template-columns:repeat(5,minmax(42px,1fr));}
+    .gnw-park-controls{grid-template-columns:repeat(3,58px);}
+  }
+</style>
+
+<script id="gnw-new-games-working-fix">
+(function(){
+  'use strict';
+  function $(id){return document.getElementById(id);}
+  function area(){return (typeof window.gw==='function' ? window.gw() : $('gw'));}
+  function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+  function pick(a){return a[Math.floor(Math.random()*a.length)];}
+  function startStats(k){try{window.gnwStartStats&&window.gnwStartStats(k);}catch(e){}}
+  function endStats(res,extra){try{window.gnwShowEndStats&&window.gnwShowEndStats(res||'win',extra||'');}catch(e){}}
+  function addC(n){try{window.gnwAddCorrect&&window.gnwAddCorrect(n||1);}catch(e){}}
+  function addW(n){try{window.gnwAddWrong&&window.gnwAddWrong(n||1);}catch(e){}}
+  function addS(n){try{window.gnwAddScore&&window.gnwAddScore(n||0);}catch(e){}}
+  function sound(t){try{window.playSound&&window.playSound(t||'pop');}catch(e){}}
+  function praise(txt){try{if(window.gnwSpeakPraise)window.gnwSpeakPraise(txt||pick(['Good!','Very Good!','Great!','Excellent!','Awesome!']));}catch(e){}}
+  function celebrate(txt){try{if(window.kidBigCelebration)window.kidBigCelebration(txt||'Excellent!');}catch(e){}}
+  function stat(t){return '<span class="kid-pill">'+t+'</span>';}
+  function title(h,sub){return '<div style="margin-bottom:14px;"><h2 style="font-size:clamp(22px,3vw,32px);font-weight:950;margin:0 0 8px;color:#172033;">'+h+'</h2><div style="font-size:clamp(13px,1.8vw,16px);font-weight:800;color:#64748b;">'+sub+'</div></div>';}
+
+  function updateFullscreenClass(){
+    var ov=$('overlay');
+    if(ov) ov.classList.toggle('gnw-fullscreen-on', !!document.fullscreenElement);
+  }
+  document.addEventListener('fullscreenchange',updateFullscreenClass);
+
+  /* Fixed Fruit Pop Blast: responsive board, real swap/match/drop/refill */
+  window.gameFruitPop=function(){
+    var a=area(); if(!a)return; startStats('fruitpop');
+    var N=6, fruits=['🍎','🍌','🍓','🍇','🍊','🍉'], board=[], selected=null, score=0, moves=28, target=520, busy=false;
+    function idx(r,c){return r*N+c;} function rc(i){return [Math.floor(i/N),i%N];}
+    function fillBoard(){
+      board=[];
+      for(var i=0;i<N*N;i++) board[i]=pick(fruits);
+      var guard=0;
+      while(matches().length && guard++<30){matches().forEach(function(i){board[i]=pick(fruits);});}
+    }
+    function matches(){
+      var out={};
+      for(var r=0;r<N;r++){var run=[idx(r,0)];for(var c=1;c<N;c++){var i=idx(r,c);if(board[i]&&board[i]===board[run[0]])run.push(i);else{if(run.length>=3)run.forEach(function(x){out[x]=1;});run=[i];}}if(run.length>=3)run.forEach(function(x){out[x]=1;});}
+      for(var c=0;c<N;c++){var run=[idx(0,c)];for(var r=1;r<N;r++){var i=idx(r,c);if(board[i]&&board[i]===board[run[0]])run.push(i);else{if(run.length>=3)run.forEach(function(x){out[x]=1;});run=[i];}}if(run.length>=3)run.forEach(function(x){out[x]=1;});}
+      return Object.keys(out).map(Number);
+    }
+    function dropAndFill(cleared){
+      cleared.forEach(function(i){board[i]='';});
+      for(var c=0;c<N;c++){
+        var col=[];for(var r=N-1;r>=0;r--){var v=board[idx(r,c)];if(v)col.push(v);}
+        for(var r=N-1,k=0;r>=0;r--,k++) board[idx(r,c)]=col[k]||pick(fruits);
+      }
+    }
+    function resolve(chain){
+      busy=true;
+      var m=matches();
+      if(!m.length){busy=false;render(); if(score>=target){celebrate('Fruit Blast Complete!');setTimeout(function(){endStats('win',stat('Score: '+score)+' '+stat('Moves left: '+moves));},500);}else if(moves<=0){setTimeout(function(){endStats('lose',stat('Score: '+score)+' '+stat('Target: '+target));},250);} return;}
+      score+=m.length*14*(chain||1); addC(1); addS(m.length*10); praise((chain||1)>1?'Excellent!':'Great!'); sound('pop');
+      dropAndFill(m); render(m);
+      setTimeout(function(){resolve((chain||1)+1);},210);
+    }
+    window.kidFruitTap=function(i){
+      if(busy||moves<=0||score>=target)return;
+      if(selected===null){selected=i;render();return;}
+      if(selected===i){selected=null;render();return;}
+      var p=rc(selected),q=rc(i),near=Math.abs(p[0]-q[0])+Math.abs(p[1]-q[1])===1;
+      if(!near){selected=i;render();return;}
+      var t=board[selected]; board[selected]=board[i]; board[i]=t;
+      if(!matches().length){t=board[selected]; board[selected]=board[i]; board[i]=t; addW(1); sound('lose'); selected=null; render(); return;}
+      moves--; selected=null; resolve(1);
+    };
+    function render(blast){
+      var cells=board.map(function(v,i){return '<button class="gnw-fruit-cell '+(selected===i?'sel':'')+'" onclick="kidFruitTap('+i+')" aria-label="fruit cell">'+v+'</button>';}).join('');
+      a.innerHTML='<div class="kid-game-card" style="text-align:center;">'+title('🍓 Fruit Pop Blast','Swap nearby fruits. Match 3 or more to blast them!')+'<div class="kid-stat-row">'+stat('Score: '+score)+stat('Target: '+target)+stat('Moves: '+moves)+'</div><div class="gnw-fit-wrap"><div class="gnw-fit-grid gnw-fruit-grid">'+cells+'</div></div><button class="kid-btn" style="margin-top:16px;" onclick="gameFruitPop()">New Fruit Game</button></div>';
+    }
+    fillBoard(); render();
+  };
+
+  /* Fixed Rainbow Bubble Pop: board fits and refills; always playable */
+  window.gameRainbowBubble=function(){
+    var a=area(); if(!a)return; startStats('rainbowbubble');
+    var W=7,H=7, colors=['#ef4444','#f97316','#facc15','#22c55e','#3b82f6','#a855f7'], grid=[], score=0, moves=24;
+    function init(){grid=[];for(var i=0;i<W*H;i++)grid[i]=pick(colors);score=0;moves=24;render();}
+    function neigh(i){var r=Math.floor(i/W),c=i%W,arr=[];[[1,0],[-1,0],[0,1],[0,-1]].forEach(function(d){var y=r+d[0],x=c+d[1];if(y>=0&&y<H&&x>=0&&x<W)arr.push(y*W+x);});return arr;}
+    function group(i){var v=grid[i],seen={},q=[i],out=[];if(!v)return out;seen[i]=1;while(q.length){var x=q.pop();out.push(x);neigh(x).forEach(function(n){if(!seen[n]&&grid[n]===v){seen[n]=1;q.push(n);}});}return out;}
+    function compactRefill(){for(var c=0;c<W;c++){var col=[];for(var r=H-1;r>=0;r--){var v=grid[r*W+c];if(v)col.push(v);}for(var r=H-1,k=0;r>=0;r--,k++)grid[r*W+c]=col[k]||pick(colors);}}
+    window.kidBubbleTap=function(i){
+      if(moves<=0)return;
+      var gr=group(i);
+      if(gr.length<2){addW(1);sound('lose');return;}
+      gr.forEach(function(x){grid[x]='';}); score+=gr.length*gr.length*6; moves--; addC(1); addS(gr.length*8); praise(gr.length>=6?'Excellent!':gr.length>=4?'Very Good!':'Good!'); sound('pop'); compactRefill(); render();
+      if(moves<=0){celebrate('Bubble Pop Complete!');setTimeout(function(){endStats('win',stat('Score: '+score));},450);}
+    };
+    function render(){
+      var cells=grid.map(function(c,i){return '<button class="gnw-bubble-cell" onclick="kidBubbleTap('+i+')"><span class="gnw-ball" style="background:'+c+'"></span></button>';}).join('');
+      a.innerHTML='<div class="kid-game-card" style="text-align:center;">'+title('🫧 Rainbow Bubble Pop','Click groups of matching balls. Bigger groups give more points!')+'<div class="kid-stat-row">'+stat('Score: '+score)+stat('Moves: '+moves)+stat('Pop 2+ same color')+'</div><div class="gnw-fit-wrap"><div class="gnw-fit-grid gnw-bubble-grid">'+cells+'</div></div><button class="kid-btn" style="margin-top:16px;" onclick="gameRainbowBubble()">New Bubble Board</button></div>';
+    }
+    init();
+  };
+
+  /* Fixed Coloring: real coloring-book style SVG pages */
+  window.gameColorJoy=function(){
+    var a=area(); if(!a)return; startStats('colorjoy');
+    var palette=['#ef4444','#fb923c','#facc15','#22c55e','#38bdf8','#8b5cf6','#ec4899','#ffffff'], chosen=palette[0], mode='flowers', page=0, fills={};
+    var pages={
+      flowers:[flowerSvg,roseSvg],
+      animals:[catSvg,birdSvg],
+      fruits:[fruitSvg,strawberrySvg]
+    };
+    window.kidColorMode=function(m){mode=m;page=0;fills={};render();};
+    window.kidPickColor=function(c){chosen=c;render();};
+    window.kidPaintPart=function(id){fills[id]=chosen;addC(1);praise('Beautiful!');sound('pop');render();};
+    window.kidNextColorPage=function(){page=(page+1)%pages[mode].length;fills={};render();};
+    function fill(id){return fills[id]||'#ffffff';}
+    function svgButton(id,shape){return shape.replace('data-id="'+id+'"','data-id="'+id+'" onclick="kidPaintPart(\''+id+'\')" style="fill:'+fill(id)+'"');}
+    function flowerSvg(){return '<svg viewBox="0 0 520 520" role="img" aria-label="flower coloring page">'+
+      svgButton('petal1','<ellipse data-id="petal1" class="gnw-color-part" cx="260" cy="118" rx="42" ry="76"/>')+
+      svgButton('petal2','<ellipse data-id="petal2" class="gnw-color-part" cx="338" cy="154" rx="42" ry="76" transform="rotate(45 338 154)"/>')+
+      svgButton('petal3','<ellipse data-id="petal3" class="gnw-color-part" cx="374" cy="238" rx="42" ry="76" transform="rotate(90 374 238)"/>')+
+      svgButton('petal4','<ellipse data-id="petal4" class="gnw-color-part" cx="320" cy="316" rx="42" ry="76" transform="rotate(135 320 316)"/>')+
+      svgButton('petal5','<ellipse data-id="petal5" class="gnw-color-part" cx="218" cy="316" rx="42" ry="76" transform="rotate(45 218 316)"/>')+
+      svgButton('petal6','<ellipse data-id="petal6" class="gnw-color-part" cx="146" cy="238" rx="42" ry="76" transform="rotate(90 146 238)"/>')+
+      svgButton('petal7','<ellipse data-id="petal7" class="gnw-color-part" cx="182" cy="154" rx="42" ry="76" transform="rotate(135 182 154)"/>')+
+      svgButton('center','<circle data-id="center" class="gnw-color-part" cx="260" cy="238" r="58"/>')+
+      svgButton('stem','<path data-id="stem" class="gnw-color-part" d="M250 296 C238 370 230 430 230 500 L276 500 C278 430 276 360 270 296 Z"/>')+
+      svgButton('leaf1','<path data-id="leaf1" class="gnw-color-part" d="M238 386 C150 350 132 410 214 430 C240 430 262 410 238 386 Z"/>')+
+      svgButton('leaf2','<path data-id="leaf2" class="gnw-color-part" d="M270 420 C350 372 392 430 300 460 C280 455 268 440 270 420 Z"/>')+
+      '</svg>';}
+    function roseSvg(){return '<svg viewBox="0 0 520 520">'+
+      svgButton('rose1','<path data-id="rose1" class="gnw-color-part" d="M260 105 C350 120 390 210 340 280 C300 340 220 340 180 280 C130 205 170 120 260 105 Z"/>')+
+      svgButton('rose2','<path data-id="rose2" class="gnw-color-part" d="M260 155 C318 165 332 226 290 258 C250 288 198 260 206 210 C212 176 230 160 260 155 Z"/>')+
+      svgButton('rose3','<path data-id="rose3" class="gnw-color-part" d="M250 200 C288 190 306 222 280 244 C246 270 220 235 250 200 Z"/>')+
+      svgButton('stem','<path data-id="stem" class="gnw-color-part" d="M248 320 L236 500 L284 500 L270 320 Z"/>')+
+      svgButton('leaf1','<path data-id="leaf1" class="gnw-color-part" d="M238 380 C155 340 130 410 220 430 C245 430 260 405 238 380 Z"/>')+
+      svgButton('leaf2','<path data-id="leaf2" class="gnw-color-part" d="M276 404 C355 360 392 426 305 456 C282 452 266 430 276 404 Z"/>')+'</svg>';}
+    function catSvg(){return '<svg viewBox="0 0 520 520">'+
+      svgButton('body','<ellipse data-id="body" class="gnw-color-part" cx="260" cy="320" rx="128" ry="142"/>')+
+      svgButton('head','<circle data-id="head" class="gnw-color-part" cx="260" cy="190" r="105"/>')+
+      svgButton('ear1','<path data-id="ear1" class="gnw-color-part" d="M185 128 L154 48 L235 92 Z"/>')+
+      svgButton('ear2','<path data-id="ear2" class="gnw-color-part" d="M335 128 L366 48 L285 92 Z"/>')+
+      svgButton('tail','<path data-id="tail" class="gnw-color-part" d="M372 318 C475 300 470 428 392 404 C358 394 360 352 395 356 C424 360 426 396 396 392"/>')+
+      svgButton('paw1','<ellipse data-id="paw1" class="gnw-color-part" cx="214" cy="452" rx="42" ry="30"/>')+
+      svgButton('paw2','<ellipse data-id="paw2" class="gnw-color-part" cx="306" cy="452" rx="42" ry="30"/>')+
+      '<circle cx="222" cy="178" r="10"/><circle cx="298" cy="178" r="10"/><path class="gnw-outline" d="M248 220 Q260 232 272 220 M260 232 Q240 250 220 236 M260 232 Q280 250 300 236"/></svg>';}
+    function birdSvg(){return '<svg viewBox="0 0 520 520">'+
+      svgButton('body','<ellipse data-id="body" class="gnw-color-part" cx="260" cy="296" rx="115" ry="138"/>')+
+      svgButton('wing','<path data-id="wing" class="gnw-color-part" d="M260 280 C355 250 390 330 300 398 C258 370 246 325 260 280 Z"/>')+
+      svgButton('head','<circle data-id="head" class="gnw-color-part" cx="218" cy="156" r="72"/>')+
+      svgButton('beak','<path data-id="beak" class="gnw-color-part" d="M280 160 L370 132 L294 196 Z"/>')+
+      svgButton('tail','<path data-id="tail" class="gnw-color-part" d="M350 350 L468 388 L358 420 Z"/>')+
+      svgButton('leg1','<path data-id="leg1" class="gnw-color-part" d="M225 426 L210 500 L240 500 L252 426 Z"/>')+
+      svgButton('leg2','<path data-id="leg2" class="gnw-color-part" d="M292 424 L308 500 L338 500 L318 424 Z"/>')+
+      '<circle cx="232" cy="146" r="10"/></svg>';}
+    function fruitSvg(){return '<svg viewBox="0 0 520 520">'+
+      svgButton('apple','<path data-id="apple" class="gnw-color-part" d="M172 160 C130 160 92 204 96 278 C100 372 170 448 232 420 C250 412 270 412 288 420 C350 448 420 372 424 278 C428 204 390 160 348 160 C306 160 292 182 260 182 C228 182 214 160 172 160 Z"/>')+
+      svgButton('leaf','<path data-id="leaf" class="gnw-color-part" d="M264 124 C286 70 348 68 380 96 C340 122 304 144 264 124 Z"/>')+
+      svgButton('stem','<path data-id="stem" class="gnw-color-part" d="M250 84 L280 84 L270 166 L246 166 Z"/>')+'</svg>';}
+    function strawberrySvg(){return '<svg viewBox="0 0 520 520">'+
+      svgButton('berry','<path data-id="berry" class="gnw-color-part" d="M260 125 C390 120 430 250 360 370 C324 432 292 470 260 488 C228 470 196 432 160 370 C90 250 130 120 260 125 Z"/>')+
+      svgButton('leaf1','<path data-id="leaf1" class="gnw-color-part" d="M260 132 L218 70 L260 96 L304 70 Z"/>')+
+      svgButton('leaf2','<path data-id="leaf2" class="gnw-color-part" d="M218 138 L142 98 L210 100 Z"/>')+
+      svgButton('leaf3','<path data-id="leaf3" class="gnw-color-part" d="M304 138 L378 98 L310 100 Z"/>')+
+      '<g fill="#111827"><circle cx="210" cy="230" r="6"/><circle cx="260" cy="220" r="6"/><circle cx="310" cy="230" r="6"/><circle cx="230" cy="300" r="6"/><circle cx="286" cy="305" r="6"/><circle cx="260" cy="382" r="6"/></g></svg>';}
+    function render(){
+      var svg=pages[mode][page]();
+      var tabs='<button class="kid-btn" onclick="kidColorMode(\'flowers\')">🌸 Flowers</button><button class="kid-btn" onclick="kidColorMode(\'animals\')">🐾 Animals</button><button class="kid-btn" onclick="kidColorMode(\'fruits\')">🍓 Fruits</button><button class="kid-btn" onclick="kidNextColorPage()">Next Picture →</button>';
+      var pal=palette.map(function(c){return '<button onclick="kidPickColor(\''+c+'\')" style="width:48px;height:48px;border-radius:50%;border:5px solid '+(chosen===c?'#172033':'#fff')+';background:'+c+';box-shadow:0 6px 14px rgba(15,23,42,.16);cursor:pointer;"></button>';}).join('');
+      a.innerHTML='<div class="kid-game-card" style="text-align:center;">'+title('🎨 Color Joy Studio','Choose a color, then click inside the picture to paint.')+'<div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:12px;">'+tabs+'</div><div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:16px;">'+pal+'</div><div class="gnw-color-page">'+svg+'</div></div>';
+    }
+    render();
+  };
+
+  /* Fixed Parking Puzzle: smaller board, visible controls, keyboard support */
+  window.gameParkingPuzzle=function(){
+    var a=area(); if(!a)return; startStats('parkingpuzzle');
+    if(window._parkingClean){try{window._parkingClean();}catch(e){}}
+    var N=5, car={r:4,c:0}, goal={r:0,c:4}, moves=0, blocks={'1,1':1,'1,2':1,'2,3':1,'3,1':1,'3,3':1};
+    function can(r,c){return r>=0&&r<N&&c>=0&&c<N&&!blocks[r+','+c];}
+    window.kidParkMove=function(dr,dc){
+      var nr=car.r+dr,nc=car.c+dc;
+      if(!can(nr,nc)){addW(1);sound('lose');return;}
+      car={r:nr,c:nc};moves++;addC(1);sound('click');render();
+      if(car.r===goal.r&&car.c===goal.c){celebrate('Perfect Parking!');setTimeout(function(){endStats('win',stat('Moves: '+moves));},450);}
+    };
+    function render(){
+      var cells='';
+      for(var r=0;r<N;r++)for(var c=0;c<N;c++){var isCar=car.r===r&&car.c===c,isGoal=goal.r===r&&goal.c===c,isBlock=blocks[r+','+c];cells+='<div class="gnw-park-cell '+(isGoal?'goal ':'')+(isBlock?'block ':'')+'">'+(isCar?'🚗':isGoal?'🅿️':isBlock?'🧱':'')+'</div>';}
+      a.innerHTML='<div class="kid-game-card" style="text-align:center;">'+title('🅿️ Parking Puzzle','Move the car to the green parking spot. Avoid blocks!')+'<div class="kid-stat-row">'+stat('Moves: '+moves)+stat('Use arrow keys or buttons')+'</div><div class="gnw-fit-wrap"><div class="gnw-fit-grid gnw-park-grid">'+cells+'</div></div><div class="gnw-park-controls"><div></div><button class="kid-btn" onclick="kidParkMove(-1,0)">↑</button><div></div><button class="kid-btn" onclick="kidParkMove(0,-1)">←</button><button class="kid-btn" onclick="gameParkingPuzzle()">↻</button><button class="kid-btn" onclick="kidParkMove(0,1)">→</button><div></div><button class="kid-btn" onclick="kidParkMove(1,0)">↓</button><div></div></div></div>';
+    }
+    function key(e){var k=e.key;if(k==='ArrowUp'){e.preventDefault();window.kidParkMove(-1,0);}if(k==='ArrowDown'){e.preventDefault();window.kidParkMove(1,0);}if(k==='ArrowLeft'){e.preventDefault();window.kidParkMove(0,-1);}if(k==='ArrowRight'){e.preventDefault();window.kidParkMove(0,1);}}
+    document.addEventListener('keydown',key);window._parkingClean=function(){document.removeEventListener('keydown',key);};
+    render();
+  };
+
+  function installFixes(){
+    if(window.GAMES){
+      window.GAMES.fruitpop=window.gameFruitPop;
+      window.GAMES.rainbowbubble=window.gameRainbowBubble;
+      window.GAMES.colorjoy=window.gameColorJoy;
+      window.GAMES.parkingpuzzle=window.gameParkingPuzzle;
+    }
+  }
+  installFixes();
+  document.addEventListener('DOMContentLoaded',installFixes);
+
+  /* Clean Parking keyboard listener when leaving or changing games */
+  if(!window._gnwNewGamesCleanPatch){
+    var oldOpen=window.openGame;
+    if(typeof oldOpen==='function') window.openGame=function(){try{window._parkingClean&&window._parkingClean();}catch(e){} return oldOpen.apply(this,arguments);};
+    var oldClose=window.closeGame;
+    if(typeof oldClose==='function') window.closeGame=function(){try{window._parkingClean&&window._parkingClean();}catch(e){} return oldClose.apply(this,arguments);};
+    window._gnwNewGamesCleanPatch=true;
+  }
+})();
+</script>
+
 </body>
 </html>
