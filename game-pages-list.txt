@@ -1,0 +1,58 @@
+2048: /games/2048/
+Sudoku: /games/sudoku/
+Snake: /games/snake/
+Tetris: /games/tetris/
+Minesweeper: /games/minesweeper/
+Word Search: /games/word-search/
+Crossword: /games/crossword/
+Chess: /games/chess/
+Hangman: /games/hangman/
+Memory Cards: /games/memory-cards/
+Tic Tac Toe: /games/tic-tac-toe/
+Flappy Bird: /games/flappy-bird/
+Color Quiz: /games/color-quiz/
+Flag Quiz: /games/flag-quiz/
+True or False: /games/true-or-false/
+Riddles: /games/riddles/
+Emoji Quiz: /games/emoji-quiz/
+Odd One Out: /games/odd-one-out/
+General Knowledge: /games/general-knowledge/
+Geography Quiz: /games/geography-quiz/
+Science Quiz: /games/science-quiz/
+Movie Quiz: /games/movie-quiz/
+Expert Trivia: /games/expert-trivia/
+Word Scramble: /games/word-scramble/
+Typing Speed: /games/typing-speed/
+Anagram: /games/anagram/
+Word Chain: /games/word-chain/
+Word Guess: /games/word-guess/
+Spelling Bee: /games/spelling-bee/
+Cipher Decode: /games/cipher-decode/
+Math Basics: /games/math-basics/
+Math Quiz: /games/math-quiz/
+Times Tables: /games/times-tables/
+Make 24: /games/make-24/
+Math Sprint: /games/math-sprint/
+Number Sequence: /games/number-sequence/
+Coin Flip: /games/coin-flip/
+Dice Roller: /games/dice-roller/
+Rock Paper Scissors: /games/rock-paper-scissors/
+Number Guess: /games/number-guess/
+Reaction Time: /games/reaction-time/
+Connect Four: /games/connect-four/
+Pong: /games/pong/
+Color Match: /games/color-match/
+Simon Says: /games/simon-says/
+Pattern Memory: /games/pattern-memory/
+Minesweeper Hard: /games/minesweeper-hard/
+History Quiz: /games/history-quiz/
+Breakout: /games/breakout/
+Lights Out: /games/lights-out/
+Memory Pro: /games/memory-pro/
+Fruit Pop Blast: /games/fruit-pop-blast/
+Rainbow Bubble Pop: /games/rainbow-bubble-pop/
+City Dash Runner: /games/city-dash-runner/
+Block Puzzle World: /games/block-puzzle-world/
+Color Joy Studio: /games/color-joy-studio/
+Mini Race Rush: /games/mini-race-rush/
+Parking Puzzle: /games/parking-puzzle/
