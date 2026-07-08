@@ -1,0 +1,61 @@
+priority,slug,url,page_title,manual_submit_order
+HIGH,home,https://gamenestworld.com/,GameNest World Home,1
+HIGH,games,https://gamenestworld.com/games/,All Games,2
+HIGH,2048,https://gamenestworld.com/games/2048/,Play 2048 Online Free - 2048 Online Game,3
+NORMAL,anagram,https://gamenestworld.com/games/anagram/,Play Anagram Online Free - Anagram Online,4
+HIGH,block-puzzle-world,https://gamenestworld.com/games/block-puzzle-world/,Play Block Puzzle World Online Free - Block Puzzle Game Online,5
+NORMAL,breakout,https://gamenestworld.com/games/breakout/,Play Breakout Online Free - Breakout Online,6
+HIGH,chess,https://gamenestworld.com/games/chess/,Play Chess Online Free - Chess Game Online,7
+NORMAL,cipher-decode,https://gamenestworld.com/games/cipher-decode/,Play Cipher Decode Online Free - Cipher Decode Online,8
+HIGH,city-dash-runner,https://gamenestworld.com/games/city-dash-runner/,Play City Dash Runner Online Free - Endless Runner Game Online,9
+NORMAL,coin-flip,https://gamenestworld.com/games/coin-flip/,Play Coin Flip Online Free - Coin Flip Online,10
+HIGH,color-joy-studio,https://gamenestworld.com/games/color-joy-studio/,Play Color Joy Studio Online Free - Coloring Game For Kids,11
+NORMAL,color-match,https://gamenestworld.com/games/color-match/,Play Color Match Online Free - Color Match Online,12
+NORMAL,color-quiz,https://gamenestworld.com/games/color-quiz/,Play Color Quiz Online Free - Color Quiz Online,13
+NORMAL,connect-four,https://gamenestworld.com/games/connect-four/,Play Connect Four Online Free - Connect Four Online,14
+NORMAL,crossword,https://gamenestworld.com/games/crossword/,Play Crossword Online Free - Crossword Puzzle Online,15
+NORMAL,dice-roller,https://gamenestworld.com/games/dice-roller/,Play Dice Roller Online Free - Dice Roller Online,16
+NORMAL,emoji-quiz,https://gamenestworld.com/games/emoji-quiz/,Play Emoji Quiz Online Free - Emoji Quiz Online,17
+NORMAL,expert-trivia,https://gamenestworld.com/games/expert-trivia/,Play Expert Trivia Online Free - Expert Trivia Online,18
+NORMAL,flag-quiz,https://gamenestworld.com/games/flag-quiz/,Play Flag Quiz Online Free - Flag Quiz Online,19
+HIGH,flappy-bird,https://gamenestworld.com/games/flappy-bird/,Play Flappy Bird Online Free - Flappy Game Online,20
+HIGH,fruit-pop-blast,https://gamenestworld.com/games/fruit-pop-blast/,Play Fruit Pop Blast Online Free - Fruit Match Game Online,21
+NORMAL,general-knowledge,https://gamenestworld.com/games/general-knowledge/,Play General Knowledge Online Free - General Knowledge Online,22
+NORMAL,geography-quiz,https://gamenestworld.com/games/geography-quiz/,Play Geography Quiz Online Free - Geography Quiz Online,23
+NORMAL,hangman,https://gamenestworld.com/games/hangman/,Play Hangman Online Free - Hangman Game Online,24
+NORMAL,history-quiz,https://gamenestworld.com/games/history-quiz/,Play History Quiz Online Free - History Quiz Online,25
+NORMAL,lights-out,https://gamenestworld.com/games/lights-out/,Play Lights Out Online Free - Lights Out Online,26
+NORMAL,make-24,https://gamenestworld.com/games/make-24/,Play Make 24 Online Free - Make 24 Online,27
+NORMAL,math-basics,https://gamenestworld.com/games/math-basics/,Play Math Basics Online Free - Math Basics Online,28
+NORMAL,math-quiz,https://gamenestworld.com/games/math-quiz/,Play Math Quiz Online Free - Math Quiz Online,29
+NORMAL,math-sprint,https://gamenestworld.com/games/math-sprint/,Play Math Sprint Online Free - Math Sprint Online,30
+HIGH,memory-cards,https://gamenestworld.com/games/memory-cards/,Play Memory Cards Online Free - Memory Card Game Online,31
+NORMAL,memory-pro,https://gamenestworld.com/games/memory-pro/,Play Memory Pro Online Free - Memory Pro Online,32
+NORMAL,minesweeper,https://gamenestworld.com/games/minesweeper/,Play Minesweeper Online Free - Minesweeper Online Free,33
+NORMAL,minesweeper-hard,https://gamenestworld.com/games/minesweeper-hard/,Play Minesweeper Hard Online Free - Minesweeper Hard Online,34
+HIGH,mini-race-rush,https://gamenestworld.com/games/mini-race-rush/,Play Mini Race Rush Online Free - Racing Game Online,35
+NORMAL,movie-quiz,https://gamenestworld.com/games/movie-quiz/,Play Movie Quiz Online Free - Movie Quiz Online,36
+NORMAL,number-guess,https://gamenestworld.com/games/number-guess/,Play Number Guess Online Free - Number Guess Online,37
+NORMAL,number-sequence,https://gamenestworld.com/games/number-sequence/,Play Number Sequence Online Free - Number Sequence Online,38
+NORMAL,odd-one-out,https://gamenestworld.com/games/odd-one-out/,Play Odd One Out Online Free - Odd One Out Online,39
+HIGH,parking-puzzle,https://gamenestworld.com/games/parking-puzzle/,Play Parking Puzzle Online Free - Parking Puzzle Game Online,40
+NORMAL,pattern-memory,https://gamenestworld.com/games/pattern-memory/,Play Pattern Memory Online Free - Pattern Memory Online,41
+NORMAL,pong,https://gamenestworld.com/games/pong/,Play Pong Online Free - Pong Online,42
+HIGH,rainbow-bubble-pop,https://gamenestworld.com/games/rainbow-bubble-pop/,Play Rainbow Bubble Pop Online Free - Bubble Pop Game Online,43
+NORMAL,reaction-time,https://gamenestworld.com/games/reaction-time/,Play Reaction Time Online Free - Reaction Time Online,44
+NORMAL,riddles,https://gamenestworld.com/games/riddles/,Play Riddles Online Free - Riddles Online,45
+NORMAL,rock-paper-scissors,https://gamenestworld.com/games/rock-paper-scissors/,Play Rock Paper Scissors Online Free - Rock Paper Scissors Online,46
+NORMAL,science-quiz,https://gamenestworld.com/games/science-quiz/,Play Science Quiz Online Free - Science Quiz Online,47
+NORMAL,simon-says,https://gamenestworld.com/games/simon-says/,Play Simon Says Online Free - Simon Says Online,48
+HIGH,snake,https://gamenestworld.com/games/snake/,Play Snake Online Free - Snake Game Online,49
+NORMAL,spelling-bee,https://gamenestworld.com/games/spelling-bee/,Play Spelling Bee Online Free - Spelling Bee Online,50
+HIGH,sudoku,https://gamenestworld.com/games/sudoku/,Play Sudoku Online Free - Sudoku Online Free,51
+HIGH,tetris,https://gamenestworld.com/games/tetris/,Play Tetris Online Free - Falling Blocks Puzzle Game,52
+NORMAL,tic-tac-toe,https://gamenestworld.com/games/tic-tac-toe/,Play Tic Tac Toe Online Free - Tic Tac Toe Online,53
+NORMAL,times-tables,https://gamenestworld.com/games/times-tables/,Play Times Tables Online Free - Times Tables Online,54
+NORMAL,true-or-false,https://gamenestworld.com/games/true-or-false/,Play True or False Online Free - True Or False Online,55
+NORMAL,typing-speed,https://gamenestworld.com/games/typing-speed/,Play Typing Speed Online Free - Typing Speed Online,56
+NORMAL,word-chain,https://gamenestworld.com/games/word-chain/,Play Word Chain Online Free - Word Chain Online,57
+NORMAL,word-guess,https://gamenestworld.com/games/word-guess/,Play Word Guess Online Free - Word Guess Online,58
+NORMAL,word-scramble,https://gamenestworld.com/games/word-scramble/,Play Word Scramble Online Free - Word Scramble Online,59
+NORMAL,word-search,https://gamenestworld.com/games/word-search/,Play Word Search Online Free - Word Search Online Free,60

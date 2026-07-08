@@ -1,0 +1,42 @@
+GAME NEST WORLD - STEP 5 INDEXING / GOOGLE SEARCH CONSOLE REHBERI
+
+4. adim kategori sayfalari atlandi. Bu paket 5. adimdir: Google'a sayfalari daha kolay gondermek icin hazirlandi.
+
+YUKLENECEK DOSYALAR:
+1) index.html
+2) games/ klasorunun tamami
+3) sitemap.xml
+4) robots.txt
+
+GOOGLE SEARCH CONSOLE'DA YAPILACAKLAR:
+1) Google Search Console'a gir.
+2) Property olarak https://gamenestworld.com/ sitesini sec.
+3) Sol menuden Sitemaps bolumune gir.
+4) Sitemap alanina sadece sunu yaz: sitemap.xml
+5) Submit / Gonder butonuna bas.
+6) URL Inspection alanina once priority-urls-submit-first.txt icindeki linkleri tek tek koy.
+7) Her link icin Request Indexing / Indexing iste butonuna bas.
+
+ONCE GONDERILECEK EN ONEMLI LINKLER:
+https://gamenestworld.com/
+https://gamenestworld.com/games/
+https://gamenestworld.com/games/2048/
+https://gamenestworld.com/games/block-puzzle-world/
+https://gamenestworld.com/games/chess/
+https://gamenestworld.com/games/city-dash-runner/
+https://gamenestworld.com/games/color-joy-studio/
+https://gamenestworld.com/games/flappy-bird/
+https://gamenestworld.com/games/fruit-pop-blast/
+https://gamenestworld.com/games/memory-cards/
+https://gamenestworld.com/games/mini-race-rush/
+https://gamenestworld.com/games/parking-puzzle/
+https://gamenestworld.com/games/rainbow-bubble-pop/
+https://gamenestworld.com/games/snake/
+https://gamenestworld.com/games/sudoku/
+https://gamenestworld.com/games/tetris/
+
+NOTLAR:
+- Google'da en uste cikma garantisi yoktur.
+- Bu dosyalar Google'in sayfalari daha iyi taramasi ve anlamasi icindir.
+- Her oyun sayfasinin kendine ait title, description, canonical, robots, schema ve FAQ bolumu var.
+- Sitemap'te ana sayfa, /games/ sayfasi ve tum oyun sayfalari var.
