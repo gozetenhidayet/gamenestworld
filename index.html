@@ -921,13 +921,29 @@ footer::before{display:none !important;}
 
 <section id="games">
 
-<div style="max-width:900px;margin:0 auto 28px;padding:24px 28px;text-align:center;background:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.9);border-radius:20px;box-shadow:0 12px 32px rgba(15,23,42,.06);">
-  <p style="font-size:15px;line-height:1.8;color:#334155;margin-bottom:14px;">
-    <strong style="color:#1e293b;">GameNest World</strong> is a free browser gaming hub with 58 instantly playable games spanning five categories: classic arcade favorites like 2048, Snake, and Tetris; word and vocabulary challenges like Hangman and Word Search; quick-fire trivia and quiz games covering geography, science, movies, and general knowledge; math and logic puzzles for building mental arithmetic speed; and memory and focus games designed to sharpen concentration.
-  </p>
-  <p style="font-size:15px;line-height:1.8;color:#334155;">
-    Every game runs directly in your browser with no downloads, no account creation, and no hidden fees — just click a game and start playing. As you play, you'll earn XP, unlock achievements, and build daily streaks. Whether you have five minutes on a break or want a longer session, there's a game below sized to fit.
-  </p>
+<style>
+@keyframes gnwFloat{0%,100%{transform:translateY(0) rotate(-6deg);}50%{transform:translateY(-8px) rotate(6deg);}}
+@keyframes gnwFloat2{0%,100%{transform:translateY(0) rotate(6deg);}50%{transform:translateY(-10px) rotate(-4deg);}}
+@keyframes gnwWiggle{0%,100%{transform:rotate(-3deg) scale(1);}50%{transform:rotate(3deg) scale(1.08);}}
+@keyframes gnwShimmer{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+.gnw-intro-card{position:relative;overflow:hidden;}
+.gnw-intro-emoji{position:absolute;font-size:34px;opacity:.9;filter:drop-shadow(0 4px 6px rgba(0,0,0,.12));pointer-events:none;}
+.gnw-cat-badge{display:inline-block;animation:gnwWiggle 2.2s ease-in-out infinite;}
+</style>
+<div class="gnw-intro-card" style="max-width:900px;margin:0 auto 28px;padding:30px 28px;text-align:center;background:linear-gradient(120deg,#a5f3fc,#c4b5fd,#fbcfe8,#fde68a);background-size:300% 300%;animation:gnwShimmer 10s ease infinite;border:4px solid #fff;border-radius:28px;box-shadow:0 16px 40px rgba(99,102,241,.18);">
+  <span class="gnw-intro-emoji" style="top:8px;left:18px;animation:gnwFloat 3.4s ease-in-out infinite;">🎮</span>
+  <span class="gnw-intro-emoji" style="top:14px;right:22px;animation:gnwFloat2 4s ease-in-out infinite;">🧩</span>
+  <span class="gnw-intro-emoji" style="bottom:10px;left:30px;animation:gnwFloat2 3.7s ease-in-out infinite;">🏆</span>
+  <span class="gnw-intro-emoji" style="bottom:6px;right:34px;animation:gnwFloat 4.3s ease-in-out infinite;">⭐</span>
+  <div style="background:rgba(255,255,255,.92);border-radius:20px;padding:22px 26px;box-shadow:inset 0 0 0 2px rgba(255,255,255,.6);">
+    <div class="gnw-cat-badge" style="font-size:30px;margin-bottom:6px;">🎉</div>
+    <p style="font-size:15.5px;line-height:1.85;color:#3730a3;font-weight:600;margin-bottom:14px;">
+      <strong style="color:#1e1b4b;font-size:17px;">GameNest World</strong> is a free browser gaming hub with 58 instantly playable games spanning five categories: classic arcade favorites like 2048, Snake, and Tetris; word and vocabulary challenges like Hangman and Word Search; quick-fire trivia and quiz games covering geography, science, movies, and general knowledge; math and logic puzzles for building mental arithmetic speed; and memory and focus games designed to sharpen concentration.
+    </p>
+    <p style="font-size:15.5px;line-height:1.85;color:#3730a3;font-weight:600;">
+      Every game runs directly in your browser with no downloads, no account creation, and no hidden fees — just click a game and start playing. As you play, you'll earn XP, unlock achievements, and build daily streaks. Whether you have five minutes on a break or want a longer session, there's a game below sized to fit.
+    </p>
+  </div>
 </div>
 
   
@@ -1018,7 +1034,7 @@ footer::before{display:none !important;}
     <span style="background:#6366f118;color:#6366f1;border:1px solid #6366f144;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700;">TEST YOUR KNOWLEDGE</span>
     <div style="flex:1;height:1px;background:#e2e8f0;"></div>
   </div>
-  <p style="max-width:1160px;margin:0 auto;padding:2px 20px 14px;font-size:13.5px;color:#475569;line-height:1.65;font-weight:500;border-left:3px solid #4338ca;margin-left:20px;padding-left:14px;">From flags and geography to movies, science, and general knowledge, our quiz games put your trivia skills to the test with quick rounds you can finish in a couple of minutes.</p>
+  <div style="max-width:1160px;margin:0 auto;padding:0 20px 16px;"><div style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(90deg,#e0e7ff,#ede9fe);border:2px solid rgba(255,255,255,.8);border-radius:16px;padding:10px 16px;box-shadow:0 4px 14px rgba(0,0,0,.06);"><span style="font-size:22px;display:inline-block;animation:gnwWiggle 2.4s ease-in-out infinite;animation-delay:0s;">🧠</span><p style="margin:0;font-size:13.5px;color:#4338ca;line-height:1.6;font-weight:700;">From flags and geography to movies, science, and general knowledge, our quiz games put your trivia skills to the test with quick rounds you can finish in a couple of minutes.</p></div></div>
   <div style="max-width:1160px;margin:0 auto;padding:0 20px;">
   <div class="game-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-bottom:8px;">
     <div class="game-card c-quiz" data-cat="quiz" onclick="openGame('colorquiz')" style="background:#eef2ff;border:1.5px solid #6366f133;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
@@ -1095,7 +1111,7 @@ footer::before{display:none !important;}
     <span style="background:#22c55e18;color:#22c55e;border:1px solid #22c55e44;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700;">LETTERS & LANGUAGE</span>
     <div style="flex:1;height:1px;background:#e2e8f0;"></div>
   </div>
-  <p style="max-width:1160px;margin:0 auto;padding:2px 20px 14px;font-size:13.5px;color:#475569;line-height:1.65;font-weight:500;border-left:3px solid #15803d;margin-left:20px;padding-left:14px;">Sharpen your vocabulary with word-guessing, spelling, and word-search challenges that reward pattern recognition and a strong mental word bank.</p>
+  <div style="max-width:1160px;margin:0 auto;padding:0 20px 16px;"><div style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(90deg,#dcfce7,#d1fae5);border:2px solid rgba(255,255,255,.8);border-radius:16px;padding:10px 16px;box-shadow:0 4px 14px rgba(0,0,0,.06);"><span style="font-size:22px;display:inline-block;animation:gnwWiggle 2.4s ease-in-out infinite;animation-delay:.3s;">📚</span><p style="margin:0;font-size:13.5px;color:#15803d;line-height:1.6;font-weight:700;">Sharpen your vocabulary with word-guessing, spelling, and word-search challenges that reward pattern recognition and a strong mental word bank.</p></div></div>
   <div style="max-width:1160px;margin:0 auto;padding:0 20px;">
   <div class="game-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-bottom:8px;">
     <div class="game-card c-word" data-cat="word" onclick="openGame('wordscramble')" style="background:#dcfce7;border:1.5px solid #22c55e33;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
@@ -1166,7 +1182,7 @@ footer::before{display:none !important;}
     <span style="background:#f9731618;color:#f97316;border:1px solid #f9731644;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700;">NUMBERS & LOGIC</span>
     <div style="flex:1;height:1px;background:#e2e8f0;"></div>
   </div>
-  <p style="max-width:1160px;margin:0 auto;padding:2px 20px 14px;font-size:13.5px;color:#475569;line-height:1.65;font-weight:500;border-left:3px solid #c2410c;margin-left:20px;padding-left:14px;">Build calculation speed and number sense with timed arithmetic challenges, sequence puzzles, and quick-fire math sprints suitable for all skill levels.</p>
+  <div style="max-width:1160px;margin:0 auto;padding:0 20px 16px;"><div style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(90deg,#ffedd5,#fef3c7);border:2px solid rgba(255,255,255,.8);border-radius:16px;padding:10px 16px;box-shadow:0 4px 14px rgba(0,0,0,.06);"><span style="font-size:22px;display:inline-block;animation:gnwWiggle 2.4s ease-in-out infinite;animation-delay:.6s;">🔢</span><p style="margin:0;font-size:13.5px;color:#c2410c;line-height:1.6;font-weight:700;">Build calculation speed and number sense with timed arithmetic challenges, sequence puzzles, and quick-fire math sprints suitable for all skill levels.</p></div></div>
   <div style="max-width:1160px;margin:0 auto;padding:0 20px;">
   <div class="game-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-bottom:8px;">
     <div class="game-card c-math" data-cat="math" onclick="openGame('mathbasic')" style="background:#fff7ed;border:1.5px solid #f9731633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
@@ -1219,7 +1235,7 @@ footer::before{display:none !important;}
     <span style="background:#8b5cf618;color:#8b5cf6;border:1px solid #8b5cf644;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700;">TIMELESS FUN</span>
     <div style="flex:1;height:1px;background:#e2e8f0;"></div>
   </div>
-  <p style="max-width:1160px;margin:0 auto;padding:2px 20px 14px;font-size:13.5px;color:#475569;line-height:1.65;font-weight:500;border-left:3px solid #7c3aed;margin-left:20px;padding-left:14px;">Reimagined versions of the arcade and board game classics you grew up with — 2048, Snake, Tetris, Chess, and more — rebuilt for smooth, fast browser play.</p>
+  <div style="max-width:1160px;margin:0 auto;padding:0 20px 16px;"><div style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(90deg,#ede9fe,#f3e8ff);border:2px solid rgba(255,255,255,.8);border-radius:16px;padding:10px 16px;box-shadow:0 4px 14px rgba(0,0,0,.06);"><span style="font-size:22px;display:inline-block;animation:gnwWiggle 2.4s ease-in-out infinite;animation-delay:.9s;">🕹️</span><p style="margin:0;font-size:13.5px;color:#7c3aed;line-height:1.6;font-weight:700;">Reimagined versions of the arcade and board game classics you grew up with — 2048, Snake, Tetris, Chess, and more — rebuilt for smooth, fast browser play.</p></div></div>
   <div style="max-width:1160px;margin:0 auto;padding:0 20px;">
   <div class="game-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-bottom:8px;">
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('coin')" style="background:#f5f3ff;border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
@@ -1314,7 +1330,7 @@ footer::before{display:none !important;}
     <span style="background:#ec489918;color:#ec4899;border:1px solid #ec489944;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700;">TRAIN YOUR BRAIN</span>
     <div style="flex:1;height:1px;background:#e2e8f0;"></div>
   </div>
-  <p style="max-width:1160px;margin:0 auto;padding:2px 20px 14px;font-size:13.5px;color:#475569;line-height:1.65;font-weight:500;border-left:3px solid #be185d;margin-left:20px;padding-left:14px;">Train your short-term memory and concentration with card-matching, pattern-recall, and focus-based mini-games that stay fun rather than feeling like a drill.</p>
+  <div style="max-width:1160px;margin:0 auto;padding:0 20px 16px;"><div style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(90deg,#fce7f3,#fbcfe8);border:2px solid rgba(255,255,255,.8);border-radius:16px;padding:10px 16px;box-shadow:0 4px 14px rgba(0,0,0,.06);"><span style="font-size:22px;display:inline-block;animation:gnwWiggle 2.4s ease-in-out infinite;animation-delay:1.2s;">🧩</span><p style="margin:0;font-size:13.5px;color:#be185d;line-height:1.6;font-weight:700;">Train your short-term memory and concentration with card-matching, pattern-recall, and focus-based mini-games that stay fun rather than feeling like a drill.</p></div></div>
   <div style="max-width:1160px;margin:0 auto;padding:0 20px;">
   <div class="game-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-bottom:8px;">
     <div class="game-card c-memory" data-cat="memory" onclick="openGame('colormatch')" style="background:#fdf4ff;border:1.5px solid #ec489933;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);" onmouseover="this.style.transform='translateY(-6px) scale(1.03)';this.style.boxShadow='0 14px 28px rgba(0,0,0,.12)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,.04)'">
