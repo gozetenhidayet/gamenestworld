@@ -34,6 +34,7 @@
 <link rel="alternate" hreflang="ko" href="https://gamenestworld.com/?lang=ko">
 <link rel="alternate" hreflang="x-default" href="https://gamenestworld.com/">
 <!-- Google Analytics -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3359266836868361" crossorigin="anonymous"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GMVJJQ96Y8"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GMVJJQ96Y8');</script>
 <!-- Fonts -->
@@ -6117,7 +6118,7 @@ function trackGamePlay() {
   }
 }
 
-function showInterstitial() { return; /* disabled */
+function showInterstitial() {
   var existing = document.getElementById('interstitial-modal');
   if (existing) return;
 
@@ -6127,11 +6128,9 @@ function showInterstitial() { return; /* disabled */
 
   var skip = 5;
   modal.innerHTML = '<div style="width:100%;max-width:600px;text-align:center;padding:20px;position:relative;">'
-    + '<div style="background:#1a1a2e;border-radius:16px;padding:40px 20px;margin-bottom:16px;">'
-    + '<div style="font-size:14px;color:#6b7280;margin-bottom:16px;">Advertisement</div>'
-    + '<div style="font-size:48px;margin-bottom:12px;">📺</div>'
-    + '<div style="color:#9ca3af;font-size:13px;">Interstitial Message</div>'
-    + '<div style="color:#6b7280;font-size:11px;margin-top:4px;">ca-pub-3359266836868361</div>'
+    + '<div style="background:#1a1a2e;border-radius:16px;padding:20px;margin-bottom:16px;min-height:250px;display:flex;flex-direction:column;align-items:center;justify-content:center;">'
+    + '<div style="font-size:12px;color:#6b7280;margin-bottom:12px;">Advertisement</div>'
+    + '<ins class="adsbygoogle" style="display:block;width:100%;max-width:560px;min-height:200px;" data-ad-client="ca-pub-3359266836868361" data-ad-slot="0000000004" data-ad-format="auto" data-full-width-responsive="true"></ins>'
     + '</div>'
     + '<button id="skip-btn" onclick="closeInterstitial()" style="background:#374151;color:#9ca3af;border:none;border-radius:8px;padding:10px 24px;font-size:14px;cursor:pointer;" disabled>'
     + 'Skip in <span id="skip-cd">'+skip+'</span>s'
@@ -6139,6 +6138,7 @@ function showInterstitial() { return; /* disabled */
     + '</div>';
 
   document.body.appendChild(modal);
+  try{ (adsbygoogle = window.adsbygoogle || []).push({}); }catch(e){}
 
   var iv = setInterval(function() {
     skip--;
