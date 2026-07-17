@@ -1,0 +1,24 @@
+# Netlify cache headers — place this file at your site root (same level as index.html)
+# Fixes Lighthouse "Use efficient cache lifetimes". This can't be set via <meta> tags —
+# it must come from a real HTTP response header, so add this file to your host.
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/game-engine.js
+  Cache-Control: public, max-age=604800
+
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+/*.png
+  Cache-Control: public, max-age=31536000, immutable
+/*.jpg
+  Cache-Control: public, max-age=31536000, immutable
+/*.webp
+  Cache-Control: public, max-age=31536000, immutable
+/*.svg
+  Cache-Control: public, max-age=31536000, immutable

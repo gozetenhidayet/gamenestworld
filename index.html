@@ -33,12 +33,34 @@
 <link rel="alternate" hreflang="ja" href="https://gamenestworld.com/?lang=ja">
 <link rel="alternate" hreflang="ko" href="https://gamenestworld.com/?lang=ko">
 <link rel="alternate" hreflang="x-default" href="https://gamenestworld.com/">
-<!-- Google Analytics -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3359266836868361" crossorigin="anonymous"></script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GMVJJQ96Y8"></script>
-<!-- Fonts -->
+<!-- Google Analytics + AdSense — loaded after the page is interactive so they
+     don't compete with first paint / LCP for the main thread. Ads and
+     analytics still work exactly the same, they just start a beat later. -->
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());
+gtag('config','G-GMVJJQ96Y8');
+function _gnwLoadAdsAnalytics(){
+  var s1=document.createElement('script');
+  s1.src='https://www.googletagmanager.com/gtag/js?id=G-GMVJJQ96Y8';
+  s1.async=true;
+  document.head.appendChild(s1);
+  var s2=document.createElement('script');
+  s2.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3359266836868361';
+  s2.async=true;
+  s2.crossOrigin='anonymous';
+  document.head.appendChild(s2);
+}
+if(document.readyState==='complete'){_gnwLoadAdsAnalytics();}
+else{window.addEventListener('load',function(){setTimeout(_gnwLoadAdsAnalytics,1);});}
+</script>
+<!-- Fonts: preload the stylesheet so it doesn't block rendering, then swap it in -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <!-- JSON-LD -->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"GameNest World","url":"https://gamenestworld.com","description":"58 free online browser games - no download required","potentialAction":{"@type":"SearchAction","target":"https://gamenestworld.com/?search={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Are GameNest World games really free?","acceptedAnswer":{"@type":"Answer","text":"Yes! All 58 games are 100% free, forever. No download, no signup needed."}},{"@type":"Question","name":"Do I need to download anything?","acceptedAnswer":{"@type":"Answer","text":"No download needed. All games run in your browser on any device."}},{"@type":"Question","name":"Can I play on mobile?","acceptedAnswer":{"@type":"Answer","text":"Yes! All games are mobile-friendly with touch controls."}}]}</script>
@@ -842,8 +864,10 @@ footer::before{display:none !important;}
       <option value="et">ET Eesti</option><option value="sw">SW Kiswahili</option>
     </select>
   
-    <div class="nav-search"><input type="text" placeholder="Search games..." oninput="searchGames(this.value)"></div></div>
+    <div class="nav-search"><input type="text" placeholder="Search games..." oninput="searchGames(this.value)" aria-label="Search games"></div></div>
 </nav>
+
+<main id="main-content">
 
 <!-- FILTER BAR -->
 <div class="filter-bar">
@@ -948,7 +972,7 @@ footer::before{display:none !important;}
   
 <div class="top12-section">
   <div style="max-width:1160px;margin:0 auto;">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;"><span style="font-size:22px;">🔥</span><div><div style="font-size:17px;font-weight:900;color:#fff;">Most Popular Games</div><div style="font-size:10px;color:rgba(255,255,255,.35);">Most played today</div></div><div style="margin-left:auto;background:rgba(245,158,11,.15);color:#fbbf24;border:1px solid rgba(251,191,36,.25);border-radius:8px;padding:3px 10px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;">TOP 12</div></div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;"><span style="font-size:22px;">🔥</span><div><div style="font-size:17px;font-weight:900;color:#fff;">Most Popular Games</div><div style="font-size:10px;color:rgba(255,255,255,.35);">Most played today</div></div><div style="margin-left:auto;background:#92400e;color:#fff;border:1px solid rgba(251,191,36,.4);border-radius:8px;padding:3px 10px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;">TOP 12</div></div>
     <div class="top12-grid">
       <div class="top12-card" onclick="openGame('g2048')">
         <div class="t-rank">#1</div>
@@ -1438,8 +1462,8 @@ footer::before{display:none !important;}
       <div style="flex:1;"><div style="font-weight:800;color:#4ade80;font-size:15px;">Invite Friends – Earn XP!</div>
       <div style="color:rgba(255,255,255,.6);font-size:13px;margin-bottom:10px;">Share your link. Each friend earns you +100 XP.</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <input value="https://gamenestworld.com/?ref=player" readonly style="flex:1;min-width:180px;padding:8px 12px;border-radius:8px;border:1px solid #86efac;font-size:13px;background:#fff;color:#15803d;">
-        <button onclick="navigator.clipboard&&navigator.clipboard.writeText('https://gamenestworld.com/?ref=player');showToast('Link copied!',0)" class="btn" style="background:#16a34a;padding:8px 14px;font-size:13px;">📋 Copy</button>
+        <input value="https://gamenestworld.com/?ref=player" readonly aria-label="Your referral link" style="flex:1;min-width:180px;padding:8px 12px;border-radius:8px;border:1px solid #86efac;font-size:13px;background:#fff;color:#15803d;">
+        <button onclick="navigator.clipboard&&navigator.clipboard.writeText('https://gamenestworld.com/?ref=player');showToast('Link copied!',0)" class="btn" aria-label="Copy referral link" style="background:#15803d;padding:8px 14px;font-size:13px;">📋 Copy</button>
       </div></div>
       <div style="font-size:48px;">🎮</div>
     </div>
@@ -1449,6 +1473,8 @@ footer::before{display:none !important;}
   <div id="affiliate-section" style="padding:0 20px 20px;max-width:1160px;margin:0 auto;"></div>
 
 </section>
+
+</main>
 
 <!-- FOOTER -->
 
