@@ -2,95 +2,157 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Contact Us - GameNest World</title>
-<meta name="description" content="Contact GameNest World. Report bugs, suggest new games, or send feedback.">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="robots" content="index,follow">
+<title>Contact Us | GameNest World</title>
+<meta name="description" content="Get in touch with the GameNest World team — bug reports, game suggestions, advertising and privacy inquiries.">
+<link rel="canonical" href="https://gamenestworld.com/contact.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#07050f,#1a1040,#0d1b2a);background-attachment:fixed;color:#fff;min-height:100vh;}
-input,textarea,select{font-family:inherit;transition:border-color .2s;}
-input:focus,textarea:focus,select:focus{border-color:#7c3aed!important;outline:none;box-shadow:0 0 0 3px rgba(124,58,237,.2);}
-nav{background:rgba(7,5,15,.9);backdrop-filter:blur(20px);padding:0 20px;border-bottom:1px solid rgba(255,255,255,.1);position:sticky;top:0;z-index:100;}
+:root{--bg:#07050f;--text:#fff;--muted:rgba(255,255,255,.6);--accent:#7c3aed;--border:rgba(255,255,255,.09);}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.7;}
+body::before{content:'';position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 60% 50% at 10% 20%,rgba(124,58,237,.18) 0%,transparent 70%),radial-gradient(ellipse 50% 60% at 90% 80%,rgba(236,72,153,.12) 0%,transparent 70%);pointer-events:none;}
+.nav{position:sticky;top:0;z-index:200;background:rgba(7,5,15,.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 16px;}
+.nav-inner{max-width:1240px;margin:0 auto;height:54px;display:flex;align-items:center;gap:16px;position:relative;z-index:1;}
+.logo{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:21px;font-weight:900;color:#fff;text-decoration:none;letter-spacing:-.3px;}
+.logo span{color:#a78bfa;}
+.back-link{margin-left:auto;color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:700;padding:7px 14px;border:1px solid var(--border);border-radius:99px;transition:all .2s;}
+.back-link:hover{border-color:#a78bfa;color:#fff;}
+main{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:48px 20px 64px;}
+h1{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(28px,5vw,40px);font-weight:900;letter-spacing:-.5px;margin-bottom:8px;}
+.sub{color:var(--muted);font-size:14px;margin-bottom:32px;}
+p{color:rgba(255,255,255,.82);font-size:15px;margin-bottom:24px;}
+.card{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:18px;padding:28px;}
+label{display:block;font-size:12px;font-weight:800;color:#e9d5ff;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;}
+.field{margin-bottom:18px;}
+input[type=text],input[type=email],select,textarea{
+  width:100%;padding:12px 14px;border-radius:10px;border:1.5px solid var(--border);
+  background:rgba(255,255,255,.05);color:#fff;font-size:14px;font-family:inherit;outline:none;
+  transition:border-color .2s,background .2s;
+}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.32);}
+input:focus,select:focus,textarea:focus{border-color:#a78bfa;background:rgba(124,58,237,.10);}
+select{cursor:pointer;}
+select option{background:#150f28;color:#fff;}
+textarea{resize:vertical;min-height:120px;}
+.hp{position:absolute;left:-9999px;opacity:0;}
+button[type=submit]{
+  width:100%;padding:14px;border:none;border-radius:12px;
+  background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;
+  font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;
+  box-shadow:0 6px 20px rgba(124,58,237,.35);transition:transform .15s,box-shadow .15s;
+}
+button[type=submit]:hover{transform:translateY(-1px);box-shadow:0 10px 26px rgba(124,58,237,.45);}
+button[type=submit]:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+.note{font-size:12px;color:var(--muted);margin-top:14px;text-align:center;}
+#form-msg{display:none;padding:12px 14px;border-radius:10px;font-size:13px;font-weight:700;margin-bottom:16px;}
+#form-msg.ok{display:block;background:rgba(34,197,94,.12);border:1px solid rgba(74,222,128,.35);color:#86efac;}
+#form-msg.err{display:block;background:rgba(239,68,68,.12);border:1px solid rgba(248,113,113,.35);color:#fca5a5;}
+footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:28px 20px;text-align:center;color:var(--muted);font-size:13px;}
+footer a{color:var(--muted);text-decoration:none;margin:0 8px;}
+footer a:hover{color:#c084fc;}
 </style>
 </head>
 <body>
-<nav><div style="max-width:1160px;margin:0 auto;height:52px;display:flex;align-items:center;">
-  <a href="/" style="font-size:20px;font-weight:900;color:#fff;text-decoration:none;"><span style="color:#a78bfa;">Game</span>Nest World</a>
-  <div style="flex:1;"></div>
-  <a href="/" style="color:rgba(255,255,255,.6);text-decoration:none;font-size:14px;">← All Games</a>
-</div></nav>
-<main style="max-width:580px;margin:0 auto;padding:60px 20px;">
-  <h1 style="font-size:40px;font-weight:900;margin-bottom:8px;">Contact Us</h1>
-  <p style="color:rgba(255,255,255,.5);font-size:15px;margin-bottom:32px;line-height:1.7;">Bug report, game suggestion, or feedback? We love hearing from players!</p>
-
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px;">
-    <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:16px;text-align:center;">
-      <div style="font-size:28px;margin-bottom:6px;">🐛</div>
-      <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:3px;">Bug Report</div>
-      <div style="font-size:11px;color:rgba(255,255,255,.4);">Game not working?</div>
-    </div>
-    <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:16px;text-align:center;">
-      <div style="font-size:28px;margin-bottom:6px;">💡</div>
-      <div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:3px;">Suggest a Game</div>
-      <div style="font-size:11px;color:rgba(255,255,255,.4);">What should we add?</div>
-    </div>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="/"><span>Game</span>Nest<span style="color:#fff;">World</span></a>
+    <a class="back-link" href="/">← Back to Games</a>
   </div>
+</nav>
 
-  <form onsubmit="sendMsg(event)" style="display:flex;flex-direction:column;gap:14px;">
-    <div>
-      <label style="display:block;color:rgba(255,255,255,.6);font-size:12px;font-weight:700;margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em;">Your Name</label>
-      <input type="text" id="cf-name" placeholder="Enter your name" required
-        style="width:100%;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);color:#fff;font-size:14px;">
-    </div>
-    <div>
-      <label style="display:block;color:rgba(255,255,255,.6);font-size:12px;font-weight:700;margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em;">Email Address</label>
-      <input type="email" id="cf-email" placeholder="your@email.com" required
-        style="width:100%;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);color:#fff;font-size:14px;">
-    </div>
-    <div>
-      <label style="display:block;color:rgba(255,255,255,.6);font-size:12px;font-weight:700;margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em;">Type</label>
-      <select id="cf-type"
-        style="width:100%;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(255,255,255,.12);background:rgba(21,16,50,.95);color:#fff;font-size:14px;">
-        <option value="bug">🐛 Bug Report</option>
-        <option value="suggest">💡 Game Suggestion</option>
-        <option value="feedback">💬 General Feedback</option>
-        <option value="ad">📢 Ad / AdSense Issue</option>
-        <option value="other">📩 Other</option>
-      </select>
-    </div>
-    <div>
-      <label style="display:block;color:rgba(255,255,255,.6);font-size:12px;font-weight:700;margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em;">Message</label>
-      <textarea id="cf-msg" rows="5" placeholder="Tell us more..." required
-        style="width:100%;padding:12px 14px;border-radius:10px;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);color:#fff;font-size:14px;resize:vertical;"></textarea>
-    </div>
-    <button type="submit"
-      style="padding:14px;border-radius:12px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 20px rgba(124,58,237,.4);transition:all .2s;">
-      Send Message 🚀
-    </button>
-    <div id="cf-ok" style="display:none;background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.3);border-radius:10px;padding:14px;text-align:center;color:#6ee7b7;font-weight:700;">
-      ✅ Message sent! We will get back to you soon.
-    </div>
-  </form>
+<main>
+  <h1>Contact Us</h1>
+  <p class="sub">We usually reply within 2–3 business days.</p>
+  <p>Found a bug, have a game idea, a complaint, or just want to say something nice? Fill out the form below and it goes straight to our team.</p>
+
+  <div class="card">
+    <div id="form-msg"></div>
+    <form id="gnw-contact-form" action="https://formsubmit.co/hynngozeten@gmail.com" method="POST">
+      <!-- FormSubmit config: no captcha page, table-style email, custom subject -->
+      <input type="hidden" name="_subject" value="New message from GameNest World contact form">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <!-- honeypot spam trap -->
+      <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off">
+
+      <div class="field">
+        <label for="cf-name">Your name</label>
+        <input type="text" id="cf-name" name="Name" placeholder="Jane Doe" required autocomplete="name">
+      </div>
+
+      <div class="field">
+        <label for="cf-email">Your email</label>
+        <input type="email" id="cf-email" name="Email" placeholder="you@example.com" required autocomplete="email">
+      </div>
+
+      <div class="field">
+        <label for="cf-topic">Topic</label>
+        <select id="cf-topic" name="Topic" required>
+          <option value="" disabled selected>Choose a topic…</option>
+          <option value="Bug report / game issue">🐛 Bug report / game issue</option>
+          <option value="Game suggestion / feedback">💡 Game suggestion / feedback</option>
+          <option value="Advertising / partnership">📢 Advertising / partnership</option>
+          <option value="Privacy / data request">🔒 Privacy / data request</option>
+          <option value="Compliment">🎉 Just something nice!</option>
+          <option value="Other">✉️ Other</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="cf-msg">Message</label>
+        <textarea id="cf-msg" name="Message" placeholder="Tell us what's going on…" required></textarea>
+      </div>
+
+      <button type="submit" id="cf-submit">Send Message</button>
+      <p class="note">Your message is sent securely and privately. We never share your email with third parties.</p>
+    </form>
+  </div>
 </main>
-<footer style="background:linear-gradient(135deg,#1a0533,#1e1b4b);border-top:1px solid rgba(167,139,250,.2);padding:24px;text-align:center;margin-top:60px;">
-  <p style="color:rgba(255,255,255,.3);font-size:12px;">© 2026 GameNest World ·
-    <a href="/" style="color:rgba(255,255,255,.4);text-decoration:none;margin:0 8px;">Home</a>
-    <a href="/privacy.html" style="color:rgba(255,255,255,.4);text-decoration:none;margin:0 8px;">Privacy</a>
-    <a href="/terms.html" style="color:rgba(255,255,255,.4);text-decoration:none;margin:0 8px;">Terms</a>
-  </p>
+
+<footer>
+  <a href="/">Home</a>
+  <a href="/about.html">About</a>
+  <a href="/privacy.html">Privacy Policy</a>
+  <a href="/terms.html">Terms of Use</a>
+  <a href="/contact.html">Contact</a>
+  <p style="margin-top:14px;">© 2026 GameNest World · All rights reserved</p>
 </footer>
+
 <script>
-function sendMsg(e){
-  e.preventDefault();
-  var btn=e.target.querySelector('button');
-  btn.textContent='Sending...';btn.disabled=true;
-  setTimeout(function(){
-    document.getElementById('cf-ok').style.display='block';
-    btn.textContent='Send Message 🚀';btn.disabled=false;
-    e.target.reset();
-  },1000);
-}
+(function(){
+  var form = document.getElementById('gnw-contact-form');
+  var msg = document.getElementById('form-msg');
+  var btn = document.getElementById('cf-submit');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    msg.className = ''; msg.style.display = 'none';
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function(res){
+      if(res.ok){
+        msg.textContent = "✅ Thanks! Your message has been sent — we'll get back to you soon.";
+        msg.className = 'ok';
+        form.reset();
+      } else {
+        throw new Error('bad status');
+      }
+    }).catch(function(){
+      msg.textContent = "⚠️ Something went wrong. Please try again in a moment.";
+      msg.className = 'err';
+    }).finally(function(){
+      msg.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Send Message';
+    });
+  });
+})();
 </script>
 </body>
 </html>
