@@ -1666,5 +1666,24 @@ footer::before{display:none !important;}
   }
 </style>
 <script src="game-engine.js" defer></script>
+<script>
+// Deep-link support: /games/{slug}/ pages send visitors here with ?play=ID
+// so the right game opens automatically instead of dropping them on the homepage.
+(function(){
+  var id = new URLSearchParams(location.search).get('play');
+  if(!id) return;
+  var tries = 0;
+  var timer = setInterval(function(){
+    tries++;
+    if(typeof openGame === 'function'){
+      clearInterval(timer);
+      openGame(id);
+      if(history.replaceState) history.replaceState(null,'','/');
+    } else if(tries > 100){
+      clearInterval(timer); // give up after ~10s, user still has a working homepage
+    }
+  }, 100);
+})();
+</script>
 </body>
 </html>
