@@ -571,8 +571,7 @@ function setFilter(cat,btn){
   if(btn){
     btn.classList.add('active');
     btn.style.animation='none';
-    void btn.offsetWidth;
-    btn.style.animation='';
+    requestAnimationFrame(function(){requestAnimationFrame(function(){btn.style.animation='';});});
   }
   document.querySelectorAll('.game-card').forEach(function(card){
     if(cat==='all'||card.dataset.cat===cat){
@@ -739,8 +738,7 @@ function processAchQueue() {
 function addRipple(e) {
   var btn = e.currentTarget;
   btn.classList.remove('ripple');
-  void btn.offsetWidth;
-  btn.classList.add('ripple');
+  requestAnimationFrame(function(){requestAnimationFrame(function(){btn.classList.add('ripple');});});
 }
 
 function disableQuizBtns(correctText, wrongText) {
