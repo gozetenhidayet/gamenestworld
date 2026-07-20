@@ -1665,24 +1665,45 @@ footer::before{display:none !important;}
     .gnw-park-controls{grid-template-columns:repeat(3,58px);}
   }
 </style>
-<script src="game-engine.js" defer></script>
+<script>
+// Lazy-load game-engine.js: nothing in it is needed until someone actually
+// interacts with a game, so we don't fetch it at page load. The first call
+// to any of these functions triggers the real load and replays itself
+// (and anything else queued in the meantime) once the engine is ready.
+(function(){
+  var NAMES = ['openGame','setFilter','closeIfOut','showRewardedAd'];
+  var loading = false, loaded = false, queue = [];
+  function trigger(){
+    if(loading || loaded) return;
+    loading = true;
+    var s = document.createElement('script');
+    s.src = 'game-engine.js';
+    s.onload = function(){
+      loaded = true;
+      var q = queue.slice(); queue = [];
+      q.forEach(function(call){
+        if(typeof window[call.name] === 'function') window[call.name].apply(null, call.args);
+      });
+    };
+    s.onerror = function(){ loading = false; }; // allow retry if the fetch failed
+    document.head.appendChild(s);
+  }
+  NAMES.forEach(function(name){
+    window[name] = function(){
+      queue.push({name:name, args:Array.prototype.slice.call(arguments)});
+      trigger();
+    };
+  });
+})();
+</script>
 <script>
 // Deep-link support: /games/{slug}/ pages send visitors here with ?play=ID
 // so the right game opens automatically instead of dropping them on the homepage.
 (function(){
   var id = new URLSearchParams(location.search).get('play');
   if(!id) return;
-  var tries = 0;
-  var timer = setInterval(function(){
-    tries++;
-    if(typeof openGame === 'function'){
-      clearInterval(timer);
-      openGame(id);
-      if(history.replaceState) history.replaceState(null,'','/');
-    } else if(tries > 100){
-      clearInterval(timer); // give up after ~10s, user still has a working homepage
-    }
-  }, 100);
+  openGame(id); // the lazy loader above queues this and loads the engine
+  if(history.replaceState) history.replaceState(null,'','/');
 })();
 </script>
 </body>
