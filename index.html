@@ -635,14 +635,14 @@ footer::before{
   box-shadow:0 8px 24px rgba(15,23,42,.07) !important;
 }
 .flt:not(.active){
-  color:#172033 !important;
+  color:#fff !important;
   text-shadow:none !important;
   font-weight:900 !important;
 }
 .flt:not(.active) .flt-lbl,
 .flt:not(.active) .flt-em,
 .flt:not(.active) .flt-count{
-  color:#172033 !important;
+  color:#fff !important;
   text-shadow:none !important;
   opacity:1 !important;
 }
@@ -697,7 +697,7 @@ footer::before{display:none !important;}
   font-size:23px !important;
   line-height:1.2 !important;
   margin-bottom:6px !important;
-  color:#172033 !important;
+  color:#fff !important;
 }
 .footer-logo span{color:#ff4fa3 !important;}
 .footer-tagline{
@@ -770,20 +770,20 @@ footer::before{display:none !important;}
 
 /* ===== KID-FRIENDLY GAME MODAL / PLAY AREA COLORS ===== */
 .overlay.active{background:rgba(15,23,42,.34) !important;backdrop-filter:blur(10px) saturate(1.18) !important;}
-.modal{background:linear-gradient(145deg,#e0f2fe,#fce7f3,#fef3c7) !important;border:2px solid rgba(255,255,255,.88) !important;color:#172033 !important;}
-#modal-box{--text:#172033;--muted:#64748b;color:#172033 !important;}
+.modal{background:linear-gradient(145deg,#e0f2fe,#fce7f3,#fef3c7) !important;border:2px solid rgba(255,255,255,.88) !important;color:#fff !important;}
+#modal-box{--text:#172033;--muted:#64748b;color:#fff !important;}
 #modal-box > div:first-child{background:rgba(255,255,255,.48) !important;border:1px solid rgba(255,255,255,.75) !important;border-radius:16px !important;padding:8px !important;}
-#modal-box > div:first-child button{background:rgba(255,255,255,.72) !important;border:1px solid rgba(148,163,184,.22) !important;color:#172033 !important;box-shadow:0 4px 12px rgba(15,23,42,.07) !important;}
+#modal-box > div:first-child button{background:rgba(255,255,255,.72) !important;border:1px solid rgba(148,163,184,.22) !important;color:#fff !important;box-shadow:0 4px 12px rgba(15,23,42,.07) !important;}
 #modal-lives{filter:drop-shadow(0 1px 2px rgba(15,23,42,.12));}
-#gw{color:#172033 !important;background:rgba(255,255,255,.34) !important;border:1px solid rgba(255,255,255,.65) !important;border-radius:18px !important;padding:10px !important;}
-#gw h2,#gw h3,#gw [style*="font-weight:900"],#gw [style*="font-weight:800"]{color:#172033 !important;}
-#gw [style*="color:var(--text)"]{color:#172033 !important;}
+#gw{color:#fff !important;background:rgba(255,255,255,.34) !important;border:1px solid rgba(255,255,255,.65) !important;border-radius:18px !important;padding:10px !important;}
+#gw h2,#gw h3,#gw [style*="font-weight:900"],#gw [style*="font-weight:800"]{color:#fff !important;}
+#gw [style*="color:var(--text)"]{color:#fff !important;}
 #gw [style*="color:var(--muted)"]{color:rgba(255,255,255,.5) !important;}
 #gw [style*="color:rgba(255,255,255"]{color:rgba(255,255,255,.5) !important;}
-#gw input,#gw textarea{background:#fff !important;color:#172033 !important;border-color:rgba(99,102,241,.28) !important;}
+#gw input,#gw textarea{background:#fff !important;color:#fff !important;border-color:rgba(99,102,241,.28) !important;}
 #gw canvas{border-color:rgba(99,102,241,.28) !important;background:#eff6ff !important;}
 .win-overlay{background:rgba(15,23,42,.32) !important;}
-.win-box{background:linear-gradient(145deg,#fff,#eef2ff,#fef3c7) !important;border:2px solid rgba(255,255,255,.9) !important;color:#172033 !important;}
+.win-box{background:linear-gradient(145deg,#fff,#eef2ff,#fef3c7) !important;border:2px solid rgba(255,255,255,.9) !important;color:#fff !important;}
 @media(max-width:640px){.modal{border-radius:18px !important;padding:12px !important;}#gw{padding:8px !important;}}
 
 
@@ -830,7 +830,7 @@ footer::before{display:none !important;}
   font-size:14px !important;
   line-height:1.15 !important;
   font-weight:900 !important;
-  color:#172033 !important;
+  color:#fff !important;
   margin:0 0 5px !important;
   max-width:100% !important;
 }
@@ -920,6 +920,104 @@ footer::before{display:none !important;}
 .motiv-prog-label { font-size:11px;color:rgba(255,255,255,.4);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em; }
 .motiv-prog-bar   { background:rgba(255,255,255,.1);border-radius:99px;height:6px;overflow:hidden; }
 .motiv-prog-fill  { height:100%;background:linear-gradient(90deg,#7c3aed,#ec4899);border-radius:99px;width:0%;transition:width 1s cubic-bezier(.34,1.56,.64,1); }
+
+
+/* ── GAME MODAL DARK OVERRIDE ── */
+#modal-box, .modal {
+  background: linear-gradient(145deg, #1a1535, #201c45) !important;
+  color: #fff !important;
+  border-color: rgba(255,255,255,.15) !important;
+}
+#gw {
+  background: transparent !important;
+  color: #fff !important;
+}
+#gw * {
+  color: inherit;
+}
+/* Game content text */
+#gw p, #gw div, #gw span, #gw label {
+  color: rgba(255,255,255,.9);
+}
+#gw h2, #gw h3, #gw strong, #gw b {
+  color: #fff;
+  font-weight: 800;
+}
+/* Quiz answer buttons */
+#gw button {
+  background: rgba(255,255,255,.12) !important;
+  color: #fff !important;
+  border: 1.5px solid rgba(255,255,255,.2) !important;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all .18s;
+  width: 100%;
+  margin-bottom: 8px;
+  text-align: left;
+}
+#gw button:hover:not(:disabled) {
+  background: rgba(255,255,255,.22) !important;
+  border-color: rgba(255,255,255,.4) !important;
+  transform: translateX(4px);
+}
+#gw button:disabled {
+  cursor: not-allowed;
+  opacity: .5;
+}
+#gw button.correct-ans {
+  background: rgba(34,197,94,.35) !important;
+  border-color: #4ade80 !important;
+  color: #fff !important;
+  opacity: 1 !important;
+}
+#gw button.wrong-ans {
+  background: rgba(239,68,68,.35) !important;
+  border-color: #f87171 !important;
+  color: #fff !important;
+  opacity: 1 !important;
+}
+/* Input fields */
+#gw input[type=text], #gw input[type=number] {
+  background: rgba(255,255,255,.1) !important;
+  color: #fff !important;
+  border: 1.5px solid rgba(255,255,255,.2) !important;
+  border-radius: 12px;
+  padding: 12px 16px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+}
+#gw input::placeholder { color: rgba(255,255,255,.35) !important; }
+#gw input:focus { border-color: #818cf8 !important; }
+/* Level progress bar */
+#gw .lv-bar, #gw [style*="border-radius:99px"][style*="height:6px"] {
+  background: rgba(255,255,255,.15) !important;
+}
+/* Sudoku grid cells */
+#gw [onclick*="sudClick"] {
+  color: #fff !important;
+  font-weight: 700;
+}
+/* Canvas */
+#gw canvas {
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto;
+}
+/* Modal toolbar */
+#modal-box > div:first-child {
+  border-bottom: 1px solid rgba(255,255,255,.1) !important;
+}
+/* Overlay */
+.overlay.active {
+  background: rgba(0,0,0,.88) !important;
+}
 
 </style><style>
 /* ── DARK THEME READABILITY PATCH ── */
@@ -1176,67 +1274,67 @@ h1,h2,h3,h4{color:#fff;}
   <div style="max-width:1160px;margin:0 auto;padding:0 20px;">
   <div class="game-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-bottom:8px;">
     <div class="game-card c-quiz" data-cat="quiz" onclick="openGame('colorquiz')" style="border:1.5px solid #6366f133;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#22c55e;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffEasy">Easy</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(99,102,241,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🎨</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#4338ca;margin-bottom:3px;" data-i18n="game_colorquiz_name">Color Quiz</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_colorquiz_desc">Name that color</div>
     </div>
     <div class="game-card c-quiz" data-cat="quiz" onclick="openGame('flagquiz')" style="border:1.5px solid #6366f133;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#ef4444;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffHard">Hard</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(99,102,241,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🏳️</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#4338ca;margin-bottom:3px;" data-i18n="game_flagquiz_name">Flag Quiz</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_flagquiz_desc">Guess the country</div>
     </div>
     <div class="game-card c-quiz" data-cat="quiz" onclick="openGame('truefalse')" style="border:1.5px solid #6366f133;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#22c55e;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffEasy">Easy</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(99,102,241,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">✅</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#4338ca;margin-bottom:3px;" data-i18n="game_truefalse_name">True or False</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_truefalse_desc">10 fun facts</div>
     </div>
     <div class="game-card c-quiz" data-cat="quiz" onclick="openGame('riddles')" style="border:1.5px solid #6366f133;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffMed">Med</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(99,102,241,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🤔</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#4338ca;margin-bottom:3px;" data-i18n="game_riddles_name">Riddles</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_riddles_desc">Brain teasers</div>
     </div>
     <div class="game-card c-quiz" data-cat="quiz" onclick="openGame('emojiquiz')" style="border:1.5px solid #6366f133;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#22c55e;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffEasy">Easy</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(99,102,241,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">😀</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#4338ca;margin-bottom:3px;" data-i18n="game_emojiquiz_name">Emoji Quiz</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_emojiquiz_desc">Guess from emojis</div>
     </div>
     <div class="game-card c-quiz" data-cat="quiz" onclick="openGame('oddone')" style="border:1.5px solid #6366f133;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffMed">Med</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(99,102,241,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔍</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#4338ca;margin-bottom:3px;" data-i18n="game_oddone_name">Odd One Out</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_oddone_desc">Spot what differs</div>
     </div>
     <div class="game-card c-quiz" data-cat="quiz" onclick="openGame('genquiz')" style="border:1.5px solid #6366f133;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffMed">Med</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(99,102,241,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🧠</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#4338ca;margin-bottom:3px;" data-i18n="game_genquiz_name">General Knowledge</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_genquiz_desc">10 trivia Qs</div>
     </div>
     <div class="game-card c-quiz" data-cat="quiz" onclick="openGame('geoquiz')" style="border:1.5px solid #6366f133;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#ef4444;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffHard">Hard</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(99,102,241,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🌍</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#4338ca;margin-bottom:3px;" data-i18n="game_geoquiz_name">Geography Quiz</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_geoquiz_desc">Capitals & countries</div>
     </div>
     <div class="game-card c-quiz" data-cat="quiz" onclick="openGame('sciquiz')" style="border:1.5px solid #6366f133;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#ef4444;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffHard">Hard</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(99,102,241,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔬</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#4338ca;margin-bottom:3px;" data-i18n="game_sciquiz_name">Science Quiz</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_sciquiz_desc">Physics, chem & bio</div>
     </div>
     <div class="game-card c-quiz" data-cat="quiz" onclick="openGame('moviequiz')" style="border:1.5px solid #6366f133;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffMed">Med</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(99,102,241,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🎬</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#4338ca;margin-bottom:3px;" data-i18n="game_moviequiz_name">Movie Quiz</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_moviequiz_desc">Guess the film</div>
     </div>
     <div class="game-card c-quiz" data-cat="quiz" onclick="openGame('expertquiz')" style="border:1.5px solid #6366f133;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#8b5cf6;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Expert</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(99,102,241,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🏆</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#4338ca;margin-bottom:3px;" data-i18n="game_expertquiz_name">Expert Trivia</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_expertquiz_desc">Hard questions</div>
@@ -1253,61 +1351,61 @@ h1,h2,h3,h4{color:#fff;}
   <div style="max-width:1160px;margin:0 auto;padding:0 20px;">
   <div class="game-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-bottom:8px;">
     <div class="game-card c-word" data-cat="word" onclick="openGame('wordscramble')" style="border:1.5px solid #22c55e33;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#22c55e;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffEasy">Easy</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(34,197,94,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔀</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#15803d;margin-bottom:3px;" data-i18n="game_wordscramble_name">Word Scramble</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_wordscramble_desc">Unscramble it!</div>
     </div>
     <div class="game-card c-word" data-cat="word" onclick="openGame('hangman')" style="border:1.5px solid #22c55e33;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffMed">Med</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(34,197,94,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🪝</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#15803d;margin-bottom:3px;" data-i18n="game_hangman_name">Hangman</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_hangman_desc">Guess the word</div>
     </div>
     <div class="game-card c-word" data-cat="word" onclick="openGame('typing')" style="border:1.5px solid #22c55e33;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffMed">Med</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(34,197,94,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">⌨️</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#15803d;margin-bottom:3px;" data-i18n="game_typing_name">Typing Speed</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_typing_desc">60-sec WPM</div>
     </div>
     <div class="game-card c-word" data-cat="word" onclick="openGame('anagram')" style="border:1.5px solid #22c55e33;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#ef4444;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffHard">Hard</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(34,197,94,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔤</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#15803d;margin-bottom:3px;" data-i18n="game_anagram_name">Anagram</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_anagram_desc">Rearrange letters</div>
     </div>
     <div class="game-card c-word" data-cat="word" onclick="openGame('wordchain')" style="border:1.5px solid #22c55e33;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffMed">Med</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(34,197,94,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔗</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#15803d;margin-bottom:3px;" data-i18n="game_wordchain_name">Word Chain</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_wordchain_desc">Link words together</div>
     </div>
     <div class="game-card c-word" data-cat="word" onclick="openGame('wordle')" data-hot="true" style="border:1.5px solid #22c55e33;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffMed">Med</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(34,197,94,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🟩</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#15803d;margin-bottom:3px;" data-i18n="game_wordle_name">Word Guess</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_wordle_desc">5-letter Wordle</div>
     </div>
     <div class="game-card c-word" data-cat="word" onclick="openGame('crossword')" style="border:1.5px solid #22c55e33;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#ef4444;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffHard">Hard</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(34,197,94,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">📰</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#15803d;margin-bottom:3px;" data-i18n="game_crossword_name">Crossword</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_crossword_desc">Mini crossword</div>
     </div>
     <div class="game-card c-word" data-cat="word" onclick="openGame('spelling')" style="border:1.5px solid #22c55e33;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffMed">Med</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(34,197,94,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🐝</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#15803d;margin-bottom:3px;" data-i18n="game_spelling_name">Spelling Bee</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_spelling_desc">Spell it right</div>
     </div>
     <div class="game-card c-word" data-cat="word" onclick="openGame('cipher')" style="border:1.5px solid #22c55e33;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#ef4444;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffHard">Hard</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(34,197,94,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔐</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#15803d;margin-bottom:3px;" data-i18n="game_cipher_name">Cipher Decode</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_cipher_desc">Crack the code</div>
     </div>
     <div class="game-card c-word" data-cat="word" onclick="openGame('wordsearch')" style="border:1.5px solid #22c55e33;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#22c55e;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffEasy">Easy</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(34,197,94,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔠</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#15803d;margin-bottom:3px;" data-i18n="game_wordsearch_name">Word Search</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_wordsearch_desc">Find hidden words</div>
@@ -1324,43 +1422,43 @@ h1,h2,h3,h4{color:#fff;}
   <div style="max-width:1160px;margin:0 auto;padding:0 20px;">
   <div class="game-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-bottom:8px;">
     <div class="game-card c-math" data-cat="math" onclick="openGame('mathbasic')" style="border:1.5px solid #f9731633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#22c55e;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffEasy">Easy</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(249,115,22,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">➕</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#c2410c;margin-bottom:3px;" data-i18n="game_mathbasic_name">Math Basics</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_mathbasic_desc">Add & subtract fast</div>
     </div>
     <div class="game-card c-math" data-cat="math" onclick="openGame('mathquiz')" style="border:1.5px solid #f9731633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffMed">Med</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(249,115,22,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔢</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#c2410c;margin-bottom:3px;" data-i18n="game_mathquiz_name">Math Quiz</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_mathquiz_desc">Mixed operations</div>
     </div>
     <div class="game-card c-math" data-cat="math" onclick="openGame('times')" style="border:1.5px solid #f9731633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffMed">Med</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(249,115,22,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">✖️</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#c2410c;margin-bottom:3px;" data-i18n="game_times_name">Times Tables</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_times_desc">Multiplication race</div>
     </div>
     <div class="game-card c-math" data-cat="math" onclick="openGame('make24')" style="border:1.5px solid #f9731633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#ef4444;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffHard">Hard</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(249,115,22,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🎯</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#c2410c;margin-bottom:3px;" data-i18n="game_make24_name">Make 24</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_make24_desc">4 numbers → 24</div>
     </div>
     <div class="game-card c-math" data-cat="math" onclick="openGame('mathsprint')" style="border:1.5px solid #f9731633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#ef4444;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffHard">Hard</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(249,115,22,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🏃</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#c2410c;margin-bottom:3px;" data-i18n="game_mathsprint_name">Math Sprint</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_mathsprint_desc">30 Qs in 60s</div>
     </div>
     <div class="game-card c-math" data-cat="math" onclick="openGame('numseq')" style="border:1.5px solid #f9731633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#ef4444;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffHard">Hard</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(249,115,22,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">📈</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#c2410c;margin-bottom:3px;" data-i18n="game_numseq_name">Number Sequence</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_numseq_desc">Find the pattern</div>
     </div>
     <div class="game-card c-math" data-cat="math" onclick="openGame('sudoku')" style="border:1.5px solid #f9731633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#8b5cf6;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Expert</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(249,115,22,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔲</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#c2410c;margin-bottom:3px;" data-i18n="game_sudoku_name">Sudoku</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_sudoku_desc">Classic 9×9</div>
@@ -1377,85 +1475,85 @@ h1,h2,h3,h4{color:#fff;}
   <div style="max-width:1160px;margin:0 auto;padding:0 20px;">
   <div class="game-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-bottom:8px;">
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('coin')" style="border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#22c55e;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffEasy">Easy</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🪙</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;" data-i18n="game_coin_name">Coin Flip</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_coin_desc">Heads or tails?</div>
     </div>
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('dice')" style="border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#22c55e;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffEasy">Easy</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🎲</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;" data-i18n="game_dice_name">Dice Roller</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_dice_desc">Roll up to 6 dice</div>
     </div>
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('rps')" style="border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#22c55e;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffEasy">Easy</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">✊</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;" data-i18n="game_rps_name">Rock Paper Scissors</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_rps_desc">Best of 5 rounds</div>
     </div>
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('numguess')" style="border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#22c55e;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffEasy">Easy</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔢</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;" data-i18n="game_numguess_name">Number Guess</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_numguess_desc">1-100 in 7 tries</div>
     </div>
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('reaction')" style="border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffMed">Med</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">⚡</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;" data-i18n="game_reaction_name">Reaction Time</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_reaction_desc">Test your reflexes</div>
     </div>
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('ttt')" style="border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#22c55e;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffEasy">Easy</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">⭕</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;" data-i18n="game_ttt_name">Tic Tac Toe</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_ttt_desc">Vs smart AI</div>
     </div>
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('mines')" style="border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffMed">Med</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">💣</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;" data-i18n="game_mines_name">Minesweeper</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_mines_desc">6×6 classic</div>
     </div>
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('c4')" style="border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffMed">Med</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔵</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;" data-i18n="game_c4_name">Connect Four</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_c4_desc">Vs AI</div>
     </div>
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('snake')" style="border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffMed">Med</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🐍</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;" data-i18n="game_snake_name">Snake</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_snake_desc">Nokia classic</div>
     </div>
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('pong')" style="border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#22c55e;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffEasy">Easy</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🏓</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;" data-i18n="game_pong_name">Pong</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_pong_desc">Ball & paddle</div>
     </div>
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('g2048')" style="border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffMed">Med</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔢</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;" data-i18n="game_g2048_name">2048</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_g2048_desc">Merge to 2048</div>
     </div>
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('chess')" style="border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#ef4444;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffHard">Hard</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">♟️</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;" data-i18n="game_chess_name">Chess Puzzles</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_chess_desc">Mate in 1-2</div>
     </div>
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('tetris')" style="border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffMed">Med</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🟦</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;" data-i18n="game_tetris_name">Tetris Lite</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_tetris_desc">Falling blocks</div>
     </div>
     <div class="game-card c-classic" data-cat="classic" onclick="openGame('flappy')" style="border:1.5px solid #8b5cf633;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffMed">Med</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(139,92,246,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🐦</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#6d28d9;margin-bottom:3px;" data-i18n="game_flappy_name">Flappy Bird</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_flappy_desc">Fly through pipes</div>
@@ -1515,55 +1613,55 @@ h1,h2,h3,h4{color:#fff;}
   <div style="max-width:1160px;margin:0 auto;padding:0 20px;">
   <div class="game-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-bottom:8px;">
     <div class="game-card c-memory" data-cat="memory" onclick="openGame('colormatch')" style="border:1.5px solid #ec489933;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffMed">Med</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(236,72,153,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🌈</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:3px;" data-i18n="game_colormatch_name">Color Match</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_colormatch_desc">Stroop challenge</div>
     </div>
     <div class="game-card c-memory" data-cat="memory" onclick="openGame('simon')" style="border:1.5px solid #ec489933;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffMed">Med</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(236,72,153,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔴</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:3px;" data-i18n="game_simon_name">Simon Says</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_simon_desc">Repeat sequence</div>
     </div>
     <div class="game-card c-memory" data-cat="memory" onclick="openGame('memory')" style="border:1.5px solid #ec489933;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#22c55e;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffEasy">Easy</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(236,72,153,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🃏</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:3px;" data-i18n="game_memory_name">Memory Cards</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_memory_desc">Find all pairs</div>
     </div>
     <div class="game-card c-memory" data-cat="memory" onclick="openGame('patternmem')" style="border:1.5px solid #ec489933;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffMed">Med</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(236,72,153,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🔲</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:3px;" data-i18n="game_patternmem_name">Pattern Memory</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_patternmem_desc">Repeat patterns</div>
     </div>
     <div class="game-card c-memory" data-cat="memory" onclick="openGame('mineshard')" style="border:1.5px solid #ec489933;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#ef4444;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffHard">Hard</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(236,72,153,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">💣</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:3px;" data-i18n="game_mineshard_name">Minesweeper Hard</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_mineshard_desc">10×10 grid</div>
     </div>
     <div class="game-card c-memory" data-cat="memory" onclick="openGame('histquiz')" style="border:1.5px solid #ec489933;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffMed">Med</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(236,72,153,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">📜</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:3px;" data-i18n="game_histquiz_name">History Quiz</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_histquiz_desc">Dates & figures</div>
     </div>
     <div class="game-card c-memory" data-cat="memory" onclick="openGame('breakout')" style="border:1.5px solid #ec489933;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#f59e0b;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffMed">Med</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(236,72,153,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🧱</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:3px;" data-i18n="game_breakout_name">Breakout</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_breakout_desc">Break all bricks</div>
     </div>
     <div class="game-card c-memory" data-cat="memory" onclick="openGame('lightsout')" style="border:1.5px solid #ec489933;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#ef4444;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;" data-i18n="diffHard">Hard</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(236,72,153,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">💡</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:3px;" data-i18n="game_lightsout_name">Lights Out</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_lightsout_desc">Turn all off</div>
     </div>
     <div class="game-card c-memory" data-cat="memory" onclick="openGame('memhard')" style="border:1.5px solid #ec489933;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
-      <span style="position:absolute;top:6px;right:6px;background:#8b5cf6;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:4px;">Expert</span>
+      
       <div style="width:56px;height:56px;border-radius:14px;background:rgba(236,72,153,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🧩</span></div>
       <div class="g-name" style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:3px;" data-i18n="game_memhard_name">Memory Pro</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_memhard_desc">5×4 challenge</div>
@@ -1653,71 +1751,54 @@ h1,h2,h3,h4{color:#fff;}
 <div class="overlay" id="overlay" onclick="closeIfOut(event)"><div class="modal" id="modal-box"></div></div>
 <!-- GameNest World stability + language + quiz progression patch -->
 <!-- GNW PRO GAME PLAY FIX: stats, voice praise, professional Snake/Tetris, brighter game areas -->
-<style id="gnw-pro-game-room-css">
-  #modal-box{
-    background:linear-gradient(145deg,#eef7ff 0%,#fff0f7 48%,#fff7cc 100%)!important;
-    border:3px solid rgba(255,255,255,.95)!important;
-    box-shadow:0 30px 80px rgba(15,23,42,.24), inset 0 1px 0 rgba(255,255,255,.95)!important;
-  }
-  #modal-box > div:first-child{
-    background:rgba(255,255,255,.70)!important;
-    border:1px solid rgba(255,255,255,.92)!important;
-    border-radius:16px!important;
-    padding:10px!important;
-    box-shadow:0 8px 20px rgba(15,23,42,.07)!important;
-  }
-  #modal-box #gw{
-    background:linear-gradient(135deg,rgba(255,255,255,.62),rgba(255,248,220,.66))!important;
-    border:1px solid rgba(255,255,255,.95)!important;
-    border-radius:18px!important;
-    padding:14px!important;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 12px 30px rgba(15,23,42,.08)!important;
-  }
-  #gw .gnw-game-stage{
-    background:linear-gradient(145deg,#ffffff 0%,#ecfeff 50%,#fff7ed 100%);
-    border:2px solid rgba(147,197,253,.65);
-    border-radius:22px;
-    padding:14px;
-    box-shadow:0 18px 38px rgba(15,23,42,.14), inset 0 1px 0 rgba(255,255,255,.95);
-    color:#172033;
-  }
-  #gw .gnw-game-hud{
-    display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px;
-  }
-  #gw .gnw-game-title{font-size:22px;font-weight:950;color:#172033;letter-spacing:-.4px;display:flex;align-items:center;gap:8px;}
-  #gw .gnw-chip{background:#fff;border:2px solid rgba(191,219,254,.9);border-radius:12px;padding:7px 10px;box-shadow:0 6px 14px rgba(15,23,42,.08);font-size:12px;font-weight:900;color:#172033;}
-  #gw .gnw-chip b{font-size:16px;color:#2563eb;}
-  #gw .gnw-arcade-shell{
-    background:linear-gradient(180deg,#1f2937 0%,#111827 100%);
-    border-radius:24px;
-    padding:12px;
-    border:4px solid #334155;
-    box-shadow:inset 0 0 0 2px rgba(255,255,255,.08),0 20px 36px rgba(15,23,42,.22);
-    margin:0 auto;
-  }
-  #gw .gnw-screen{
-    display:block;margin:0 auto;border-radius:14px;border:3px solid #93c5fd!important;
-    max-width:100%;height:auto;touch-action:none;image-rendering:auto;
-    box-shadow:inset 0 0 30px rgba(59,130,246,.18),0 8px 18px rgba(15,23,42,.18)!important;
-  }
-  #gw .gnw-control-pad{display:grid;gap:8px;justify-content:center;margin-top:12px;}
-  #gw .gnw-control-pad button,#gw .gnw-big-btn{
-    min-width:50px;min-height:46px;border-radius:14px;border:2px solid rgba(167,139,250,.35)!important;
-    background:linear-gradient(135deg,#ffffff,#fef3c7)!important;color:#172033!important;
-    box-shadow:0 6px 14px rgba(15,23,42,.10)!important;font-size:18px!important;font-weight:950!important;
-  }
-  #gw .gnw-control-pad button:active,#gw .gnw-big-btn:active{transform:translateY(2px) scale(.98)!important;box-shadow:0 3px 7px rgba(15,23,42,.12)!important;}
-  #gw .gnw-pro-msg{margin:10px auto 0;text-align:center;font-weight:950;color:#172033;background:rgba(255,255,255,.66);border:1px solid rgba(255,255,255,.95);border-radius:14px;padding:9px 12px;max-width:440px;}
-  #gnw-end-stats-card .gnw-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0;}
-  #gnw-end-stats-card .gnw-stat{border-radius:16px;padding:12px;background:#fff;border:2px solid #dbeafe;font-weight:900;color:#172033;}
-  #gnw-end-stats-card .gnw-stat strong{display:block;font-size:28px;line-height:1;color:#2563eb;margin-bottom:4px;}
-  @media(max-width:640px){
-    #modal-box{padding:12px!important;max-width:96vw!important;}
-    #modal-box #gw{padding:10px!important;}
-    #gw .gnw-game-stage{padding:10px;border-radius:18px;}
-    #gw .gnw-game-title{font-size:18px;}
-    #gw .gnw-chip{padding:6px 8px;}
-  }
+<style>
+/* ═══ DARK MODAL OVERRIDE - OVERRIDES ALL LIGHT THEMES ═══ */
+#modal-box,
+#modal-box.modal {
+  background: linear-gradient(145deg,#1a1535,#201c45) !important;
+  border: 1.5px solid rgba(167,139,250,.25) !important;
+  box-shadow: 0 32px 80px rgba(0,0,0,.8), 0 0 40px rgba(124,58,237,.2) !important;
+  color: #fff !important;
+}
+#modal-box > div:first-child {
+  background: rgba(0,0,0,.2) !important;
+  border: 1px solid rgba(255,255,255,.1) !important;
+  border-radius: 14px 14px 0 0 !important;
+  box-shadow: none !important;
+}
+#modal-box #gw,
+#gw {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #fff !important;
+  padding: 10px !important;
+}
+.gnw-game-stage {
+  background: rgba(255,255,255,.07) !important;
+  border: 1.5px solid rgba(255,255,255,.15) !important;
+  border-radius: 16px !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+.gnw-game-stage * { color: rgba(255,255,255,.9) !important; }
+/* Quiz answer buttons */
+.gnw-answer-btn, [class*="answer"], #gw .ans-btn {
+  background: rgba(255,255,255,.1) !important;
+  color: #fff !important;
+  border: 1.5px solid rgba(255,255,255,.18) !important;
+  border-radius: 12px !important;
+}
+.gnw-answer-btn:hover, #gw .ans-btn:hover {
+  background: rgba(255,255,255,.2) !important;
+}
+/* Correct/wrong answer colors */
+.gnw-correct, .ans-correct { background: rgba(34,197,94,.35) !important; border-color: #4ade80 !important; }
+.gnw-wrong, .ans-wrong { background: rgba(239,68,68,.3) !important; border-color: #f87171 !important; }
+/* Level badge */
+.gnw-level-badge { background: rgba(124,58,237,.3) !important; color: #c084fc !important; }
+/* Colorquiz SVG page */
+.gnw-color-page { background: rgba(255,255,255,.08) !important; border-color: rgba(255,255,255,.2) !important; }
 </style>
 
 
@@ -6283,71 +6364,259 @@ var CP=[
   {fen:'8/8/8/8/8/k7/8/KQ6',move:'Qb2#',desc:'King+Queen vs King — Qb2#'},
 ];
 function gameChess(){
-  _LVL.init('chess',30);
-  var level=_LVL.level;
-  var PUZZLES=[
-    // Easy - Mate in 1
-    {fen:'Scholar mate setup',desc:'White: Qh5+Bc4 vs Black king on e8',solution:'Qxf7#',hint:'Queen takes f7',difficulty:'Easy - Mate in 1',moves:['Qxf7#'],wrong:['Qf3','Bc4','Nf3']},
-    {fen:'Back rank',desc:'White Rook on d1, Black king on e8 with no escape',solution:'Rd8#',hint:'Rook to d8',difficulty:'Easy - Mate in 1',moves:['Rd8#'],wrong:['Rd7','Re1','Rb1']},
-    {fen:'Fool mate',desc:'White bishop on c4, queen on h5',solution:'Qxf7#',hint:'Queen captures f7',difficulty:'Easy - Mate in 1',moves:['Qxf7#'],wrong:['Qf3','Bxf7','Nf3']},
-    {fen:'Smothered mate',desc:'Knight can fork king and queen',solution:'Nf7#',hint:'Knight to f7',difficulty:'Easy - Mate in 1',moves:['Nf7#'],wrong:['Ne4','Ng5','Nd6']},
-    {fen:'Queen mate',desc:'Queen and rook battery',solution:'Qd8#',hint:'Queen to d8',difficulty:'Easy - Mate in 1',moves:['Qd8#'],wrong:['Rd8','Qe7','Qb8']},
-    // Medium
-    {fen:'Double check',desc:'Discovered check opportunity',solution:'Nxd5+',hint:'Knight captures d5 with check',difficulty:'Medium - Win Material',moves:['Nxd5+'],wrong:['Nf4','Ne3','Nc3']},
-    {fen:'Fork tactic',desc:'Knight fork: king and rook',solution:'Ne7+',hint:'Knight to e7 forking king and rook',difficulty:'Medium - Fork',moves:['Ne7+'],wrong:['Nd5','Nc6','Nf5']},
-    {fen:'Pin tactic',desc:'Pin the knight to win the queen',solution:'Bb5',hint:'Bishop pins the knight',difficulty:'Medium - Pin',moves:['Bb5'],wrong:['Bc4','Ba6','Bd3']},
-    {fen:'Skewer',desc:'Skewer king to win rook',solution:'Bg5+',hint:'Bishop skewers king',difficulty:'Medium - Skewer',moves:['Bg5+'],wrong:['Bf4','Bh4','Be3']},
-    {fen:'Zwischenzug',desc:'In-between move wins material',solution:'Nxe5',hint:'Knight captures e5',difficulty:'Medium',moves:['Nxe5'],wrong:['Nf3','Nd4','Nc3']},
-    // Hard
-    {fen:'Deflection',desc:'Deflect the defender',solution:'Rxd5',hint:'Rook captures d5 to deflect',difficulty:'Hard - Deflection',moves:['Rxd5'],wrong:['Rd6','Rd7','Rd4']},
-    {fen:'Interference',desc:'Interfere with piece coordination',solution:'Nd5',hint:'Knight to d5 interferes',difficulty:'Hard - Interference',moves:['Nd5'],wrong:['Ne3','Nc3','Nf4']},
-    {fen:'Decoy',desc:'Decoy the queen to win',solution:'Rd8+',hint:'Rook decoys queen',difficulty:'Hard - Decoy',moves:['Rd8+'],wrong:['Rb8','Rc8','Re8']},
-    {fen:'X-ray',desc:'X-ray attack through pieces',solution:'Qxd8',hint:'Queen x-ray through the rook',difficulty:'Hard - X-ray',moves:['Qxd8'],wrong:['Qe7','Qb8','Qc7']},
-    {fen:'Zugzwang',desc:'Any move loses for the opponent',solution:'Ka6',hint:'King to a6 creates zugzwang',difficulty:'Hard - Zugzwang',moves:['Ka6'],wrong:['Ka4','Kb6','Kc6']},
+  /* Simple chess engine with AI using piece-square tables */
+  var PIECES={P:1,N:3,B:3,R:5,Q:9,K:100,p:-1,n:-3,b:-3,r:-5,q:-9,k:-100};
+  var WHITE=1,BLACK=-1;
+  var FILES='abcdefgh';
+
+  /* Starting position FEN */
+  var board=[
+    ['r','n','b','q','k','b','n','r'],
+    ['p','p','p','p','p','p','p','p'],
+    [' ',' ',' ',' ',' ',' ',' ',' '],
+    [' ',' ',' ',' ',' ',' ',' ',' '],
+    [' ',' ',' ',' ',' ',' ',' ',' '],
+    [' ',' ',' ',' ',' ',' ',' ',' '],
+    ['P','P','P','P','P','P','P','P'],
+    ['R','N','B','Q','K','B','N','R']
   ];
-  var idx=Math.min(PUZZLES.length-1,Math.floor(level/30*PUZZLES.length));
-  var puzzle=PUZZLES[idx];
-  var timeLimit=Math.max(10,40-level);var timer=timeLimit;
-  var allMoves=[puzzle.moves[0]].concat(puzzle.wrong).sort(function(){return Math.random()-.5;});
-  var g=gw();if(!g)return;
-  var h=_LVL.renderHeader('♟️ Chess Puzzles','#a78bfa');
-  h+='<div style="background:rgba(255,255,255,.08);border-radius:12px;padding:16px;margin-bottom:12px;">';
-  h+='<div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.5);margin-bottom:6px;">'+puzzle.difficulty+'</div>';
-  h+='<div style="font-size:15px;font-weight:700;margin-bottom:6px;color:var(--text);">'+puzzle.desc+'</div>';
-  h+='<div style="font-size:13px;color:rgba(255,255,255,.6);">White to move. Find the best move!</div>';
-  h+='</div>';
-  if(level>=5)h+='<div id="chess-timer" style="text-align:center;font-size:20px;font-weight:800;margin-bottom:10px;color:'+(timer<=10?'#ef4444':'#a78bfa')+';">⏱ '+timer+'s</div>';
-  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">';
-  allMoves.forEach(function(move){
-    h+='<button onclick="chessAns(\''+move+'\')" style="padding:14px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);cursor:pointer;font-size:16px;font-weight:900;color:var(--text);font-family:monospace;transition:all .15s;" onmouseover="this.style.background=\'rgba(167,139,250,.4)\';" onmouseout="this.style.background=\'rgba(255,255,255,.1)\';">'+move+'</button>';
-  });
-  h+='</div>';
-  h+='<div style="text-align:center;"><button onclick="chessHint()" style="background:none;border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:6px 14px;color:rgba(255,255,255,.6);cursor:pointer;font-size:12px;">💡 Hint (-10pts)</button></div>';
-  g.innerHTML=h;
-  if(level>=5){
-    window._chessTimer=setInterval(function(){timer--;var te=document.getElementById('chess-timer');if(te){te.textContent='⏱ '+timer+'s';te.style.color=timer<=10?'#ef4444':'#a78bfa';}if(timer<=0){clearInterval(window._chessTimer);_LVL.lose();setTimeout(function(){gameChess();},800);}},1000);
+
+  var turn=WHITE, selected=null, validMoves=[], gameOver=false;
+  var playerColor=WHITE; /* Player is always white */
+  var score=0, moveCount=0;
+  var capturedW=[], capturedB=[];
+
+  /* Piece-square tables for positional evaluation */
+  var PST_PAWN=[
+    [0,0,0,0,0,0,0,0],
+    [50,50,50,50,50,50,50,50],
+    [10,10,20,30,30,20,10,10],
+    [5,5,10,25,25,10,5,5],
+    [0,0,0,20,20,0,0,0],
+    [5,-5,-10,0,0,-10,-5,5],
+    [5,10,10,-20,-20,10,10,5],
+    [0,0,0,0,0,0,0,0]
+  ];
+
+  function isWhite(p){return p===p.toUpperCase()&&p!=' ';}
+  function isBlack(p){return p===p.toLowerCase()&&p!=' ';}
+  function inBounds(r,f){return r>=0&&r<8&&f>=0&&f<8;}
+  function enemyOf(p,side){return side===WHITE?isBlack(p):isWhite(p);}
+  function friendOf(p,side){return side===WHITE?isWhite(p):isBlack(p);}
+
+  function getMoves(b,r,f,side){
+    var p=b[r][f]; if(p===' ')return[];
+    var moves=[]; var type=p.toUpperCase();
+
+    if(type==='P'){
+      var dir=isWhite(p)?-1:1;
+      var start=isWhite(p)?6:1;
+      /* Forward */
+      if(inBounds(r+dir,f)&&b[r+dir][f]===' '){
+        moves.push([r+dir,f]);
+        if(r===start&&b[r+dir*2][f]===' ')moves.push([r+dir*2,f]);
+      }
+      /* Captures */
+      [-1,1].forEach(function(df){
+        if(inBounds(r+dir,f+df)&&enemyOf(b[r+dir][f+df],side)&&b[r+dir][f+df]!==' ')
+          moves.push([r+dir,f+df]);
+      });
+    }
+    else if(type==='N'){
+      [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]].forEach(function(d){
+        var nr=r+d[0],nf=f+d[1];
+        if(inBounds(nr,nf)&&!friendOf(b[nr][nf],side))moves.push([nr,nf]);
+      });
+    }
+    else if(type==='B'||type==='Q'){
+      [[-1,-1],[-1,1],[1,-1],[1,1]].forEach(function(d){
+        for(var i=1;i<8;i++){
+          var nr=r+d[0]*i,nf=f+d[1]*i;
+          if(!inBounds(nr,nf))break;
+          if(friendOf(b[nr][nf],side))break;
+          moves.push([nr,nf]);
+          if(enemyOf(b[nr][nf],side))break;
+        }
+      });
+    }
+    if(type==='R'||type==='Q'){
+      [[-1,0],[1,0],[0,-1],[0,1]].forEach(function(d){
+        for(var i=1;i<8;i++){
+          var nr=r+d[0]*i,nf=f+d[1]*i;
+          if(!inBounds(nr,nf))break;
+          if(friendOf(b[nr][nf],side))break;
+          moves.push([nr,nf]);
+          if(enemyOf(b[nr][nf],side))break;
+        }
+      });
+    }
+    if(type==='K'){
+      [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]].forEach(function(d){
+        var nr=r+d[0],nf=f+d[1];
+        if(inBounds(nr,nf)&&!friendOf(b[nr][nf],side))moves.push([nr,nf]);
+      });
+    }
+    return moves;
   }
-  window.chessAns=function(move){
-    if(window._chessTimer)clearInterval(window._chessTimer);
-    if(move===puzzle.moves[0]){_LVL.win(40);showScorePop('+40');setTimeout(function(){gameChess();},800);}
-    else{var alive=_LVL.lose();var btns=g.querySelectorAll('button');btns.forEach(function(b){if(b.textContent===puzzle.moves[0])b.style.background='rgba(34,197,94,.5)';else if(b.textContent===move)b.style.background='rgba(239,68,68,.5)';b.disabled=true;});if(alive)setTimeout(function(){gameChess();},1500);}
+
+  function evaluate(b){
+    var score=0;
+    for(var r=0;r<8;r++)for(var f=0;f<8;f++){
+      var p=b[r][f]; if(p===' ')continue;
+      var v=(PIECES[p]||0)*10;
+      /* Positional bonus for pawns */
+      if(p==='P'&&PST_PAWN[r]){v+=PST_PAWN[r][f]*0.1;}
+      if(p==='p'&&PST_PAWN[7-r]){v-=PST_PAWN[7-r][f]*0.1;}
+      score+=v;
+    }
+    return score;
+  }
+
+  function applyMove(b,fr,ff,tr,tf){
+    var nb=b.map(function(row){return row.slice();});
+    nb[tr][tf]=nb[fr][ff]; nb[fr][ff]=' ';
+    /* Pawn promotion */
+    if(nb[tr][tf]==='P'&&tr===0)nb[tr][tf]='Q';
+    if(nb[tr][tf]==='p'&&tr===7)nb[tr][tf]='q';
+    return nb;
+  }
+
+  function minimax(b,depth,alpha,beta,maximizing){
+    if(depth===0)return evaluate(b);
+    var side=maximizing?WHITE:BLACK;
+    var best=maximizing?-9999:9999;
+    for(var r=0;r<8;r++)for(var f=0;f<8;f++){
+      var p=b[r][f];
+      if(p===' ')continue;
+      if(maximizing&&!isWhite(p))continue;
+      if(!maximizing&&!isBlack(p))continue;
+      var moves=getMoves(b,r,f,side);
+      for(var i=0;i<moves.length;i++){
+        var nb=applyMove(b,r,f,moves[i][0],moves[i][1]);
+        var val=minimax(nb,depth-1,alpha,beta,!maximizing);
+        if(maximizing){best=Math.max(best,val);alpha=Math.max(alpha,val);}
+        else{best=Math.min(best,val);beta=Math.min(beta,val);}
+        if(beta<=alpha)break;
+      }
+    }
+    return best;
+  }
+
+  function getBestMove(){
+    var bestVal=9999,bestMove=null;
+    for(var r=0;r<8;r++)for(var f=0;f<8;f++){
+      if(!isBlack(board[r][f]))continue;
+      var moves=getMoves(board,r,f,BLACK);
+      for(var i=0;i<moves.length;i++){
+        var nb=applyMove(board,r,f,moves[i][0],moves[i][1]);
+        var val=minimax(nb,2,- 9999,9999,true);
+        if(val<bestVal){bestVal=val;bestMove={fr:r,ff:f,tr:moves[i][0],tf:moves[i][1]};}
+      }
+    }
+    return bestMove;
+  }
+
+  function render(){
+    var g=gw(); if(!g)return;
+    var SYMBOLS={
+      P:'♙',N:'♘',B:'♗',R:'♖',Q:'♕',K:'♔',
+      p:'♟',n:'♞',b:'♝',r:'♜',q:'♛',k:'♚'
+    };
+    var captured_w = capturedW.map(function(p){return SYMBOLS[p]||p;}).join(' ');
+    var captured_b = capturedB.map(function(p){return SYMBOLS[p]||p;}).join(' ');
+
+    var h='<div style="max-width:360px;margin:0 auto;font-family:inherit;">';
+    /* Header */
+    h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">';
+    h+='<div style="font-size:16px;font-weight:800;color:#fff;">♟ Chess vs AI</div>';
+    h+='<div style="font-size:12px;color:rgba(255,255,255,.5);">Moves: '+moveCount+'</div>';
+    h+='</div>';
+    /* Captured pieces */
+    if(captured_b.length){h+='<div style="font-size:14px;margin-bottom:4px;color:rgba(255,255,255,.6);">🏆 '+captured_b+'</div>';}
+    /* Status */
+    var statusTxt = gameOver ? '🏁 Game Over!' : (turn===WHITE ? '⬜ Your turn (White)' : '⬛ AI thinking...');
+    var statusColor = turn===WHITE ? '#60a5fa' : '#fbbf24';
+    h+='<div style="font-size:12px;font-weight:700;color:'+statusColor+';margin-bottom:8px;">'+statusTxt+'</div>';
+    /* Board */
+    h+='<div id="chess-board" style="display:grid;grid-template-columns:20px repeat(8,1fr);gap:0;border:2px solid rgba(255,255,255,.2);border-radius:10px;overflow:hidden;">';
+    /* Rank labels + squares */
+    for(var r=0;r<8;r++){
+      h+='<div style="display:flex;align-items:center;justify-content:center;font-size:10px;color:rgba(255,255,255,.4);background:rgba(0,0,0,.3);">'+(8-r)+'</div>';
+      for(var f=0;f<8;f++){
+        var isLight=(r+f)%2===0;
+        var bg=isLight?'rgba(240,217,181,.85)':'rgba(181,136,99,.85)';
+        var isSelected=selected&&selected[0]===r&&selected[1]===f;
+        var isValid=validMoves.some(function(m){return m[0]===r&&m[1]===f;});
+        if(isSelected)bg='rgba(247,247,105,.85)';
+        else if(isValid)bg=isLight?'rgba(130,200,130,.85)':'rgba(100,180,100,.85)';
+        var p=board[r][f];
+        var sym=p!==' '?(SYMBOLS[p]||p):'';
+        var symColor=isWhite(p)?'#1a1a1a':'#fff';
+        var symStyle='font-size:clamp(18px,4vw,28px);color:'+symColor+';text-shadow:0 1px 2px rgba(0,0,0,.3);cursor:'+( p!==' '&&( (turn===WHITE&&isWhite(p))||(turn===BLACK&&isBlack(p)) )?'pointer':'default' );
+        h+='<div onclick="chessClick('+r+','+f+')" style="background:'+bg+';aspect-ratio:1;display:flex;align-items:center;justify-content:center;'+symStyle+';">'+sym+'</div>';
+      }
+    }
+    h+='</div>';
+    /* File labels */
+    h+='<div style="display:grid;grid-template-columns:20px repeat(8,1fr);margin-top:2px;">';
+    h+='<div></div>';
+    for(var f=0;f<8;f++){h+='<div style="text-align:center;font-size:10px;color:rgba(255,255,255,.4);">'+FILES[f]+'</div>';}
+    h+='</div>';
+    /* White captured */
+    if(captured_w.length){h+='<div style="font-size:14px;margin-top:6px;color:rgba(255,255,255,.6);">'+captured_w+'</div>';}
+    if(gameOver){
+      h+='<button onclick="gameChess()" style="width:100%;margin-top:12px;padding:12px;border-radius:10px;background:linear-gradient(135deg,#7c3aed,#ec4899);border:none;color:#fff;font-size:14px;font-weight:700;cursor:pointer;">🔄 New Game</button>';
+    }
+    h+='</div>';
+    g.innerHTML=h;
+  }
+
+  window.chessClick=function(r,f){
+    if(gameOver||turn!==WHITE)return;
+    if(selected){
+      /* Try move */
+      var isValid=validMoves.some(function(m){return m[0]===r&&m[1]===f;});
+      if(isValid){
+        if(board[r][f]!==' ')capturedW.push(board[r][f]);
+        board=applyMove(board,selected[0],selected[1],r,f);
+        selected=null;validMoves=[];moveCount++;
+        turn=BLACK;render();
+        /* AI move after 400ms */
+        setTimeout(function(){
+          var mv=getBestMove();
+          if(mv){
+            if(board[mv.tr][mv.tf]!==' ')capturedB.push(board[mv.tr][mv.tf]);
+            /* Check if king captured */
+            if(board[mv.tr][mv.tf]==='K'){gameOver=true;earnXP(30,'Chess');showMotivationLose('Chess');}
+            board=applyMove(board,mv.fr,mv.ff,mv.tr,mv.tf);
+            moveCount++;turn=WHITE;render();
+            /* Check if player wins - black king gone */
+            var kingFound=false;
+            for(var i=0;i<8;i++)for(var j=0;j<8;j++)if(board[i][j]==='k')kingFound=true;
+            if(!kingFound){gameOver=true;earnXP(100,'Chess Win');showMotivationWin(100,'Chess');}
+          } else {
+            gameOver=true;earnXP(100,'Chess Win');showMotivationWin(100,'Chess');
+          }
+        },400);
+      } else {
+        /* Select different piece */
+        selected=null;validMoves=[];
+        if(board[r][f]!==' '&&isWhite(board[r][f])){
+          selected=[r,f];validMoves=getMoves(board,r,f,WHITE);
+        }
+        render();
+      }
+    } else {
+      if(board[r][f]!==' '&&isWhite(board[r][f])){
+        selected=[r,f];validMoves=getMoves(board,r,f,WHITE);render();
+      }
+    }
   };
-  window.chessHint=function(){_LVL.score=Math.max(0,_LVL.score-10);var g2=gw();if(g2){var fb=document.createElement('div');fb.style.cssText='text-align:center;padding:8px;color:rgba(255,255,255,.7);font-size:13px;margin-top:6px;';fb.textContent='Hint: '+puzzle.hint;g2.appendChild(fb);}};
+
+  render();
 }
 
 
-function chCheck(ans){
-  var v=document.getElementById('ch-in').value.trim();
-  var msg=document.getElementById('ch-msg');
-  if(v===ans){msg.style.color='#2ecc71';msg.textContent='✅ Correct!';setTimeout(()=>{window._chIdx=(window._chIdx||0)+1;if(window._chIdx>=CP.length){gw().innerHTML=`<h2>♟️ Chess Puzzles</h2><div style="font-size:48px;">🏆</div><div>All puzzles solved!</div><button class="g-btn" onclick="gameChess()">Play Again</button>`;}else{CP_idx++;window._chShow();}},800);}
-  else{msg.style.color='#e74c3c';msg.textContent='❌ Try again!';}
-}
-function chReveal(ans){document.getElementById('ch-msg').style.color='#888';document.getElementById('ch-msg').textContent='Answer: '+ans;}
-
-/* SUDOKU */
-var SUDOKU_PUZZLES=[
-  {puzzle:'530070000600195000098000060800060003400803001700020006060000280000419005000080079',solution:'534678912672195348198342567859761423426853791713924856961537284287419635345286179'},
-];
 function gameSudoku(){
   var EASY_PUZZLES=[
     {p:'530070000600195000098000060800060003400803001700020006060000280000419005000080079',s:'534678912672195348198342567859761423426853791713924856961537284287419635345286179'},
