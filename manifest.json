@@ -1,10 +1,39 @@
 {
-  "name": "GameNest World",
-  "short_name": "GameNest",
-  "description": "51 free browser games. No download, no signup. 100% free.",
-  "start_url": "/",
+  "name": "GameNest World - Free Online Games",
+  "short_name": "GameNest World",
+  "description": "Play 58 free online browser games instantly - no download, no signup, no install.",
+  "start_url": "/?utm_source=pwa",
+  "id": "/",
   "display": "standalone",
-  "background_color": "#f0f4ff",
-  "theme_color": "#6366f1",
-  "icons": [{"src":"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>","sizes":"any","type":"image/svg+xml"}]
+  "orientation": "any",
+  "background_color": "#1e1040",
+  "theme_color": "#7c3aed",
+  "categories": ["games", "entertainment"],
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
 }
