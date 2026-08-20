@@ -1067,47 +1067,42 @@ h1,h2,h3,h4{color:#fff;}
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.88);
+  /* FIX (Aug 2026): flat black backdrop replaced with a branded dark
+     gradient matching the modal itself -- looks intentional instead of a
+     void, for the brief moments it's visible during open/close. */
+  background: linear-gradient(145deg,#0d0b18,#1a1535,#0d0b18);
   backdrop-filter: blur(16px);
   z-index: 2000;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 16px;
+  padding: 0;
   box-sizing: border-box;
 }
 .overlay.active { display: flex; }
 
 .modal {
   background: linear-gradient(145deg,#1a1535,#201c45) !important;
-  border: 1.5px solid rgba(167,139,250,.25) !important;
-  border-radius: 20px;
+  border: none !important;
+  border-radius: 0;
   padding: 16px;
-  width: 100%;
-  max-width: 720px;
-  max-height: 90vh;
+  /* FIX (Aug 2026): games used to be capped at a small 720px x 90vh box
+     floating in a big black void, on desktop AND on wide tablets. Now the
+     game view is always full computer / full mobile-app screen size, no
+     size split between desktop and mobile. */
+  width: 100vw;
+  max-width: 100vw;
+  min-height: 100vh;
+  max-height: 100vh;
+  margin: 0;
   overflow-y: auto;
   position: relative;
-  box-shadow: 0 32px 80px rgba(0,0,0,.8);
+  box-shadow: none;
   color: #fff;
 }
 
-/* MOBILE: Full screen */
-@media (max-width: 768px) {
-  .overlay {
-    padding: 0 !important;
-    align-items: flex-start !important;
-  }
-  .modal {
-    border-radius: 0 !important;
-    max-width: 100vw !important;
-    width: 100vw !important;
-    min-height: 100vh !important;
-    max-height: 100vh !important;
-    margin: 0 !important;
-    padding: 12px !important;
-    overflow-y: auto !important;
-    border: none !important;
-  }
+/* Slightly roomier inner padding once there's real desktop width to use */
+@media (min-width: 769px) {
+  .modal { padding: 24px clamp(16px, 6vw, 96px); }
 }
 
 /* Game content area - bigger on mobile */
@@ -2330,7 +2325,7 @@ h1,h2,h3,h4{color:#fff;}
 <style id="gnw-new-games-fit-fix">
   /* Prevent game screens from spilling outside the modal */
   .overlay.active{padding:12px !important;align-items:center !important;justify-content:center !important;}
-  .modal{width:min(96vw,900px) !important;max-width:900px !important;max-height:94vh !important;overflow-y:auto !important;overflow-x:hidden !important;}
+  .modal{width:100vw !important;max-width:100vw !important;min-height:100vh !important;max-height:100vh !important;overflow-y:auto !important;overflow-x:hidden !important;}
   #gw,#gw *{max-width:100%;box-sizing:border-box;}
   #gw{overflow-x:hidden !important;}
   .kid-game-card{width:min(100%,860px) !important;max-width:860px !important;margin-left:auto !important;margin-right:auto !important;overflow:hidden !important;}
@@ -2366,7 +2361,7 @@ h1,h2,h3,h4{color:#fff;}
   .gnw-fullscreen-on .gnw-color-page{width:min(100%,900px);}
   @media(max-width:900px){.gnw-fullscreen-on #gw{zoom:1.25;}}
   @media(max-width:640px){
-    .modal{width:96vw !important;padding:10px !important;}
+    .modal{width:100vw !important;padding:10px !important;}
     .kid-game-card{padding:14px 10px !important;}
     .gnw-fit-grid{gap:5px;}
     .gnw-fruit-grid{grid-template-columns:repeat(6,minmax(38px,1fr));}
@@ -3084,11 +3079,11 @@ function openGame(key){
 
   /* Elegant per-category themes — dark, easy on eyes */
   var THEMES={
-    quiz:{bg:'linear-gradient(145deg,#1e1b4b,#2d2b5e)',accent:'#818cf8',border:'rgba(129,140,248,.25)',text:'#e0e7ff',glow:'rgba(99,102,241,.2)'},
-    word:{bg:'linear-gradient(145deg,#0f2820,#1a3d2e)',accent:'#4ade80',border:'rgba(74,222,128,.25)',text:'#dcfce7',glow:'rgba(34,197,94,.15)'},
-    math:{bg:'linear-gradient(145deg,#2d1a0a,#3d2410)',accent:'#fb923c',border:'rgba(251,146,60,.25)',text:'#fed7aa',glow:'rgba(249,115,22,.15)'},
-    classic:{bg:'linear-gradient(145deg,#1e1040,#2d1a5e)',accent:'#a78bfa',border:'rgba(167,139,250,.25)',text:'#ede9fe',glow:'rgba(139,92,246,.2)'},
-    memory:{bg:'linear-gradient(145deg,#2d0f24,#3d1535)',accent:'#f472b6',border:'rgba(244,114,182,.25)',text:'#fce7f3',glow:'rgba(236,72,153,.15)'}
+    quiz:{bg:'radial-gradient(ellipse 55% 45% at 8% 10%, rgba(129,140,248,.16) 0%, transparent 60%), radial-gradient(ellipse 50% 50% at 94% 92%, rgba(236,72,153,.12) 0%, transparent 60%), linear-gradient(135deg,#1a1350,#241454,#2e1246)',accent:'#818cf8',border:'rgba(129,140,248,.3)',text:'#e0e7ff',glow:'rgba(99,102,241,.28)'},
+    word:{bg:'radial-gradient(ellipse 55% 45% at 8% 10%, rgba(74,222,128,.16) 0%, transparent 60%), radial-gradient(ellipse 50% 50% at 94% 92%, rgba(45,212,191,.12) 0%, transparent 60%), linear-gradient(135deg,#0a2e28,#0d3a2e,#0f2e38)',accent:'#4ade80',border:'rgba(74,222,128,.3)',text:'#dcfce7',glow:'rgba(34,197,94,.25)'},
+    math:{bg:'radial-gradient(ellipse 55% 45% at 8% 10%, rgba(251,146,60,.18) 0%, transparent 60%), radial-gradient(ellipse 50% 50% at 94% 92%, rgba(248,113,113,.12) 0%, transparent 60%), linear-gradient(135deg,#331207,#3a1408,#2e0e0a)',accent:'#fb923c',border:'rgba(251,146,60,.3)',text:'#fed7aa',glow:'rgba(249,115,22,.25)'},
+    classic:{bg:'radial-gradient(ellipse 55% 45% at 8% 10%, rgba(167,139,250,.16) 0%, transparent 60%), radial-gradient(ellipse 50% 50% at 94% 92%, rgba(217,70,239,.12) 0%, transparent 60%), linear-gradient(135deg,#1f0f4a,#2a0f52,#33103f)',accent:'#a78bfa',border:'rgba(167,139,250,.3)',text:'#ede9fe',glow:'rgba(139,92,246,.28)'},
+    memory:{bg:'radial-gradient(ellipse 55% 45% at 8% 10%, rgba(244,114,182,.18) 0%, transparent 60%), radial-gradient(ellipse 50% 50% at 94% 92%, rgba(217,70,239,.12) 0%, transparent 60%), linear-gradient(135deg,#3a0a28,#420c2c,#360a30)',accent:'#f472b6',border:'rgba(244,114,182,.3)',text:'#fce7f3',glow:'rgba(236,72,153,.25)'}
   };
 var HOW_TO={
   'colorquiz':{how:'Look at the color swatch and click the button with the matching color name',controls:'🖱️ Click'},
@@ -3161,15 +3156,19 @@ var HOW_TO={
   if(!box)return;
 
   /* Apply dark gradient theme */
-  box.style.background=th.bg;
-  box.style.border='1px solid '+th.border;
-  box.style.boxShadow='0 32px 80px rgba(0,0,0,.8), 0 0 60px '+th.glow+', inset 0 1px 0 rgba(255,255,255,.07)';
+  /* Use setProperty(...,'important') instead of a plain assignment so this
+     per-category theme survives no matter how many more !important CSS
+     patches get layered onto #modal-box in the future -- an inline
+     !important always wins the cascade over a stylesheet !important. */
+  box.style.setProperty('background', th.bg, 'important');
+  box.style.setProperty('border', '1px solid '+th.border, 'important');
+  box.style.setProperty('box-shadow', '0 32px 80px rgba(0,0,0,.8), 0 0 70px '+th.glow+', inset 0 1px 0 rgba(255,255,255,.07)', 'important');
 
   var fav=typeof isFav==='function'&&isFav(key);
 
   box.innerHTML=
     '<div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid '+th.border+';">'
-    +'<button onclick="closeGame()" style="background:rgba(255,255,255,.15);border:none;border-radius:10px;width:32px;height:32px;cursor:pointer;font-size:17px;color:'+th.text+';font-weight:700;flex-shrink:0;">&times;</button>'
+    +'<button onclick="closeGame()" style="background:rgba(255,255,255,.15);border:none;border-radius:10px;padding:8px 14px;cursor:pointer;font-size:14px;font-weight:800;color:'+th.text+';flex-shrink:0;display:flex;align-items:center;gap:6px;white-space:nowrap;">\u2190 Back</button>'
     +'<div id="modal-lives" style="display:flex;gap:2px;font-size:16px;"></div>'
     +'<div style="flex:1"></div>'
     +'<button data-gkey="'+key+'" onclick="toggleFav(this)" style="background:rgba(255,255,255,.12);border:1px solid '+th.border+';border-radius:8px;padding:5px 9px;cursor:pointer;font-size:15px;">'+(fav?'❤️':'🤍')+'</button>'
@@ -3208,6 +3207,13 @@ var HOW_TO={
   updateLivesUI();
   var ov=document.getElementById('overlay');if(ov)ov.classList.add('active');
   document.body.style.overflow='hidden';
+  /* Push ONE history entry per "session" of game-modal-open activity, so
+     the browser/phone back button closes the game instead of leaving the
+     site -- switching games while the modal stays open doesn't stack
+     extra entries, so a single back-press always fully exits. */
+  if(!window._gnwGameHistoryPushed){
+    try{ history.pushState({gnwGame:true}, '', location.href); window._gnwGameHistoryPushed = true; }catch(e){}
+  }
 
   setTimeout(function(){
     if(typeof GAMES!=='undefined'&&GAMES[key]){
@@ -3250,9 +3256,26 @@ function closeGame(){
   var st=document.getElementById('modal-btn-style');if(st)st.remove();
   document.body.style.overflow='';
   _currentGame=null;
+  /* If we pushed a history entry for this game session, pop it -- guarded
+     so this doesn't fire again when it was ALREADY the popstate handler
+     (below) that called closeGame() in the first place. */
+  if(window._gnwGameHistoryPushed){
+    window._gnwGameHistoryPushed = false;
+    try{ history.back(); }catch(e){}
+  }
 }
 
 function closeIfOut(e){if(e.target===document.getElementById('overlay'))closeGame();}
+
+/* Browser / phone hardware back button closes the open game instead of
+   navigating away from the site. */
+window.addEventListener('popstate', function(){
+  if(_currentGame){ window._gnwGameHistoryPushed = false; closeGame(); }
+});
+/* Escape key closes the open game (desktop convenience). */
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape' && _currentGame){ closeGame(); }
+});
 
 /* SEARCH */
 function searchGames(q){
@@ -6538,9 +6561,24 @@ function wordleGuess(){
 
 /* 2048 */
 function game2048(){init2048();}
+function is2048Over(b){
+  if(b.indexOf(0)!==-1)return false;
+  for(var i=0;i<16;i++){
+    var r=Math.floor(i/4),c=i%4;
+    if(c<3&&b[i]===b[i+1])return false;
+    if(r<3&&b[i]===b[i+4])return false;
+  }
+  return true;
+}
 function init2048(){
-  window._2048board=Array(16).fill(0);
-  add2048();add2048();render2048();
+  var _saved=loadGameState('g2048');
+  if(_saved&&Array.isArray(_saved.board)&&_saved.board.length===16&&!is2048Over(_saved.board)){
+    window._2048board=_saved.board.slice();
+  } else {
+    window._2048board=Array(16).fill(0);
+    add2048();add2048();
+  }
+  render2048();
   document.addEventListener('keydown',key2048);
   var gDiv=document.getElementById('gw');
   let t0=null;
@@ -6574,7 +6612,10 @@ function move2048(dir){
   else if(dir==='r'){for(let r=0;r<4;r++){const row=b.slice(r*4,r*4+4).reverse();const s=slide2048(row).reverse();for(let c=0;c<4;c++)if(b[r*4+c]!==s[c]){changed=true;b[r*4+c]=s[c];}}}
   else if(dir==='u'){for(let c=0;c<4;c++){const col=[b[c],b[4+c],b[8+c],b[12+c]];const s=slide2048(col);[0,1,2,3].forEach((r,i)=>{if(b[r*4+c]!==s[i]){changed=true;b[r*4+c]=s[i];}});}}
   else if(dir==='d'){for(let c=0;c<4;c++){const col=[b[c],b[4+c],b[8+c],b[12+c]].reverse();const s=slide2048(col).reverse();[0,1,2,3].forEach((r,i)=>{if(b[r*4+c]!==s[i]){changed=true;b[r*4+c]=s[i];}});}}
-  if(changed){window._2048board=b;add2048();render2048();}
+  if(changed){
+    window._2048board=b;add2048();render2048();
+    if(is2048Over(window._2048board)){clearSave('g2048');}else{saveGameState('g2048',{board:window._2048board});}
+  }
 }
 function key2048(e){
   if(!document.getElementById('gw'))return document.removeEventListener('keydown',key2048);
@@ -7337,12 +7378,20 @@ function gameSudoku(){
     {p:'530070000600195000098000060800060003400803001700020006060000280000419005000080079',s:'534678912672195348198342567859761423426853791713924856961537284287419635345286179'},
     {p:'010020300004005060070000009006900040000700800090004020500000010080300400003010090',s:'815427396234895761976231459156982743423716852798543126542369817687154934361879025'},
   ];
-  var idx=Math.floor(Math.random()*EASY_PUZZLES.length);
-  var puz=EASY_PUZZLES[idx];
-  var cells=puz.p.split('');
-  window._sudGrid=cells.slice();
-  window._sudSol=puz.s;
-  window._sudFixed=cells.map(function(v){return v!=='0';});
+  var _sudSaved=loadGameState('sudoku');
+  if(_sudSaved&&_sudSaved.grid&&_sudSaved.sol&&_sudSaved.fixed&&_sudSaved.grid.length===81){
+    window._sudGrid=_sudSaved.grid.slice();
+    window._sudSol=_sudSaved.sol;
+    window._sudFixed=_sudSaved.fixed.slice();
+  } else {
+    var idx=Math.floor(Math.random()*EASY_PUZZLES.length);
+    var puz=EASY_PUZZLES[idx];
+    var cells=puz.p.split('');
+    window._sudGrid=cells.slice();
+    window._sudSol=puz.s;
+    window._sudFixed=cells.map(function(v){return v!=='0';});
+    saveGameState('sudoku',{grid:window._sudGrid,sol:window._sudSol,fixed:window._sudFixed});
+  }
   window._sudSel=-1;
   sudokuRender();
 }
@@ -7379,13 +7428,14 @@ window.sudNum=function(n){
   var i=window._sudSel;
   if(i<0||window._sudFixed[i])return;
   window._sudGrid[i]=n===0?'0':String(n);
+  saveGameState('sudoku',{grid:window._sudGrid,sol:window._sudSol,fixed:window._sudFixed});
   sudokuRender();
 };
 window.checkSudoku=function(){
   var correct=window._sudGrid.join('')===window._sudSol;
   var msg=document.getElementById('sud-msg');
   if(msg){msg.style.color=correct?'#4ade80':'#f87171';msg.textContent=correct?'🏆 Perfect! Solved!':'❌ Not quite. Keep trying!';}
-  if(correct){earnXP(100,'Sudoku');playSound('win');launchConfetti&&launchConfetti(60);}
+  if(correct){clearSave('sudoku');earnXP(100,'Sudoku');playSound('win');launchConfetti&&launchConfetti(60);}
 };
 
 /* CIPHER DECODE */
