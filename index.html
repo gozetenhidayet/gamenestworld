@@ -276,6 +276,9 @@ nav,section,.hero,.filter-bar,.gami-strip,footer,#toast,.achievement-popup{posit
 .top12-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:14px 10px 12px;cursor:pointer;text-align:center;position:relative;transition:all .2s cubic-bezier(.34,1.56,.64,1);}
 .top12-card:hover{transform:translateY(-6px);background:rgba(255,255,255,.1);}
 .top12-card .t-name{font-size:11px;font-weight:800;color:#fff;margin-bottom:2px;} .top12-card .t-plays{font-size:9px;color:rgba(255,255,255,.35);} .top12-card .t-rank{position:absolute;top:6px;left:8px;font-size:9px;font-weight:900;color:rgba(255,255,255,.4);}
+.top12-card .t-name{color:#1e1b4b !important;}
+.top12-card .t-plays{color:rgba(30,27,75,.55) !important;}
+.top12-card .t-rank{color:rgba(30,27,75,.65) !important;}
 .top12-card .t-icon{width:56px;height:56px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:28px;margin:6px auto 10px;}
 /* OVERLAY & MODAL */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(16px);z-index:2000;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;}
@@ -490,7 +493,7 @@ body::before{
 .hero-title .purple{color:#ff5da2 !important;text-shadow:none !important;}
 .hero-title .green{color:#10b981 !important;text-shadow:none !important;}
 .hero-sub,.hnum-l,.sec-cnt{color:rgba(255,255,255,.5) !important;}
-.hnum-n,.sec-ttl h2,.sec-hdr h2{color:#ffffff !important;}
+.hnum-n,.sec-ttl h2,.sec-hdr h2{color:#1e1b4b !important;}
 .daily-card,.tourney-card,.watch-card{
   background:rgba(255,255,255,.82) !important;
   border:1px solid rgba(99,102,241,.16) !important;
@@ -502,8 +505,8 @@ body::before{
 .daily-card [style*="rgba(255,255,255"],
 .tourney-card [style*="rgba(255,255,255"],
 .watch-card [style*="rgba(255,255,255"],
-.lb-item [style*="rgba(255,255,255"]{color:rgba(255,255,255,.5) !important;}
-.tourney-title,#daily-name{color:#ffffff !important;}
+.lb-item [style*="rgba(255,255,255"]{color:rgba(30,27,75,.6) !important;}
+.tourney-title,#daily-name{color:#1e1b4b !important;}
 .ach-badge{
   background:rgba(255,255,255,.86) !important;
   border-color:rgba(99,102,241,.18) !important;
@@ -515,7 +518,7 @@ div[style*="background:rgba(255,255,255,.04)"]{
   border-color:rgba(99,102,241,.16) !important;
   box-shadow:0 10px 28px rgba(15,23,42,.08) !important;
 }
-div[style*="background:rgba(255,255,255,.04)"] [style*="color:rgba(255,255,255"]{color:rgba(255,255,255,.5) !important;}
+div[style*="background:rgba(255,255,255,.04)"] [style*="color:rgba(255,255,255"]{color:rgba(30,27,75,.6) !important;}
 div[style*="background:rgba(255,255,255,.04)"] [style*="color:#fff"],
 .lb-item [style*="color:#fff"]{color:#334155 !important;}
 .lb-item{border-bottom-color:rgba(99,102,241,.12) !important;}
@@ -552,8 +555,8 @@ div[style*="background:rgba(255,255,255,.04)"] [style*="color:#fff"],
   border-bottom:1px solid rgba(99,102,241,.16) !important;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 8px 30px rgba(15,23,42,.06) !important;
 }
-.top12-section [style*="font-size:17px"][style*="font-weight:900"]{color:#ffffff !important;}
-.top12-section [style*="rgba(255,255,255,.35)"]{color:rgba(255,255,255,.5) !important;}
+.top12-section [style*="font-size:17px"][style*="font-weight:900"]{color:#1e1b4b !important;}
+.top12-section [style*="rgba(255,255,255,.35)"]{color:rgba(30,27,75,.55) !important;}
 .top12-section [style*="rgba(245,158,11,.15)"]{
   background:#fff7ed !important;
   color:#ea580c !important;
@@ -661,7 +664,7 @@ footer::before{
 .flt:not(.active) .flt-lbl,
 .flt:not(.active) .flt-em,
 .flt:not(.active) .flt-count{
-  color:#fff !important;
+  color:#1e1b4b !important;
   text-shadow:none !important;
   opacity:1 !important;
 }
@@ -1049,10 +1052,10 @@ footer::before{display:none !important;}
 body{background:#0f0d1a;color:#fff;}
 h1,h2,h3,h4{color:#fff;}
 [data-i18n]{color:inherit;}
-.sec-hdr h2,[class*="sec-ttl"] h2{color:#fff!important;}
+.sec-hdr h2,[class*="sec-ttl"] h2{color:#1e1b4b!important;}
 .game-card .g-name{font-weight:800;}
-.tourney-title,.tourney-prize{color:rgba(255,255,255,.85)!important;}
-#daily-name{color:#fff!important;}
+.tourney-title,.tourney-prize{color:#1e1b4b!important;}
+#daily-name{color:#1e1b4b!important;}
 #daily-timer{color:#a78bfa!important;}
 </style>
 
@@ -1347,7 +1350,7 @@ h1,h2,h3,h4{color:#fff;}
   
 <div class="top12-section">
   <div style="max-width:1160px;margin:0 auto;">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;"><span style="font-size:22px;">⭐</span><div><div style="font-size:17px;font-weight:900;color:#fff;" data-i18n="popularHeading">Fan Favorites</div><div style="font-size:10px;color:rgba(255,255,255,.35);" data-i18n="popularSub">A good place to start</div></div><div style="margin-left:auto;background:#92400e;color:#fff;border:1px solid rgba(251,191,36,.4);border-radius:8px;padding:3px 10px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;" data-i18n="popularBadge">PICKS</div></div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;"><span style="font-size:22px;">⭐</span><div><div style="font-size:17px;font-weight:900;color:#1e1b4b;" data-i18n="popularHeading">Fan Favorites</div><div style="font-size:10px;color:rgba(30,27,75,.5);" data-i18n="popularSub">A good place to start</div></div><div style="margin-left:auto;background:#92400e;color:#fff;border:1px solid rgba(251,191,36,.4);border-radius:8px;padding:3px 10px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;" data-i18n="popularBadge">PICKS</div></div>
     <div class="top12-grid">
       <div class="top12-card" onclick="openGame('g2048')">
         <div class="t-rank">#1</div>
@@ -1903,7 +1906,7 @@ h1,h2,h3,h4{color:#fff;}
       </div>
       <div style="min-width:0;background:#eef2ff;border:1px solid rgba(30,27,75,.08);border-radius:12px;padding:12px 14px;">
         <dt style="font-size:14px;font-weight:800;color:#4338ca;margin-bottom:4px;"><a href="/?play=triviarush" onclick="openGame('triviarush');return false;" style="color:inherit;text-decoration:none;">Trivia Rush</a></dt>
-        <dd style="font-size:12.5px;color:#3f3d63;line-height:1.55;margin:0;">Trivia Rush is our take on answer-to-advance formats like Gimkit and Blooket: every correct answer earns coins and pushes your runner further down the track, and a growing streak multiplies your reward. Miss one and your streak resets, so steady accuracy beats rushing. <span style="color:#6b6890;">Read the question and click the correct multiple-choice answer before your runner falls behind</span></dd>
+        <dd style="font-size:12.5px;color:#3f3d63;line-height:1.55;margin:0;">Trivia Rush is our take on answer-to-advance formats like Gimkit and Blooket: every correct answer levels you up (just like the site&#x27;s other quiz games), earns coins, and pushes your runner further down the track, while a growing streak multiplies your reward. The question tier automatically scales from Easy to Medium, Hard, and Expert as your level rises, and a countdown timer kicks in at higher levels to keep the pressure on. Run out of lives and you get the same watch-an-ad-to-continue screen used across the rest of the site. <span style="color:#6b6890;">Read the question and click the correct multiple-choice answer before time runs out — get it right to level up and keep your runner moving</span></dd>
       </div>
     </dl>
   </div>
@@ -2760,6 +2763,10 @@ var _LVL = {
   lose: function() {
     this.streak = 0;
     this.lives--;
+    /* FIX (Aug 2026): keep the on-screen heart icons (driven by the
+       separate global `_lives` counter) in sync with this object's own
+       life count — previously the hearts never visually decreased. */
+    _lives = Math.max(0, this.lives);
     updateLivesUI();
     playSound('lose');
     if(this.lives <= 0) {
@@ -2844,6 +2851,10 @@ var _LVL = {
   lose: function() {
     this.streak = 0;
     this.lives--;
+    /* FIX (Aug 2026): keep the on-screen heart icons (driven by the
+       separate global `_lives` counter) in sync with this object's own
+       life count — previously the hearts never visually decreased. */
+    _lives = Math.max(0, this.lives);
     updateLivesUI();
     playSound('lose');
     if(this.lives <= 0) {
@@ -3091,7 +3102,7 @@ var HOW_TO={
   'sciquiz':{how:'Answer science questions about physics, chemistry & biology',controls:'🖱️ Click'},
   'moviequiz':{how:'Answer questions about movies, actors and directors',controls:'🖱️ Click'},
   'expertquiz':{how:'Very hard trivia questions — only for experts!',controls:'🖱️ Click'},
-  'triviarush':{how:'Read the question and click the correct multiple-choice answer before your runner falls behind',controls:'🖱️ Click'},
+  'triviarush':{how:'Read the question and click the correct multiple-choice answer before time runs out — get it right to level up and keep your runner moving',controls:'🖱️ Click'},
   'histquiz':{how:'Answer history questions about dates and events',controls:'🖱️ Click'},
   'wordscramble':{how:'Unscramble the letters to find the hidden word',controls:'⌨️ Type + Enter'},
   'hangman':{how:'Click letters to guess the hidden word before the man is hanged',controls:'🖱️ Click letters'},
@@ -3140,7 +3151,7 @@ var HOW_TO={
   'lightsout':{how:'Click cells to toggle lights — turn ALL lights off to win',controls:'🖱️ Click'},
   'memhard':{how:'Advanced 5×4 memory grid — more cards, harder patterns',controls:'🖱️ Click cards'}
 };
-  var DESCS={'colorquiz': 'Look at a solid color swatch and pick its correct name from four options before time runs out.', 'flagquiz': 'Study a national flag and identify which country it belongs to from a set of multiple-choice answers.', 'truefalse': 'Read a short statement about science, history, or general trivia and decide whether it\'s true or false.', 'riddles': 'Read a classic riddle or brain teaser and type in your best guess at the answer.', 'emojiquiz': 'Decode a short string of emojis into the movie, phrase, or idea they\'re meant to represent.', 'oddone': 'Study a small set of items and pick the one that doesn\'t belong with the rest, based on a shared pattern.', 'genquiz': 'Answer a rotating set of general-knowledge trivia questions spanning everyday facts, culture, and curiosities.', 'geoquiz': 'Answer questions about world capitals, countries, and borders to test your geography knowledge.', 'sciquiz': 'Answer multiple-choice questions spanning physics, chemistry, and biology, from basic concepts to lesser-known facts.', 'moviequiz': 'Answer trivia questions about films, actors, and directors across genres and decades.', 'expertquiz': 'Take on a set of deliberately difficult trivia questions built for players who\'ve already mastered the easier quizzes.', 'triviarush': 'Answer multiple-choice trivia questions correctly to build a streak, earn coins, and race your runner to the finish line.', 'histquiz': 'Answer questions about historical events, dates, and figures spanning different eras and regions.', 'wordscramble': 'Rearrange a set of jumbled letters back into the correct word before you run out of guesses.', 'hangman': 'Guess letters one at a time to reveal a hidden word before you run out of attempts.', 'typing': 'Type the on-screen text as quickly and accurately as you can in a 60-second timed test.', 'anagram': 'Rearrange the letters of a given word to form a completely different valid word.', 'wordchain': 'Type a word that begins with the last letter of the previous word to keep the chain going as long as possible.', 'wordle': 'Guess a secret five-letter word within six tries, using color clues to narrow down each letter.', 'crossword': 'Solve a compact crossword-style grid by finding hidden words running in different directions.', 'spelling': 'Unscramble jumbled letters to correctly spell out the word being described or shown.', 'cipher': 'Decode a short message encrypted with a Caesar cipher, where every letter has been shifted by a fixed number.', 'wordsearch': 'Scan a letter grid and click-and-drag to find every hidden word from the list.', 'mathbasic': 'Solve straightforward addition and subtraction problems as quickly as you can, one after another.', 'mathquiz': 'Solve a mix of addition, subtraction, multiplication, and division problems under time pressure.', 'times': 'Answer multiplication problems against the clock to build speed with your times tables.', 'make24': 'Combine four given numbers using addition, subtraction, multiplication, and division to reach exactly 24.', 'mathsprint': 'Race to solve as many quick math problems as possible in a 60-second sprint.', 'numseq': 'Study a sequence of numbers and figure out which number logically comes next.', 'sudoku': 'Fill a 9×9 grid with numbers 1–9 so that every row, column, and 3×3 box contains each digit exactly once.', 'coin': 'Flip a virtual coin and see whether it lands on heads or tails.', 'dice': 'Roll one or more virtual dice and see the results instantly, useful for games or quick decisions.', 'rps': 'Play the classic hand-game against the computer across a best-of-five match.', 'numguess': 'Guess a secret number between 1 and 100 using higher-or-lower hints to narrow it down.', 'reaction': 'Wait for the screen to turn green, then click as fast as you can to measure your reaction speed.', 'ttt': 'Play the classic 3x3 grid game against a computer opponent that plays to win.', 'mines': 'Clear a 6×6 grid without detonating any hidden mines, using number clues to play it safe.', 'c4': 'Drop pieces into a grid to connect four of your own in a row before the AI does.', 'snake': 'Guide a growing snake around the board to eat food while avoiding the walls and your own tail.', 'pong': 'Move your paddle to keep the ball in play and score points against the computer, first to five wins.', 'g2048': 'Swipe tiles together to combine matching numbers, aiming to reach the elusive 2048 tile.', 'chess': 'Study a real chess position and find the winning move that delivers checkmate in one or two moves.', 'tetris': 'Rotate and position falling blocks to complete horizontal lines before the stack reaches the top.', 'flappy': 'Tap or click to keep a small bird airborne, threading it through a series of narrow pipe gaps.', 'fruitpop': 'Click groups of matching fruit to clear them from the board and rack up points before you run out of moves.', 'rainbowbubble': 'Pop clusters of same-colored bubbles to clear the board and chase a high score.', 'citydash': 'Guide a runner through a city street, dodging obstacles and collecting stars as the pace picks up.', 'blockpuzzle': 'Drag differently shaped blocks onto a grid to fill complete rows and columns without running out of space.', 'colorjoy': 'Tap sections of a simple line-art picture — animals, fruits, or flowers — to fill them in with color.', 'minirace': 'Steer a small car down a lane, dodging traffic and obstacles to go as far as possible.', 'parkingpuzzle': 'Slide blocking cars out of the way to clear a path for your car to reach the exit.', 'colormatch': 'Click the button matching the ink color a word is printed in, not the color the word actually spells out.', 'simon': 'Watch a growing sequence of flashing colors, then repeat it back in the exact same order.', 'memory': 'Flip cards two at a time to find every matching pair using the fewest flips possible.', 'patternmem': 'Watch a pattern of highlighted cells light up, then click the same cells back in order from memory.', 'mineshard': 'Take on an expert-level 10x10 Minesweeper board with more mines and considerably less room for error.', 'breakout': 'Bounce a ball off your paddle to smash every brick in a wall without letting the ball fall past you.', 'lightsout': 'Click cells on a grid to toggle nearby lights, aiming to turn every single light off at once.', 'memhard': 'Take on an expanded 5x4 memory grid with more cards and trickier patterns than the standard version.'};
+  var DESCS={'colorquiz': 'Look at a solid color swatch and pick its correct name from four options before time runs out.', 'flagquiz': 'Study a national flag and identify which country it belongs to from a set of multiple-choice answers.', 'truefalse': 'Read a short statement about science, history, or general trivia and decide whether it\'s true or false.', 'riddles': 'Read a classic riddle or brain teaser and type in your best guess at the answer.', 'emojiquiz': 'Decode a short string of emojis into the movie, phrase, or idea they\'re meant to represent.', 'oddone': 'Study a small set of items and pick the one that doesn\'t belong with the rest, based on a shared pattern.', 'genquiz': 'Answer a rotating set of general-knowledge trivia questions spanning everyday facts, culture, and curiosities.', 'geoquiz': 'Answer questions about world capitals, countries, and borders to test your geography knowledge.', 'sciquiz': 'Answer multiple-choice questions spanning physics, chemistry, and biology, from basic concepts to lesser-known facts.', 'moviequiz': 'Answer trivia questions about films, actors, and directors across genres and decades.', 'expertquiz': 'Take on a set of deliberately difficult trivia questions built for players who\'ve already mastered the easier quizzes.', 'triviarush': 'Answer multiple-choice trivia questions correctly to level up, build a streak, earn coins, and race your runner down the track — questions get harder as your level climbs.', 'histquiz': 'Answer questions about historical events, dates, and figures spanning different eras and regions.', 'wordscramble': 'Rearrange a set of jumbled letters back into the correct word before you run out of guesses.', 'hangman': 'Guess letters one at a time to reveal a hidden word before you run out of attempts.', 'typing': 'Type the on-screen text as quickly and accurately as you can in a 60-second timed test.', 'anagram': 'Rearrange the letters of a given word to form a completely different valid word.', 'wordchain': 'Type a word that begins with the last letter of the previous word to keep the chain going as long as possible.', 'wordle': 'Guess a secret five-letter word within six tries, using color clues to narrow down each letter.', 'crossword': 'Solve a compact crossword-style grid by finding hidden words running in different directions.', 'spelling': 'Unscramble jumbled letters to correctly spell out the word being described or shown.', 'cipher': 'Decode a short message encrypted with a Caesar cipher, where every letter has been shifted by a fixed number.', 'wordsearch': 'Scan a letter grid and click-and-drag to find every hidden word from the list.', 'mathbasic': 'Solve straightforward addition and subtraction problems as quickly as you can, one after another.', 'mathquiz': 'Solve a mix of addition, subtraction, multiplication, and division problems under time pressure.', 'times': 'Answer multiplication problems against the clock to build speed with your times tables.', 'make24': 'Combine four given numbers using addition, subtraction, multiplication, and division to reach exactly 24.', 'mathsprint': 'Race to solve as many quick math problems as possible in a 60-second sprint.', 'numseq': 'Study a sequence of numbers and figure out which number logically comes next.', 'sudoku': 'Fill a 9×9 grid with numbers 1–9 so that every row, column, and 3×3 box contains each digit exactly once.', 'coin': 'Flip a virtual coin and see whether it lands on heads or tails.', 'dice': 'Roll one or more virtual dice and see the results instantly, useful for games or quick decisions.', 'rps': 'Play the classic hand-game against the computer across a best-of-five match.', 'numguess': 'Guess a secret number between 1 and 100 using higher-or-lower hints to narrow it down.', 'reaction': 'Wait for the screen to turn green, then click as fast as you can to measure your reaction speed.', 'ttt': 'Play the classic 3x3 grid game against a computer opponent that plays to win.', 'mines': 'Clear a 6×6 grid without detonating any hidden mines, using number clues to play it safe.', 'c4': 'Drop pieces into a grid to connect four of your own in a row before the AI does.', 'snake': 'Guide a growing snake around the board to eat food while avoiding the walls and your own tail.', 'pong': 'Move your paddle to keep the ball in play and score points against the computer, first to five wins.', 'g2048': 'Swipe tiles together to combine matching numbers, aiming to reach the elusive 2048 tile.', 'chess': 'Study a real chess position and find the winning move that delivers checkmate in one or two moves.', 'tetris': 'Rotate and position falling blocks to complete horizontal lines before the stack reaches the top.', 'flappy': 'Tap or click to keep a small bird airborne, threading it through a series of narrow pipe gaps.', 'fruitpop': 'Click groups of matching fruit to clear them from the board and rack up points before you run out of moves.', 'rainbowbubble': 'Pop clusters of same-colored bubbles to clear the board and chase a high score.', 'citydash': 'Guide a runner through a city street, dodging obstacles and collecting stars as the pace picks up.', 'blockpuzzle': 'Drag differently shaped blocks onto a grid to fill complete rows and columns without running out of space.', 'colorjoy': 'Tap sections of a simple line-art picture — animals, fruits, or flowers — to fill them in with color.', 'minirace': 'Steer a small car down a lane, dodging traffic and obstacles to go as far as possible.', 'parkingpuzzle': 'Slide blocking cars out of the way to clear a path for your car to reach the exit.', 'colormatch': 'Click the button matching the ink color a word is printed in, not the color the word actually spells out.', 'simon': 'Watch a growing sequence of flashing colors, then repeat it back in the exact same order.', 'memory': 'Flip cards two at a time to find every matching pair using the fewest flips possible.', 'patternmem': 'Watch a pattern of highlighted cells light up, then click the same cells back in order from memory.', 'mineshard': 'Take on an expert-level 10x10 Minesweeper board with more mines and considerably less room for error.', 'breakout': 'Bounce a ball off your paddle to smash every brick in a wall without letting the ball fall past you.', 'lightsout': 'Click cells on a grid to toggle nearby lights, aiming to turn every single light off at once.', 'memhard': 'Take on an expanded 5x4 memory grid with more cards and trickier patterns than the standard version.'};
 
   var cat=CATS[key]||'classic';
   var th=THEMES[cat]||THEMES.classic;
@@ -5247,6 +5258,15 @@ function gameMemory(){
     });
     h+='</div>';
     g.innerHTML=h;
+    /* FIX (Aug 2026): the "fs" clamp() above used a fixed px value, so it
+       never actually responded to the modal's real width. Measure the
+       card's real rendered size and scale the icon to it instead. */
+    var _mCards=g.querySelectorAll('[onclick^="memClick("]');
+    if(_mCards.length){
+      var _mw=_mCards[0].getBoundingClientRect().width;
+      var _mfs=Math.max(28,Math.min(110,Math.round(_mw*0.52)));
+      _mCards.forEach(function(el){el.style.fontSize=_mfs+'px';});
+    }
   }
 
   window.memClick=function(i){
@@ -5302,7 +5322,7 @@ function renderMemGame(){
   var h='<div style="text-align:center;margin-bottom:8px;font-size:13px;font-weight:700;color:rgba(255,255,255,.7);">';
   h+='Moves: <b style="color:#fff;">'+window._memMoves+'</b>';
   h+=' | Pairs: <b style="color:#4ade80;">'+window._memMatches+'/'+window._memPairs+'</b></div>';
-  h+='<div style="display:grid;grid-template-columns:repeat('+cols+',1fr);gap:8px;max-width:360px;margin:0 auto;">';
+  h+='<div style="display:grid;grid-template-columns:repeat('+cols+',1fr);gap:8px;max-width:560px;margin:0 auto;">';
   cards.forEach(function(card,i){
     var bg=card.matched?'rgba(34,197,94,.25)':card.flipped?'rgba(124,58,237,.4)':'rgba(255,255,255,.1)';
     var border=card.matched?'2px solid #4ade80':card.flipped?'2px solid #a78bfa':'2px solid rgba(255,255,255,.15)';
@@ -5312,6 +5332,12 @@ function renderMemGame(){
   });
   h+='</div>';
   g.innerHTML=h;
+  var _mhCards=g.querySelectorAll('[onclick^="memHardClick("]');
+  if(_mhCards.length){
+    var _mhw=_mhCards[0].getBoundingClientRect().width;
+    var _mhfs=Math.max(24,Math.min(90,Math.round(_mhw*0.5)));
+    _mhCards.forEach(function(el){el.style.fontSize=_mhfs+'px';});
+  }
 }
 window.memHardClick=function(i){
   var cards=window._memCards;
@@ -8617,127 +8643,205 @@ function gameParkingPuzzle(){
 
 
 /* ═══ TRIVIA RUSH — a Gimkit/Blooket-style answer-to-advance game ═══
-   Single-player (this site has no server/rooms, so true live multiplayer
-   like Gimkit/Blooket isn't possible here) but built around the same
-   core loop: answer multiple-choice questions correctly to earn coins
-   and build a streak multiplier; wrong answers break your streak. A
-   runner track visualizes progress like Blooket's racing mode. */
-var TRIVIA_RUSH_Q = [
-  ['What is the capital of France?', ['Paris','Berlin','Madrid','Rome'], 0],
-  ['Which planet is known as the Red Planet?', ['Venus','Mars','Jupiter','Saturn'], 1],
-  ['How many continents are there on Earth?', ['5','6','7','8'], 2],
-  ['What is the largest ocean on Earth?', ['Atlantic','Indian','Arctic','Pacific'], 3],
-  ['Which animal is known as the King of the Jungle?', ['Tiger','Lion','Elephant','Bear'], 1],
-  ['What gas do plants absorb from the air?', ['Oxygen','Nitrogen','Carbon Dioxide','Hydrogen'], 2],
-  ['How many strings does a standard guitar have?', ['4','5','6','7'], 2],
-  ['What is the chemical symbol for gold?', ['Go','Gd','Au','Ag'], 2],
-  ['Which country invented pizza?', ['France','Italy','Greece','Spain'], 1],
-  ['What is the fastest land animal?', ['Lion','Cheetah','Horse','Antelope'], 1],
-  ['How many sides does a hexagon have?', ['5','6','7','8'], 1],
-  ['What is the smallest prime number?', ['0','1','2','3'], 2],
-  ['Which language has the most native speakers worldwide?', ['English','Spanish','Mandarin Chinese','Hindi'], 2],
-  ['What do bees collect from flowers?', ['Water','Nectar','Leaves','Soil'], 1],
-  ['Which planet has the most moons?', ['Earth','Mars','Saturn','Mercury'], 2],
-  ['What is H2O more commonly known as?', ['Salt','Sugar','Water','Oxygen'], 2],
-  ['How many colors are in a rainbow?', ['5','6','7','8'], 2],
-  ['What is the tallest mountain in the world?', ['K2','Kilimanjaro','Everest','Denali'], 2],
-  ['Which shape has three sides?', ['Square','Triangle','Circle','Pentagon'], 1],
-  ['What do you call a baby dog?', ['Cub','Kitten','Puppy','Calf'], 2],
-  ['Which sense do you use to hear?', ['Sight','Smell','Hearing','Touch'], 2],
-  ['What is the freezing point of water in Celsius?', ['0°C','10°C','32°C','100°C'], 0],
-  ['Which of these is a fruit?', ['Carrot','Potato','Apple','Broccoli'], 2],
-  ['How many players are on a soccer team on the field?', ['9','10','11','12'], 2],
-  ['What is the largest planet in our solar system?', ['Earth','Saturn','Jupiter','Neptune'], 2]
-];
+   REWRITE (Aug 2026): the first version was a fixed 12-question round that
+   never actually plugged into the site's shared leveling system (_LVL) —
+   it stayed on "Easy" the whole time and only recorded one level-up at the
+   very end. Real Gimkit/Blooket modes get harder as you succeed and track
+   a persistent level, so this rewrite hooks into the same `_LVL` object
+   every other quiz game on the site uses: each correct answer calls
+   _LVL.win() (bumps your saved level for this game by 1, same as Expert
+   Trivia / General Knowledge / etc.), difficulty and question tier scale
+   automatically off _LVL.level via _LVL.getConfig(), and running out of
+   lives goes through the same ad-supported "watch an ad to continue" flow
+   every other game uses (_LVL.lose() -> showNoLivesModal()) instead of a
+   custom dead-end screen. The coins/streak/runner-track dressing on top is
+   what makes it feel like Gimkit/Blooket rather than a plain quiz.
+   Single-player: this site has no server/rooms, so true live multiplayer
+   (a teacher hosting a room, dozens of students joining at once) isn't
+   possible on a static site — this is the honest single-player equivalent
+   of that same "answer correctly to advance" loop. */
+var TRIVIA_RUSH_Q = {
+  Easy: [
+    ['What is the capital of France?', ['Paris','Berlin','Madrid','Rome'], 0],
+    ['Which planet is known as the Red Planet?', ['Venus','Mars','Jupiter','Saturn'], 1],
+    ['How many continents are there on Earth?', ['5','6','7','8'], 2],
+    ['What is the largest ocean on Earth?', ['Atlantic','Indian','Arctic','Pacific'], 3],
+    ['Which animal is known as the King of the Jungle?', ['Tiger','Lion','Elephant','Bear'], 1],
+    ['What gas do plants absorb from the air?', ['Oxygen','Nitrogen','Carbon Dioxide','Hydrogen'], 2],
+    ['How many strings does a standard guitar have?', ['4','5','6','7'], 2],
+    ['What is the chemical symbol for gold?', ['Go','Gd','Au','Ag'], 2],
+    ['Which country invented pizza?', ['France','Italy','Greece','Spain'], 1],
+    ['What is the fastest land animal?', ['Lion','Cheetah','Horse','Antelope'], 1],
+    ['How many sides does a hexagon have?', ['5','6','7','8'], 1],
+    ['What is the smallest prime number?', ['0','1','2','3'], 2],
+    ['What do bees collect from flowers?', ['Water','Nectar','Leaves','Soil'], 1],
+    ['What is H2O more commonly known as?', ['Salt','Sugar','Water','Oxygen'], 2],
+    ['How many colors are in a rainbow?', ['5','6','7','8'], 2],
+    ['What is the tallest mountain in the world?', ['K2','Kilimanjaro','Everest','Denali'], 2],
+    ['Which shape has three sides?', ['Square','Triangle','Circle','Pentagon'], 1],
+    ['What do you call a baby dog?', ['Cub','Kitten','Puppy','Calf'], 2],
+    ['What is the freezing point of water in Celsius?', ['0°C','10°C','32°C','100°C'], 0],
+    ['Which of these is a fruit?', ['Carrot','Potato','Apple','Broccoli'], 2]
+  ],
+  Medium: [
+    ['Which planet has the most moons?', ['Earth','Mars','Saturn','Mercury'], 2],
+    ['How many players are on a soccer team on the field?', ['9','10','11','12'], 2],
+    ['What is the largest planet in our solar system?', ['Earth','Saturn','Jupiter','Neptune'], 2],
+    ['Which of these is a fruit?', ['Carrot','Potato','Apple','Broccoli'], 2],
+    ['Who painted the Mona Lisa?', ['Michelangelo','Leonardo da Vinci','Raphael','Donatello'], 1],
+    ['What is the currency of Japan?', ['Won','Yuan','Yen','Ringgit'], 2],
+    ['Which organ pumps blood through the body?', ['Lungs','Liver','Heart','Kidney'], 2],
+    ['How many bones are in the adult human body?', ['186','206','226','246'], 1],
+    ['What is the longest river in the world?', ['Amazon','Nile','Yangtze','Mississippi'], 1],
+    ['Which country is home to the kangaroo?', ['South Africa','Brazil','Australia','India'], 2],
+    ['What is the smallest country in the world?', ['Monaco','San Marino','Vatican City','Liechtenstein'], 2],
+    ['Who wrote "Romeo and Juliet"?', ['Charles Dickens','Mark Twain','William Shakespeare','Jane Austen'], 2],
+    ['What is the main ingredient in guacamole?', ['Tomato','Avocado','Onion','Lime'], 1],
+    ['Which planet is closest to the Sun?', ['Venus','Earth','Mercury','Mars'], 2],
+    ['What language has the most native speakers worldwide?', ['English','Spanish','Mandarin Chinese','Hindi'], 2],
+    ['How many time zones does Russia span?', ['5','7','9','11'], 3],
+    ['What is the tallest animal in the world?', ['Elephant','Giraffe','Camel','Horse'], 1],
+    ['Which metal is liquid at room temperature?', ['Lead','Mercury','Iron','Tin'], 1]
+  ],
+  Hard: [
+    ['In what year did the Berlin Wall fall?', ['1987','1989','1991','1993'], 1],
+    ['What is the chemical symbol for potassium?', ['Po','P','K','Pt'], 2],
+    ['Which ancient wonder stood in Alexandria?', ['Colossus of Rhodes','Hanging Gardens','Lighthouse of Alexandria','Great Pyramid'], 2],
+    ['Who composed "The Four Seasons"?', ['Mozart','Beethoven','Vivaldi','Bach'], 2],
+    ['What is the smallest bone in the human body?', ['Femur','Stapes','Radius','Fibula'], 1],
+    ['Which country has the most time zones?', ['Russia','USA','China','France'], 3],
+    ['What is the capital of New Zealand?', ['Auckland','Wellington','Christchurch','Hamilton'], 1],
+    ['Who was the first person to walk on the Moon?', ['Buzz Aldrin','Yuri Gagarin','Neil Armstrong','John Glenn'], 2],
+    ['What is the hardest natural substance on Earth?', ['Quartz','Diamond','Titanium','Graphite'], 1],
+    ['Which empire built Machu Picchu?', ['Aztec','Maya','Inca','Olmec'], 2],
+    ['What is the study of earthquakes called?', ['Geology','Seismology','Volcanology','Meteorology'], 1],
+    ['Which gas makes up most of Earth\'s atmosphere?', ['Oxygen','Carbon Dioxide','Nitrogen','Argon'], 2],
+    ['Who wrote the theory of general relativity?', ['Isaac Newton','Albert Einstein','Niels Bohr','Galileo Galilei'], 1],
+    ['What was the first country to grant women the right to vote?', ['United States','France','New Zealand','United Kingdom'], 2],
+    ['Which river flows through Baghdad?', ['Euphrates','Tigris','Jordan','Nile'], 1]
+  ],
+  Expert: [
+    ['What is the only mammal capable of true flight?', ['Flying squirrel','Bat','Colugo','Sugar glider'], 1],
+    ['In chess, what is the maximum number of moves before a forced draw by the fifty-move rule?', ['25 moves per side','50 moves per side','100 moves per side','No such rule'], 1],
+    ['Which treaty ended World War I?', ['Treaty of Paris','Treaty of Versailles','Treaty of Vienna','Treaty of Ghent'], 1],
+    ['What is the rarest blood type in humans?', ['O negative','AB negative','B negative','AB positive'], 1],
+    ['Which element has the atomic number 1?', ['Helium','Hydrogen','Lithium','Carbon'], 1],
+    ['Who was the longest-reigning monarch in recorded history?', ['Queen Victoria','Louis XIV of France','Elizabeth II','King Bhumibol of Thailand'], 2],
+    ['What is the term for a word that reads the same backward as forward?', ['Anagram','Homophone','Palindrome','Acronym'], 2],
+    ['Which country was formerly known as Persia?', ['Iraq','Iran','Turkey','Syria'], 1],
+    ['What is the SI unit of electric resistance?', ['Ampere','Volt','Ohm','Watt'], 2],
+    ['Which artist is known for cutting off part of his own ear?', ['Pablo Picasso','Claude Monet','Vincent van Gogh','Salvador Dali'], 2],
+    ['What is the deepest known point in the Earth\'s oceans?', ['Puerto Rico Trench','Mariana Trench','Java Trench','Tonga Trench'], 1],
+    ['Which two elements are liquid at standard room temperature?', ['Mercury and Bromine','Mercury and Gallium','Bromine and Cesium','Gallium and Cesium'], 0]
+  ]
+};
+var TRIVIA_RUSH_ORDER = {};
 
 function gameTriviaRush(){
   _LVL.init('triviarush', 60);
-  var coins = 0, streak = 0, lives = 3, qIndex = 0, progress = 0, best = +(localStorage.getItem('gnw_best_triviarush')||0);
-  var order = shuffle(TRIVIA_RUSH_Q.map(function(_,i){return i;}));
-  var TOTAL_Q = 12;
+  var coins = +(localStorage.getItem('gnw_coins_triviarush')||0);
+  var streak = 0, best = +(localStorage.getItem('gnw_best_triviarush')||0);
+  var answered = 0;
+  var lastDiff = null;
+  var timerIv = null;
 
-  function pick(){
-    var qi = order[qIndex % order.length];
-    var q = TRIVIA_RUSH_Q[qi];
-    var opts = q[1].map(function(o,i){ return {text:o, correct:i===q[2]}; });
-    opts = shuffle(opts);
-    return {stmt:q[0], opts:opts};
+  function nextOrder(tier){
+    if(!TRIVIA_RUSH_ORDER[tier] || !TRIVIA_RUSH_ORDER[tier].length){
+      TRIVIA_RUSH_ORDER[tier] = shuffle(TRIVIA_RUSH_Q[tier].map(function(_,i){return i;}));
+    }
+    return TRIVIA_RUSH_ORDER[tier].pop();
   }
 
-  function render(locked){
+  function pick(){
+    var cfg = _LVL.getConfig();
+    var tier = cfg.difficulty;
+    var qi = nextOrder(tier);
+    var q = TRIVIA_RUSH_Q[tier][qi];
+    var opts = q[1].map(function(o,i){ return {text:o, correct:i===q[2]}; });
+    opts = shuffle(opts);
+    return {stmt:q[0], opts:opts, tier:tier, timeLimit:cfg.timeLimit, level:cfg.level};
+  }
+
+  function render(){
     var g = gw(); if(!g) return;
+    if(timerIv){ clearInterval(timerIv); timerIv = null; }
     var cur = render._cur || (render._cur = pick());
-    var trackPct = Math.min(100, Math.round((progress / TOTAL_Q) * 100));
+    if(lastDiff && lastDiff !== cur.tier){
+      showToast('🎉 ' + cur.tier + ' difficulty unlocked!', 0);
+    }
+    lastDiff = cur.tier;
+    var trackPct = Math.round((_LVL.level / _LVL.maxLevel) * 100);
     var h = _LVL.renderHeader('🏃 Trivia Rush', '#f59e0b');
     h += '<div class="kid-stat-row" style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:10px;">'
       + '<span class="btn btn-sec" style="padding:5px 12px;font-size:12px;">🪙 <b>'+coins+'</b></span>'
       + '<span class="btn btn-sec" style="padding:5px 12px;font-size:12px;">🔥 Streak <b>'+streak+'</b></span>'
-      + '<span class="btn btn-sec" style="padding:5px 12px;font-size:12px;">❤️ <b>'+lives+'</b></span>'
       + '<span class="btn btn-sec" style="padding:5px 12px;font-size:12px;">Best 🪙 <b>'+best+'</b></span>'
       + '</div>';
-    h += '<div style="background:rgba(0,0,0,.22);border-radius:99px;height:22px;position:relative;margin-bottom:16px;overflow:hidden;border:1px solid rgba(255,255,255,.12);">'
+    h += '<div style="background:rgba(0,0,0,.22);border-radius:99px;height:20px;position:relative;margin-bottom:16px;overflow:hidden;border:1px solid rgba(255,255,255,.12);">'
       + '<div style="position:absolute;inset:0;background:linear-gradient(90deg,#f59e0b,#fbbf24);width:'+trackPct+'%;transition:width .4s;"></div>'
-      + '<div style="position:absolute;top:50%;left:'+trackPct+'%;transform:translate(-50%,-50%);font-size:20px;transition:left .4s;">🏃</div>'
-      + '<div style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:16px;">🏁</div>'
+      + '<div style="position:absolute;top:50%;left:'+trackPct+'%;transform:translate(-50%,-50%);font-size:18px;transition:left .4s;">🏃</div>'
+      + '<div style="position:absolute;right:6px;top:50%;transform:translateY(-50%);font-size:14px;">🏁</div>'
       + '</div>';
-    h += '<div style="background:rgba(255,255,255,.08);border-radius:16px;padding:20px;margin-bottom:16px;min-height:70px;display:flex;align-items:center;justify-content:center;text-align:center;">'
-      + '<div style="font-size:16px;font-weight:700;line-height:1.5;">'+cur.stmt+'</div></div>';
+    h += '<div style="background:rgba(255,255,255,.08);border-radius:16px;padding:20px;margin-bottom:16px;min-height:70px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;">';
+    if(cur.timeLimit && cur.level >= 8){
+      h += '<div id="tr-timer" style="font-size:18px;font-weight:900;color:#fbbf24;">⏱ '+cur.timeLimit+'s</div>';
+    }
+    h += '<div style="font-size:16px;font-weight:700;line-height:1.5;">'+cur.stmt+'</div></div>';
     h += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">';
     cur.opts.forEach(function(o,i){
-      h += '<button class="tr-opt" data-i="'+i+'" '+(locked?'disabled':'')+' style="padding:16px 10px;border-radius:12px;border:2px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#fff;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s;">'+o.text+'</button>';
+      h += '<button class="tr-opt" data-i="'+i+'" style="padding:16px 10px;border-radius:12px;border:2px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#fff;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s;">'+o.text+'</button>';
     });
     h += '</div>';
-    h += '<div style="text-align:center;margin-top:10px;font-size:12px;opacity:.6;">Question '+(Math.min(qIndex+1,TOTAL_Q))+' / '+TOTAL_Q+'</div>';
+    h += '<div style="text-align:center;margin-top:10px;font-size:12px;opacity:.6;">Answered: '+answered+' &middot; '+cur.tier+' tier</div>';
     g.innerHTML = h;
-    if(!locked){
-      g.querySelectorAll('.tr-opt').forEach(function(btn){
-        btn.addEventListener('click', function(){ answer(+btn.getAttribute('data-i'), cur); });
-      });
+    g.querySelectorAll('.tr-opt').forEach(function(btn){
+      btn.addEventListener('click', function(){ answer(+btn.getAttribute('data-i'), cur); });
+    });
+    if(cur.timeLimit && cur.level >= 8){
+      var t = cur.timeLimit;
+      timerIv = setInterval(function(){
+        t--;
+        var te = document.getElementById('tr-timer');
+        if(te){ te.textContent = '⏱ ' + t + 's'; te.style.color = t<=3 ? '#ef4444' : '#fbbf24'; }
+        if(t<=0){ clearInterval(timerIv); timerIv = null; answer(-1, cur); }
+      }, 1000);
     }
   }
 
   function answer(i, cur){
     var g = gw(); if(!g) return;
-    var correct = cur.opts[i].correct;
+    if(timerIv){ clearInterval(timerIv); timerIv = null; }
+    var correct = i>=0 && cur.opts[i].correct;
     g.querySelectorAll('.tr-opt').forEach(function(btn,bi){
       btn.disabled = true;
       if(cur.opts[bi].correct) btn.style.background = 'rgba(34,197,94,.55)';
       else if(bi===i && !correct) btn.style.background = 'rgba(239,68,68,.55)';
     });
+    answered++;
+    var alive = true;
     if(correct){
       streak++;
       var mult = 1 + Math.min(4, Math.floor(streak/3));
       var gained = 10*mult;
-      coins += gained; progress++;
-      playSound('score'); showScorePop('+'+gained);
+      coins += gained;
+      if(coins>best){ best=coins; localStorage.setItem('gnw_best_triviarush', best); }
+      localStorage.setItem('gnw_coins_triviarush', coins);
+      showScorePop('+'+gained+' 🪙');
+      _LVL.win(gained); /* bumps _LVL.level, awards XP, plays sound — same as every other leveled game */
     } else {
-      streak = 0; lives--;
-      playSound('lose');
+      streak = 0;
+      alive = _LVL.lose(); /* same ad-supported "out of lives" flow as every other game */
     }
-    qIndex++;
     render._cur = null;
-    setTimeout(function(){
-      if(lives<=0 || qIndex>=TOTAL_Q){ finish(); return; }
-      render(false);
-    }, 850);
+    if(alive){
+      setTimeout(function(){ render(); }, 850);
+    }
+    /* if !alive, _LVL.lose() already showed the "No Lives Left" overlay —
+       nothing more to do here; the player can watch an ad / spend XP to
+       keep going, or exit, same as any other game on the site. */
   }
 
-  function finish(){
-    var g = gw(); if(!g) return;
-    var won = progress >= Math.ceil(TOTAL_Q*0.5);
-    if(coins>best){ best=coins; localStorage.setItem('gnw_best_triviarush', best); }
-    earnXP(Math.min(30, Math.max(5, Math.round(coins/10))), 'Trivia Rush');
-    if(won && typeof _LVL!=='undefined' && _LVL.win) _LVL.win(0);
-    g.innerHTML = '<div style="text-align:center;padding:20px 10px;">'
-      + '<div style="font-size:44px;margin-bottom:8px;">'+(won?'🏆':'🏳️')+'</div>'
-      + '<div style="font-size:20px;font-weight:900;margin-bottom:6px;">'+(won?'Finish line!':'Out of lives!')+'</div>'
-      + '<div style="font-size:15px;opacity:.75;margin-bottom:4px;">🪙 Coins earned: <b>'+coins+'</b></div>'
-      + '<div style="font-size:13px;opacity:.6;margin-bottom:18px;">Correct: '+progress+' / '+TOTAL_Q+' · Best coins: '+best+'</div>'
-      + '<button class="btn" onclick="openGame(\'triviarush\')">🔁 Play Again</button>'
-      + '</div>';
-  }
-
-  render(false);
+  render();
 }
 
 
