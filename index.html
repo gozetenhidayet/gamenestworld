@@ -2669,7 +2669,11 @@ function playSound(type){
 }
 function toggleSound(){
   _soundOn=!_soundOn;localStorage.setItem('gnw_sound',_soundOn?'1':'0');
-  var b=document.getElementById('sound-btn');if(b)b.textContent=_soundOn?'🔊':'🔇';
+  var b=document.getElementById('sound-btn');
+  if(b){
+    b.innerHTML=_soundOn?'<svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.3h2.7L10 4v12l-4.3-3.3H3z" fill="currentColor" stroke="none"></path><path d="M13.1 7.3c1 .9 1 4.6 0 5.5M15.5 5.1c2.2 2.3 2.2 7.6 0 9.9"></path></svg>':'<svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.3h2.7L10 4v12l-4.3-3.3H3z" fill="currentColor" stroke="none"></path><line x1="12.8" y1="6.8" x2="17" y2="11"></line><line x1="17" y1="6.8" x2="12.8" y2="11"></line></svg>';
+    b.classList.toggle('is-muted',!_soundOn);
+  }
 }
 
 /* TOAST */
@@ -2686,8 +2690,8 @@ function isFav(key){return getFavs().indexOf(key)>=0;}
 function toggleFav(el){
   var key=el.getAttribute('data-gkey');
   var favs=getFavs(),idx=favs.indexOf(key);
-  if(idx>=0){favs.splice(idx,1);el.textContent='🤍';}
-  else{favs.push(key);el.textContent='❤️';playSound('pop');}
+  if(idx>=0){favs.splice(idx,1);el.innerHTML='<svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M10 17.1s-6.4-4-8.1-7.9C.5 6 2.1 3.2 5.1 3c1.8-.1 3.5 1 4.9 2.6C11.4 4 13.1 2.9 14.9 3c3 .2 4.6 3 3.2 6.2-1.7 3.9-8.1 7.9-8.1 7.9z"></path></svg>';el.classList.remove('is-active');}
+  else{favs.push(key);el.innerHTML='<svg viewBox="0 0 20 20" width="15" height="15" fill="currentColor" stroke="none"><path d="M10 17.1s-6.4-4-8.1-7.9C.5 6 2.1 3.2 5.1 3c1.8-.1 3.5 1 4.9 2.6C11.4 4 13.1 2.9 14.9 3c3 .2 4.6 3 3.2 6.2-1.7 3.9-8.1 7.9-8.1 7.9z"></path></svg>';el.classList.add('is-active');playSound('pop');}
   localStorage.setItem('gnw_favs',JSON.stringify(favs));
 }
 
@@ -2889,11 +2893,10 @@ var HOW_TO={
     +'<button onclick="closeGame()" style="background:rgba(255,255,255,.15);border:none;border-radius:10px;padding:8px 14px;cursor:pointer;font-size:14px;font-weight:800;color:'+th.text+';flex-shrink:0;display:flex;align-items:center;gap:6px;white-space:nowrap;">← Back</button>'
     +'<div id="modal-lives" style="display:flex;gap:2px;font-size:16px;"></div>'
     +'<div style="flex:1"></div>'
-    +'<button onclick="toggleHowTo()" title="How to play" style="background:rgba(255,255,255,.12);border:1px solid '+th.border+';border-radius:8px;padding:5px 9px;cursor:pointer;font-size:12px;color:'+th.text+';">ℹ️</button>'
-    +'<button data-gkey="'+key+'" onclick="toggleFav(this)" style="background:rgba(255,255,255,.12);border:1px solid '+th.border+';border-radius:8px;padding:5px 9px;cursor:pointer;font-size:15px;">'+(fav?'❤️':'🤍')+'</button>'
-    +'<button onclick="shareGame(this)" data-gkey2="'+key+'" style="background:rgba(255,255,255,.12);border:1px solid '+th.border+';border-radius:8px;padding:5px 9px;cursor:pointer;font-size:11px;font-weight:700;color:'+th.accent+';">Share</button>'
-    +'<button onclick="expandModal()" style="background:rgba(255,255,255,.12);border:1px solid '+th.border+';border-radius:8px;padding:5px 9px;cursor:pointer;font-size:12px;color:'+th.text+';">⛶</button>'
-    +'<button id="sound-btn" onclick="toggleSound()" style="background:rgba(255,255,255,.12);border:1px solid '+th.border+';border-radius:8px;padding:5px 9px;cursor:pointer;font-size:12px;">'+(_soundOn?'🔊':'🔇')+'</button>'
+    +'<button class="mbtn'+(fav?' is-active':'')+'" data-gkey="'+key+'" id="modal-fav-btn" onclick="toggleFav(this)" title="Favorite" aria-label="Favorite">'+(fav?'<svg viewBox="0 0 20 20" width="15" height="15" fill="currentColor" stroke="none"><path d="M10 17.1s-6.4-4-8.1-7.9C.5 6 2.1 3.2 5.1 3c1.8-.1 3.5 1 4.9 2.6C11.4 4 13.1 2.9 14.9 3c3 .2 4.6 3 3.2 6.2-1.7 3.9-8.1 7.9-8.1 7.9z"></path></svg>':'<svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M10 17.1s-6.4-4-8.1-7.9C.5 6 2.1 3.2 5.1 3c1.8-.1 3.5 1 4.9 2.6C11.4 4 13.1 2.9 14.9 3c3 .2 4.6 3 3.2 6.2-1.7 3.9-8.1 7.9-8.1 7.9z"></path></svg>')+'</button>'
+    +'<button class="mbtn" onclick="toggleHowTo()" title="How to play" aria-label="How to play"><svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"></circle><line x1="10" y1="9" x2="10" y2="14"></line><circle cx="10" cy="6.3" r="1" fill="currentColor" stroke="none"></circle></svg></button>'
+    +'<button class="mbtn" onclick="shareGame(this)" data-gkey2="'+key+'" title="Share" aria-label="Share"><svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="15.3" cy="4.5" r="2.1"></circle><circle cx="4.7" cy="10" r="2.1"></circle><circle cx="15.3" cy="15.5" r="2.1"></circle><line x1="6.5" y1="8.9" x2="13.4" y2="5.7"></line><line x1="6.5" y1="11.1" x2="13.4" y2="14.3"></line></svg></button>'
+    +'<button class="mbtn'+(_soundOn?'':' is-muted')+'" id="sound-btn" onclick="toggleSound()" title="Sound" aria-label="Toggle sound">'+(_soundOn?'<svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.3h2.7L10 4v12l-4.3-3.3H3z" fill="currentColor" stroke="none"></path><path d="M13.1 7.3c1 .9 1 4.6 0 5.5M15.5 5.1c2.2 2.3 2.2 7.6 0 9.9"></path></svg>':'<svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.3h2.7L10 4v12l-4.3-3.3H3z" fill="currentColor" stroke="none"></path><line x1="12.8" y1="6.8" x2="17" y2="11"></line><line x1="17" y1="6.8" x2="12.8" y2="11"></line></svg>')+'</button>'
     +'</div>'
     /* Game description -- collapsed by default, toggled by the "ℹ️" button
        above. This div is a SIBLING of #gw, never rebuilt when the game
@@ -2918,6 +2921,11 @@ var HOW_TO={
   var style=document.createElement('style');
   style.id='modal-btn-style';
   style.textContent='#modal-box .btn{background:rgba(255,255,255,.15)!important;color:'+th.text+'!important;border:1px solid '+th.border+'!important;box-shadow:0 2px 8px rgba(0,0,0,.3);}'
+    +'#modal-box .mbtn{background:rgba(255,255,255,.12);border:1px solid '+th.border+';border-radius:10px;width:34px;height:34px;min-width:34px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;color:'+th.text+';padding:0;transition:background .15s,transform .1s,border-color .15s;}'
+    +'#modal-box .mbtn:hover{background:rgba(255,255,255,.24);}'
+    +'#modal-box .mbtn:active{transform:scale(.92);}'
+    +'#modal-box .mbtn.is-active{color:#f472b6;border-color:rgba(244,114,182,.5);background:rgba(244,114,182,.16);}'
+    +'#modal-box .mbtn.is-muted{color:rgba(255,255,255,.4);}'
     +'#modal-box .btn:hover{background:rgba(255,255,255,.3)!important;}'
     +'#modal-box .btn-sec{background:rgba(255,255,255,.08)!important;color:rgba(255,255,255,.8)!important;border:1px solid rgba(255,255,255,.15)!important;}'
     +'#modal-box input[type=text],#modal-box input[type=number]{background:rgba(255,255,255,.12)!important;color:'+th.text+'!important;border:1.5px solid '+th.border+'!important;}'
