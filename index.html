@@ -795,7 +795,13 @@ footer::before{display:none !important;}
 .modal{background:linear-gradient(145deg,#e0f2fe,#fce7f3,#fef3c7) !important;border:2px solid rgba(255,255,255,.88) !important;color:#fff !important;}
 #modal-box{--text:#172033;--muted:#64748b;color:#fff !important;}
 #modal-box > div:first-child{background:rgba(255,255,255,.48) !important;border:1px solid rgba(255,255,255,.75) !important;border-radius:16px !important;padding:8px !important;}
-#modal-box > div:first-child button{background:rgba(255,255,255,.72) !important;border:1px solid rgba(148,163,184,.22) !important;color:#fff !important;box-shadow:0 4px 12px rgba(15,23,42,.07) !important;}
+/* FIX (Round 10, Aug 2026): this was dead legacy CSS from a pre-dark-
+   redesign "kid-friendly" light theme that nothing else in later rounds
+   ever overrode -- it was the actual reason every toolbar icon button
+   rendered as the same flat pale-white box no matter what per-button
+   colors got added later. Removed; #modal-box .mbtn (defined dynamically
+   per game-open, see fix_toolbar_icons.py / fix_round10_ux.py) is what
+   actually styles these buttons now. */
 #modal-lives{filter:drop-shadow(0 1px 2px rgba(15,23,42,.12));}
 #gw{color:#fff !important;background:rgba(255,255,255,.34) !important;border:1px solid rgba(255,255,255,.65) !important;border-radius:18px !important;padding:10px !important;}
 #gw h2,#gw h3,#gw [style*="font-weight:900"],#gw [style*="font-weight:800"]{color:#fff !important;}
@@ -931,6 +937,8 @@ footer::before{display:none !important;}
   margin-bottom:18px;
   animation:xpPulse 1.5s ease infinite;
 }
+
+.motiv-level-info { font-size:12.5px;font-weight:700;color:rgba(255,255,255,.55);margin:-8px 0 14px; }
 
 .motiv-stars { display:flex;justify-content:center;gap:6px;margin-bottom:18px;min-height:32px; }
 
@@ -2829,10 +2837,10 @@ var HOW_TO={
     +'<button onclick="closeGame()" style="background:rgba(255,255,255,.15);border:none;border-radius:10px;padding:8px 14px;cursor:pointer;font-size:14px;font-weight:800;color:'+th.text+';flex-shrink:0;display:flex;align-items:center;gap:6px;white-space:nowrap;">← Back</button>'
     +'<div id="modal-lives" style="display:flex;gap:2px;font-size:16px;"></div>'
     +'<div style="flex:1"></div>'
-    +'<button class="mbtn'+(fav?' is-active':'')+'" data-gkey="'+key+'" id="modal-fav-btn" onclick="toggleFav(this)" title="Favorite" aria-label="Favorite">'+(fav?'<svg viewBox="0 0 20 20" width="15" height="15" fill="currentColor" stroke="none"><path d="M10 17.1s-6.4-4-8.1-7.9C.5 6 2.1 3.2 5.1 3c1.8-.1 3.5 1 4.9 2.6C11.4 4 13.1 2.9 14.9 3c3 .2 4.6 3 3.2 6.2-1.7 3.9-8.1 7.9-8.1 7.9z"></path></svg>':'<svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M10 17.1s-6.4-4-8.1-7.9C.5 6 2.1 3.2 5.1 3c1.8-.1 3.5 1 4.9 2.6C11.4 4 13.1 2.9 14.9 3c3 .2 4.6 3 3.2 6.2-1.7 3.9-8.1 7.9-8.1 7.9z"></path></svg>')+'</button>'
-    +'<button class="mbtn" onclick="toggleHowTo()" title="How to play" aria-label="How to play"><svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"></circle><line x1="10" y1="9" x2="10" y2="14"></line><circle cx="10" cy="6.3" r="1" fill="currentColor" stroke="none"></circle></svg></button>'
-    +'<button class="mbtn" onclick="shareGame(this)" data-gkey2="'+key+'" title="Share" aria-label="Share"><svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="15.3" cy="4.5" r="2.1"></circle><circle cx="4.7" cy="10" r="2.1"></circle><circle cx="15.3" cy="15.5" r="2.1"></circle><line x1="6.5" y1="8.9" x2="13.4" y2="5.7"></line><line x1="6.5" y1="11.1" x2="13.4" y2="14.3"></line></svg></button>'
-    +'<button class="mbtn'+(_soundOn?'':' is-muted')+'" id="sound-btn" onclick="toggleSound()" title="Sound" aria-label="Toggle sound">'+(_soundOn?'<svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.3h2.7L10 4v12l-4.3-3.3H3z" fill="currentColor" stroke="none"></path><path d="M13.1 7.3c1 .9 1 4.6 0 5.5M15.5 5.1c2.2 2.3 2.2 7.6 0 9.9"></path></svg>':'<svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.3h2.7L10 4v12l-4.3-3.3H3z" fill="currentColor" stroke="none"></path><line x1="12.8" y1="6.8" x2="17" y2="11"></line><line x1="17" y1="6.8" x2="12.8" y2="11"></line></svg>')+'</button>'
+    +'<button class="mbtn mbtn-fav'+(fav?' is-active':'')+'" data-gkey="'+key+'" id="modal-fav-btn" onclick="toggleFav(this)" title="Favorite" aria-label="Favorite">'+(fav?'<svg viewBox="0 0 20 20" width="15" height="15" fill="currentColor" stroke="none"><path d="M10 17.1s-6.4-4-8.1-7.9C.5 6 2.1 3.2 5.1 3c1.8-.1 3.5 1 4.9 2.6C11.4 4 13.1 2.9 14.9 3c3 .2 4.6 3 3.2 6.2-1.7 3.9-8.1 7.9-8.1 7.9z"></path></svg>':'<svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M10 17.1s-6.4-4-8.1-7.9C.5 6 2.1 3.2 5.1 3c1.8-.1 3.5 1 4.9 2.6C11.4 4 13.1 2.9 14.9 3c3 .2 4.6 3 3.2 6.2-1.7 3.9-8.1 7.9-8.1 7.9z"></path></svg>')+'</button>'
+    +'<button class="mbtn mbtn-info" onclick="toggleHowTo()" title="How to play" aria-label="How to play"><svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="8"></circle><line x1="10" y1="9" x2="10" y2="14"></line><circle cx="10" cy="6.3" r="1" fill="currentColor" stroke="none"></circle></svg></button>'
+    +'<button class="mbtn mbtn-share" onclick="shareGame(this)" data-gkey2="'+key+'" title="Share" aria-label="Share"><svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="15.3" cy="4.5" r="2.1"></circle><circle cx="4.7" cy="10" r="2.1"></circle><circle cx="15.3" cy="15.5" r="2.1"></circle><line x1="6.5" y1="8.9" x2="13.4" y2="5.7"></line><line x1="6.5" y1="11.1" x2="13.4" y2="14.3"></line></svg></button>'
+    +'<button class="mbtn mbtn-sound'+(_soundOn?'':' is-muted')+'" id="sound-btn" onclick="toggleSound()" title="Sound" aria-label="Toggle sound">'+(_soundOn?'<svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.3h2.7L10 4v12l-4.3-3.3H3z" fill="currentColor" stroke="none"></path><path d="M13.1 7.3c1 .9 1 4.6 0 5.5M15.5 5.1c2.2 2.3 2.2 7.6 0 9.9"></path></svg>':'<svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.3h2.7L10 4v12l-4.3-3.3H3z" fill="currentColor" stroke="none"></path><line x1="12.8" y1="6.8" x2="17" y2="11"></line><line x1="17" y1="6.8" x2="12.8" y2="11"></line></svg>')+'</button>'
     +'</div>'
     /* Game description -- collapsed by default, toggled by the "ℹ️" button
        above. This div is a SIBLING of #gw, never rebuilt when the game
@@ -2857,11 +2865,29 @@ var HOW_TO={
   var style=document.createElement('style');
   style.id='modal-btn-style';
   style.textContent='#modal-box .btn{background:rgba(255,255,255,.15)!important;color:'+th.text+'!important;border:1px solid '+th.border+'!important;box-shadow:0 2px 8px rgba(0,0,0,.3);}'
-    +'#modal-box .mbtn{background:rgba(255,255,255,.12);border:1px solid '+th.border+';border-radius:10px;width:34px;height:34px;min-width:34px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;color:'+th.text+';padding:0;transition:background .15s,transform .1s,border-color .15s;}'
-    +'#modal-box .mbtn:hover{background:rgba(255,255,255,.24);}'
+    +'#modal-box .mbtn{background:rgba(255,255,255,.12) !important;border:1px solid '+th.border+' !important;border-radius:10px;width:34px;height:34px;min-width:34px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;color:'+th.text+' !important;padding:0;transition:background .15s,transform .1s,border-color .15s;}'
+    +'#modal-box .mbtn:hover{background:rgba(255,255,255,.24) !important;}'
     +'#modal-box .mbtn:active{transform:scale(.92);}'
-    +'#modal-box .mbtn.is-active{color:#f472b6;border-color:rgba(244,114,182,.5);background:rgba(244,114,182,.16);}'
-    +'#modal-box .mbtn.is-muted{color:rgba(255,255,255,.4);}'
+    /* FIX (Round 10, Aug 2026): every toolbar icon shared this one pale
+       background, so at a glance they all looked like the same blank white
+       box. Give each button its own subtle default tint -- distinct at a
+       glance even before any interaction -- while is-active/is-muted below
+       still win (via !important + being declared last) once a button
+       actually changes state. All backgrounds/colors below are !important
+       because this codebase has repeatedly had legacy !important rules
+       from earlier rounds silently win the cascade otherwise (see PART D0
+       above) -- matching !important is the only reliable way to guarantee
+       these are the ones that actually render. */
+    +'#modal-box .mbtn.mbtn-fav{border-color:rgba(244,114,182,.35) !important;background:rgba(244,114,182,.12) !important;color:#f9a8d4 !important;}'
+    +'#modal-box .mbtn.mbtn-fav:hover{background:rgba(244,114,182,.24) !important;}'
+    +'#modal-box .mbtn.mbtn-info{border-color:rgba(96,165,250,.4) !important;background:rgba(96,165,250,.15) !important;color:#93c5fd !important;}'
+    +'#modal-box .mbtn.mbtn-info:hover{background:rgba(96,165,250,.28) !important;}'
+    +'#modal-box .mbtn.mbtn-share{border-color:rgba(52,211,153,.4) !important;background:rgba(52,211,153,.15) !important;color:#6ee7b7 !important;}'
+    +'#modal-box .mbtn.mbtn-share:hover{background:rgba(52,211,153,.28) !important;}'
+    +'#modal-box .mbtn.mbtn-sound{border-color:rgba(251,191,36,.4) !important;background:rgba(251,191,36,.15) !important;color:#fcd34d !important;}'
+    +'#modal-box .mbtn.mbtn-sound:hover{background:rgba(251,191,36,.28) !important;}'
+    +'#modal-box .mbtn.is-active{color:#f472b6 !important;border-color:rgba(244,114,182,.6) !important;background:rgba(244,114,182,.22) !important;}'
+    +'#modal-box .mbtn.is-muted{color:rgba(255,255,255,.4) !important;border-color:rgba(255,255,255,.15) !important;background:rgba(255,255,255,.08) !important;}'
     +'#modal-box .btn:hover{background:rgba(255,255,255,.3)!important;}'
     +'#modal-box .btn-sec{background:rgba(255,255,255,.08)!important;color:rgba(255,255,255,.8)!important;border:1px solid rgba(255,255,255,.15)!important;}'
     +'#modal-box input[type=text],#modal-box input[type=number]{background:rgba(255,255,255,.12)!important;color:'+th.text+'!important;border:1.5px solid '+th.border+'!important;}'
@@ -4108,7 +4134,7 @@ function gameSimon(){
       _LVL.lose();showMotivationLose('Simon Says');return;
     }
     if(step===seqLen){
-      earnXP(40,'Simon');_LVL.win(40);showMotivationWin(40,'Simon Says');
+      earnXP(40,'Simon');_LVL.win(40);showMotivationWin(40,'Simon Says',true);
     }
   };
   render(-1);
@@ -4933,29 +4959,53 @@ function gameMemory(){
     h+='<span style="color:rgba(255,255,255,.7);font-size:14px;">Moves: <b style="color:#fff;">'+moves+'/'+maxMoves+'</b></span>';
     h+='<span style="color:rgba(255,255,255,.7);font-size:14px;">Pairs: <b style="color:#4ade80;">'+matched.size/2+'/'+TOTAL/2+'</b></span>';
     h+='</div>';
-    /* Grid - fills width */
-    var cardPct=Math.floor(96/COLS);
-    h+='<div style="display:grid;grid-template-columns:repeat('+COLS+',1fr);gap:8px;width:100%;">';
+    /* Grid -- sized to fit both width AND height after render below, so
+       every pair is visible on one screen without scrolling. */
+    h+='<div id="mem-grid" style="display:grid;grid-template-columns:repeat('+COLS+',1fr);gap:8px;width:100%;justify-content:center;">';
     cards.forEach(function(em,i){
       var isRevealed=revealed.indexOf(i)>=0;
       var isMatched=matched.has(i);
       var bg=isMatched?'rgba(34,197,94,.25)':isRevealed?'rgba(124,58,237,.4)':'rgba(255,255,255,.1)';
       var border=isMatched?'2px solid #4ade80':isRevealed?'2px solid rgba(167,139,250,.6)':'2px solid rgba(255,255,255,.15)';
-      var fs='clamp(24px,'+Math.floor(80/COLS)+'px,48px)';
       var content=isRevealed||isMatched?em:'❓';
       var opacity=isMatched?'.6':'1';
-      h+='<div onclick="memClick('+i+')" style="aspect-ratio:1;background:'+bg+';border:'+border+';border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:'+fs+';cursor:pointer;transition:all .2s;opacity:'+opacity+';-webkit-tap-highlight-color:transparent;">'+content+'</div>';
+      h+='<div onclick="memClick('+i+')" style="aspect-ratio:1;background:'+bg+';border:'+border+';border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;opacity:'+opacity+';-webkit-tap-highlight-color:transparent;">'+content+'</div>';
     });
     h+='</div>';
     g.innerHTML=h;
-    /* FIX (Aug 2026): the "fs" clamp() above used a fixed px value, so it
-       never actually responded to the modal's real width. Measure the
-       card's real rendered size and scale the icon to it instead. */
+    /* FIX (Round 10, Aug 2026): cards used to only be sized to fit the
+       AVAILABLE WIDTH (via aspect-ratio + 1fr columns + width-only font
+       measurement), so at higher levels (more rows) the grid could run
+       taller than the visible screen -- forcing a scroll to see the rest
+       of the cards, which defeats the point of a memory-matching game.
+       Now measure BOTH available width and height and pick whichever
+       constrains the cards more, so the whole grid always fits on screen. */
+    var _mGrid=document.getElementById('mem-grid');
     var _mCards=g.querySelectorAll('[onclick^="memClick("]');
-    if(_mCards.length){
-      var _mw=_mCards[0].getBoundingClientRect().width;
-      var _mfs=Math.max(28,Math.min(110,Math.round(_mw*0.52)));
-      _mCards.forEach(function(el){el.style.fontSize=_mfs+'px';});
+    if(_mGrid&&_mCards.length){
+      /* FIX (Round 11, Aug 2026): reading getBoundingClientRect() right
+         after the innerHTML write above forces the browser to flush
+         layout synchronously mid-script ("forced reflow" -- flagged by
+         PageSpeed Insights). Defer the read one frame via
+         requestAnimationFrame so this layout pass happens as part of the
+         browser's normal render pipeline instead of blocking JS -- same
+         result, ~16ms later (imperceptible), no forced reflow. */
+      requestAnimationFrame(function(){
+        var _gRect=_mGrid.getBoundingClientRect();
+        var _gap=8;
+        var _availW=_gRect.width;
+        var _availH=Math.max(120,window.innerHeight-_gRect.top-28);
+        var _cellW=(_availW-_gap*(COLS-1))/COLS;
+        var _cellH=(_availH-_gap*(ROWS-1))/ROWS;
+        var _cell=Math.max(36,Math.min(_cellW,_cellH));
+        _mGrid.style.gridTemplateColumns='repeat('+COLS+','+_cell+'px)';
+        _mCards.forEach(function(el){
+          el.style.width=_cell+'px';
+          el.style.height=_cell+'px';
+        });
+        var _mfs=Math.max(20,Math.min(48,Math.round(_cell*0.5)));
+        _mCards.forEach(function(el){el.style.fontSize=_mfs+'px';});
+      });
     }
   }
 
@@ -4973,7 +5023,7 @@ function gameMemory(){
           if(matched.size===TOTAL){
             earnXP(50,'Memory');
             _LVL.win(50);
-            showMotivationWin(50,'Memory Cards');
+            showMotivationWin(50,'Memory Cards',true);
           }
         } else {
           revealed=[];flipping=false;render();
@@ -5008,25 +5058,43 @@ function startMemoryGame(cols,pairs,key){
 function renderMemGame(){
   var cards=window._memCards;
   var cols=window._memCols;
+  var rows=Math.ceil(cards.length/cols);
   var g=gw();if(!g)return;
   var h='<div style="text-align:center;margin-bottom:8px;font-size:13px;font-weight:700;color:rgba(255,255,255,.7);">';
   h+='Moves: <b style="color:#fff;">'+window._memMoves+'</b>';
   h+=' | Pairs: <b style="color:#4ade80;">'+window._memMatches+'/'+window._memPairs+'</b></div>';
-  h+='<div style="display:grid;grid-template-columns:repeat('+cols+',1fr);gap:8px;max-width:560px;margin:0 auto;">';
+  h+='<div id="memhard-grid" style="display:grid;grid-template-columns:repeat('+cols+',1fr);gap:8px;max-width:560px;margin:0 auto;justify-content:center;">';
   cards.forEach(function(card,i){
     var bg=card.matched?'rgba(34,197,94,.25)':card.flipped?'rgba(124,58,237,.4)':'rgba(255,255,255,.1)';
     var border=card.matched?'2px solid #4ade80':card.flipped?'2px solid #a78bfa':'2px solid rgba(255,255,255,.15)';
     var content=card.flipped||card.matched?card.emoji:'❓';
-    var fs=cols<=4?'32px':'26px';
-    h+='<div onclick="memHardClick('+i+')" style="aspect-ratio:1;background:'+bg+';border:'+border+';border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:'+fs+';cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent;">'+content+'</div>';
+    h+='<div onclick="memHardClick('+i+')" style="aspect-ratio:1;background:'+bg+';border:'+border+';border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent;">'+content+'</div>';
   });
   h+='</div>';
   g.innerHTML=h;
+  /* FIX (Round 10, Aug 2026): same height-aware sizing as Memory Cards --
+     fit both width AND height so all pairs are visible without scrolling. */
+  var _mhGrid=document.getElementById('memhard-grid');
   var _mhCards=g.querySelectorAll('[onclick^="memHardClick("]');
-  if(_mhCards.length){
-    var _mhw=_mhCards[0].getBoundingClientRect().width;
-    var _mhfs=Math.max(24,Math.min(90,Math.round(_mhw*0.5)));
-    _mhCards.forEach(function(el){el.style.fontSize=_mhfs+'px';});
+  if(_mhGrid&&_mhCards.length){
+    /* FIX (Round 11, Aug 2026): same forced-reflow fix as Memory Cards --
+       defer the post-render measurement to the next frame. */
+    requestAnimationFrame(function(){
+      var _ghRect=_mhGrid.getBoundingClientRect();
+      var _ghGap=8;
+      var _ghAvailW=Math.min(_ghRect.width,560);
+      var _ghAvailH=Math.max(120,window.innerHeight-_ghRect.top-28);
+      var _ghCellW=(_ghAvailW-_ghGap*(cols-1))/cols;
+      var _ghCellH=(_ghAvailH-_ghGap*(rows-1))/rows;
+      var _ghCell=Math.max(32,Math.min(_ghCellW,_ghCellH));
+      _mhGrid.style.gridTemplateColumns='repeat('+cols+','+_ghCell+'px)';
+      _mhCards.forEach(function(el){
+        el.style.width=_ghCell+'px';
+        el.style.height=_ghCell+'px';
+      });
+      var _mhfs=Math.max(18,Math.min(42,Math.round(_ghCell*0.48)));
+      _mhCards.forEach(function(el){el.style.fontSize=_mhfs+'px';});
+    });
   }
 }
 window.memHardClick=function(i){
@@ -5046,7 +5114,8 @@ window.memHardClick=function(i){
         window._memMatches++;
         if(window._memMatches===window._memPairs){
           earnXP(60,'Memory Hard');
-          showMotivationWin(60,'Memory Pro');
+          _LVL.win(60);
+          showMotivationWin(60,'Memory Pro',true);
         }
       } else {
         cards[a].flipped=false;cards[b].flipped=false;
@@ -5766,7 +5835,7 @@ function gamePatternMem(){
     playerPicks.push(i);render();
     if(playerPicks.length===showCount){
       var correct=playerPicks.filter(function(p){return pattern.indexOf(p)>=0;}).length;
-      if(correct===showCount){earnXP(60,'Pattern');_LVL.win(60);showMotivationWin(60,'Pattern Memory');}
+      if(correct===showCount){earnXP(60,'Pattern');_LVL.win(60);showMotivationWin(60,'Pattern Memory',true);}
       else{_LVL.lose();showMotivationLose('Pattern Memory');}
     }
   };
@@ -6778,7 +6847,7 @@ function gameCrossword(){
     var msg=document.getElementById("cw-msg");
     if(ok===tot){
       if(msg){msg.style.color="#4ade80";msg.textContent="Perfect! All correct!";}
-      earnXP(60,"Crossword");_LVL.win(60);showMotivationWin(60,"Crossword");
+      earnXP(60,"Crossword");_LVL.win(60);showMotivationWin(60,"Crossword",true);
     } else {
       if(msg){msg.style.color="#fbbf24";msg.textContent=ok+"/"+tot+" correct. Keep trying!";}
     }
@@ -8752,18 +8821,28 @@ function pickWinMsg()  { return WIN_MESSAGES[Math.floor(Math.random()*WIN_MESSAG
 function pickLoseMsg() { return LOSE_MESSAGES[Math.floor(Math.random()*LOSE_MESSAGES.length)]; }
 
 /* ══ ANIMATED WIN SCREEN ══ */
-function showMotivationWin(pts, gameName) {
+function showMotivationWin(pts, gameName, leveled) {
   var msg = pickWinMsg();
   playSound('win');
   launchConfetti && launchConfetti(80);
   launchSparks && launchSparks(window.innerWidth/2, window.innerHeight/3, 16);
+
+  /* FIX (Round 10, Aug 2026): _LVL.win() already advanced + persisted the
+     next level BEFORE this screen renders, so "Play Again" was quietly
+     already taking the player to the next level -- just under a misleading
+     label. For leveled games, say so explicitly and show the level. */
+  var isLeveled = !!leveled && typeof _LVL !== 'undefined' && _LVL.level;
+  var isMaxed = isLeveled && _LVL.level >= _LVL.maxLevel;
+  var primaryLabel = isLeveled ? (isMaxed ? '🏆 Play Again' : '▶️ Next Level') : '🎮 Play Again';
+  var levelInfo = isLeveled ? '<div class="motiv-level-info">' + (isMaxed ? 'Max level reached!' : 'Level ' + _LVL.level + ' / ' + _LVL.maxLevel) + '</div>' : '';
 
   var d = document.createElement('div');
   d.id = 'motivation-overlay';
   d.style.cssText = [
     'position:fixed;inset:0;z-index:99999;',
     'display:flex;align-items:center;justify-content:center;',
-    'background:rgba(0,0,0,.82);backdrop-filter:blur(14px);',
+    'background:radial-gradient(circle at 25% 18%,rgba(251,191,36,.28),transparent 55%),radial-gradient(circle at 78% 78%,rgba(236,72,153,.32),transparent 55%),radial-gradient(circle at 50% 50%,rgba(124,58,237,.22),transparent 65%),linear-gradient(160deg,#1a1530,#0d0b18 65%);',
+    'backdrop-filter:blur(14px);',
     'animation:motivFadeIn .3s ease;'
   ].join('');
 
@@ -8773,9 +8852,10 @@ function showMotivationWin(pts, gameName) {
       '<div class="motiv-title">' + msg.title + '</div>',
       '<div class="motiv-msg">' + msg.msg + '</div>',
       pts ? '<div class="motiv-xp">+' + pts + ' XP Earned!</div>' : '',
+      levelInfo,
       '<div class="motiv-stars" id="motiv-stars"></div>',
       '<div class="motiv-btns">',
-        '<button class="motiv-btn motiv-btn-primary" onclick="motivContinue()">🎮 Play Again</button>',
+        '<button class="motiv-btn motiv-btn-primary" onclick="motivContinue()">' + primaryLabel + '</button>',
         '<button class="motiv-btn motiv-btn-sec" onclick="motivHome()">🏠 Home</button>',
       '</div>',
       '<div class="motiv-save-hint" id="motiv-save">✅ Progress saved!</div>',
@@ -8816,7 +8896,8 @@ function showMotivationLose(gameName) {
   d.style.cssText = [
     'position:fixed;inset:0;z-index:99999;',
     'display:flex;align-items:center;justify-content:center;',
-    'background:rgba(0,0,0,.82);backdrop-filter:blur(14px);',
+    'background:radial-gradient(circle at 25% 18%,rgba(129,140,248,.22),transparent 55%),radial-gradient(circle at 78% 78%,rgba(96,165,250,.2),transparent 55%),linear-gradient(160deg,#181430,#0d0b18 65%);',
+    'backdrop-filter:blur(14px);',
     'animation:motivFadeIn .3s ease;'
   ].join('');
 
