@@ -6,8 +6,8 @@
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <meta name="version" content="202607060938">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<title>Free Online Games - Play 59 Browser Games | GameNest World</title>
-<meta name="description" content="Play 59 free online browser games instantly in your browser - no download, no signup, no install. 2048, Sudoku, Snake, Tetris, Flappy Bird, Chess, Wordle, Hangman, Minesweeper, Word Search, Crossword, Quiz and Memory games. Works on desktop and mobile, 100% free forever.">
+<title>Free Online Games - Play 60 Browser Games | GameNest World</title>
+<meta name="description" content="Play 60 free online browser games instantly in your browser - no download, no signup, no install. 2048, Sudoku, Snake, Tetris, Flappy Bird, Chess, Wordle, Hangman, Minesweeper, Word Search, Crossword, Quiz and Memory games. Works on desktop and mobile, 100% free forever.">
 <meta name="keywords" content="free online games, browser games, play games online free, free games no download, casual games, fun games, web games, instant play games, html5 games, mobile browser games, quiz games online, trivia games free, word games online, math games online, brain training games, memory games online, logic puzzle games, 2048 online, play sudoku online free, snake game online, tetris online free, flappy bird online, play chess online free, wordle unlimited, hangman game online, minesweeper online, word search puzzles, crossword puzzles online, free browser games no download no signup, free math games for kids and adults, brain training games online free, educational browser games, single player games online, offline-friendly browser games, games for chromebook, games for school, unblocked style casual games, best free games 2026">
 <meta name="author" content="GameNest World">
 <meta name="application-name" content="GameNest World">
@@ -24,15 +24,15 @@
 <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
 <meta name="rating" content="general">
 <meta name="format-detection" content="telephone=no">
-<meta property="og:title" content="GameNest World - 59 Free Online Games">
-<meta property="og:description" content="Play 59 free browser games instantly! 2048, Snake, Tetris, Sudoku, Wordle, Chess and more. No download, no signup, works on mobile too.">
+<meta property="og:title" content="GameNest World - 60 Free Online Games">
+<meta property="og:description" content="Play 60 free browser games instantly! 2048, Snake, Tetris, Sudoku, Wordle, Chess and more. No download, no signup, works on mobile too.">
 <meta property="og:url" content="https://gamenestworld.com">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="GameNest World">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="GameNest World - 59 Free Online Games">
-<meta name="twitter:description" content="Play 59 free browser games instantly - no download, no signup. 2048, Snake, Tetris, Sudoku, Wordle, Chess, Quiz & more.">
+<meta name="twitter:title" content="GameNest World - 60 Free Online Games">
+<meta name="twitter:description" content="Play 60 free browser games instantly - no download, no signup. 2048, Snake, Tetris, Sudoku, Wordle, Chess, Quiz & more.">
 <link rel="canonical" href="https://gamenestworld.com/">
 <!-- hreflang: only languages with real, complete translations are listed here -->
 <link rel="alternate" hreflang="en" href="https://gamenestworld.com/">
@@ -60,6 +60,26 @@
 <link rel="alternate" hreflang="hu" href="https://gamenestworld.com/?lang=hu">
 <link rel="alternate" hreflang="fa" href="https://gamenestworld.com/?lang=fa">
 <link rel="alternate" hreflang="x-default" href="https://gamenestworld.com/">
+<script>
+/* FIX (SEO, Aug 2026): make the canonical tag self-referencing for real
+   hreflang language variants (?lang=xx) instead of always pointing to the
+   bare English homepage -- see fix_seo_canonical.py for the full
+   Search Console investigation this addresses. Runs synchronously, right
+   here in <head>, before anything else, so it reflects in the DOM Google
+   evaluates. Deliberately does NOT touch canonical for any other query
+   param (?search=..., ?ref=..., etc.) -- those correctly keep pointing to
+   the bare homepage exactly as before. */
+(function(){
+  try{
+    var SUPPORTED_LANGS=['tr','es','fr','de','pt','ru','ar','zh','ja','hi','id','ko','nl','pl','it','vi','uk','el','ro','sv','cs','hu','fa'];
+    var lang=new URLSearchParams(location.search).get('lang');
+    if(lang && SUPPORTED_LANGS.indexOf(lang)!==-1){
+      var link=document.querySelector('link[rel="canonical"]');
+      if(link) link.setAttribute('href','https://gamenestworld.com/?lang='+lang);
+    }
+  }catch(e){}
+})();
+</script>
 <!-- Google Analytics + AdSense — loaded on first user interaction (scroll, tap,
      click, key press) or after a short fallback delay, whichever comes first.
      This keeps ads and analytics working for 100% of visitors while keeping
@@ -103,7 +123,7 @@ window.addEventListener('load',function(){setTimeout(_gnwLoadAdsAnalytics,3500);
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <!-- JSON-LD -->
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"GameNest World","url":"https://gamenestworld.com","description":"59 free online browser games - no download required","potentialAction":{"@type":"SearchAction","target":"https://gamenestworld.com/?search={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"GameNest World","url":"https://gamenestworld.com","description":"60 free online browser games - no download required","potentialAction":{"@type":"SearchAction","target":"https://gamenestworld.com/?search={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Are GameNest World games really free?","acceptedAnswer":{"@type":"Answer","text":"Yes. All 59 games are 100% free, forever. There's no premium tier, no paywall, and no in-game purchases."}},{"@type":"Question","name":"Do I need to download anything or create an account?","acceptedAnswer":{"@type":"Answer","text":"No. Every game runs directly in your browser. Click a game and it opens instantly — no install, no signup, no email required."}},{"@type":"Question","name":"Can I play on mobile?","acceptedAnswer":{"@type":"Answer","text":"Yes. All games are built mobile-first with touch controls and work on iOS, Android, and any modern mobile browser."}},{"@type":"Question","name":"Will my progress and XP be saved?","acceptedAnswer":{"@type":"Answer","text":"Your XP, level, streak and achievements are saved locally in your browser, so they'll be there next time you visit on the same device and browser. Clearing your browser data will reset them."}},{"@type":"Question","name":"Why do I see ads?","acceptedAnswer":{"@type":"Answer","text":"Ads keep GameNest World free for everyone. We use Google AdSense to show non-intrusive ads — see our Privacy Policy for details on how that works."}},{"@type":"Question","name":"Do you collect or sell my personal information?","acceptedAnswer":{"@type":"Answer","text":"We don't require an account, so we don't collect names, emails, or personal profiles to let you play. Google Analytics and Google AdSense may collect standard, non-identifying technical data (like device type or approximate region) to measure traffic and show relevant ads — full details are in our Privacy Policy."}},{"@type":"Question","name":"A game won't load or is behaving oddly — what should I do?","acceptedAnswer":{"@type":"Answer","text":"First, try a hard refresh (Ctrl/Cmd + Shift + R) — most loading issues are a stale cached file. If that doesn't fix it, let us know through the Contact page with the game name and your browser/device, and we'll look into it."}},{"@type":"Question","name":"Are the games appropriate for kids and classrooms?","acceptedAnswer":{"@type":"Answer","text":"Our quiz, word, math, and memory games use general-audience content similar to a typical puzzle book, with no violence, gambling mechanics, or mature themes. We'd still recommend teachers and parents review the site themselves before recommending it, the same as with any new website."}},{"@type":"Question","name":"Can I suggest a new game or feature?","acceptedAnswer":{"@type":"Answer","text":"Yes — the game library has grown from player suggestions before. Send your idea through the Contact page and we'll consider it for a future update."}},{"@type":"Question","name":"What languages does GameNest World support?","acceptedAnswer":{"@type":"Answer","text":"The interface automatically matches your browser's language where a translation is available, and you can also switch it manually from the language menu in the top bar. Core content is written and maintained in English first."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"GameNest World","url":"https://gamenestworld.com","logo":"https://gamenestworld.com/favicon.png","sameAs":[]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://gamenestworld.com/"},{"@type":"ListItem","position":2,"name":"Free Online Games","item":"https://gamenestworld.com/#games"}]}</script>
@@ -908,7 +928,49 @@ footer::before{display:none !important;}
 @keyframes motivFadeIn { from{opacity:0;} to{opacity:1;} }
 @keyframes motivBounce { from{transform:translateY(0) scale(1);} to{transform:translateY(-8px) scale(1.1);} }
 @keyframes motivShake  { 0%{transform:rotate(0)} 20%{transform:rotate(-10deg)} 40%{transform:rotate(10deg)} 60%{transform:rotate(-6deg)} 80%{transform:rotate(6deg)} 100%{transform:rotate(0)} }
+@keyframes gnwBgDrift  { 0%{background-position:0% 0%;} 50%{background-position:100% 100%;} 100%{background-position:0% 0%;} }
 @keyframes motivFloat  { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
+
+/* FIX (Round 14, Aug 2026): "oyunlar gercekci degil" -- reference
+   screenshots showed realistic, beveled 3D tiles (wood-block puzzles,
+   glossy colored cubes, mahjong tiles). Three shared, pure-CSS tile
+   skins, applied only to the block/grid/puzzle-style games below --
+   no images, no new network requests, nothing that can slow the page
+   down. Each variant only ADDS box-shadow/background-image on top of
+   whatever background-color a game's own inline style already sets. */
+.gnw-cell3d{
+  position:relative;
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,.35),
+    inset 0 -3px 4px rgba(0,0,0,.28),
+    inset 2px 0 0 rgba(255,255,255,.10),
+    inset -2px 0 0 rgba(0,0,0,.12),
+    0 2px 3px rgba(0,0,0,.25);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.gnw-cell3d:active{ transform:scale(.94); }
+.gnw-cell3d-wood{
+  background-image: linear-gradient(135deg, rgba(150,95,45,.28), rgba(70,35,12,.22)) !important;
+  background-blend-mode: multiply;
+}
+.gnw-cell3d-wood::after{
+  content:'';
+  position:absolute; inset:0;
+  background-image: repeating-linear-gradient(97deg, rgba(255,255,255,.05) 0px, rgba(255,255,255,.05) 1px, transparent 1px, transparent 4px);
+  border-radius:inherit;
+  pointer-events:none;
+}
+.gnw-cell3d-ivory{
+  background-image: linear-gradient(135deg, rgba(255,251,235,.9), rgba(253,230,138,.35)) !important;
+  border: 1px solid rgba(217,119,6,.4) !important;
+}
+.gnw-cell3d-selected{
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,.5),
+    inset 0 -3px 4px rgba(0,0,0,.25),
+    0 0 0 3px #fbbf24,
+    0 0 14px 3px rgba(251,191,36,.7) !important;
+}
 @keyframes motivSlideUp{ from{transform:translateY(40px);opacity:0;} to{transform:translateY(0);opacity:1;} }
 @keyframes starPop     { from{transform:scale(0) rotate(-30deg);opacity:0;} to{transform:scale(1) rotate(0);opacity:1;} }
 @keyframes xpPulse     { 0%,100%{box-shadow:0 0 0 0 rgba(251,191,36,.4);} 50%{box-shadow:0 0 0 8px rgba(251,191,36,0);} }
@@ -1251,7 +1313,7 @@ h1,h2,h3,h4{color:#fff;}
 <div class="filter-bar">
   <div class="filter-inner">
     <button class="flt flt-all active" onclick="setFilter('all',this)" data-cat="all">
-      <span class="flt-em">🎮</span><span class="flt-lbl" data-i18n="filterAll">All Games</span><span class="flt-count">59</span>
+      <span class="flt-em">🎮</span><span class="flt-lbl" data-i18n="filterAll">All Games</span><span class="flt-count">60</span>
     </button>
     <button class="flt flt-quiz" onclick="setFilter('quiz',this)" data-cat="quiz">
       <span class="flt-em">🧠</span><span class="flt-lbl" data-i18n="filterQuiz">Quiz</span><span class="flt-count">12</span>
@@ -1266,7 +1328,7 @@ h1,h2,h3,h4{color:#fff;}
       <span class="flt-em">🕹️</span><span class="flt-lbl" data-i18n="filterClassic">Classic</span><span class="flt-count">21</span>
     </button>
     <button class="flt flt-memory" onclick="setFilter('memory',this)" data-cat="memory">
-      <span class="flt-em">🧩</span><span class="flt-lbl" data-i18n="filterMemory">Memory</span><span class="flt-count">9</span>
+      <span class="flt-em">🧩</span><span class="flt-lbl" data-i18n="filterMemory">Memory</span><span class="flt-count">10</span>
     </button>
     <button class="flt flt-fav" onclick="toggleFavoritesFilter(this)" data-cat="favorites" id="fav-filter-btn">
       <span class="flt-em">⭐</span><span class="flt-lbl" data-i18n="filterFav">Favorites</span><span class="flt-count" id="fav-count">0</span>
@@ -1342,7 +1404,7 @@ h1,h2,h3,h4{color:#fff;}
   <div style="background:rgba(255,255,255,.92);border-radius:20px;padding:22px 26px;box-shadow:inset 0 0 0 2px rgba(255,255,255,.6);">
     <div class="gnw-cat-badge" style="font-size:30px;margin-bottom:6px;">🎉</div>
     <p style="font-size:15.5px;line-height:1.85;color:#3730a3;font-weight:600;margin-bottom:14px;" data-i18n-html="introP1">
-      <strong style="color:#1e1b4b;font-size:17px;">GameNest World</strong> is a free browser gaming hub with 59 instantly playable games spanning five categories: classic arcade favorites like 2048, Snake, and Tetris; word and vocabulary challenges like Hangman and Word Search; quick-fire trivia and quiz games covering geography, science, movies, and general knowledge; math and logic puzzles for building mental arithmetic speed; and memory and focus games designed to sharpen concentration.
+      <strong style="color:#1e1b4b;font-size:17px;">GameNest World</strong> is a free browser gaming hub with 60 instantly playable games spanning five categories: classic arcade favorites like 2048, Snake, and Tetris; word and vocabulary challenges like Hangman and Word Search; quick-fire trivia and quiz games covering geography, science, movies, and general knowledge; math and logic puzzles for building mental arithmetic speed; and memory and focus games designed to sharpen concentration.
     </p>
     <p style="font-size:15.5px;line-height:1.85;color:#3730a3;font-weight:600;" data-i18n="introP2">
       Every game runs directly in your browser with no downloads, no account creation, and no hidden fees — just click a game and start playing. As you play, you'll earn XP, unlock achievements, and build daily streaks. Whether you have five minutes on a break or want a longer session, there's a game below sized to fit.
@@ -1840,6 +1902,12 @@ h1,h2,h3,h4{color:#fff;}
       <div class="g-name" style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:3px;" data-i18n="game_memhard_name">Memory Pro</div>
       <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_memhard_desc">5×4 challenge</div>
     </div>
+    <div class="game-card c-memory" data-cat="memory" data-hot="true" onclick="openGame('flagmahjong')" style="border:1.5px solid #ec489933;border-radius:16px;padding:16px 12px 14px;cursor:pointer;text-align:center;position:relative;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:all .22s cubic-bezier(.34,1.56,.64,1);">
+      
+      <div style="width:56px;height:56px;border-radius:14px;background:rgba(236,72,153,.12);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1);" class="g-iw"><span class="g-em" style="display:inline-block;transition:transform .3s;">🀄</span></div>
+      <div class="g-name" style="font-size:12px;font-weight:800;color:#9d174d;margin-bottom:3px;" data-i18n="game_flagmahjong_name">Flag Mahjong</div>
+      <div class="g-desc" style="font-size:10px;color:rgba(255,255,255,.4);" data-i18n="game_flagmahjong_desc">Connect matching flags</div>
+    </div>
   </div></div>
 
   <!-- INVITE -->
@@ -1900,7 +1968,7 @@ h1,h2,h3,h4{color:#fff;}
   <div class="footer-inner">
     <div class="footer-brand-row">
       <div class="footer-logo">🎮 <span>Game</span>Nest World</div>
-      <p class="footer-tagline" data-i18n="footerTagline">59 free browser games · No download · No account needed</p>
+      <p class="footer-tagline" data-i18n="footerTagline">60 free browser games · No download · No account needed</p>
     </div>
 
     <nav class="footer-links" aria-label="Footer links">
@@ -2044,7 +2112,7 @@ h1,h2,h3,h4{color:#fff;}
   "use strict";
 
   var I18N = {
-    en:{filterAll:"All Games",filterQuiz:"Quiz",filterWord:"Word",filterMath:"Math",filterClassic:"Classic",filterMemory:"Memory",filterFav:"Favorites",searchPlaceholder:"Search games...",dailyChallenge:"Daily Challenge",newGameDaily:"New game every day!",resetsIn:"RESETS IN",play:"Play →",weeklyTournament:"Weekly Tournament",tourneyPrize:"Top score wins — bonus XP",joinTournament:"Join Tournament →",watchAdTitle:"📺 Watch Ad → +30 XP & +3 lives!",watchAdSub:"Keeps all games free.",watchBtn:"▶ Watch",achievements:"Achievements",achFirstGame:" First Game",achStreak:" 3-Day Streak",achQuiz:" Quiz Master",achSpeed:" Speed Demon",achWord:" Word Wizard",yourProgress:"📈 Your Progress",savedDevice:"(saved on this device)",currentStreak:"Current streak",favoriteGames:"Favorite games",footerTagline:"59 free browser games · No download · No account needed",footerAbout:"About Us",footerPrivacy:"Privacy Policy",footerTerms:"Terms of Use",footerContact:"Contact Us",allRightsReserved:"All rights reserved",noResults:"No games match your search.","game_colorquiz_name":"Color Quiz","game_colorquiz_desc":"Name that color","game_flagquiz_name":"Flag Quiz","game_flagquiz_desc":"Guess the country","game_truefalse_name":"True or False","game_truefalse_desc":"10 fun facts","game_riddles_name":"Riddles","game_riddles_desc":"Brain teasers","game_emojiquiz_name":"Emoji Quiz","game_emojiquiz_desc":"Guess from emojis","game_oddone_name":"Odd One Out","game_oddone_desc":"Spot what differs","game_genquiz_name":"General Knowledge","game_genquiz_desc":"10 trivia Qs","game_geoquiz_name":"Geography Quiz","game_geoquiz_desc":"Capitals & countries","game_sciquiz_name":"Science Quiz","game_sciquiz_desc":"Physics, chem & bio","game_moviequiz_name":"Movie Quiz","game_moviequiz_desc":"Guess the film","game_expertquiz_name":"Expert Trivia","game_expertquiz_desc":"Hard questions","game_wordscramble_name":"Word Scramble","game_wordscramble_desc":"Unscramble it!","game_hangman_name":"Hangman","game_hangman_desc":"Guess the word","game_typing_name":"Typing Speed","game_typing_desc":"60-sec WPM","game_anagram_name":"Anagram","game_anagram_desc":"Rearrange letters","game_wordchain_name":"Word Chain","game_wordchain_desc":"Link words together","game_wordle_name":"Word Guess","game_wordle_desc":"5-letter Wordle","game_crossword_name":"Crossword","game_crossword_desc":"Mini crossword","game_spelling_name":"Spelling Bee","game_spelling_desc":"Spell it right","game_cipher_name":"Cipher Decode","game_cipher_desc":"Crack the code","game_wordsearch_name":"Word Search","game_wordsearch_desc":"Find hidden words","game_mathbasic_name":"Math Basics","game_mathbasic_desc":"Add & subtract fast","game_mathquiz_name":"Math Quiz","game_mathquiz_desc":"Mixed operations","game_times_name":"Times Tables","game_times_desc":"Multiplication race","game_make24_name":"Make 24","game_make24_desc":"4 numbers → 24","game_mathsprint_name":"Math Sprint","game_mathsprint_desc":"30 Qs in 60s","game_numseq_name":"Number Sequence","game_numseq_desc":"Find the pattern","game_sudoku_name":"Sudoku","game_sudoku_desc":"Classic 9×9","game_coin_name":"Coin Flip","game_coin_desc":"Heads or tails?","game_dice_name":"Dice Roller","game_dice_desc":"Roll up to 6 dice","game_rps_name":"Rock Paper Scissors","game_rps_desc":"Best of 5 rounds","game_numguess_name":"Number Guess","game_numguess_desc":"1-100 in 7 tries","game_reaction_name":"Reaction Time","game_reaction_desc":"Test your reflexes","game_ttt_name":"Tic Tac Toe","game_ttt_desc":"Vs smart AI","game_mines_name":"Minesweeper","game_mines_desc":"6×6 classic","game_c4_name":"Connect Four","game_c4_desc":"Vs AI","game_snake_name":"Snake","game_snake_desc":"Nokia classic","game_pong_name":"Pong","game_pong_desc":"Ball & paddle","game_g2048_name":"2048","game_g2048_desc":"Merge to 2048","game_chess_name":"Chess Puzzles","game_chess_desc":"Mate in 1-2","game_tetris_name":"Tetris Lite","game_tetris_desc":"Falling blocks","game_flappy_name":"Flappy Bird","game_flappy_desc":"Fly through pipes","game_fruitpop_name":"Fruit Pop Blast","game_fruitpop_desc":"Match fruits","game_rainbowbubble_name":"Rainbow Bubble Pop","game_rainbowbubble_desc":"Pop color balls","game_citydash_name":"City Dash Runner","game_citydash_desc":"Run & collect stars","game_blockpuzzle_name":"Block Puzzle World","game_blockpuzzle_desc":"Place blocks","game_colorjoy_name":"Color Joy Studio","game_colorjoy_desc":"Animals, fruits & flowers","game_minirace_name":"Mini Race Rush","game_minirace_desc":"Fast colorful racing","game_parkingpuzzle_name":"Parking Puzzle","game_parkingpuzzle_desc":"Park the car","game_colormatch_name":"Color Match","game_colormatch_desc":"Stroop challenge","game_simon_name":"Simon Says","game_simon_desc":"Repeat sequence","game_memory_name":"Memory Cards","game_memory_desc":"Find all pairs","game_patternmem_name":"Pattern Memory","game_patternmem_desc":"Repeat patterns","game_mineshard_name":"Minesweeper Hard","game_mineshard_desc":"10×10 grid","game_histquiz_name":"History Quiz","game_histquiz_desc":"Dates & figures","game_breakout_name":"Breakout","game_breakout_desc":"Break all bricks","game_lightsout_name":"Lights Out","game_lightsout_desc":"Turn all off","game_memhard_name":"Memory Pro","game_memhard_desc":"5×4 challenge","diffEasy":"Easy","diffMed":"Med","diffHard":"Hard","secQuizTitle":"Quiz Games","secQuizBadge":"TEST YOUR KNOWLEDGE","secQuizIntro":"From flags and geography to movies, science, and general knowledge, our quiz games put your trivia skills to the test with quick rounds you can finish in a couple of minutes.","secWordTitle":"Word Games","secWordBadge":"LETTERS & LANGUAGE","secWordIntro":"Sharpen your vocabulary with word-guessing, spelling, and word-search challenges that reward pattern recognition and a strong mental word bank.","secMathTitle":"Math Games","secMathBadge":"NUMBERS & LOGIC","secMathIntro":"Build calculation speed and number sense with timed arithmetic challenges, sequence puzzles, and quick-fire math sprints suitable for all skill levels.","secClassicTitle":"Classic Games","secClassicBadge":"TIMELESS FUN","secClassicIntro":"Reimagined versions of the arcade and board game classics you grew up with — 2048, Snake, Tetris, Chess, and more — rebuilt for smooth, fast browser play.","secMemoryTitle":"Memory & Focus","secMemoryBadge":"TRAIN YOUR BRAIN","secMemoryIntro":"Train your short-term memory and concentration with card-matching, pattern-recall, and focus-based mini-games that stay fun rather than feeling like a drill.","introP1":"<strong style=\"color:#1e1b4b;font-size:17px;\">GameNest World</strong> is a free browser gaming hub with 59 instantly playable games spanning five categories: classic arcade favorites like 2048, Snake, and Tetris; word and vocabulary challenges like Hangman and Word Search; quick-fire trivia and quiz games covering geography, science, movies, and general knowledge; math and logic puzzles for building mental arithmetic speed; and memory and focus games designed to sharpen concentration.","introP2":"Every game runs directly in your browser with no downloads, no account creation, and no hidden fees — just click a game and start playing. As you play, you'll earn XP, unlock achievements, and build daily streaks. Whether you have five minutes on a break or want a longer session, there's a game below sized to fit.","faqHeading":"Frequently Asked Questions","adLoading":"Loading ad…","adReady":"Ad ready — tap Watch again to view it","adDismissed":"Ad closed early — no reward given","adRewarded":"Reward granted — thanks for watching!","adUnavailable":"No ad available right now — try again later","yourBestScore":"Your best:","noBestYet":"Play once to set your first score","tourneyTitle":"2048: Beat your best","popularHeading":"Fan Favorites","popularSub":"A good place to start","popularBadge":"PICKS"},
+    en:{filterAll:"All Games",filterQuiz:"Quiz",filterWord:"Word",filterMath:"Math",filterClassic:"Classic",filterMemory:"Memory",filterFav:"Favorites",searchPlaceholder:"Search games...",dailyChallenge:"Daily Challenge",newGameDaily:"New game every day!",resetsIn:"RESETS IN",play:"Play →",weeklyTournament:"Weekly Tournament",tourneyPrize:"Top score wins — bonus XP",joinTournament:"Join Tournament →",watchAdTitle:"📺 Watch Ad → +30 XP & +3 lives!",watchAdSub:"Keeps all games free.",watchBtn:"▶ Watch",achievements:"Achievements",achFirstGame:" First Game",achStreak:" 3-Day Streak",achQuiz:" Quiz Master",achSpeed:" Speed Demon",achWord:" Word Wizard",yourProgress:"📈 Your Progress",savedDevice:"(saved on this device)",currentStreak:"Current streak",favoriteGames:"Favorite games",footerTagline:"60 free browser games · No download · No account needed",footerAbout:"About Us",footerPrivacy:"Privacy Policy",footerTerms:"Terms of Use",footerContact:"Contact Us",allRightsReserved:"All rights reserved",noResults:"No games match your search.","game_colorquiz_name":"Color Quiz","game_colorquiz_desc":"Name that color","game_flagquiz_name":"Flag Quiz","game_flagquiz_desc":"Guess the country","game_truefalse_name":"True or False","game_truefalse_desc":"10 fun facts","game_riddles_name":"Riddles","game_riddles_desc":"Brain teasers","game_emojiquiz_name":"Emoji Quiz","game_emojiquiz_desc":"Guess from emojis","game_oddone_name":"Odd One Out","game_oddone_desc":"Spot what differs","game_genquiz_name":"General Knowledge","game_genquiz_desc":"10 trivia Qs","game_geoquiz_name":"Geography Quiz","game_geoquiz_desc":"Capitals & countries","game_sciquiz_name":"Science Quiz","game_sciquiz_desc":"Physics, chem & bio","game_moviequiz_name":"Movie Quiz","game_moviequiz_desc":"Guess the film","game_expertquiz_name":"Expert Trivia","game_expertquiz_desc":"Hard questions","game_wordscramble_name":"Word Scramble","game_wordscramble_desc":"Unscramble it!","game_hangman_name":"Hangman","game_hangman_desc":"Guess the word","game_typing_name":"Typing Speed","game_typing_desc":"60-sec WPM","game_anagram_name":"Anagram","game_anagram_desc":"Rearrange letters","game_wordchain_name":"Word Chain","game_wordchain_desc":"Link words together","game_wordle_name":"Word Guess","game_wordle_desc":"5-letter Wordle","game_crossword_name":"Crossword","game_crossword_desc":"Mini crossword","game_spelling_name":"Spelling Bee","game_spelling_desc":"Spell it right","game_cipher_name":"Cipher Decode","game_cipher_desc":"Crack the code","game_wordsearch_name":"Word Search","game_wordsearch_desc":"Find hidden words","game_mathbasic_name":"Math Basics","game_mathbasic_desc":"Add & subtract fast","game_mathquiz_name":"Math Quiz","game_mathquiz_desc":"Mixed operations","game_times_name":"Times Tables","game_times_desc":"Multiplication race","game_make24_name":"Make 24","game_make24_desc":"4 numbers → 24","game_mathsprint_name":"Math Sprint","game_mathsprint_desc":"30 Qs in 60s","game_numseq_name":"Number Sequence","game_numseq_desc":"Find the pattern","game_sudoku_name":"Sudoku","game_sudoku_desc":"Classic 9×9","game_coin_name":"Coin Flip","game_coin_desc":"Heads or tails?","game_dice_name":"Dice Roller","game_dice_desc":"Roll up to 6 dice","game_rps_name":"Rock Paper Scissors","game_rps_desc":"Best of 5 rounds","game_numguess_name":"Number Guess","game_numguess_desc":"1-100 in 7 tries","game_reaction_name":"Reaction Time","game_reaction_desc":"Test your reflexes","game_ttt_name":"Tic Tac Toe","game_ttt_desc":"Vs smart AI","game_mines_name":"Minesweeper","game_mines_desc":"6×6 classic","game_c4_name":"Connect Four","game_c4_desc":"Vs AI","game_snake_name":"Snake","game_snake_desc":"Nokia classic","game_pong_name":"Pong","game_pong_desc":"Ball & paddle","game_g2048_name":"2048","game_g2048_desc":"Merge to 2048","game_chess_name":"Chess Puzzles","game_chess_desc":"Mate in 1-2","game_tetris_name":"Tetris Lite","game_tetris_desc":"Falling blocks","game_flappy_name":"Flappy Bird","game_flappy_desc":"Fly through pipes","game_fruitpop_name":"Fruit Pop Blast","game_fruitpop_desc":"Match fruits","game_rainbowbubble_name":"Rainbow Bubble Pop","game_rainbowbubble_desc":"Pop color balls","game_citydash_name":"City Dash Runner","game_citydash_desc":"Run & collect stars","game_blockpuzzle_name":"Block Puzzle World","game_blockpuzzle_desc":"Place blocks","game_colorjoy_name":"Color Joy Studio","game_colorjoy_desc":"Animals, fruits & flowers","game_minirace_name":"Mini Race Rush","game_minirace_desc":"Fast colorful racing","game_parkingpuzzle_name":"Parking Puzzle","game_parkingpuzzle_desc":"Park the car","game_colormatch_name":"Color Match","game_colormatch_desc":"Stroop challenge","game_simon_name":"Simon Says","game_simon_desc":"Repeat sequence","game_memory_name":"Memory Cards","game_memory_desc":"Find all pairs","game_patternmem_name":"Pattern Memory","game_patternmem_desc":"Repeat patterns","game_mineshard_name":"Minesweeper Hard","game_mineshard_desc":"10×10 grid","game_histquiz_name":"History Quiz","game_histquiz_desc":"Dates & figures","game_breakout_name":"Breakout","game_breakout_desc":"Break all bricks","game_lightsout_name":"Lights Out","game_lightsout_desc":"Turn all off","game_memhard_name":"Memory Pro","game_memhard_desc":"5×4 challenge","diffEasy":"Easy","diffMed":"Med","diffHard":"Hard","secQuizTitle":"Quiz Games","secQuizBadge":"TEST YOUR KNOWLEDGE","secQuizIntro":"From flags and geography to movies, science, and general knowledge, our quiz games put your trivia skills to the test with quick rounds you can finish in a couple of minutes.","secWordTitle":"Word Games","secWordBadge":"LETTERS & LANGUAGE","secWordIntro":"Sharpen your vocabulary with word-guessing, spelling, and word-search challenges that reward pattern recognition and a strong mental word bank.","secMathTitle":"Math Games","secMathBadge":"NUMBERS & LOGIC","secMathIntro":"Build calculation speed and number sense with timed arithmetic challenges, sequence puzzles, and quick-fire math sprints suitable for all skill levels.","secClassicTitle":"Classic Games","secClassicBadge":"TIMELESS FUN","secClassicIntro":"Reimagined versions of the arcade and board game classics you grew up with — 2048, Snake, Tetris, Chess, and more — rebuilt for smooth, fast browser play.","secMemoryTitle":"Memory & Focus","secMemoryBadge":"TRAIN YOUR BRAIN","secMemoryIntro":"Train your short-term memory and concentration with card-matching, pattern-recall, and focus-based mini-games that stay fun rather than feeling like a drill.","introP1":"<strong style=\"color:#1e1b4b;font-size:17px;\">GameNest World</strong> is a free browser gaming hub with 60 instantly playable games spanning five categories: classic arcade favorites like 2048, Snake, and Tetris; word and vocabulary challenges like Hangman and Word Search; quick-fire trivia and quiz games covering geography, science, movies, and general knowledge; math and logic puzzles for building mental arithmetic speed; and memory and focus games designed to sharpen concentration.","introP2":"Every game runs directly in your browser with no downloads, no account creation, and no hidden fees — just click a game and start playing. As you play, you'll earn XP, unlock achievements, and build daily streaks. Whether you have five minutes on a break or want a longer session, there's a game below sized to fit.","faqHeading":"Frequently Asked Questions","adLoading":"Loading ad…","adReady":"Ad ready — tap Watch again to view it","adDismissed":"Ad closed early — no reward given","adRewarded":"Reward granted — thanks for watching!","adUnavailable":"No ad available right now — try again later","yourBestScore":"Your best:","noBestYet":"Play once to set your first score","tourneyTitle":"2048: Beat your best","popularHeading":"Fan Favorites","popularSub":"A good place to start","popularBadge":"PICKS"},
     tr:{filterAll:"Tüm Oyunlar",filterQuiz:"Bilgi Yarışması",filterWord:"Kelime",filterMath:"Matematik",filterClassic:"Klasik",filterMemory:"Hafıza",filterFav:"Favoriler",searchPlaceholder:"Oyun ara...",dailyChallenge:"Günlük Meydan Okuma",newGameDaily:"Her gün yeni bir oyun!",resetsIn:"YENİLENME",play:"Oyna →",weeklyTournament:"Haftalık Turnuva",tourneyPrize:"En yüksek skor — bonus XP kazanır",joinTournament:"Turnuvaya Katıl →",watchAdTitle:"📺 Reklam İzle → +30 XP & +3 can!",watchAdSub:"Tüm oyunları ücretsiz tutar.",watchBtn:"▶ İzle",achievements:"Başarılar",achFirstGame:" İlk Oyun",achStreak:" 3 Günlük Seri",achQuiz:" Bilgi Ustası",achSpeed:" Hız Şeytanı",achWord:" Kelime Büyücüsü",yourProgress:"📈 İlerlemen",savedDevice:"(bu cihazda saklanır)",currentStreak:"Güncel seri",favoriteGames:"Favori oyunlar",footerTagline:"58 ücretsiz tarayıcı oyunu · İndirme yok · Hesap gerekmez",footerAbout:"Hakkımızda",footerPrivacy:"Gizlilik Politikası",footerTerms:"Kullanım Şartları",footerContact:"İletişim",allRightsReserved:"Tüm hakları saklıdır",noResults:"Aramanızla eşleşen oyun bulunamadı.","game_colorquiz_name":"Renk Testi","game_colorquiz_desc":"Rengi bil","game_flagquiz_name":"Bayrak Testi","game_flagquiz_desc":"Ülkeyi tahmin et","game_truefalse_name":"Doğru mu Yanlış mı","game_truefalse_desc":"10 ilginç bilgi","game_riddles_name":"Bilmeceler","game_riddles_desc":"Zeka soruları","game_emojiquiz_name":"Emoji Testi","game_emojiquiz_desc":"Emojiden tahmin et","game_oddone_name":"Farklı Olanı Bul","game_oddone_desc":"Farkı yakala","game_genquiz_name":"Genel Kültür","game_genquiz_desc":"10 bilgi sorusu","game_geoquiz_name":"Coğrafya Testi","game_geoquiz_desc":"Başkentler ve ülkeler","game_sciquiz_name":"Bilim Testi","game_sciquiz_desc":"Fizik, kimya, biyoloji","game_moviequiz_name":"Film Testi","game_moviequiz_desc":"Filmi tahmin et","game_expertquiz_name":"Uzman Bilgi Yarışması","game_expertquiz_desc":"Zor sorular","game_wordscramble_name":"Karışık Kelime","game_wordscramble_desc":"Harfleri çöz","game_hangman_name":"Adam Asmaca","game_hangman_desc":"Kelimeyi bul","game_typing_name":"Yazma Hızı","game_typing_desc":"60 saniyede kelime","game_anagram_name":"Anagram","game_anagram_desc":"Harfleri yeniden diz","game_wordchain_name":"Kelime Zinciri","game_wordchain_desc":"Kelimeleri birbirine bağla","game_wordle_name":"Kelime Tahmin","game_wordle_desc":"5 harfli Wordle","game_crossword_name":"Bulmaca","game_crossword_desc":"Mini çapraz bulmaca","game_spelling_name":"Heceleme Yarışı","game_spelling_desc":"Doğru yaz","game_cipher_name":"Şifre Çözme","game_cipher_desc":"Kodu kır","game_wordsearch_name":"Kelime Avı","game_wordsearch_desc":"Gizli kelimeleri bul","game_mathbasic_name":"Temel Matematik","game_mathbasic_desc":"Hızlı toplama çıkarma","game_mathquiz_name":"Matematik Testi","game_mathquiz_desc":"Karışık işlemler","game_times_name":"Çarpım Tablosu","game_times_desc":"Çarpım yarışı","game_make24_name":"24 Yap","game_make24_desc":"4 sayı → 24","game_mathsprint_name":"Matematik Sprinti","game_mathsprint_desc":"60 saniyede 30 soru","game_numseq_name":"Sayı Dizisi","game_numseq_desc":"Örüntüyü bul","game_sudoku_name":"Sudoku","game_sudoku_desc":"Klasik 9×9","game_coin_name":"Yazı Tura","game_coin_desc":"Yazı mı tura mı?","game_dice_name":"Zar At","game_dice_desc":"6'ya kadar zar at","game_rps_name":"Taş Kağıt Makas","game_rps_desc":"5 turun en iyisi","game_numguess_name":"Sayı Tahmin","game_numguess_desc":"7 denemede 1-100","game_reaction_name":"Reaksiyon Süresi","game_reaction_desc":"Refleksini test et","game_ttt_name":"XOX","game_ttt_desc":"Akıllı yapay zekaya karşı","game_mines_name":"Mayın Tarlası","game_mines_desc":"Klasik 6×6","game_c4_name":"Dört Üstü","game_c4_desc":"Yapay zekaya karşı","game_snake_name":"Yılan","game_snake_desc":"Nokia klasiği","game_pong_name":"Pong","game_pong_desc":"Top ve raket","game_g2048_name":"2048","game_g2048_desc":"2048'e birleştir","game_chess_name":"Satranç Bulmacaları","game_chess_desc":"1-2 hamlede mat","game_tetris_name":"Tetris Lite","game_tetris_desc":"Düşen bloklar","game_flappy_name":"Flappy Bird","game_flappy_desc":"Borulardan geç","game_fruitpop_name":"Meyve Patlatma","game_fruitpop_desc":"Meyveleri eşleştir","game_rainbowbubble_name":"Renkli Balon Patlatma","game_rainbowbubble_desc":"Renkli topları patlat","game_citydash_name":"Şehir Koşusu","game_citydash_desc":"Koş ve yıldız topla","game_blockpuzzle_name":"Blok Bulmaca Dünyası","game_blockpuzzle_desc":"Blokları yerleştir","game_colorjoy_name":"Renk Neşesi Stüdyosu","game_colorjoy_desc":"Hayvanlar, meyveler ve çiçekler","game_minirace_name":"Mini Yarış Telaşı","game_minirace_desc":"Hızlı renkli yarış","game_parkingpuzzle_name":"Park Bulmacası","game_parkingpuzzle_desc":"Arabayı park et","game_colormatch_name":"Renk Eşleştirme","game_colormatch_desc":"Stroop testi","game_simon_name":"Simon Diyor","game_simon_desc":"Sırayı tekrarla","game_memory_name":"Hafıza Kartları","game_memory_desc":"Tüm çiftleri bul","game_patternmem_name":"Örüntü Hafızası","game_patternmem_desc":"Örüntüleri tekrarla","game_mineshard_name":"Zor Mayın Tarlası","game_mineshard_desc":"10×10 alan","game_histquiz_name":"Tarih Testi","game_histquiz_desc":"Tarihler ve isimler","game_breakout_name":"Tuğla Kırma","game_breakout_desc":"Tüm tuğlaları kır","game_lightsout_name":"Işıkları Söndür","game_lightsout_desc":"Hepsini kapat","game_memhard_name":"Hafıza Pro","game_memhard_desc":"5×4 zorluk","diffEasy":"Kolay","diffMed":"Orta","diffHard":"Zor","secQuizTitle":"Bilgi Yarışması Oyunları","secQuizBadge":"BİLGİNİ TEST ET","secQuizIntro":"Bayraklardan coğrafyaya, filmlerden bilime ve genel kültüre kadar bilgi yarışması oyunlarımız, birkaç dakikada bitirebileceğin hızlı turlarla bilgini sınıyor.","secWordTitle":"Kelime Oyunları","secWordBadge":"HARFLER VE DİL","secWordIntro":"Kelime tahmini, heceleme ve kelime avı gibi zorluklarla kelime dağarcığını geliştir; örüntü tanıma ve güçlü bir kelime hafızası kazandırır.","secMathTitle":"Matematik Oyunları","secMathBadge":"SAYILAR VE MANTIK","secMathIntro":"Zamanlı aritmetik zorluklar, dizi bulmacaları ve hızlı matematik sprintleriyle hesaplama hızını ve sayı becerini geliştir; her seviyeye uygun.","secClassicTitle":"Klasik Oyunlar","secClassicBadge":"ZAMANSIZ EĞLENCE","secClassicIntro":"Büyürken oynadığın arcade ve masa oyunu klasiklerinin yeniden tasarlanmış halleri — 2048, Yılan, Tetris, Satranç ve daha fazlası — akıcı, hızlı tarayıcı deneyimi için yeniden inşa edildi.","secMemoryTitle":"Hafıza ve Odaklanma","secMemoryBadge":"BEYNİNİ EĞİT","secMemoryIntro":"Kart eşleştirme, örüntü hatırlama ve odaklanma temelli mini oyunlarla kısa süreli hafızanı ve konsantrasyonunu geliştir; sıkıcı bir alıştırma değil, eğlenceli kalır.","introP1":"<strong style=\"color:#1e1b4b;font-size:17px;\">GameNest World</strong>, beş kategoride 58 anında oynanabilir oyun sunan ücretsiz bir tarayıcı oyun merkezidir: 2048, Yılan ve Tetris gibi klasik arcade favorileri; Adam Asmaca ve Kelime Avı gibi kelime ve dil bilgisi zorlukları; coğrafya, bilim, film ve genel kültürü kapsayan hızlı bilgi yarışması oyunları; zihinsel aritmetik hızını geliştiren matematik ve mantık bulmacaları; ve konsantrasyonu keskinleştirmek için tasarlanmış hafıza ve odaklanma oyunları.","introP2":"Her oyun tarayıcında doğrudan çalışır — indirme yok, hesap oluşturma yok, gizli ücret yok — sadece bir oyuna tıkla ve oynamaya başla. Oynadıkça XP kazanır, başarılar açar ve günlük serilerini oluşturursun. İster molanda beş dakikan olsun ister daha uzun bir oturum istiyor ol, aşağıda sana uygun bir oyun var.","faqHeading":"Sıkça Sorulan Sorular","adLoading":"Reklam yükleniyor…","adReady":"Reklam hazır — izlemek için tekrar dokun","adDismissed":"Reklam erken kapatıldı — ödül verilmedi","adRewarded":"Ödül verildi — izlediğin için teşekkürler!","adUnavailable":"Şu an reklam yok — daha sonra tekrar dene","yourBestScore":"En iyin:","noBestYet":"İlk skorunu almak için bir kez oyna","tourneyTitle":"2048: Kendini geç","popularHeading":"Öne Çıkanlar","popularSub":"Başlamak için iyi bir yer","popularBadge":"SEÇKİ"},
     es:{filterAll:"Todos los juegos",filterQuiz:"Trivia",filterWord:"Palabras",filterMath:"Matemáticas",filterClassic:"Clásicos",filterMemory:"Memoria",filterFav:"Favoritos",searchPlaceholder:"Buscar juegos...",dailyChallenge:"Reto Diario",newGameDaily:"¡Juego nuevo cada día!",resetsIn:"SE REINICIA EN",play:"Jugar →",weeklyTournament:"Torneo Semanal",tourneyPrize:"La mejor puntuación gana XP extra",joinTournament:"Unirse al torneo →",watchAdTitle:"📺 Ver anuncio → +30 XP y +3 vidas",watchAdSub:"Mantiene todos los juegos gratis.",watchBtn:"▶ Ver",achievements:"Logros",achFirstGame:" Primer juego",achStreak:" Racha de 3 días",achQuiz:" Maestro del trivia",achSpeed:" Demonio veloz",achWord:" Mago de palabras",yourProgress:"📈 Tu progreso",savedDevice:"(guardado en este dispositivo)",currentStreak:"Racha actual",favoriteGames:"Juegos favoritos",footerTagline:"58 juegos de navegador gratis · Sin descargas · Sin cuenta",footerAbout:"Sobre nosotros",footerPrivacy:"Política de privacidad",footerTerms:"Términos de uso",footerContact:"Contacto",allRightsReserved:"Todos los derechos reservados",noResults:"Ningún juego coincide con tu búsqueda.","game_colorquiz_name":"Quiz de Colores","game_colorquiz_desc":"Nombra el color","game_flagquiz_name":"Quiz de Banderas","game_flagquiz_desc":"Adivina el país","game_truefalse_name":"Verdadero o Falso","game_truefalse_desc":"10 datos curiosos","game_riddles_name":"Acertijos","game_riddles_desc":"Retos de ingenio","game_emojiquiz_name":"Quiz de Emojis","game_emojiquiz_desc":"Adivina con emojis","game_oddone_name":"El Diferente","game_oddone_desc":"Encuentra la diferencia","game_genquiz_name":"Cultura General","game_genquiz_desc":"10 preguntas","game_geoquiz_name":"Quiz de Geografía","game_geoquiz_desc":"Capitales y países","game_sciquiz_name":"Quiz de Ciencias","game_sciquiz_desc":"Física, química y biología","game_moviequiz_name":"Quiz de Películas","game_moviequiz_desc":"Adivina la película","game_expertquiz_name":"Trivia Experta","game_expertquiz_desc":"Preguntas difíciles","game_wordscramble_name":"Sopa de Letras Revuelta","game_wordscramble_desc":"¡Ordena las letras!","game_hangman_name":"Ahorcado","game_hangman_desc":"Adivina la palabra","game_typing_name":"Velocidad de Tecleo","game_typing_desc":"PPM en 60 seg","game_anagram_name":"Anagrama","game_anagram_desc":"Reordena las letras","game_wordchain_name":"Cadena de Palabras","game_wordchain_desc":"Enlaza palabras","game_wordle_name":"Adivina la Palabra","game_wordle_desc":"Wordle de 5 letras","game_crossword_name":"Crucigrama","game_crossword_desc":"Mini crucigrama","game_spelling_name":"Concurso de Ortografía","game_spelling_desc":"Escríbelo bien","game_cipher_name":"Descifrar Código","game_cipher_desc":"Rompe el código","game_wordsearch_name":"Sopa de Letras","game_wordsearch_desc":"Encuentra palabras ocultas","game_mathbasic_name":"Matemáticas Básicas","game_mathbasic_desc":"Suma y resta rápido","game_mathquiz_name":"Quiz de Matemáticas","game_mathquiz_desc":"Operaciones mixtas","game_times_name":"Tablas de Multiplicar","game_times_desc":"Carrera de multiplicación","game_make24_name":"Haz 24","game_make24_desc":"4 números → 24","game_mathsprint_name":"Sprint de Matemáticas","game_mathsprint_desc":"30 preguntas en 60s","game_numseq_name":"Secuencia Numérica","game_numseq_desc":"Encuentra el patrón","game_sudoku_name":"Sudoku","game_sudoku_desc":"Clásico 9×9","game_coin_name":"Lanzar Moneda","game_coin_desc":"¿Cara o cruz?","game_dice_name":"Lanzar Dados","game_dice_desc":"Hasta 6 dados","game_rps_name":"Piedra, Papel o Tijera","game_rps_desc":"Mejor de 5 rondas","game_numguess_name":"Adivina el Número","game_numguess_desc":"1-100 en 7 intentos","game_reaction_name":"Tiempo de Reacción","game_reaction_desc":"Prueba tus reflejos","game_ttt_name":"Tres en Raya","game_ttt_desc":"Contra IA inteligente","game_mines_name":"Buscaminas","game_mines_desc":"Clásico 6×6","game_c4_name":"Conecta Cuatro","game_c4_desc":"Contra la IA","game_snake_name":"Serpiente","game_snake_desc":"Clásico de Nokia","game_pong_name":"Pong","game_pong_desc":"Bola y raqueta","game_g2048_name":"2048","game_g2048_desc":"Une hasta 2048","game_chess_name":"Puzzles de Ajedrez","game_chess_desc":"Mate en 1-2","game_tetris_name":"Tetris Lite","game_tetris_desc":"Bloques que caen","game_flappy_name":"Flappy Bird","game_flappy_desc":"Vuela entre tuberías","game_fruitpop_name":"Explosión de Frutas","game_fruitpop_desc":"Combina frutas","game_rainbowbubble_name":"Burbujas de Colores","game_rainbowbubble_desc":"Explota bolas de color","game_citydash_name":"Carrera Urbana","game_citydash_desc":"Corre y junta estrellas","game_blockpuzzle_name":"Mundo de Bloques","game_blockpuzzle_desc":"Coloca los bloques","game_colorjoy_name":"Estudio de Colores","game_colorjoy_desc":"Animales, frutas y flores","game_minirace_name":"Mini Carrera","game_minirace_desc":"Carreras rápidas y coloridas","game_parkingpuzzle_name":"Puzzle de Estacionamiento","game_parkingpuzzle_desc":"Estaciona el coche","game_colormatch_name":"Coincidencia de Colores","game_colormatch_desc":"Desafío Stroop","game_simon_name":"Simón Dice","game_simon_desc":"Repite la secuencia","game_memory_name":"Cartas de Memoria","game_memory_desc":"Encuentra los pares","game_patternmem_name":"Memoria de Patrones","game_patternmem_desc":"Repite los patrones","game_mineshard_name":"Buscaminas Difícil","game_mineshard_desc":"Cuadrícula 10×10","game_histquiz_name":"Quiz de Historia","game_histquiz_desc":"Fechas y personajes","game_breakout_name":"Rompe Bloques","game_breakout_desc":"Rompe todos los ladrillos","game_lightsout_name":"Apaga las Luces","game_lightsout_desc":"Apágalas todas","game_memhard_name":"Memoria Pro","game_memhard_desc":"Desafío 5×4","diffEasy":"Fácil","diffMed":"Medio","diffHard":"Difícil","secQuizTitle":"Juegos de Trivia","secQuizBadge":"PON A PRUEBA TU CONOCIMIENTO","secQuizIntro":"Desde banderas y geografía hasta películas, ciencia y cultura general, nuestros juegos de trivia ponen a prueba tus conocimientos con rondas rápidas que puedes terminar en pocos minutos.","secWordTitle":"Juegos de Palabras","secWordBadge":"LETRAS E IDIOMA","secWordIntro":"Mejora tu vocabulario con desafíos de adivinar palabras, ortografía y sopas de letras que premian el reconocimiento de patrones y un buen banco mental de palabras.","secMathTitle":"Juegos de Matemáticas","secMathBadge":"NÚMEROS Y LÓGICA","secMathIntro":"Desarrolla velocidad de cálculo y sentido numérico con desafíos de aritmética cronometrados, puzzles de secuencias y sprints matemáticos rápidos aptos para todos los niveles.","secClassicTitle":"Juegos Clásicos","secClassicBadge":"DIVERSIÓN ATEMPORAL","secClassicIntro":"Versiones reinventadas de los clásicos de arcade y de mesa con los que creciste — 2048, Snake, Tetris, Ajedrez y más — reconstruidos para un juego fluido y rápido en el navegador.","secMemoryTitle":"Memoria y Concentración","secMemoryBadge":"ENTRENA TU CEREBRO","secMemoryIntro":"Entrena tu memoria a corto plazo y tu concentración con minijuegos de emparejar cartas, recordar patrones y enfoque que siguen siendo divertidos en lugar de sentirse como un ejercicio.","introP1":"<strong style=\"color:#1e1b4b;font-size:17px;\">GameNest World</strong> es un centro de juegos de navegador gratuito con 58 juegos jugables al instante en cinco categorías: clásicos de arcade favoritos como 2048, Snake y Tetris; desafíos de palabras y vocabulario como el Ahorcado y la Sopa de Letras; juegos de trivia rápidos que cubren geografía, ciencia, películas y cultura general; puzzles de matemáticas y lógica para desarrollar velocidad de cálculo mental; y juegos de memoria y concentración diseñados para agudizar la atención.","introP2":"Cada juego funciona directamente en tu navegador sin descargas, sin crear cuentas y sin cargos ocultos — solo haz clic en un juego y empieza a jugar. A medida que juegas, ganarás XP, desbloquearás logros y crearás rachas diarias. Ya sea que tengas cinco minutos libres o quieras una sesión más larga, hay un juego abajo para ti.","faqHeading":"Preguntas Frecuentes","adLoading":"Cargando anuncio…","adReady":"Anuncio listo — toca Ver de nuevo","adDismissed":"Anuncio cerrado antes de tiempo — sin recompensa","adRewarded":"¡Recompensa otorgada — gracias por ver!","adUnavailable":"No hay anuncios disponibles ahora — inténtalo más tarde","yourBestScore":"Tu mejor:","noBestYet":"Juega una vez para registrar tu primera puntuación","tourneyTitle":"2048: Supera tu récord","popularHeading":"Favoritos","popularSub":"Un buen lugar para empezar","popularBadge":"SELECCIÓN"},
     fr:{filterAll:"Tous les jeux",filterQuiz:"Quiz",filterWord:"Mots",filterMath:"Maths",filterClassic:"Classiques",filterMemory:"Mémoire",filterFav:"Favoris",searchPlaceholder:"Rechercher un jeu...",dailyChallenge:"Défi quotidien",newGameDaily:"Un nouveau jeu chaque jour !",resetsIn:"RÉINITIALISATION DANS",play:"Jouer →",weeklyTournament:"Tournoi hebdomadaire",tourneyPrize:"Le meilleur score gagne des XP bonus",joinTournament:"Rejoindre le tournoi →",watchAdTitle:"📺 Regarder une pub → +30 XP et +3 vies",watchAdSub:"Garde tous les jeux gratuits.",watchBtn:"▶ Regarder",achievements:"Succès",achFirstGame:" Premier jeu",achStreak:" Série de 3 jours",achQuiz:" Maître du quiz",achSpeed:" Démon de vitesse",achWord:" Sorcier des mots",yourProgress:"📈 Ta progression",savedDevice:"(enregistré sur cet appareil)",currentStreak:"Série actuelle",favoriteGames:"Jeux favoris",footerTagline:"58 jeux de navigateur gratuits · Sans téléchargement · Sans compte",footerAbout:"À propos",footerPrivacy:"Politique de confidentialité",footerTerms:"Conditions d'utilisation",footerContact:"Contact",allRightsReserved:"Tous droits réservés",noResults:"Aucun jeu ne correspond à votre recherche.","game_colorquiz_name":"Quiz des Couleurs","game_colorquiz_desc":"Nomme la couleur","game_flagquiz_name":"Quiz des Drapeaux","game_flagquiz_desc":"Devine le pays","game_truefalse_name":"Vrai ou Faux","game_truefalse_desc":"10 faits amusants","game_riddles_name":"Devinettes","game_riddles_desc":"Casse-têtes","game_emojiquiz_name":"Quiz Emoji","game_emojiquiz_desc":"Devine avec des emojis","game_oddone_name":"L'Intrus","game_oddone_desc":"Trouve la différence","game_genquiz_name":"Culture Générale","game_genquiz_desc":"10 questions","game_geoquiz_name":"Quiz de Géographie","game_geoquiz_desc":"Capitales et pays","game_sciquiz_name":"Quiz de Sciences","game_sciquiz_desc":"Physique, chimie et biologie","game_moviequiz_name":"Quiz de Films","game_moviequiz_desc":"Devine le film","game_expertquiz_name":"Trivia Expert","game_expertquiz_desc":"Questions difficiles","game_wordscramble_name":"Lettres Mélangées","game_wordscramble_desc":"Remets les lettres en ordre !","game_hangman_name":"Pendu","game_hangman_desc":"Devine le mot","game_typing_name":"Vitesse de Frappe","game_typing_desc":"MPM en 60 sec","game_anagram_name":"Anagramme","game_anagram_desc":"Réarrange les lettres","game_wordchain_name":"Chaîne de Mots","game_wordchain_desc":"Enchaîne les mots","game_wordle_name":"Devine le Mot","game_wordle_desc":"Wordle en 5 lettres","game_crossword_name":"Mots Croisés","game_crossword_desc":"Mini mots croisés","game_spelling_name":"Concours d'Orthographe","game_spelling_desc":"Écris-le correctement","game_cipher_name":"Décodage","game_cipher_desc":"Déchiffre le code","game_wordsearch_name":"Mots Cachés","game_wordsearch_desc":"Trouve les mots cachés","game_mathbasic_name":"Maths de Base","game_mathbasic_desc":"Additionne et soustrais vite","game_mathquiz_name":"Quiz de Maths","game_mathquiz_desc":"Opérations mixtes","game_times_name":"Tables de Multiplication","game_times_desc":"Course de multiplication","game_make24_name":"Fais 24","game_make24_desc":"4 nombres → 24","game_mathsprint_name":"Sprint Mathématique","game_mathsprint_desc":"30 questions en 60s","game_numseq_name":"Suite de Nombres","game_numseq_desc":"Trouve le motif","game_sudoku_name":"Sudoku","game_sudoku_desc":"Classique 9×9","game_coin_name":"Pile ou Face","game_coin_desc":"Pile ou face ?","game_dice_name":"Lancer de Dés","game_dice_desc":"Jusqu'à 6 dés","game_rps_name":"Pierre Papier Ciseaux","game_rps_desc":"Meilleur des 5 manches","game_numguess_name":"Devine le Nombre","game_numguess_desc":"1-100 en 7 essais","game_reaction_name":"Temps de Réaction","game_reaction_desc":"Teste tes réflexes","game_ttt_name":"Morpion","game_ttt_desc":"Contre une IA maligne","game_mines_name":"Démineur","game_mines_desc":"Classique 6×6","game_c4_name":"Puissance 4","game_c4_desc":"Contre l'IA","game_snake_name":"Serpent","game_snake_desc":"Classique Nokia","game_pong_name":"Pong","game_pong_desc":"Balle et raquette","game_g2048_name":"2048","game_g2048_desc":"Fusionne jusqu'à 2048","game_chess_name":"Puzzles d'Échecs","game_chess_desc":"Mat en 1-2","game_tetris_name":"Tetris Lite","game_tetris_desc":"Blocs qui tombent","game_flappy_name":"Flappy Bird","game_flappy_desc":"Vole entre les tuyaux","game_fruitpop_name":"Explosion de Fruits","game_fruitpop_desc":"Assemble les fruits","game_rainbowbubble_name":"Bulles Arc-en-ciel","game_rainbowbubble_desc":"Éclate les boules colorées","game_citydash_name":"Course Urbaine","game_citydash_desc":"Cours et ramasse des étoiles","game_blockpuzzle_name":"Monde de Blocs","game_blockpuzzle_desc":"Place les blocs","game_colorjoy_name":"Studio Couleur Joie","game_colorjoy_desc":"Animaux, fruits et fleurs","game_minirace_name":"Mini Course","game_minirace_desc":"Course rapide et colorée","game_parkingpuzzle_name":"Puzzle de Stationnement","game_parkingpuzzle_desc":"Gare la voiture","game_colormatch_name":"Association de Couleurs","game_colormatch_desc":"Défi Stroop","game_simon_name":"Simon Dit","game_simon_desc":"Répète la séquence","game_memory_name":"Cartes Mémoire","game_memory_desc":"Trouve toutes les paires","game_patternmem_name":"Mémoire de Motifs","game_patternmem_desc":"Répète les motifs","game_mineshard_name":"Démineur Difficile","game_mineshard_desc":"Grille 10×10","game_histquiz_name":"Quiz d'Histoire","game_histquiz_desc":"Dates et personnages","game_breakout_name":"Casse-Briques","game_breakout_desc":"Casse toutes les briques","game_lightsout_name":"Éteins les Lumières","game_lightsout_desc":"Éteins-les toutes","game_memhard_name":"Mémoire Pro","game_memhard_desc":"Défi 5×4","diffEasy":"Facile","diffMed":"Moyen","diffHard":"Difficile","secQuizTitle":"Jeux de Quiz","secQuizBadge":"TESTE TES CONNAISSANCES","secQuizIntro":"Des drapeaux à la géographie, en passant par les films, les sciences et la culture générale, nos jeux de quiz mettent tes connaissances à l'épreuve avec des manches rapides que tu peux terminer en quelques minutes.","secWordTitle":"Jeux de Mots","secWordBadge":"LETTRES ET LANGUE","secWordIntro":"Affine ton vocabulaire avec des défis de devinettes de mots, d'orthographe et de mots cachés qui récompensent la reconnaissance de motifs et une solide mémoire des mots.","secMathTitle":"Jeux de Maths","secMathBadge":"NOMBRES ET LOGIQUE","secMathIntro":"Développe ta vitesse de calcul et ton sens des nombres avec des défis d'arithmétique chronométrés, des puzzles de suites et des sprints mathématiques rapides adaptés à tous les niveaux.","secClassicTitle":"Jeux Classiques","secClassicBadge":"PLAISIR INTEMPOREL","secClassicIntro":"Des versions réinventées des classiques d'arcade et de plateau avec lesquels tu as grandi — 2048, Snake, Tetris, Échecs et plus encore — reconstruits pour un jeu fluide et rapide dans le navigateur.","secMemoryTitle":"Mémoire et Concentration","secMemoryBadge":"ENTRAÎNE TON CERVEAU","secMemoryIntro":"Entraîne ta mémoire à court terme et ta concentration avec des mini-jeux d'association de cartes, de rappel de motifs et de concentration qui restent amusants plutôt que de ressembler à un exercice.","introP1":"<strong style=\"color:#1e1b4b;font-size:17px;\">GameNest World</strong> est une plateforme de jeux de navigateur gratuite proposant 58 jeux jouables instantanément répartis en cinq catégories : des classiques d'arcade comme 2048, Snake et Tetris ; des défis de mots et de vocabulaire comme le Pendu et les Mots Cachés ; des jeux de quiz rapides couvrant la géographie, les sciences, les films et la culture générale ; des puzzles de maths et de logique pour développer la rapidité de calcul mental ; et des jeux de mémoire et de concentration conçus pour aiguiser l'attention.","introP2":"Chaque jeu fonctionne directement dans ton navigateur, sans téléchargement, sans création de compte et sans frais cachés — il suffit de cliquer sur un jeu pour commencer à jouer. En jouant, tu gagnes de l'XP, débloques des succès et construis des séries quotidiennes. Que tu aies cinq minutes de pause ou que tu veuilles une session plus longue, il y a un jeu ci-dessous fait pour toi.","faqHeading":"Questions Fréquentes","adLoading":"Chargement de la pub…","adReady":"Pub prête — appuie à nouveau sur Regarder","adDismissed":"Pub fermée trop tôt — pas de récompense","adRewarded":"Récompense obtenue — merci d'avoir regardé !","adUnavailable":"Aucune pub disponible pour l'instant — réessaie plus tard","yourBestScore":"Ton record :","noBestYet":"Joue une fois pour enregistrer ton premier score","tourneyTitle":"2048 : Bats ton record","popularHeading":"Coups de cœur","popularSub":"Un bon point de départ","popularBadge":"SÉLECTION"},
@@ -2595,20 +2663,75 @@ function updateXPUI(){
 
 /* SOUND */
 var _soundOn=localStorage.getItem('gnw_sound')!=='0';
+/* FIX (Round 12, Aug 2026): was a single flat sine-wave beep for every
+   event, and created a brand-new AudioContext on every single call (wasteful
+   -- some games call this many times per second). Now: one shared/lazy
+   AudioContext, and each sound type is a small multi-note synth instead of
+   one flat tone -- a bright two-note chime for scoring, a triumphant rising
+   arpeggio for winning, a soft descending buzz for losing. Every game that
+   already calls playSound() (roughly 90 call sites across the whole 59-game
+   catalog, not just the leveled ones) gets this automatically. */
+var _gnwAC;
+function _gnwGetAC(){
+  if(!_gnwAC){ try{ _gnwAC=new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ return null; } }
+  if(_gnwAC && _gnwAC.state==='suspended'){ try{ _gnwAC.resume(); }catch(e){} }
+  return _gnwAC;
+}
+function _gnwTone(ac,freq,t0,dur,wave,peak,sweepTo){
+  try{
+    var o=ac.createOscillator(),g=ac.createGain();
+    o.type=wave||'sine';
+    o.frequency.setValueAtTime(freq,ac.currentTime+t0);
+    if(sweepTo)o.frequency.exponentialRampToValueAtTime(sweepTo,ac.currentTime+t0+dur);
+    o.connect(g);g.connect(ac.destination);
+    g.gain.setValueAtTime(.0001,ac.currentTime+t0);
+    g.gain.exponentialRampToValueAtTime(peak||.14,ac.currentTime+t0+Math.min(.02,dur*.3));
+    g.gain.exponentialRampToValueAtTime(.0001,ac.currentTime+t0+dur);
+    o.start(ac.currentTime+t0);
+    o.stop(ac.currentTime+t0+dur+.03);
+    o.onended=function(){try{o.disconnect();g.disconnect();}catch(e){}};
+  }catch(e){}
+}
 function playSound(type){
   if(!_soundOn)return;
+  var ac=_gnwGetAC();
+  if(!ac)return;
+  if(type==='click'){ _gnwTone(ac,720,0,.045,'square',.09); }
+  else if(type==='pop'){ _gnwTone(ac,560,0,.09,'sine',.15,300); }
+  else if(type==='score'){ _gnwTone(ac,880,0,.08,'sine',.13); _gnwTone(ac,1318,.05,.11,'sine',.11); }
+  else if(type==='win'){ _gnwTone(ac,523,0,.12,'triangle',.13); _gnwTone(ac,659,.09,.12,'triangle',.13); _gnwTone(ac,784,.18,.14,'triangle',.14); _gnwTone(ac,1047,.3,.4,'triangle',.16,1568); }
+  else if(type==='lose'){ _gnwTone(ac,349,0,.22,'sawtooth',.09,220); _gnwTone(ac,261,.15,.3,'sawtooth',.08,175); }
+  else { _gnwTone(ac,660,0,.05,'sine',.1); }
+  if(type==='score'||type==='win'||type==='lose') _juicePulse(type);
+}
+/* Lightweight screen-edge glow paired with score/win/lose sounds -- a
+   single reused, pointer-events:none overlay so it never blocks input and
+   never affects layout (only opacity + box-shadow, both paint-only, so this
+   cannot reintroduce the layout-shift issue fixed in an earlier round).
+   Kept deliberately quick and low-opacity for 'score' since some games
+   (Pong, Breakout, Snake) fire it very rapidly -- it should read as a
+   pleasant pulse, not a strobe. */
+function _juicePulse(type){
   try{
-    var ac=new(window.AudioContext||window.webkitAudioContext)();
-    var o=ac.createOscillator(),g=ac.createGain();
-    o.connect(g);g.connect(ac.destination);
-    var s={score:{f:880,d:.1},win:{f:1047,d:.4},lose:{f:200,d:.3},click:{f:660,d:.05},pop:{f:440,d:.07}};
-    var sv=s[type]||s.click;
-    o.type='sine';o.frequency.value=sv.f;
-    if(type==='win')o.frequency.exponentialRampToValueAtTime(1568,ac.currentTime+.2);
-    if(type==='lose')o.frequency.exponentialRampToValueAtTime(110,ac.currentTime+.3);
-    g.gain.setValueAtTime(.12,ac.currentTime);
-    g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+sv.d);
-    o.start();o.stop(ac.currentTime+sv.d);
+    var el=document.getElementById('gnw-juice');
+    if(!el){
+      el=document.createElement('div');
+      el.id='gnw-juice';
+      el.style.cssText='position:fixed;inset:0;z-index:9991;pointer-events:none;opacity:0;';
+      document.body.appendChild(el);
+    }
+    var spec = type==='win'
+      ? {shadow:'inset 0 0 140px 50px rgba(251,191,36,.4)', dur:.6}
+      : type==='lose'
+      ? {shadow:'inset 0 0 100px 40px rgba(239,68,68,.2)', dur:.35}
+      : {shadow:'inset 0 0 70px 24px rgba(255,255,255,.13)', dur:.25};
+    el.style.transition='none';
+    el.style.boxShadow=spec.shadow;
+    el.style.opacity='1';
+    requestAnimationFrame(function(){
+      el.style.transition='opacity '+spec.dur+'s ease-out';
+      el.style.opacity='0';
+    });
   }catch(e){}
 }
 function toggleSound(){
@@ -2741,7 +2864,7 @@ function openGame(key){
   /* interstitial disabled */
 
   
-  var CATS={'colorquiz':'quiz','flagquiz':'quiz','truefalse':'quiz','riddles':'quiz','emojiquiz':'quiz','oddone':'quiz','genquiz':'quiz','geoquiz':'quiz','sciquiz':'quiz','moviequiz':'quiz','expertquiz':'quiz','triviarush':'quiz','histquiz':'memory','wordscramble':'word','hangman':'word','typing':'word','anagram':'word','wordchain':'word','wordle':'word','crossword':'word','spelling':'word','cipher':'word','wordsearch':'word','mathbasic':'math','mathquiz':'math','times':'math','make24':'math','mathsprint':'math','numseq':'math','sudoku':'math','coin':'classic','dice':'classic','rps':'classic','numguess':'classic','reaction':'classic','ttt':'classic','mines':'classic','c4':'classic','snake':'classic','pong':'classic','g2048':'classic','chess':'classic','tetris':'classic','flappy':'classic','fruitpop':'classic','rainbowbubble':'classic','citydash':'classic','blockpuzzle':'classic','colorjoy':'classic','minirace':'classic','parkingpuzzle':'classic','colormatch':'memory','simon':'memory','memory':'memory','patternmem':'memory','mineshard':'memory','breakout':'memory','lightsout':'memory','memhard':'memory'};
+  var CATS={'colorquiz':'quiz','flagquiz':'quiz','truefalse':'quiz','riddles':'quiz','emojiquiz':'quiz','oddone':'quiz','genquiz':'quiz','geoquiz':'quiz','sciquiz':'quiz','moviequiz':'quiz','expertquiz':'quiz','triviarush':'quiz','histquiz':'memory','wordscramble':'word','hangman':'word','typing':'word','anagram':'word','wordchain':'word','wordle':'word','crossword':'word','spelling':'word','cipher':'word','wordsearch':'word','mathbasic':'math','mathquiz':'math','times':'math','make24':'math','mathsprint':'math','numseq':'math','sudoku':'math','coin':'classic','dice':'classic','rps':'classic','numguess':'classic','reaction':'classic','ttt':'classic','mines':'classic','c4':'classic','snake':'classic','pong':'classic','g2048':'classic','chess':'classic','tetris':'classic','flappy':'classic','fruitpop':'classic','rainbowbubble':'classic','citydash':'classic','blockpuzzle':'classic','colorjoy':'classic','minirace':'classic','parkingpuzzle':'classic','colormatch':'memory','simon':'memory','memory':'memory','patternmem':'memory','mineshard':'memory','breakout':'memory','lightsout':'memory','memhard':'memory','flagmahjong':'memory'};
 
   /* Elegant per-category themes — dark, easy on eyes */
   var THEMES={
@@ -2810,9 +2933,10 @@ var HOW_TO={
   'mineshard':{how:'Expert 10×10 minesweeper — more mines, bigger challenge',controls:'🖱️ Left=reveal, Right=flag'},
   'breakout':{how:'Move the paddle to bounce the ball and break all bricks',controls:'🖱️ Mouse or ← → keys'},
   'lightsout':{how:'Click cells to toggle lights — turn ALL lights off to win',controls:'🖱️ Click'},
-  'memhard':{how:'Advanced 5×4 memory grid — more cards, harder patterns',controls:'🖱️ Click cards'}
+  'memhard':{how:'Advanced 5×4 memory grid — more cards, harder patterns',controls:'🖱️ Click cards'},
+  'flagmahjong':{how:'Click two identical flag tiles that can be connected by a line with at most 2 turns to clear them',controls:'🖱️ Click tiles'}
 };
-  var DESCS={'colorquiz': 'Look at a solid color swatch and pick its correct name from four options before time runs out.', 'flagquiz': 'Study a national flag and identify which country it belongs to from a set of multiple-choice answers.', 'truefalse': 'Read a short statement about science, history, or general trivia and decide whether it\'s true or false.', 'riddles': 'Read a classic riddle or brain teaser and type in your best guess at the answer.', 'emojiquiz': 'Decode a short string of emojis into the movie, phrase, or idea they\'re meant to represent.', 'oddone': 'Study a small set of items and pick the one that doesn\'t belong with the rest, based on a shared pattern.', 'genquiz': 'Answer a rotating set of general-knowledge trivia questions spanning everyday facts, culture, and curiosities.', 'geoquiz': 'Answer questions about world capitals, countries, and borders to test your geography knowledge.', 'sciquiz': 'Answer multiple-choice questions spanning physics, chemistry, and biology, from basic concepts to lesser-known facts.', 'moviequiz': 'Answer trivia questions about films, actors, and directors across genres and decades.', 'expertquiz': 'Take on a set of deliberately difficult trivia questions built for players who\'ve already mastered the easier quizzes.', 'triviarush': 'Answer multiple-choice trivia questions correctly to level up, build a streak, earn coins, and race your runner down the track — questions get harder as your level climbs.', 'histquiz': 'Answer questions about historical events, dates, and figures spanning different eras and regions.', 'wordscramble': 'Rearrange a set of jumbled letters back into the correct word before you run out of guesses.', 'hangman': 'Guess letters one at a time to reveal a hidden word before you run out of attempts.', 'typing': 'Type the on-screen text as quickly and accurately as you can in a 60-second timed test.', 'anagram': 'Rearrange the letters of a given word to form a completely different valid word.', 'wordchain': 'Type a word that begins with the last letter of the previous word to keep the chain going as long as possible.', 'wordle': 'Guess a secret five-letter word within six tries, using color clues to narrow down each letter.', 'crossword': 'Solve a compact crossword-style grid by finding hidden words running in different directions.', 'spelling': 'Unscramble jumbled letters to correctly spell out the word being described or shown.', 'cipher': 'Decode a short message encrypted with a Caesar cipher, where every letter has been shifted by a fixed number.', 'wordsearch': 'Scan a letter grid and click-and-drag to find every hidden word from the list.', 'mathbasic': 'Solve straightforward addition and subtraction problems as quickly as you can, one after another.', 'mathquiz': 'Solve a mix of addition, subtraction, multiplication, and division problems under time pressure.', 'times': 'Answer multiplication problems against the clock to build speed with your times tables.', 'make24': 'Combine four given numbers using addition, subtraction, multiplication, and division to reach exactly 24.', 'mathsprint': 'Race to solve as many quick math problems as possible in a 60-second sprint.', 'numseq': 'Study a sequence of numbers and figure out which number logically comes next.', 'sudoku': 'Fill a 9×9 grid with numbers 1–9 so that every row, column, and 3×3 box contains each digit exactly once.', 'coin': 'Flip a virtual coin and see whether it lands on heads or tails.', 'dice': 'Roll one or more virtual dice and see the results instantly, useful for games or quick decisions.', 'rps': 'Play the classic hand-game against the computer across a best-of-five match.', 'numguess': 'Guess a secret number between 1 and 100 using higher-or-lower hints to narrow it down.', 'reaction': 'Wait for the screen to turn green, then click as fast as you can to measure your reaction speed.', 'ttt': 'Play the classic 3x3 grid game against a computer opponent that plays to win.', 'mines': 'Clear a 6×6 grid without detonating any hidden mines, using number clues to play it safe.', 'c4': 'Drop pieces into a grid to connect four of your own in a row before the AI does.', 'snake': 'Guide a growing snake around the board to eat food while avoiding the walls and your own tail.', 'pong': 'Move your paddle to keep the ball in play and score points against the computer, first to five wins.', 'g2048': 'Swipe tiles together to combine matching numbers, aiming to reach the elusive 2048 tile.', 'chess': 'Study a real chess position and find the winning move that delivers checkmate in one or two moves.', 'tetris': 'Rotate and position falling blocks to complete horizontal lines before the stack reaches the top.', 'flappy': 'Tap or click to keep a small bird airborne, threading it through a series of narrow pipe gaps.', 'fruitpop': 'Click groups of matching fruit to clear them from the board and rack up points before you run out of moves.', 'rainbowbubble': 'Pop clusters of same-colored bubbles to clear the board and chase a high score.', 'citydash': 'Guide a runner through a city street, dodging obstacles and collecting stars as the pace picks up.', 'blockpuzzle': 'Drag differently shaped blocks onto a grid to fill complete rows and columns without running out of space.', 'colorjoy': 'Tap sections of a simple line-art picture — animals, fruits, or flowers — to fill them in with color.', 'minirace': 'Steer a small car down a lane, dodging traffic and obstacles to go as far as possible.', 'parkingpuzzle': 'Slide blocking cars out of the way to clear a path for your car to reach the exit.', 'colormatch': 'Click the button matching the ink color a word is printed in, not the color the word actually spells out.', 'simon': 'Watch a growing sequence of flashing colors, then repeat it back in the exact same order.', 'memory': 'Flip cards two at a time to find every matching pair using the fewest flips possible.', 'patternmem': 'Watch a pattern of highlighted cells light up, then click the same cells back in order from memory.', 'mineshard': 'Take on an expert-level 10x10 Minesweeper board with more mines and considerably less room for error.', 'breakout': 'Bounce a ball off your paddle to smash every brick in a wall without letting the ball fall past you.', 'lightsout': 'Click cells on a grid to toggle nearby lights, aiming to turn every single light off at once.', 'memhard': 'Take on an expanded 5x4 memory grid with more cards and trickier patterns than the standard version.'};
+  var DESCS={'colorquiz': 'Look at a solid color swatch and pick its correct name from four options before time runs out.', 'flagquiz': 'Study a national flag and identify which country it belongs to from a set of multiple-choice answers.', 'truefalse': 'Read a short statement about science, history, or general trivia and decide whether it\'s true or false.', 'riddles': 'Read a classic riddle or brain teaser and type in your best guess at the answer.', 'emojiquiz': 'Decode a short string of emojis into the movie, phrase, or idea they\'re meant to represent.', 'oddone': 'Study a small set of items and pick the one that doesn\'t belong with the rest, based on a shared pattern.', 'genquiz': 'Answer a rotating set of general-knowledge trivia questions spanning everyday facts, culture, and curiosities.', 'geoquiz': 'Answer questions about world capitals, countries, and borders to test your geography knowledge.', 'sciquiz': 'Answer multiple-choice questions spanning physics, chemistry, and biology, from basic concepts to lesser-known facts.', 'moviequiz': 'Answer trivia questions about films, actors, and directors across genres and decades.', 'expertquiz': 'Take on a set of deliberately difficult trivia questions built for players who\'ve already mastered the easier quizzes.', 'triviarush': 'Answer multiple-choice trivia questions correctly to level up, build a streak, earn coins, and race your runner down the track — questions get harder as your level climbs.', 'histquiz': 'Answer questions about historical events, dates, and figures spanning different eras and regions.', 'wordscramble': 'Rearrange a set of jumbled letters back into the correct word before you run out of guesses.', 'hangman': 'Guess letters one at a time to reveal a hidden word before you run out of attempts.', 'typing': 'Type the on-screen text as quickly and accurately as you can in a 60-second timed test.', 'anagram': 'Rearrange the letters of a given word to form a completely different valid word.', 'wordchain': 'Type a word that begins with the last letter of the previous word to keep the chain going as long as possible.', 'wordle': 'Guess a secret five-letter word within six tries, using color clues to narrow down each letter.', 'crossword': 'Solve a compact crossword-style grid by finding hidden words running in different directions.', 'spelling': 'Unscramble jumbled letters to correctly spell out the word being described or shown.', 'cipher': 'Decode a short message encrypted with a Caesar cipher, where every letter has been shifted by a fixed number.', 'wordsearch': 'Scan a letter grid and click-and-drag to find every hidden word from the list.', 'mathbasic': 'Solve straightforward addition and subtraction problems as quickly as you can, one after another.', 'mathquiz': 'Solve a mix of addition, subtraction, multiplication, and division problems under time pressure.', 'times': 'Answer multiplication problems against the clock to build speed with your times tables.', 'make24': 'Combine four given numbers using addition, subtraction, multiplication, and division to reach exactly 24.', 'mathsprint': 'Race to solve as many quick math problems as possible in a 60-second sprint.', 'numseq': 'Study a sequence of numbers and figure out which number logically comes next.', 'sudoku': 'Fill a 9×9 grid with numbers 1–9 so that every row, column, and 3×3 box contains each digit exactly once.', 'coin': 'Flip a virtual coin and see whether it lands on heads or tails.', 'dice': 'Roll one or more virtual dice and see the results instantly, useful for games or quick decisions.', 'rps': 'Play the classic hand-game against the computer across a best-of-five match.', 'numguess': 'Guess a secret number between 1 and 100 using higher-or-lower hints to narrow it down.', 'reaction': 'Wait for the screen to turn green, then click as fast as you can to measure your reaction speed.', 'ttt': 'Play the classic 3x3 grid game against a computer opponent that plays to win.', 'mines': 'Clear a 6×6 grid without detonating any hidden mines, using number clues to play it safe.', 'c4': 'Drop pieces into a grid to connect four of your own in a row before the AI does.', 'snake': 'Guide a growing snake around the board to eat food while avoiding the walls and your own tail.', 'pong': 'Move your paddle to keep the ball in play and score points against the computer, first to five wins.', 'g2048': 'Swipe tiles together to combine matching numbers, aiming to reach the elusive 2048 tile.', 'chess': 'Study a real chess position and find the winning move that delivers checkmate in one or two moves.', 'tetris': 'Rotate and position falling blocks to complete horizontal lines before the stack reaches the top.', 'flappy': 'Tap or click to keep a small bird airborne, threading it through a series of narrow pipe gaps.', 'fruitpop': 'Click groups of matching fruit to clear them from the board and rack up points before you run out of moves.', 'rainbowbubble': 'Pop clusters of same-colored bubbles to clear the board and chase a high score.', 'citydash': 'Guide a runner through a city street, dodging obstacles and collecting stars as the pace picks up.', 'blockpuzzle': 'Drag differently shaped blocks onto a grid to fill complete rows and columns without running out of space.', 'colorjoy': 'Tap sections of a simple line-art picture — animals, fruits, or flowers — to fill them in with color.', 'minirace': 'Steer a small car down a lane, dodging traffic and obstacles to go as far as possible.', 'parkingpuzzle': 'Slide blocking cars out of the way to clear a path for your car to reach the exit.', 'colormatch': 'Click the button matching the ink color a word is printed in, not the color the word actually spells out.', 'simon': 'Watch a growing sequence of flashing colors, then repeat it back in the exact same order.', 'memory': 'Flip cards two at a time to find every matching pair using the fewest flips possible.', 'patternmem': 'Watch a pattern of highlighted cells light up, then click the same cells back in order from memory.', 'mineshard': 'Take on an expert-level 10x10 Minesweeper board with more mines and considerably less room for error.', 'breakout': 'Bounce a ball off your paddle to smash every brick in a wall without letting the ball fall past you.', 'lightsout': 'Click cells on a grid to toggle nearby lights, aiming to turn every single light off at once.', 'memhard': 'Take on an expanded 5x4 memory grid with more cards and trickier patterns than the standard version.', 'flagmahjong': 'Clear the board by connecting matching pairs of national-flag tiles with a path that bends no more than twice.'};
 
   var cat=CATS[key]||'classic';
   var th=THEMES[cat]||THEMES.classic;
@@ -2820,6 +2944,10 @@ var HOW_TO={
 
   var box=document.getElementById('modal-box');
   if(!box)return;
+  /* FIX (Round 14, Aug 2026): tag the modal with which game is open so
+     the new realistic 3D tile skin below can be scoped with pure CSS
+     selectors, instead of editing each game's own render code. */
+  box.setAttribute('data-game', key);
 
   /* Apply dark gradient theme */
   /* Use setProperty(...,'important') instead of a plain assignment so this
@@ -2827,6 +2955,14 @@ var HOW_TO={
      patches get layered onto #modal-box in the future -- an inline
      !important always wins the cascade over a stylesheet !important. */
   box.style.setProperty('background', th.bg, 'important');
+  /* FIX (Round 12, Aug 2026): every game's modal used a totally static
+     per-category background -- part of why the game screen read as "boring"
+     compared to reference sites with visible motion. Enlarging the same
+     gradient and slow-panning its position makes the existing glow blobs
+     drift gently. Paint-only (background-position never affects layout),
+     so this cannot reintroduce the CLS issue fixed in an earlier round. */
+  box.style.setProperty('background-size', '175% 175%', 'important');
+  box.style.setProperty('animation', 'gnwBgDrift 22s ease-in-out infinite', 'important');
   box.style.setProperty('border', '1px solid '+th.border, 'important');
   box.style.setProperty('box-shadow', '0 32px 80px rgba(0,0,0,.8), 0 0 70px '+th.glow+', inset 0 1px 0 rgba(255,255,255,.07)', 'important');
 
@@ -3091,9 +3227,16 @@ function launchConfetti(count) {
         el.className = 'confetti-piece';
         el.style.left = Math.random() * 100 + 'vw';
         el.style.top = '-10px';
-        el.style.background = colors[Math.floor(Math.random()*colors.length)];
-        el.style.width = (6 + Math.random()*8) + 'px';
-        el.style.height = (6 + Math.random()*8) + 'px';
+        var c = colors[Math.floor(Math.random()*colors.length)];
+        el.style.background = c;
+        var sz = 6 + Math.random()*8;
+        el.style.width = sz + 'px';
+        el.style.height = sz + 'px';
+        /* FIX (Round 12, Aug 2026): mix in round pieces + a soft glow so
+           confetti reads as brighter/livelier instead of uniform flat
+           squares. */
+        if(Math.random() < .4) el.style.borderRadius = '50%';
+        el.style.boxShadow = '0 0 6px ' + c;
         el.style.animationDuration = (2 + Math.random()*2) + 's';
         el.style.animationDelay = '0s';
         document.body.appendChild(el);
@@ -3114,7 +3257,15 @@ function launchSparks(x, y, count) {
     var dist = 40 + Math.random() * 60;
     el.style.left = x + 'px';
     el.style.top = y + 'px';
-    el.style.background = colors[Math.floor(Math.random()*colors.length)];
+    var c = colors[Math.floor(Math.random()*colors.length)];
+    el.style.background = c;
+    /* FIX (Round 12, Aug 2026): add a matching glow so sparks read as
+       brighter/more energetic, and vary size slightly for a less
+       mechanical burst. */
+    el.style.boxShadow = '0 0 8px 2px ' + c;
+    var sz = 3 + Math.random()*3;
+    el.style.width = sz + 'px';
+    el.style.height = sz + 'px';
     el.style.setProperty('--tx', Math.cos(angle)*dist + 'px');
     el.style.setProperty('--ty', Math.sin(angle)*dist + 'px');
     el.style.animationDuration = (.5 + Math.random()*.5) + 's';
@@ -4969,7 +5120,7 @@ function gameMemory(){
       var border=isMatched?'2px solid #4ade80':isRevealed?'2px solid rgba(167,139,250,.6)':'2px solid rgba(255,255,255,.15)';
       var content=isRevealed||isMatched?em:'❓';
       var opacity=isMatched?'.6':'1';
-      h+='<div onclick="memClick('+i+')" style="aspect-ratio:1;background:'+bg+';border:'+border+';border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;opacity:'+opacity+';-webkit-tap-highlight-color:transparent;">'+content+'</div>';
+      h+='<div onclick="memClick('+i+')" class="gnw-cell3d" style="aspect-ratio:1;background:'+bg+';border:'+border+';border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;opacity:'+opacity+';-webkit-tap-highlight-color:transparent;">'+content+'</div>';
     });
     h+='</div>';
     g.innerHTML=h;
@@ -5068,7 +5219,7 @@ function renderMemGame(){
     var bg=card.matched?'rgba(34,197,94,.25)':card.flipped?'rgba(124,58,237,.4)':'rgba(255,255,255,.1)';
     var border=card.matched?'2px solid #4ade80':card.flipped?'2px solid #a78bfa':'2px solid rgba(255,255,255,.15)';
     var content=card.flipped||card.matched?card.emoji:'❓';
-    h+='<div onclick="memHardClick('+i+')" style="aspect-ratio:1;background:'+bg+';border:'+border+';border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent;">'+content+'</div>';
+    h+='<div onclick="memHardClick('+i+')" class="gnw-cell3d" style="aspect-ratio:1;background:'+bg+';border:'+border+';border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent;">'+content+'</div>';
   });
   h+='</div>';
   g.innerHTML=h;
@@ -5550,7 +5701,7 @@ function renderMinesBoard(){
       content='🚩';
     }
     var done=window._mOver?'pointer-events:none;':'';
-    h+='<div onclick="mReveal('+i+')" oncontextmenu="mFlag('+i+');return false;" ';
+    h+='<div onclick="mReveal('+i+')" oncontextmenu="mFlag('+i+');return false;" class="gnw-cell3d gnw-cell3d-wood" ';
     h+='style="height:'+cellSize+';border-radius:6px;background:'+bg+';border:1px solid rgba(255,255,255,.15);';
     h+='display:flex;align-items:center;justify-content:center;font-size:'+Math.floor(parseInt(cellSize)*0.45)+'px;';
     h+='font-weight:800;color:'+color+';cursor:pointer;'+done+'-webkit-tap-highlight-color:transparent;">'+content+'</div>';
@@ -6333,7 +6484,7 @@ function render2048(){
   var b=window._2048board;
   var colors={0:'#cdc1b4',2:'#eee4da',4:'#ede0c8',8:'#f2b179',16:'#f59563',32:'#f67c5f',64:'#f65e3b',128:'#edcf72',256:'#edcc61',512:'#edc850',1024:'#edc53f',2048:'#edc22e'};
   var max=Math.max(...b);
-  gw().innerHTML=`<h2>🔢 2048</h2><div style="font-size:14px;color:#888;margin-bottom:6px;">Best: ${max} | Arrow keys or swipe</div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-width:280px;margin:0 auto;background:#bbada0;padding:6px;border-radius:8px;">${b.map(v=>`<div style="width:58px;height:58px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:${v>99?v>999?16:20:24}px;font-weight:900;background:${colors[v]||'#3c3a32'};color:${v>4?'#f9f6f2':'#776e65'};">${v||''}</div>`).join('')}</div>${b.includes(2048)?'<div style="font-size:28px;margin-top:12px;">🏆 You got 2048!</div>':''}${!b.some((_,i)=>{const r=Math.floor(i/4),c=i%4;return !b[i]||(c<3&&b[i]===b[i+1])||(r<3&&b[i]===b[i+4]);})&&!b.includes(0)?'<div style="font-size:22px;margin-top:10px;">Game Over!</div>':''}`;
+  gw().innerHTML=`<h2>🔢 2048</h2><div style="font-size:14px;color:#888;margin-bottom:6px;">Best: ${max} | Arrow keys or swipe</div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-width:280px;margin:0 auto;background:#bbada0;padding:6px;border-radius:8px;">${b.map(v=>`<div class="gnw-cell3d" style="width:58px;height:58px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:${v>99?v>999?16:20:24}px;font-weight:900;background:${colors[v]||'#3c3a32'};color:${v>4?'#f9f6f2':'#776e65'};">${v||''}</div>`).join('')}</div>${b.includes(2048)?'<div style="font-size:28px;margin-top:12px;">🏆 You got 2048!</div>':''}${!b.some((_,i)=>{const r=Math.floor(i/4),c=i%4;return !b[i]||(c<3&&b[i]===b[i+1])||(r<3&&b[i]===b[i+4]);})&&!b.includes(0)?'<div style="font-size:22px;margin-top:10px;">Game Over!</div>':''}`;
 }
 function slide2048(row){
   let a=row.filter(v=>v);
@@ -6744,12 +6895,33 @@ function gameTetris(){
       });});
     }
   }
+  function _gnwShade(hex,amt){
+    try{
+      var c=hex.replace('#','');
+      if(c.length===3)c=c[0]+c[0]+c[1]+c[1]+c[2]+c[2];
+      var r=parseInt(c.substr(0,2),16),g=parseInt(c.substr(2,2),16),b=parseInt(c.substr(4,2),16);
+      r=Math.max(0,Math.min(255,Math.round(r+(amt>0?(255-r):r)*amt)));
+      g=Math.max(0,Math.min(255,Math.round(g+(amt>0?(255-g):g)*amt)));
+      b=Math.max(0,Math.min(255,Math.round(b+(amt>0?(255-b):b)*amt)));
+      return 'rgb('+r+','+g+','+b+')';
+    }catch(e){ return hex; }
+  }
+  /* FIX (Round 14, Aug 2026): "oyunlar gercekci degil" -- Tetris used a
+     flat single-color fill per block. Same function, same call sites,
+     now paints a light-to-dark diagonal gradient plus a glossy top strip
+     and a darker bottom bevel, so blocks read as solid 3D cubes like the
+     reference screenshots instead of flat colored squares. */
   function drawBlock(ctx,x,y,s,color){
-    ctx.fillStyle=color;
-    if(ctx.roundRect){ctx.beginPath();ctx.roundRect(x+1,y+1,s-2,s-2,2);ctx.fill();}
+    var light=_gnwShade(color,.32),dark=_gnwShade(color,-.28);
+    var grad=ctx.createLinearGradient(x,y,x+s,y+s);
+    grad.addColorStop(0,light);grad.addColorStop(.55,color);grad.addColorStop(1,dark);
+    ctx.fillStyle=grad;
+    if(ctx.roundRect){ctx.beginPath();ctx.roundRect(x+1,y+1,s-2,s-2,4);ctx.fill();}
     else{ctx.fillRect(x+1,y+1,s-2,s-2);}
-    ctx.fillStyle='rgba(255,255,255,.25)';ctx.fillRect(x+2,y+2,s-4,4);
-    ctx.fillStyle='rgba(0,0,0,.2)';ctx.fillRect(x+2,y+s-5,s-4,3);
+    ctx.fillStyle='rgba(255,255,255,.4)';ctx.fillRect(x+2,y+2,s-4,Math.max(2,Math.round(s*.18)));
+    ctx.fillStyle='rgba(0,0,0,.28)';ctx.fillRect(x+2,y+s-2-Math.max(3,Math.round(s*.16)),s-4,Math.max(3,Math.round(s*.16)));
+    ctx.strokeStyle='rgba(0,0,0,.35)';ctx.lineWidth=1;
+    if(ctx.roundRect){ctx.beginPath();ctx.roundRect(x+1.5,y+1.5,s-3,s-3,4);ctx.stroke();}
   }
   function place(){
     cur.forEach(function(row,r){row.forEach(function(v,c){if(v&&curY+r>=0)board[curY+r][curX+c]=curC;});});
@@ -7146,7 +7318,7 @@ function sudokuRender(){
     var borderB=(r===2||r===5)?'border-bottom:2px solid rgba(255,255,255,.4);':'';
     var bg=isSel?'rgba(99,102,241,.6)':(isFixed?'rgba(255,255,255,.15)':'rgba(255,255,255,.06)');
     var color=isFixed?'rgba(255,255,255,.9)':'#818cf8';
-    h+='<div onclick="sudClick('+i+')" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:'+(isFixed?'800':'700')+';color:'+color+';background:'+bg+';cursor:'+(isFixed?'default':'pointer')+';border-radius:3px;'+borderR+borderB+'">'+val+'</div>';
+    h+='<div onclick="sudClick('+i+')" class="gnw-cell3d gnw-cell3d-wood" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:'+(isFixed?'800':'700')+';color:'+color+';background:'+bg+';cursor:'+(isFixed?'default':'pointer')+';border-radius:3px;'+borderR+borderB+'">'+val+'</div>';
   }
   h+='</div>';
   h+='<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;max-width:200px;margin:10px auto;">';
@@ -7236,12 +7408,38 @@ function ciCheck(){
 }
 
 /* LIGHTS OUT */
-function gameLightsOut(){window._loGrid=Array(25).fill(0).map(()=>Math.random()>0.5?1:0);window._loMoves=0;renderLO();}
+function gameLightsOut(){window._loGrid=Array(25).fill(0).map(()=>Math.random()>0.5?1:0);window._loMoves=0;window._loWonFlag=false;renderLO();}
 function loClick(i){
   var g=window._loGrid;window._loMoves++;
   var r=Math.floor(i/5),c=i%5;
   [[0,0],[-1,0],[1,0],[0,-1],[0,1]].forEach(([dr,dc])=>{const nr=r+dr,nc=c+dc;if(nr>=0&&nr<5&&nc>=0&&nc<5)g[nr*5+nc]^=1;});
   renderLO();
+}
+/* FIX (Round 14, Aug 2026): missing function -- see note above gameLightsOut(). */
+function renderLO(){
+  var g=window._loGrid;
+  var el=gw();if(!el)return;
+  var onCount=g.reduce(function(a,v){return a+v;},0);
+  var won=(onCount===0);
+  var h='<div style="text-align:center;">';
+  h+='<div style="font-size:16px;font-weight:800;color:#fff;margin-bottom:6px;">💡 Lights Out</div>';
+  h+='<div style="font-size:12px;color:rgba(255,255,255,.6);margin-bottom:10px;">Moves: <b style="color:#fff;">'+window._loMoves+'</b></div>';
+  h+='<div id="lo-grid" style="display:inline-grid;grid-template-columns:repeat(5,52px);grid-template-rows:repeat(5,52px);gap:6px;background:rgba(0,0,0,.25);padding:8px;border-radius:12px;'+(won?'pointer-events:none;':'')+'">';
+  for(var i=0;i<25;i++){
+    var on=g[i]===1;
+    h+='<div class="gnw-cell3d gnw-cell3d-wood" onclick="loClick('+i+')" style="border-radius:8px;cursor:pointer;background:'+(on?'#fbbf24':'rgba(255,255,255,.08)')+';"></div>';
+  }
+  h+='</div>';
+  if(won){
+    h+='<div style="margin-top:14px;font-size:16px;font-weight:800;color:#4ade80;">🎉 All lights out in '+window._loMoves+' moves!</div>';
+    h+='<button class="btn" onclick="gameLightsOut()" style="margin-top:10px;">🔁 Play Again</button>';
+  }
+  h+='</div>';
+  el.innerHTML=h;
+  if(won && !window._loWonFlag){
+    window._loWonFlag=true;
+    try{ playSound('win'); if(typeof launchConfetti==='function') launchConfetti(30); earnXP(20,'Lights Out'); }catch(e){}
+  }
 }
 
 /* FLAPPY BIRD */
@@ -7872,7 +8070,7 @@ var GAMES_NAMES = {
   chess:'Chess Puzzles',tetris:'Tetris',flappy:'Flappy Bird',
   colormatch:'Color Match',simon:'Simon Says',memory:'Memory Cards',
   patternmem:'Pattern Memory',mineshard:'Minesweeper Hard',
-  breakout:'Breakout',lightsout:'Lights Out',memhard:'Memory Pro'
+  breakout:'Breakout',lightsout:'Lights Out',memhard:'Memory Pro',flagmahjong:'Flag Mahjong'
 };
 
 
@@ -7880,6 +8078,154 @@ var GAMES_NAMES = {
 var MEM_EMOJIS=['🎮','⚡','🌟','🎯','🔥','💎','🏆','🎪','🎭','🎨',
   '🎵','🎸','🦄','🐉','🌈','🚀','🌙','⭐','🎲','🃏',
   '🦁','🐯','🦊','🐺','🐸','🦋','🌺','🍕','🍦','🎃'];
+
+/* FIX (Round 14, Aug 2026): user sent a Mahjong-style flag-tile screenshot
+   and asked for something similar -- nothing like it existed in the
+   catalog. Classic tile-connect rules: click two identical flag tiles
+   that can be joined by a straight line bending at most twice, through
+   empty space only (including the space just off the board edge).
+   Auto-reshuffles remaining tiles whenever no legal move is left, so the
+   puzzle can never get stuck -- no complex "guaranteed solvable" board
+   generator needed. */
+function mahjCanConnect(cells,ROWS,COLS,idxA,idxB){
+  var W=COLS+2,H=ROWS+2;
+  var savedA=cells[idxA],savedB=cells[idxB];
+  cells[idxA]=null;cells[idxB]=null;
+  var rA=Math.floor(idxA/W),cA=idxA%W,rB=Math.floor(idxB/W),cB=idxB%W;
+  var DIRS=[[-1,0],[0,1],[1,0],[0,-1]];
+  var visited={};
+  var queue=[];
+  for(var d=0;d<4;d++) queue.push({r:rA,c:cA,dir:d,turns:0});
+  var found=false;
+  while(queue.length){
+    var cur=queue.shift();
+    var nr=cur.r+DIRS[cur.dir][0],nc=cur.c+DIRS[cur.dir][1];
+    if(nr<0||nr>=H||nc<0||nc>=W) continue;
+    if(nr===rB&&nc===cB){ found=true; break; }
+    var ni=nr*W+nc;
+    if(cells[ni]!==null&&cells[ni]!==undefined) continue;
+    var keyS=nr+','+nc+','+cur.dir;
+    if(!visited[keyS]){
+      visited[keyS]=true;
+      queue.push({r:nr,c:nc,dir:cur.dir,turns:cur.turns});
+    }
+    if(cur.turns<2){
+      for(var d2=0;d2<4;d2++){
+        if(d2===cur.dir) continue;
+        var key2=nr+','+nc+','+d2;
+        if(!visited[key2]){
+          visited[key2]=true;
+          queue.push({r:nr,c:nc,dir:d2,turns:cur.turns+1});
+        }
+      }
+    }
+  }
+  cells[idxA]=savedA;cells[idxB]=savedB;
+  return found;
+}
+function gameFlagMahjong(){
+  _LVL.init('flagmahjong',40);
+  var level=_LVL.level;
+  var ROWS=level<=10?4:(level<=25?5:6);
+  var COLS=level<=10?4:6;
+  var TOTAL=ROWS*COLS;
+  if(TOTAL%2!==0){COLS++;TOTAL=ROWS*COLS;}
+  var PAIRS=TOTAL/2;
+  var W=COLS+2;
+  var pool=FLAGS.map(function(f){return f[0];});
+  var vals=[];
+  for(var i=0;i<PAIRS;i++) vals.push(pool[i%pool.length]);
+  var deck=shuffle(vals.concat(vals));
+  var cells=new Array(W*(ROWS+2)).fill(null);
+  var k=0;
+  for(var r=1;r<=ROWS;r++) for(var c=1;c<=COLS;c++){ cells[r*W+c]=deck[k]; k++; }
+  var selected=null,score=0,msg='';
+
+  function remaining(){
+    var out=[];
+    for(var idx=0;idx<cells.length;idx++) if(cells[idx]!==null) out.push(idx);
+    return out;
+  }
+  function hasAnyMove(rem){
+    for(var i=0;i<rem.length;i++) for(var j=i+1;j<rem.length;j++){
+      if(cells[rem[i]]===cells[rem[j]] && mahjCanConnect(cells,ROWS,COLS,rem[i],rem[j])) return true;
+    }
+    return false;
+  }
+  function render(){
+    var g=gw();if(!g)return;
+    var h=_LVL.renderHeader('🀄 Flag Mahjong','#fbbf24');
+    var rem=remaining();
+    h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-weight:700;">';
+    h+='<span style="color:rgba(255,255,255,.7);font-size:13px;">Score: <b style="color:#fff;">'+score+'</b></span>';
+    h+='<span style="color:rgba(255,255,255,.7);font-size:13px;">Tiles left: <b style="color:#4ade80;">'+rem.length+'</b></span>';
+    h+='</div>';
+    h+='<div id="fm-grid" style="display:grid;grid-template-columns:repeat('+COLS+',1fr);gap:5px;width:100%;max-width:480px;margin:0 auto;justify-content:center;">';
+    for(var r=1;r<=ROWS;r++) for(var c=1;c<=COLS;c++){
+      var idx=r*W+c;
+      var val=cells[idx];
+      if(val===null){ h+='<div style="aspect-ratio:1;"></div>'; }
+      else{
+        var isSel=(idx===selected);
+        h+='<div class="gnw-cell3d gnw-cell3d-ivory'+(isSel?' gnw-cell3d-selected':'')+'" onclick="fmClick('+idx+')" style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:22px;border-radius:8px;cursor:pointer;-webkit-tap-highlight-color:transparent;">'+val+'</div>';
+      }
+    }
+    h+='</div>';
+    if(msg) h+='<div style="margin-top:10px;text-align:center;font-size:13px;color:#fbbf24;font-weight:700;">'+msg+'</div>';
+    g.innerHTML=h;
+    /* Same height-aware fit-to-one-screen pattern hardened in Rounds
+       10-11 for Memory Cards/Memory Pro -- deferred one frame via
+       requestAnimationFrame so this never causes a forced reflow. */
+    var _fg=document.getElementById('fm-grid');
+    var _fc=g.querySelectorAll('[onclick^="fmClick("]');
+    if(_fg&&_fc.length){
+      requestAnimationFrame(function(){
+        var rect=_fg.getBoundingClientRect();
+        var gap=5;
+        var availW=Math.min(rect.width,480);
+        var availH=Math.max(140,window.innerHeight-rect.top-28);
+        var cellW=(availW-gap*(COLS-1))/COLS;
+        var cellH=(availH-gap*(ROWS-1))/ROWS;
+        var cell=Math.max(30,Math.min(cellW,cellH));
+        _fg.style.gridTemplateColumns='repeat('+COLS+','+cell+'px)';
+        _fc.forEach(function(el){el.style.width=cell+'px';el.style.height=cell+'px';});
+        var fs=Math.max(16,Math.min(30,Math.round(cell*0.5)));
+        _fc.forEach(function(el){el.style.fontSize=fs+'px';});
+      });
+    }
+  }
+  window.fmClick=function(idx){
+    if(cells[idx]===null||cells[idx]===undefined) return;
+    if(selected===null){ selected=idx; msg=''; render(); return; }
+    if(selected===idx){ selected=null; render(); return; }
+    var a=selected,b=idx;
+    if(cells[a]===cells[b] && mahjCanConnect(cells,ROWS,COLS,a,b)){
+      cells[a]=null;cells[b]=null;selected=null;score+=10;msg='';
+      playSound('score');
+      render();
+      var rem=remaining();
+      if(rem.length===0){
+        earnXP(70,'Flag Mahjong');
+        _LVL.win(70);
+        showMotivationWin(70,'Flag Mahjong',true);
+        return;
+      }
+      if(!hasAnyMove(rem)){
+        var vals2=shuffle(rem.map(function(i){return cells[i];}));
+        rem.forEach(function(i,j){cells[i]=vals2[j];});
+        msg='🔀 No moves left — reshuffled!';
+        playSound('pop');
+        render();
+      }
+    } else {
+      playSound('click');
+      selected=idx;
+      render();
+    }
+  };
+  render();
+}
+
 function shuffle(arr){
   var a=arr.slice();
   for(var i=a.length-1;i>0;i--){
@@ -7914,6 +8260,7 @@ GAMES.blockpuzzle=gameBlockPuzzle;
 GAMES.colorjoy=gameColorJoy;
 GAMES.minirace=gameMiniRace;
 GAMES.parkingpuzzle=gameParkingPuzzle;
+GAMES.flagmahjong=gameFlagMahjong;
 GAMES.triviarush=gameTriviaRush;
 
 /* =========================================================
@@ -8317,7 +8664,7 @@ function gameBlockPuzzle(){
     var accent='#a78bfa';
     var grid='<div id="bp-grid" style="display:grid;grid-template-columns:repeat('+N+',28px);grid-template-rows:repeat('+N+',28px);gap:2px;background:rgba(0,0,0,.2);border-radius:10px;padding:6px;margin:0 auto;">';
     for(var r=0;r<N;r++) for(var c=0;c<N;c++){
-      grid+='<div class="bp-cell" data-r="'+r+'" data-c="'+c+'" style="border-radius:4px;background:'+(board[r][c]?accent:'rgba(255,255,255,.06)')+';"></div>';
+      grid+='<div class="bp-cell gnw-cell3d gnw-cell3d-wood" data-r="'+r+'" data-c="'+c+'" style="border-radius:4px;background:'+(board[r][c]?accent:'rgba(255,255,255,.06)')+';"></div>';
     }
     grid+='</div>';
     var trayHtml='<div style="display:flex;justify-content:center;gap:14px;margin-top:14px;">'
