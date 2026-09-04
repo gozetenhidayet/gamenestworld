@@ -518,3 +518,32 @@ Yine 12. turdaki gibi mantık: 59 oyunun kodunu tek tek değiştirmek yerine, or
 - **Gerçek mp3 müzik eklemedim** — sen de "kod ile üretilen sesleri zenginleştir" seçeneğini seçtin; gerçek müzik dosyası eklemek için bana telifsiz dosyaları senin yüklemen gerekir (ben internetten müzik indiremem).
 - **Geometry Dash/Gimkit tarzı platform oyunu eklemedim** — bunlar gerçek karakter sprite'ları ve ses dosyaları gerektiriyor, bu sitenin "her şey tek HTML dosyasında, hiçbir dış kaynak yok" mimarisiyle temelden uyuşmuyor. İstersen bunu ayrı, daha büyük bir proje olarak konuşabiliriz.
 - **Bayrak Mahjong'un tüm 24 dile çevirisini eklemedim** — sadece İngilizce metin var; diğer dillerde oynarken oyun adı/açıklaması İngilizce görünecek. Diğer 59 oyunun hepsi zaten çevrilmişti, bu tek yeni oyun için 24 dilin hepsine çeviri eklemek bu turun kapsamını çok büyütürdü — istersen ayrı bir istek olarak ekleyebilirim.
+
+---
+
+## 19. On Beşinci Tur — "Her kelimesine her sözüne keywords SEO oluştur, aramalarda en üstte çıksın"
+
+Önce dürüst olmam gereken bir nokta var, çünkü bunu söylemeden yapılan işi anlatmak yanıltıcı olur: **hiç kimse — ben dahil — bir sayfanın Google'da "en üstte" çıkacağını garanti edemez.** Bir sayfanın sıralaması üç şeyin toplamına bağlı: (1) sayfanın kendi içeriği ve teknik SEO'su — bu benim etkileyebileceğim tek kısım ve bu turda tamamen buna odaklandım; (2) siteye kaç ve ne kalitede başka sitelerin bağlantı verdiği (backlink); (3) o arama kelimesi için rakiplerin ne kadar güçlü olduğu. İkinci ve üçüncü madde bu HTML dosyasının dışında, ve zamanla (aylar) organik olarak oluşur. Yani bu turda yaptığım şey "garanti bir numara" değil, sayfanın KENDİ içindeki gerçek ve somut eksikleri kapatmak — ki bunlardan biri gerçekten ciddiydi.
+
+### Bulduğum gerçek eksikler
+
+Kod tabanını satır satır tarayarak (varsayımla değil) 4 somut eksik buldum:
+
+1. **Sayfada hiç `<h1>` etiketi yoktu.** Sıfır. Google'ın bir sayfanın "ana konusu ne" diye baktığı en önemli tek sinyallerden biri budur, ve bu site hiç kullanmıyordu — sadece `<h2>` bölüm başlıkları vardı (Quiz Games, Word Games vs.), ana bir başlık hiç yoktu. Bunu, zaten var olan tanıtım kartının içine, tasarımı hiç bozmadan (sadece bir satır ekleyerek) "Free Online Games — Play 60 Free Browser Games Instantly, No Download" başlığıyla ekledim.
+2. **`<meta name="keywords">` etiketi 60 oyunun sadece ~15 tanesini isimle içeriyordu**, geri kalan 45 oyun (Bayrak Mahjong, Anagram, Cipher Decode, Lights Out, Simon Says, Color Match, Breakout, Block Puzzle World gibi) hiç geçmiyordu. Bunu, sitenin zaten her yerde kullandığı aynı oyun-adı veritabanından otomatik üreterek tamamladım — hiçbir isim uydurmadım, hepsi sitenin kendi verisi. (Not: Google 2009'dan beri bu etiketi sıralama için hiç kullanmıyor — bunu dürüstçe belirtmek istedim, boşuna büyük bir SEO hamlesi gibi sunmayayım. Yine de bazı küçük arama motorları ve dahili arama araçları hâlâ okuyabiliyor, o yüzden zararı yok, sadece abartılı bir fayda beklenmemeli.)
+3. **Sosyal medya paylaşım görseli (og:image / twitter:image) hiç yoktu.** Birisi linki WhatsApp'ta, Twitter'da ya da Facebook'ta paylaştığında kart resimsiz/boş görünüyordu. Sitenin zaten sahip olduğu `icon-512.png` dosyasını bu görsel olarak bağladım — yeni dosya gerekmedi, sıfır risk. Dürüst olmak gerekirse bu bir uygulama ikonu (kare), paylaşım kartları için ideal olan 1200×630 boyutunda, oyunlardan görseller içeren özel tasarlanmış bir banner çok daha iyi tıklanma oranı sağlar — istersen onu ayrıca tasarlayabilirim.
+4. **60 oyunun hiçbiri için yapılandırılmış veri (schema.org) yoktu.** Bu turun en değerli eklemesi: her 60 oyun için ayrı ayrı, makine tarafından okunabilir "VideoGame" verisi ekledim (isim, açıklama, tür, ücretsiz olduğu bilgisi) — Google artık bu sitenin "60 ayrı oyunu olan bir oyun kütüphanesi" olduğunu, ve her oyunun ne olduğunu doğrudan anlayabiliyor, sadece tek bir genel ana sayfa olarak değil. Bu, ileride Google'ın arama sonuçlarında tekil oyunları zengin sonuç (rich result) olarak göstermesi için gereken temel altyapı.
+
+### Bilerek yapmadığım bir şey — ve nedeni
+
+60 oyunun her birinin `?play=oyunadı` adresini sitemap.xml'e ekleyip, her birine kendi kanonik etiketini vermeyi (17. bölümde `?lang=` için yaptığım gibi) düşündüm, çünkü kulağa mantıklı geliyor: "her oyun kendi sayfası gibi indekslensin." Ama kodu incelerken şunu buldum: sitenin kendi `?play=` linki, oyunu açar açmaz `history.replaceState` ile adres çubuğunu hemen `/`'ye geri döndürüyor — yani bu URL'ler kasıtlı olarak kalıcı/ayrı sayfalar olarak tasarlanmamış, sadece "doğru oyunu otomatik aç" için bir anlık yönlendirme. Bu URL'leri sitemap'e ekleyip ayrı indekslemeye çalışsaydım, büyük ihtimalle 17. bölümde çözdüğüm "uygun kanonik etiketli alternatif sayfa" sorununu — bu sefer dil yerine oyun sayfaları için — yeniden yaratmış olurdum. Bunu sessizce atlamak yerine burada açıkça yazıyorum: bu gerçek bir büyüme fırsatı ama önce `?play=` linklerinin adres çubuğunu değiştirme davranışının kasıtlı olarak değiştirilmesi gerekiyor — bu SEO turuna sessizce sıkıştırılacak küçük bir şey değil, ayrı bir karar ve test gerektiren bir değişiklik.
+
+Ayrıca görünür metne (giriş paragrafı gibi) zorla anahtar kelime doldurmadım — Google'ın kendi resmi kuralları doğal olmayan anahtar kelime yığılmasını olumlu değil olumsuz bir sinyal olarak değerlendiriyor, o yüzden mevcut metin zaten oyun isimlerini doğal şekilde geçiyorsa (ki geçiyordu) oraya dokunmadım.
+
+### Bu turda yapılan testler
+- Tam pipeline sıfırdan yeniden derlendi (24 script, sıfır hata); JS sözdizimi kontrolü: sıfır hata.
+- Sitedeki 6 `<script type="application/ld+json">` bloğunun (yenisi dahil) hepsinin geçerli JSON olduğu doğrulandı.
+- 60 oyunun otomatik hata taraması tekrar çalıştırıldı: sıfır konsol hatası.
+- Gerçek tarayıcıda ölçüldü: sayfada tam olarak 1 tane `<h1>` var, doğru metinle, gerçekten görünür (opacity/visibility/display kontrol edildi); `og:image`/`twitter:image` doğru URL'i içeriyor; anahtar kelimeler etiketi 60 oyunun hepsini içeriyor (Bayrak Mahjong dahil); yapılandırılmış veri gerçekten 60 "VideoGame" kaydı içeriyor, her biri doğru isim/açıklama/tür/URL ile.
+- Ekran görüntüsüyle yeni başlığın (H1) sayfada gerçekten, tasarımı bozmadan, doğal göründüğü doğrulandı.
+- 10., 12., 14. tur ve kanonik-etiket testlerinin TAMAMI tekrar çalıştırıldı — hepsi hâlâ geçiyor, bu turun değişiklikleri hiçbir önceki düzeltmeyi bozmadı.
