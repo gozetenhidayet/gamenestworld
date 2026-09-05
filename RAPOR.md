@@ -615,3 +615,48 @@ Bunun yerine aynı hedefe (Google'ın her yeni sayfaya gerçek bir bağlantı ü
 ### Yükleme hakkında önemli not
 
 Önceki turların ZIP dosyaları hep düz bir dosya listesiydi (index.html, about.html, vs.) — bunları GitHub'ın "Add file → Upload files" ekranına tek tek veya hepsini birden sürükleyip bırakman yeterliydi. **Bu ZIP farklı**: içinde `games/` (60 alt klasör), `quiz-games/`, `word-games/`, `math-games/`, `classic-games/`, `memory-games/` klasörleri ve bir `game-images/` klasörü var — yani gerçek bir klasör yapısı. GitHub'ın web arayüzü klasör sürükle-bırakmayı destekliyor (modern bir tarayıcıda ZIP'i açıp tüm `games` klasörünü GitHub'ın "Upload files" sayfasına sürüklemen yeterli, GitHub içindeki dosya yollarını otomatik koruyor) ama bu, önceki turlardan daha fazla dikkat gerektiriyor. Adımlar: 1) ZIP'i bilgisayarında bir klasöre çıkar, 2) GitHub reponda "Add file → Upload files" sayfasını aç, 3) çıkardığın klasörün İÇİNDEKİ her şeyi (tek tek dosyalar + `games`, `quiz-games` vb. klasörlerin hepsi) aynı anda sürükleyip bırak, 4) "Commit changes" ile onayla. Eğer GitHub'ın web arayüzü klasör sürüklemeyi kabul etmezse (bazı tarayıcılarda kısıtlı olabiliyor), bana haber ver, dosyaları GitHub'ın klasör yapısını taklit eden farklı bir şekilde (örneğin tire ile birleştirilmiş dosya adları + sunucu tarafı yönlendirme) yeniden paketleyebilirim — ama bu, URL'lerin SEO açısından biraz daha az temiz olmasına neden olur, o yüzden önce klasör yüklemeyi denemeni öneririm.
+
+---
+
+## 21. On Yedinci Tur — Block Puzzle World: gerçek parmak sürükleme, combo, best score
+
+Referans ekran görüntülerinle birlikte gönderdiğin çok detaylı değerlendirmeye cevap. Haklıydın: eski Block Puzzle "parçaya dokun → hücreye dokun" mantığındaydı, gerçek bir mobil Block Blast oyunu gibi hissettirmiyordu. Listende 10 oyun/sistem önerdin; sorduğumda "sadece Block Puzzle World'ü gerçek Block Blast kalitesine getir" dedin — bilerek, 6 şeyi yarım yapmak yerine tek oyunu gerçekten doğru yapmak için. Bu turda tam olarak bunu yaptım; oyunun etkileşim modelini baştan yazdım.
+
+### Neler değişti
+
+**Gerçek parmak/mouse sürükleme (madde 1-3)** — Artık bir parçaya dokunup tutuyorsun, parça hemen yukarı kalkıyor (parmağının onu kapatmaması için), ve parmağınla birlikte hareket ediyor. Bunu tarayıcının Pointer Events API'siyle yazdım — aynı kod hem dokunmatik ekranda hem fare ile masaüstünde çalışıyor.
+
+**Canlı önizleme (madde 4-6)** — Parçayı board üzerinde gezdirirken, yerleşebileceği hücreler yeşil parlayarak, yerleşemeyeceği hücreler kırmızı parlayarak önceden gösteriliyor — bırakmadan önce tam olarak nereye oturacağını görüyorsun. Geçersiz bir yere bırakırsan parça küçülüp titreyerek tepsisine geri dönüyor.
+
+**Yerleşme ve temizlenme animasyonları (madde 7-8)** — Parça bırakıldığında board'daki hedef hücrelere doğru gerçek bir "snap" animasyonuyla oturuyor. Bir satır/sütun tamamlandığında hemen silinmiyor — önce parlayıp küçülerek kısa bir patlama animasyonu oynuyor, sonra temizleniyor.
+
+**Combo sistemi (madde 9-10)** — Tek seferde kaç satır/sütun temizlediğine göre "Nice!", "Great!", "Amazing!", "Perfect!" yazıları beliriyor; art arda temizleyen hamlelerde bir "combo çarpanı" skoru artırıyor ("x2 COMBO!" gibi). Bunu uygularken gerçek bir hata buldum ve düzelttim: ilk yazdığım kodda bu combo yazısı ve uçan skor animasyonu, hemen ardından çalışan ekran yenileme kodu tarafından fark edilmeden anında siliniyordu — yani oyuncu onu hiçbir zaman gerçekten GÖRMEYECEKTİ. Bunu otomatik testlerimde (aşağıda anlatıyorum) yakalayıp sırasını düzelttim.
+
+**Best Score (madde 11-12)** — Skor kutusunun yanında "🏆 Best" kutusu var, tarayıcının kendi hafızasında (localStorage) kalıcı olarak saklanıyor — siteyi kapatıp tekrar açsan bile en yüksek skorun orada duruyor.
+
+**Uçan skor animasyonu ve haptic (madde 13-14)** — Her yerleştirmede "+4", satır temizlenince "+40" gibi sayılar yukarı doğru süzülüp kayboluyor. Telefonlarda titreşim (haptic) desteği de var — bir parça yerleşince hafif, satır temizlenince biraz daha belirgin bir titreşim.
+
+**Daha fazla parça ve renk çeşitliliği (madde 15-16)** — Eski sürümde 8 parça şekli vardı; şimdi 25 şekil var (5'e kadar uzun düz çizgiler, L/J köşe parçalarının farklı yönleri, S/Z, T, artı şekli). Her parça artık sabit tek bir renk yerine 8 canlı renkten rastgele biriyle geliyor.
+
+**Daha gerçekçi görünüm (madde 17-18)** — Dolu hücreler gerçek bir cilalı/kabartmalı 3D görünüm kullanıyor (14. turda eklediğim paylaşılan stil sistemiyle); boş hücreler artık düz gri kare değil, hafif çukurlaşmış "yuva" görünümünde — referans görsellerindeki gibi.
+
+**Parça dağıtım kuralları (madde 19-20)** — Yeni 3 parçalık set, eskisi gibi bir parça biter bitmez değil, üçü de kullanıldıktan SONRA geliyor — gerçek Block Blast kuralı bu. Ayrıca yeni bir set üretilirken board'un mevcut durumuna bakıp en az bir parçanın gerçekten yerleştirilebilir olduğunu garantiliyorum (25 denemeye kadar), ve board doluluğu %55'i geçtiğinde daha küçük parçalara ağırlık veriyorum — bu sayede oyun "ilk elden imkansız" bir set yüzünden haksız yere bitmiyor.
+
+### Bu turda yapılan testler ve bulunan gerçek bir hata
+
+- Tam pipeline sıfırdan derlendi, iki kez art arda çalıştırılıp idempotent olduğu (sitemap kopyalanmadığı) doğrulandı; JS sözdizimi ve JSON-LD kontrolleri sıfır hata verdi.
+- 60 oyunun otomatik hata taraması tekrar çalıştırıldı: sıfır konsol hatası.
+- **Gerçek fare/parmak sürükleme simülasyonu ile** (tıklama değil, gerçek "bas → hareket ettir → bırak" hareketleriyle) test yazdım: parça gerçekten board'a taşınıyor, skor artıyor mu diye doğrulandı.
+- Geçersiz bir yere bırakma testi: skorun değişmediği, parçanın tepsiye geri döndüğü doğrulandı.
+- **Satır temizleme + combo testinde gerçek bir hata yakaladım**: yukarıda anlattığım gibi, combo yazısı ve uçan skor metni koda eklendiği hâlde hiçbir zaman görünmüyordu, çünkü hemen arkasından çalışan ekran-yenileme kodu onları sildiği. Testte "combo yazısı hiç görünmüyor" sonucunu aldığımda kodu tekrar inceleyip sırayı düzelttim, testi tekrar çalıştırıp gerçekten göründüğünü doğruladım.
+- İlk yazdığım "parçayı kaldırma" mesafesi (parmağın parçayı ne kadar yukarı kaldırdığı) çok büyüktü ve board'un en üst satırına bırakmayı neredeyse imkansız hâle getiriyordu — bunu da test sırasında fark edip daha makul bir değere düşürdüm.
+- Best score'un tarayıcı hafızasından doğru yüklendiği doğrulandı.
+- Gerçek ekran görüntüleri alındı: boş board (yuva görünümü + renkli parçalar) ve sürükleme sırasındaki yeşil önizleme + kaldırılmış parça — ikisi de referans görsellerine belirgin şekilde daha yakın.
+- 10., 12., 14. tur, kanonik-etiket ve 16. turun SEO sayfası testlerinin TAMAMI tekrar çalıştırıldı — hepsi hâlâ geçiyor.
+- Block Puzzle World'ün SEO sayfasındaki (`/games/block-puzzle-world/`) ekran görüntüsü, yeni görünümü yansıtacak şekilde yeniden çekildi.
+
+### Bilerek yapmadığım şeyler (ve nedeni)
+
+- **Diğer 5 madde (Parking Puzzle düzeltmesi, Flag Mahjong'un 3D kuleye çevrilmesi, 3 yeni oyun, site geneli haptic/combo/save standardizasyonu)** — sen de sorduğumda net şekilde "sadece Block Puzzle World" dedin. Bunlar sırada bekliyor; istediğin zaman hangisiyle devam edeceğimizi söyleyebilirsin.
+- **Ahşap doku görünümünü kaldırdım** — 14. turda Block Puzzle'a eklediğim ahşap doku yerine artık her parça kendi rengiyle geliyor (referans görsellerindeki gibi canlı/candy-renk blok görünümü). Bu bilinçli bir değişiklik: ahşap tek renkli doku, parça çeşitliliğini göstermeye uygun değildi.
+- **"Undo" veya "Hint" eklemedim** — bunlar senin listende yoktu (gerçek Block Blast oyunlarında da genelde olmuyor, bu tarz oyunlar genelde geri alma içermez); istersen ayrı bir istek olarak ekleyebilirim.
