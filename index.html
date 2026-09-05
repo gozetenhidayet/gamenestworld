@@ -975,6 +975,27 @@ footer::before{display:none !important;}
     0 0 0 3px #fbbf24,
     0 0 14px 3px rgba(251,191,36,.7) !important;
 }
+
+/* ---- Block Puzzle World v2 (Round 17): real drag & drop, combo, best score ---- */
+.bp-cell{transition:background .12s;}
+.bp-cell-empty{background:rgba(255,255,255,.045);box-shadow:inset 0 2px 6px rgba(0,0,0,.45), inset 0 -1px 0 rgba(255,255,255,.03);}
+.bp-cell-filled{box-shadow:inset 0 2px 0 rgba(255,255,255,.35), inset 0 -3px 4px rgba(0,0,0,.28), inset 2px 0 0 rgba(255,255,255,.10), inset -2px 0 0 rgba(0,0,0,.12);}
+.bp-cell-pop{animation:bpPop .22s ease;}
+@keyframes bpPop{0%{transform:scale(.5);}60%{transform:scale(1.12);}100%{transform:scale(1);}}
+.bp-cell-clearing{animation:bpClear .26s ease forwards;}
+@keyframes bpClear{0%{filter:brightness(1);transform:scale(1);opacity:1;}40%{filter:brightness(2.2);}100%{filter:brightness(2.2);transform:scale(.25);opacity:0;}}
+.bp-preview-ok{box-shadow:0 0 0 2px #4ade80,0 0 14px 3px rgba(74,222,128,.7) !important;background:rgba(74,222,128,.4) !important;}
+.bp-preview-bad{box-shadow:0 0 0 2px #f87171,0 0 14px 3px rgba(248,113,113,.55) !important;background:rgba(248,113,113,.3) !important;}
+.bp-tray-slot{position:relative;transition:opacity .15s;touch-action:none;}
+.bp-tray-slot.bp-dragging-src{opacity:.22;}
+.bp-tray-slot.bp-shake{animation:bpShake .38s ease;}
+@keyframes bpShake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
+.bp-ghost{position:fixed;left:0;top:0;pointer-events:none;z-index:4000;}
+.bp-ghost.bp-ghost-snap{transition:left .13s ease,top .13s ease,transform .13s ease,opacity .13s ease;}
+.bp-combo-text{position:absolute;top:36%;transform:translate(-50%,-50%) scale(.5);font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:clamp(18px,6.5vw,30px);color:#fbbf24;text-shadow:0 2px 12px rgba(0,0,0,.65),0 0 22px rgba(251,191,36,.75);pointer-events:none;z-index:20;animation:bpComboPop .9s ease forwards;white-space:nowrap;}
+@keyframes bpComboPop{0%{opacity:0;transform:translate(-50%,-50%) scale(.4);}20%{opacity:1;transform:translate(-50%,-50%) scale(1.15);}40%{transform:translate(-50%,-50%) scale(1);}78%{opacity:1;}100%{opacity:0;transform:translate(-50%,-62%) scale(1.05);}}
+.bp-score-float{position:absolute;top:46%;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;color:#fde68a;text-shadow:0 2px 6px rgba(0,0,0,.6);pointer-events:none;z-index:19;animation:bpFloatUp .8s ease forwards;}
+@keyframes bpFloatUp{0%{opacity:0;transform:translateX(-50%) translateY(0);}18%{opacity:1;}100%{opacity:0;transform:translateX(-50%) translateY(-42px);}}
 @keyframes motivSlideUp{ from{transform:translateY(40px);opacity:0;} to{transform:translateY(0);opacity:1;} }
 @keyframes starPop     { from{transform:scale(0) rotate(-30deg);opacity:0;} to{transform:scale(1) rotate(0);opacity:1;} }
 @keyframes xpPulse     { 0%,100%{box-shadow:0 0 0 0 rgba(251,191,36,.4);} 50%{box-shadow:0 0 0 8px rgba(251,191,36,0);} }
@@ -8643,20 +8664,43 @@ var _BP_SHAPES = [
   [[0,0]],
   [[0,0],[0,1]],
   [[0,0],[1,0]],
-  [[0,0],[0,1],[1,0],[1,1]],
   [[0,0],[0,1],[0,2]],
   [[0,0],[1,0],[2,0]],
+  [[0,0],[0,1],[1,0],[1,1]],
+  [[0,0],[0,1],[0,2],[0,3]],
+  [[0,0],[1,0],[2,0],[3,0]],
+  [[0,0],[0,1],[0,2],[0,3],[0,4]],
+  [[0,0],[1,0],[2,0],[3,0],[4,0]],
+  [[0,0],[0,1],[1,0]],
+  [[0,0],[0,1],[1,1]],
+  [[0,0],[1,0],[1,1]],
+  [[1,0],[0,0],[0,1]],
+  [[0,0],[1,0],[2,0],[2,1]],
+  [[0,0],[0,1],[0,2],[1,0]],
+  [[0,0],[0,1],[1,1],[2,1]],
+  [[1,0],[1,1],[1,2],[0,2]],
+  [[0,1],[1,1],[2,1],[2,0]],
+  [[0,0],[1,0],[1,1],[1,2]],
+  [[0,1],[0,2],[1,0],[1,1]],
   [[0,0],[0,1],[1,1],[1,2]],
-  [[0,0],[0,1],[0,2],[1,0]]
+  [[0,0],[0,1],[0,2],[1,1]],
+  [[0,1],[1,0],[1,1],[2,1]],
+  [[0,1],[1,0],[1,1],[1,2],[2,1]]
 ];
+var _BP_COLORS = ['#f472b6','#facc15','#4ade80','#60a5fa','#c084fc','#fb923c','#2dd4bf','#f87171'];
+var _BP_BEST_KEY = 'gnw_bp_best';
+
 function gameBlockPuzzle(){
   var g=gw(); if(!g) return;
-  var N=8;
-  var board=[]; for(var r=0;r<N;r++){ board.push(new Array(N).fill(false)); }
-  var tray=[]; var selected=null; var score=0; var over=false;
+  var N=8, GAP=3;
+  var board=[]; for(var r=0;r<N;r++){ board.push(new Array(N).fill(null)); }
+  var tray=[null,null,null];
+  var score=0, best=+(localStorage.getItem(_BP_BEST_KEY)||0), over=false, comboStreak=0;
+  var cellPx=32;
+  var drag=null;
 
-  function randomPiece(){ return _BP_SHAPES[Math.floor(Math.random()*_BP_SHAPES.length)]; }
-  function refillTray(){ while(tray.length<3) tray.push(randomPiece()); }
+  function randColor(){ return _BP_COLORS[Math.floor(Math.random()*_BP_COLORS.length)]; }
+  function shapeBox(shape){ var maxR=0,maxC=0; shape.forEach(function(o){maxR=Math.max(maxR,o[0]);maxC=Math.max(maxC,o[1]);}); return {maxR:maxR,maxC:maxC}; }
 
   function canPlace(shape,r0,c0){
     for(var i=0;i<shape.length;i++){
@@ -8669,92 +8713,311 @@ function gameBlockPuzzle(){
     for(var r=0;r<N;r++) for(var c=0;c<N;c++) if(canPlace(shape,r,c)) return true;
     return false;
   }
-  function checkGameOver(){
-    for(var i=0;i<tray.length;i++) if(anyPlacement(tray[i])) return false;
-    return true;
-  }
+  function countFilled(){ var n=0; for(var r=0;r<N;r++)for(var c=0;c<N;c++) if(board[r][c]) n++; return n; }
 
-  function place(shape,r0,c0){
-    shape.forEach(function(o){ board[r0+o[0]][c0+o[1]]=true; });
-    score+=shape.length;
-    var full=[];
-    for(var r=0;r<N;r++){ var f=true; for(var c=0;c<N;c++) if(!board[r][c]) f=false; if(f) full.push(['r',r]); }
-    for(var c=0;c<N;c++){ var f=true; for(var r=0;r<N;r++) if(!board[r][c]) f=false; if(f) full.push(['c',c]); }
-    if(full.length){
-      full.forEach(function(line){
-        if(line[0]==='r'){ for(var c=0;c<N;c++) board[line[1]][c]=false; }
-        else { for(var r=0;r<N;r++) board[r][line[1]]=false; }
-      });
-      score += full.length*N;
-      playSound('win');
-    } else {
-      playSound('pop');
+  function pieceSet(){
+    var fillRatio = countFilled()/(N*N);
+    var pool = _BP_SHAPES;
+    var small = pool.filter(function(s){return s.length<=4;});
+    var picks=[];
+    for(var i=0;i<3;i++){
+      var src = (fillRatio>0.55 && small.length) ? small : pool;
+      picks.push(src[Math.floor(Math.random()*src.length)]);
     }
+    return picks;
   }
-
-  function cellClick(r,c){
-    if(over||selected==null) return;
-    var shape=tray[selected];
-    if(!canPlace(shape,r,c)){ playSound('click'); return; }
-    place(shape,r,c);
-    tray.splice(selected,1);
-    selected=null;
-    refillTray();
-    if(checkGameOver()){
-      over=true;
-      render();
-      setTimeout(function(){
-        var g2=gw();
-        if(g2) g2.innerHTML += '<div style="text-align:center;margin-top:14px;">'
-          +'<div style="font-size:17px;font-weight:800;margin-bottom:10px;">🧱 No piece fits — Score: '+score+'</div>'
-          +'<button class="btn" onclick="openGame(\'blockpuzzle\')">🔁 Play Again</button></div>';
-        earnXP(Math.min(25,Math.max(3,Math.round(score/10))), 'Block Puzzle World');
-      },200);
-      return;
+  function trayHasAny(){ return tray.some(function(p){ return p && anyPlacement(p.shape); }); }
+  function refillTray(){
+    var picks=null;
+    for(var attempt=0; attempt<25; attempt++){
+      var cand = pieceSet();
+      if(cand.some(function(s){return anyPlacement(s);})){ picks=cand; break; }
     }
-    render();
+    if(!picks) picks=pieceSet();
+    tray = picks.map(function(s){ return {shape:s, color:randColor()}; });
   }
 
-  function miniShape(shape,accent){
-    var maxR=0,maxC=0;
-    shape.forEach(function(o){ maxR=Math.max(maxR,o[0]); maxC=Math.max(maxC,o[1]); });
-    var cells={}; shape.forEach(function(o){ cells[o[0]+'_'+o[1]]=1; });
-    var html='<div style="display:inline-grid;grid-template-columns:repeat('+(maxC+1)+',16px);grid-template-rows:repeat('+(maxR+1)+',16px);gap:2px;">';
-    for(var r=0;r<=maxR;r++) for(var c=0;c<=maxC;c++){
-      html+='<div style="width:16px;height:16px;border-radius:3px;background:'+(cells[r+'_'+c]?accent:'transparent')+';"></div>';
+  function computeCellPx(){
+    var wrapW = Math.min(g.clientWidth||340, 380);
+    var c = Math.floor((wrapW - (N-1)*GAP - 16)/N);
+    return Math.max(24, Math.min(38, c));
+  }
+
+  function miniShape(shape,color,px){
+    var box=shapeBox(shape); var set={};
+    shape.forEach(function(o){ set[o[0]+'_'+o[1]]=1; });
+    var html='<div style="display:grid;grid-template-columns:repeat('+(box.maxC+1)+','+px+'px);grid-template-rows:repeat('+(box.maxR+1)+','+px+'px);gap:2px;">';
+    for(var r=0;r<=box.maxR;r++) for(var c=0;c<=box.maxC;c++){
+      html += set[r+'_'+c]
+        ? '<div class="gnw-cell3d" style="width:'+px+'px;height:'+px+'px;border-radius:5px;background:'+color+';"></div>'
+        : '<div style="width:'+px+'px;height:'+px+'px;"></div>';
     }
     html+='</div>';
     return html;
   }
 
-  function render(){
-    var accent='#a78bfa';
-    var grid='<div id="bp-grid" style="display:grid;grid-template-columns:repeat('+N+',28px);grid-template-rows:repeat('+N+',28px);gap:2px;background:rgba(0,0,0,.2);border-radius:10px;padding:6px;margin:0 auto;">';
-    for(var r=0;r<N;r++) for(var c=0;c<N;c++){
-      grid+='<div class="bp-cell gnw-cell3d gnw-cell3d-wood" data-r="'+r+'" data-c="'+c+'" style="border-radius:4px;background:'+(board[r][c]?accent:'rgba(255,255,255,.06)')+';"></div>';
-    }
-    grid+='</div>';
-    var trayHtml='<div style="display:flex;justify-content:center;gap:14px;margin-top:14px;">'
-      + tray.map(function(shape,i){
-          return '<button class="bp-piece" data-i="'+i+'" style="background:'+(selected===i?'rgba(167,139,250,.35)':'rgba(255,255,255,.08)')+';border:2px solid '+(selected===i?accent:'rgba(255,255,255,.15)')+';border-radius:10px;padding:8px;cursor:pointer;">'+miniShape(shape,accent)+'</button>';
-        }).join('')
-      +'</div>';
-    g.innerHTML =
-      '<div class="kid-game-card" style="text-align:center;">'
-      +'<div class="kid-stat-row" style="margin-bottom:8px;justify-content:center;display:flex;"><span class="btn btn-sec" style="padding:5px 12px;font-size:12px;">Score: <b>'+score+'</b></span></div>'
-      + grid + trayHtml
-      +'<div style="margin-top:10px;font-size:12.5px;opacity:.7;">Tap a piece below, then tap the grid to place it. Fill a row or column to clear it.</div>'
-      +'</div>';
-    g.querySelectorAll('.bp-piece').forEach(function(b){
-      b.addEventListener('click', function(){ selected=(selected===+b.getAttribute('data-i'))?null:+b.getAttribute('data-i'); render(); });
-    });
-    g.querySelectorAll('.bp-cell').forEach(function(el){
-      el.addEventListener('click', function(){ cellClick(+el.getAttribute('data-r'), +el.getAttribute('data-c')); });
+  function floatText(txt,color){
+    var wrap = document.getElementById('bp-board-wrap'); if(!wrap) return;
+    var el = document.createElement('div');
+    el.className='bp-combo-text';
+    el.style.color = color || '#fbbf24';
+    el.style.left = (45+Math.random()*10)+'%';
+    el.textContent = txt;
+    wrap.appendChild(el);
+    setTimeout(function(){ el.remove(); }, 900);
+  }
+  function floatScore(txt){
+    var wrap = document.getElementById('bp-board-wrap'); if(!wrap) return;
+    var el = document.createElement('div');
+    el.className='bp-score-float';
+    el.style.left = (42+Math.random()*16)+'%';
+    el.textContent = txt;
+    wrap.appendChild(el);
+    setTimeout(function(){ el.remove(); }, 800);
+  }
+  function haptic(pattern){ try{ if(navigator.vibrate) navigator.vibrate(pattern); }catch(e){} }
+
+  function cellEl(r,c){ return g.querySelector('.bp-cell[data-r="'+r+'"][data-c="'+c+'"]'); }
+  function clearHighlights(){
+    g.querySelectorAll('.bp-preview-ok,.bp-preview-bad').forEach(function(el){
+      el.classList.remove('bp-preview-ok','bp-preview-bad');
     });
   }
 
+  function fullRender(){
+    cellPx = computeCellPx();
+    var boardHtml = '<div id="bp-grid" style="display:grid;grid-template-columns:repeat('+N+','+cellPx+'px);grid-template-rows:repeat('+N+','+cellPx+'px);gap:'+GAP+'px;background:rgba(0,0,0,.25);border-radius:12px;padding:8px;">';
+    for(var r=0;r<N;r++) for(var c=0;c<N;c++){
+      var val=board[r][c];
+      boardHtml += val
+        ? '<div class="bp-cell gnw-cell3d bp-cell-filled bp-cell-pop" data-r="'+r+'" data-c="'+c+'" style="border-radius:5px;background:'+val+';"></div>'
+        : '<div class="bp-cell bp-cell-empty" data-r="'+r+'" data-c="'+c+'" style="border-radius:5px;"></div>';
+    }
+    boardHtml += '</div>';
+
+    var tpx = Math.max(14, Math.round(cellPx*0.55));
+    var trayHtml = '<div id="bp-tray" style="display:flex;justify-content:center;gap:16px;margin-top:16px;min-height:'+(tpx*3+34)+'px;">';
+    for(var i=0;i<3;i++){
+      var p=tray[i];
+      if(!p){
+        trayHtml += '<div class="bp-tray-slot" data-i="'+i+'" style="width:'+(tpx*3+18)+'px;height:'+(tpx*3+18)+'px;"></div>';
+      } else {
+        trayHtml += '<div class="bp-tray-slot" data-i="'+i+'" style="padding:8px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);cursor:grab;">'
+          + miniShape(p.shape,p.color,tpx) + '</div>';
+      }
+    }
+    trayHtml += '</div>';
+
+    g.innerHTML =
+      '<div class="kid-game-card" style="text-align:center;">'
+      + '<div class="kid-stat-row" style="margin-bottom:10px;justify-content:center;display:flex;gap:8px;">'
+      + '<span class="btn btn-sec" style="padding:5px 12px;font-size:12px;">Score: <b id="bp-score">'+score+'</b></span>'
+      + '<span class="btn btn-sec" style="padding:5px 12px;font-size:12px;">🏆 Best: <b id="bp-best">'+best+'</b></span>'
+      + '</div>'
+      + '<div id="bp-board-wrap" style="position:relative;display:inline-block;">' + boardHtml + '</div>'
+      + trayHtml
+      + '<div style="margin-top:12px;font-size:12.5px;opacity:.7;">Drag a piece onto the board. Fill a row or column to clear it.</div>'
+      + '</div>';
+
+    bindEvents();
+  }
+
+  function place(idx,shape,color,r0,c0){
+    shape.forEach(function(o){ board[r0+o[0]][c0+o[1]]=color; });
+    var base = shape.length;
+    score += base;
+    tray[idx]=null;
+
+    var fullLines=[];
+    for(var r=0;r<N;r++){ var f=true; for(var c=0;c<N;c++) if(!board[r][c]){f=false;break;} if(f) fullLines.push(['r',r]); }
+    for(var c=0;c<N;c++){ var f=true; for(var r=0;r<N;r++) if(!board[r][c]){f=false;break;} if(f) fullLines.push(['c',c]); }
+
+    fullRender();
+
+    if(fullLines.length){
+      fullLines.forEach(function(line){
+        for(var i=0;i<N;i++){
+          var el = line[0]==='r' ? cellEl(line[1],i) : cellEl(i,line[1]);
+          if(el) el.classList.add('bp-cell-clearing');
+        }
+      });
+      haptic([15,40,15]);
+      setTimeout(function(){
+        fullLines.forEach(function(line){
+          if(line[0]==='r'){ for(var c=0;c<N;c++) board[line[1]][c]=null; }
+          else { for(var r=0;r<N;r++) board[r][line[1]]=null; }
+        });
+        comboStreak++;
+        var mult = 1 + (comboStreak-1)*0.5;
+        var bonus = Math.round(fullLines.length*N*mult);
+        score += bonus;
+        if(score>best){ best=score; localStorage.setItem(_BP_BEST_KEY,String(best)); }
+        playSound('win');
+        var label = fullLines.length>=4?'Perfect!':fullLines.length===3?'Amazing!':fullLines.length===2?'Great!':'Nice!';
+        var comboLabel = label + (comboStreak>=2?' x'+comboStreak+' COMBO!':'');
+        /* finishPlacement() calls fullRender(), which rebuilds #bp-board-wrap from
+           scratch -- so the floating combo text / score must be appended AFTER
+           it runs, not before, or the very re-render meant to show the cleared
+           board would wipe them out in the same tick before a frame ever paints. */
+        finishPlacement();
+        floatText(comboLabel, '#fbbf24');
+        floatScore('+'+bonus);
+      }, 260);
+    } else {
+      comboStreak=0;
+      if(score>best){ best=score; localStorage.setItem(_BP_BEST_KEY,String(best)); }
+      playSound('pop');
+      haptic(12);
+      finishPlacement();
+      floatScore('+'+base);
+    }
+  }
+
+  function finishPlacement(){
+    if(tray.every(function(p){return p===null;})){ refillTray(); }
+    if(!trayHasAny()){
+      over=true;
+      fullRender();
+      setTimeout(function(){
+        var g2=gw(); if(!g2) return;
+        var isNewBest = score>=best && score>0;
+        g2.innerHTML += '<div style="text-align:center;margin-top:14px;">'
+          + '<div style="font-size:18px;font-weight:800;margin-bottom:6px;">🧱 No piece fits!</div>'
+          + '<div style="font-size:14px;opacity:.8;margin-bottom:12px;">Score: '+score+' &middot; Best: '+best+(isNewBest?' 🎉 New Best!':'')+'</div>'
+          + '<button class="btn" onclick="openGame(\'blockpuzzle\')">🔁 Play Again</button></div>';
+        if(isNewBest && typeof launchConfetti==='function') launchConfetti(60);
+        earnXP(Math.min(30,Math.max(3,Math.round(score/12))), 'Block Puzzle World');
+      },200);
+    } else {
+      fullRender();
+    }
+  }
+
+  function bindEvents(){
+    g.querySelectorAll('.bp-tray-slot').forEach(function(slot){
+      var i = +slot.getAttribute('data-i');
+      if(!tray[i]) return;
+      slot.addEventListener('pointerdown', function(ev){ startDrag(ev, i, slot); });
+    });
+  }
+
+  function startDrag(ev, idx, slotEl){
+    if(drag || over) return;
+    var p = tray[idx]; if(!p) return;
+    ev.preventDefault();
+    var box = shapeBox(p.shape);
+    var set={}; p.shape.forEach(function(o){ set[o[0]+'_'+o[1]]=1; });
+    var pitch = cellPx+GAP;
+    var gw_ = (box.maxC+1)*pitch - GAP, gh_ = (box.maxR+1)*pitch - GAP;
+
+    var ghost = document.createElement('div');
+    ghost.className='bp-ghost';
+    ghost.style.width=gw_+'px'; ghost.style.height=gh_+'px';
+    var inner='';
+    for(var r=0;r<=box.maxR;r++) for(var c=0;c<=box.maxC;c++){
+      if(set[r+'_'+c]) inner += '<div class="gnw-cell3d" style="position:absolute;left:'+(c*pitch)+'px;top:'+(r*pitch)+'px;width:'+cellPx+'px;height:'+cellPx+'px;border-radius:5px;background:'+p.color+';"></div>';
+    }
+    ghost.innerHTML = inner;
+    ghost.style.transform='scale(1.12)';
+    ghost.style.filter='drop-shadow(0 10px 18px rgba(0,0,0,.55))';
+    document.body.appendChild(ghost);
+
+    slotEl.classList.add('bp-dragging-src');
+    try{ slotEl.setPointerCapture(ev.pointerId); }catch(e){}
+
+    drag = { idx:idx, shape:p.shape, color:p.color, box:box, slotEl:slotEl, ghost:ghost, valid:false, tR:-99, tC:-99 };
+
+    function onMove(e){ dragMove(e); }
+    function onUp(){ dragEnd(); cleanup(); }
+    function onCancel(){ dragCancel(); cleanup(); }
+    function cleanup(){
+      slotEl.removeEventListener('pointermove', onMove);
+      slotEl.removeEventListener('pointerup', onUp);
+      slotEl.removeEventListener('pointercancel', onCancel);
+    }
+    slotEl.addEventListener('pointermove', onMove);
+    slotEl.addEventListener('pointerup', onUp);
+    slotEl.addEventListener('pointercancel', onCancel);
+
+    dragMove(ev);
+  }
+
+  function dragMove(ev){
+    if(!drag) return;
+    var lift = cellPx*1.15;
+    var cx = ev.clientX, cy = ev.clientY - lift;
+    var gw_ = drag.ghost.offsetWidth||((drag.box.maxC+1)*(cellPx+GAP)-GAP);
+    var gh_ = drag.ghost.offsetHeight||((drag.box.maxR+1)*(cellPx+GAP)-GAP);
+    drag.ghost.style.left=(cx-gw_/2)+'px';
+    drag.ghost.style.top=(cy-gh_/2)+'px';
+
+    clearHighlights();
+    var boardEl = document.getElementById('bp-grid');
+    if(!boardEl){ drag.tR=-99; drag.tC=-99; drag.valid=false; return; }
+    var rect = boardEl.getBoundingClientRect();
+    var pitch = cellPx+GAP;
+    var localX = ev.clientX - rect.left - 8;
+    var localY = cy - rect.top - 8;
+    var r0 = Math.round(localY/pitch - (drag.box.maxR)/2);
+    var c0 = Math.round(localX/pitch - (drag.box.maxC)/2);
+    var valid = canPlace(drag.shape, r0, c0);
+    drag.tR=r0; drag.tC=c0; drag.valid=valid;
+    drag.shape.forEach(function(o){
+      var r=r0+o[0], c=c0+o[1];
+      if(r>=0&&r<N&&c>=0&&c<N){
+        var el=cellEl(r,c);
+        if(el) el.classList.add(valid?'bp-preview-ok':'bp-preview-bad');
+      }
+    });
+  }
+
+  function dragEnd(){
+    if(!drag) return;
+    clearHighlights();
+    if(drag.valid){
+      var boardEl=document.getElementById('bp-grid');
+      if(boardEl){
+        var rect=boardEl.getBoundingClientRect();
+        var pitch=cellPx+GAP;
+        drag.ghost.classList.add('bp-ghost-snap');
+        drag.ghost.style.left=(rect.left+8+drag.tC*pitch)+'px';
+        drag.ghost.style.top=(rect.top+8+drag.tR*pitch)+'px';
+        drag.ghost.style.transform='scale(1)';
+      }
+      setTimeout(function(){
+        var idx=drag.idx, shape=drag.shape, color=drag.color, r0=drag.tR, c0=drag.tC;
+        if(drag.ghost) drag.ghost.remove();
+        drag=null;
+        place(idx,shape,color,r0,c0);
+      }, 130);
+    } else {
+      returnToTray();
+    }
+  }
+
+  function dragCancel(){ if(drag) returnToTray(); }
+
+  function returnToTray(){
+    if(!drag) return;
+    var slotRect = drag.slotEl.getBoundingClientRect();
+    var ghost=drag.ghost, slotEl=drag.slotEl;
+    ghost.classList.add('bp-ghost-snap');
+    ghost.style.left=(slotRect.left+slotRect.width/2-ghost.offsetWidth/2)+'px';
+    ghost.style.top=(slotRect.top+slotRect.height/2-ghost.offsetHeight/2)+'px';
+    ghost.style.transform='scale(0.6)';
+    ghost.style.opacity='0';
+    playSound('click');
+    drag=null;
+    setTimeout(function(){
+      ghost.remove();
+      slotEl.classList.remove('bp-dragging-src');
+      slotEl.classList.add('bp-shake');
+      setTimeout(function(){ slotEl.classList.remove('bp-shake'); }, 380);
+    },130);
+  }
+
   refillTray();
-  render();
+  fullRender();
 }
 
 /* ---------- parking puzzle: step navigation to reach the goal ---------- */
