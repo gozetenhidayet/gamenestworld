@@ -22,7 +22,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/seo-pages.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "VideoGame", "name": "Block Puzzle World", "description": "Drag differently shaped blocks onto a grid to fill complete rows and columns without running out of space.", "genre": "Arcade", "url": "https://gamenestworld.com/games/block-puzzle-world/", "image": "https://gamenestworld.com/game-images/blockpuzzle.webp", "applicationCategory": "Game", "operatingSystem": "Any", "gamePlatform": "Web Browser", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is Block Puzzle World free to play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Block Puzzle World is 100% free on GameNest World, with no premium tier, paywall, or in-game purchases."}}, {"@type": "Question", "name": "Do I need to download Block Puzzle World?", "acceptedAnswer": {"@type": "Answer", "text": "No download is required. Block Puzzle World runs directly in your browser using HTML5 and JavaScript -- just open the page and start playing."}}, {"@type": "Question", "name": "Can I play Block Puzzle World on my phone or tablet?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, Block Puzzle World works on desktop, tablet, and mobile browsers. The layout adjusts automatically to your screen size."}}, {"@type": "Question", "name": "Do I need to create an account to play Block Puzzle World?", "acceptedAnswer": {"@type": "Answer", "text": "No account is needed. Your progress for Block Puzzle World is saved locally in your browser, so you can jump straight in."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is there a hint or undo button in Block Puzzle World?", "acceptedAnswer": {"@type": "Answer", "text": "Not currently -- the live green/red placement preview is the main tool for checking a move before you commit to it, since there's no undo once a piece is placed."}}, {"@type": "Question", "name": "How does the combo system work in Block Puzzle World?", "acceptedAnswer": {"@type": "Answer", "text": "Clearing lines on consecutive placements (without a placement in between that clears nothing) builds a streak, which increases the bonus score you get from each additional clear."}}, {"@type": "Question", "name": "Is Block Puzzle World free to play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Block Puzzle World is 100% free on GameNest World, with no download required."}}, {"@type": "Question", "name": "Does Block Puzzle World work with touch controls?", "acceptedAnswer": {"@type": "Answer", "text": "Yes -- it uses real pointer-based drag and drop that works identically with a finger on touch devices or a mouse on desktop."}}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gamenestworld.com/"}, {"@type": "ListItem", "position": 2, "name": "Classic Games", "item": "https://gamenestworld.com/classic-games/"}, {"@type": "ListItem", "position": 3, "name": "Block Puzzle World", "item": "https://gamenestworld.com/games/block-puzzle-world/"}]}</script>
 </head>
 <body>
@@ -33,11 +33,12 @@
 <main class="gp-main">
   <div class="gp-breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/classic-games/">Classic Games</a> &rsaquo; Block Puzzle World</div>
   <div class="gp-hero">
-    <img class="gp-shot" src="/game-images/blockpuzzle.webp" alt="Screenshot of Block Puzzle World being played on GameNest World -- place blocks" width="220" loading="eager">
+    <iframe class="gp-frame" src="/?play=blockpuzzle" loading="lazy" title="Play Block Puzzle World -- full working game, embedded live from GameNest World" allow="autoplay"></iframe>
     <div class="gp-hero-text">
       <h1>Play Block Puzzle World Online Free</h1>
       <p class="gp-lead">Drag differently shaped blocks onto a grid to fill complete rows and columns without running out of space.</p>
-      <a class="gp-play-btn" href="https://gamenestworld.com/?play=blockpuzzle">&#9654; Play Block Puzzle World Now</a>
+      <p class="gp-meta">&#9650; The real, full game is playable directly above -- no separate tab needed.</p>
+      <a class="gp-play-btn" href="https://gamenestworld.com/?play=blockpuzzle">&#9654; Open Block Puzzle World in Full Screen</a>
       <p class="gp-meta">No download &middot; No signup &middot; 100% free &middot; Works on desktop &amp; mobile</p>
     </div>
   </div>
@@ -58,6 +59,41 @@
   </section>
 
   <section class="gp-section">
+    <h2>Real Drag &amp; Drop</h2>
+    <p>Pick up a piece with your finger or mouse and it lifts and follows your pointer, offset upward so it doesn't get hidden under your finger. As you move it over the board, the cells it would occupy glow green if the placement is legal or red if it isn't, before you ever let go.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Scoring &amp; Combos</h2>
+    <p>Placing a piece scores a point per cell; clearing a row or column adds a bonus on top. Clear more than one line in the same move and you get an escalating "Nice! / Great! / Amazing! / Perfect!" label, and clearing lines on back-to-back placements builds a combo multiplier that pays out more the longer the streak runs.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Tray Rules</h2>
+    <p>You're dealt 3 pieces at a time, and a fresh set of 3 is only dealt once all three current ones have been placed -- not one at a time, matching how real Block Blast-style games deal pieces. The game also checks the board before dealing a new set so you're not handed an immediately unplayable trio, and leans toward smaller pieces once the board is more than about 55% full.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Controls</h2>
+    <p>Press and drag a piece from the tray onto the 8×8 board with your finger or mouse, then release to drop it.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Strategy</h2>
+    <p>Keep at least one full row or column nearly clear at all times as a release valve -- filling the board evenly without ever completing a line is the most common way a board gets stuck.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Common Mistakes</h2>
+    <p>Placing large pieces in corners early removes flexibility you'll want later for oddly-shaped pieces. Ignoring the green/red preview and dropping on a hunch, rather than actually checking the glow before releasing, causes avoidable wasted placements.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>High-Score Tips</h2>
+    <p>Chasing multi-line clears in the same move is worth meaningfully more than the same number of cells cleared across separate single-line moves, thanks to the combo multiplier -- it's often worth waiting one extra placement to set up a double clear.</p>
+  </section>
+
+  <section class="gp-section">
     <h2>Tips for Block Puzzle World</h2>
     <ul>
       <li>Block Puzzle World tends to reward a steady, controlled pace more than raw speed -- rushing early is usually what ends a run.</li>
@@ -69,10 +105,10 @@
   <section class="gp-section">
     <h2>Frequently Asked Questions About Block Puzzle World</h2>
     <div class="gp-faq">
-      <details><summary>Is Block Puzzle World free to play?</summary><p>Yes. Block Puzzle World is 100% free on GameNest World, with no premium tier, paywall, or in-game purchases.</p></details>
-      <details><summary>Do I need to download Block Puzzle World?</summary><p>No download is required. Block Puzzle World runs directly in your browser using HTML5 and JavaScript -- just open the page and start playing.</p></details>
-      <details><summary>Can I play Block Puzzle World on my phone or tablet?</summary><p>Yes, Block Puzzle World works on desktop, tablet, and mobile browsers. The layout adjusts automatically to your screen size.</p></details>
-      <details><summary>Do I need to create an account to play Block Puzzle World?</summary><p>No account is needed. Your progress for Block Puzzle World is saved locally in your browser, so you can jump straight in.</p></details>
+      <details><summary>Is there a hint or undo button in Block Puzzle World?</summary><p>Not currently -- the live green/red placement preview is the main tool for checking a move before you commit to it, since there's no undo once a piece is placed.</p></details>
+      <details><summary>How does the combo system work in Block Puzzle World?</summary><p>Clearing lines on consecutive placements (without a placement in between that clears nothing) builds a streak, which increases the bonus score you get from each additional clear.</p></details>
+      <details><summary>Is Block Puzzle World free to play?</summary><p>Yes. Block Puzzle World is 100% free on GameNest World, with no download required.</p></details>
+      <details><summary>Does Block Puzzle World work with touch controls?</summary><p>Yes -- it uses real pointer-based drag and drop that works identically with a finger on touch devices or a mouse on desktop.</p></details>
     </div>
   </section>
 

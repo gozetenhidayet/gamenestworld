@@ -22,7 +22,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/seo-pages.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "VideoGame", "name": "Connect Four", "description": "Drop pieces into a grid to connect four of your own in a row before the AI does.", "genre": "Arcade", "url": "https://gamenestworld.com/games/connect-four/", "image": "https://gamenestworld.com/game-images/c4.webp", "applicationCategory": "Game", "operatingSystem": "Any", "gamePlatform": "Web Browser", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is Connect Four free to play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Connect Four is 100% free on GameNest World, with no premium tier, paywall, or in-game purchases."}}, {"@type": "Question", "name": "Do I need to download Connect Four?", "acceptedAnswer": {"@type": "Answer", "text": "No download is required. Connect Four runs directly in your browser using HTML5 and JavaScript -- just open the page and start playing."}}, {"@type": "Question", "name": "Can I play Connect Four on my phone or tablet?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, Connect Four works on desktop, tablet, and mobile browsers. The layout adjusts automatically to your screen size."}}, {"@type": "Question", "name": "Do I need to create an account to play Connect Four?", "acceptedAnswer": {"@type": "Answer", "text": "No account is needed. Your progress for Connect Four is saved locally in your browser, so you can jump straight in."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How smart is the Connect Four AI?", "acceptedAnswer": {"@type": "Answer", "text": "It plays a genuine strategy, not random moves: it always takes an immediate win if one is available and blocks your immediate win if you have one, then falls back to preferring central columns -- but it only plans one move ahead, so a double threat can beat it."}}, {"@type": "Question", "name": "Can I play Connect Four against a friend?", "acceptedAnswer": {"@type": "Answer", "text": "This version is single-player against the computer only -- there's no local two-player mode."}}, {"@type": "Question", "name": "Is Connect Four free to play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Connect Four is 100% free on GameNest World, with no download required."}}, {"@type": "Question", "name": "Can I play Connect Four on mobile?", "acceptedAnswer": {"@type": "Answer", "text": "Yes -- tap a column to drop your piece. It works on desktop, tablet, and mobile browsers."}}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gamenestworld.com/"}, {"@type": "ListItem", "position": 2, "name": "Classic Games", "item": "https://gamenestworld.com/classic-games/"}, {"@type": "ListItem", "position": 3, "name": "Connect Four", "item": "https://gamenestworld.com/games/connect-four/"}]}</script>
 </head>
 <body>
@@ -33,11 +33,12 @@
 <main class="gp-main">
   <div class="gp-breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/classic-games/">Classic Games</a> &rsaquo; Connect Four</div>
   <div class="gp-hero">
-    <img class="gp-shot" src="/game-images/c4.webp" alt="Screenshot of Connect Four being played on GameNest World -- vs ai" width="220" loading="eager">
+    <iframe class="gp-frame" src="/?play=c4" loading="lazy" title="Play Connect Four -- full working game, embedded live from GameNest World" allow="autoplay"></iframe>
     <div class="gp-hero-text">
       <h1>Play Connect Four Online Free</h1>
       <p class="gp-lead">Drop pieces into a grid to connect four of your own in a row before the AI does.</p>
-      <a class="gp-play-btn" href="https://gamenestworld.com/?play=c4">&#9654; Play Connect Four Now</a>
+      <p class="gp-meta">&#9650; The real, full game is playable directly above -- no separate tab needed.</p>
+      <a class="gp-play-btn" href="https://gamenestworld.com/?play=c4">&#9654; Open Connect Four in Full Screen</a>
       <p class="gp-meta">No download &middot; No signup &middot; 100% free &middot; Works on desktop &amp; mobile</p>
     </div>
   </div>
@@ -58,6 +59,36 @@
   </section>
 
   <section class="gp-section">
+    <h2>Rules</h2>
+    <p>Standard Connect Four on a 7-column, 6-row board: drop pieces into a column and they fall to the lowest open row. First to connect four of your own in a row -- horizontally, vertically, or diagonally -- wins.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>How the AI Plays</h2>
+    <p>Before every move, the computer checks two things: can it win right now by dropping in some column, and if not, can you win next turn in some column it should block instead? If neither applies, it prefers dropping toward the center columns, since central pieces take part in more possible four-in-a-rows than edge ones.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Controls</h2>
+    <p>Click or tap a column to drop your piece (red) into it.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Strategy</h2>
+    <p>Since the AI only checks one move ahead for wins and blocks, it can be beaten with a double threat -- set up two different columns that would each complete four in a row, so blocking one still leaves the other open.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Common Mistakes</h2>
+    <p>Focusing only on your own row or column and missing a diagonal the opponent is quietly building. Playing edge columns early is also weaker, since they participate in fewer possible four-in-a-rows than the center.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>History</h2>
+    <p>Vertical four-in-a-row games date back over a century, but the modern version was trademarked and mass-marketed by Milton Bradley in 1974 as "Connect Four," which is where the familiar red-vs-yellow, drop-and-gravity format comes from.</p>
+  </section>
+
+  <section class="gp-section">
     <h2>Tips for Connect Four</h2>
     <ul>
       <li>Connect Four tends to reward a steady, controlled pace more than raw speed -- rushing early is usually what ends a run.</li>
@@ -69,10 +100,10 @@
   <section class="gp-section">
     <h2>Frequently Asked Questions About Connect Four</h2>
     <div class="gp-faq">
-      <details><summary>Is Connect Four free to play?</summary><p>Yes. Connect Four is 100% free on GameNest World, with no premium tier, paywall, or in-game purchases.</p></details>
-      <details><summary>Do I need to download Connect Four?</summary><p>No download is required. Connect Four runs directly in your browser using HTML5 and JavaScript -- just open the page and start playing.</p></details>
-      <details><summary>Can I play Connect Four on my phone or tablet?</summary><p>Yes, Connect Four works on desktop, tablet, and mobile browsers. The layout adjusts automatically to your screen size.</p></details>
-      <details><summary>Do I need to create an account to play Connect Four?</summary><p>No account is needed. Your progress for Connect Four is saved locally in your browser, so you can jump straight in.</p></details>
+      <details><summary>How smart is the Connect Four AI?</summary><p>It plays a genuine strategy, not random moves: it always takes an immediate win if one is available and blocks your immediate win if you have one, then falls back to preferring central columns -- but it only plans one move ahead, so a double threat can beat it.</p></details>
+      <details><summary>Can I play Connect Four against a friend?</summary><p>This version is single-player against the computer only -- there's no local two-player mode.</p></details>
+      <details><summary>Is Connect Four free to play?</summary><p>Yes. Connect Four is 100% free on GameNest World, with no download required.</p></details>
+      <details><summary>Can I play Connect Four on mobile?</summary><p>Yes -- tap a column to drop your piece. It works on desktop, tablet, and mobile browsers.</p></details>
     </div>
   </section>
 

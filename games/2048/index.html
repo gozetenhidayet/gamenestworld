@@ -22,7 +22,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/seo-pages.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "VideoGame", "name": "2048", "description": "Swipe tiles together to combine matching numbers, aiming to reach the elusive 2048 tile.", "genre": "Arcade", "url": "https://gamenestworld.com/games/2048/", "image": "https://gamenestworld.com/game-images/g2048.webp", "applicationCategory": "Game", "operatingSystem": "Any", "gamePlatform": "Web Browser", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is 2048 free to play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. 2048 is 100% free on GameNest World, with no premium tier, paywall, or in-game purchases."}}, {"@type": "Question", "name": "Do I need to download 2048?", "acceptedAnswer": {"@type": "Answer", "text": "No download is required. 2048 runs directly in your browser using HTML5 and JavaScript -- just open the page and start playing."}}, {"@type": "Question", "name": "Can I play 2048 on my phone or tablet?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, 2048 works on desktop, tablet, and mobile browsers. The layout adjusts automatically to your screen size."}}, {"@type": "Question", "name": "Do I need to create an account to play 2048?", "acceptedAnswer": {"@type": "Answer", "text": "No account is needed. Your progress for 2048 is saved locally in your browser, so you can jump straight in."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does 2048 track a running score, or just my highest tile?", "acceptedAnswer": {"@type": "Answer", "text": "This version shows the value of your highest tile on the board as \"Best\" rather than a cumulative point total, so it updates in real time as you merge bigger tiles."}}, {"@type": "Question", "name": "Is my 2048 board saved if I close the tab?", "acceptedAnswer": {"@type": "Answer", "text": "Yes -- 2048 is one of the few games here with save-and-continue, so leaving and coming back picks up your exact board again, not a fresh one."}}, {"@type": "Question", "name": "Is 2048 free to play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. 2048 is 100% free on GameNest World, with no premium tier, paywall, or in-game purchases."}}, {"@type": "Question", "name": "Can I play 2048 on my phone?", "acceptedAnswer": {"@type": "Answer", "text": "Yes -- swipe in any direction on touch devices, or use the arrow keys on desktop. The board resizes automatically to fit your screen."}}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gamenestworld.com/"}, {"@type": "ListItem", "position": 2, "name": "Classic Games", "item": "https://gamenestworld.com/classic-games/"}, {"@type": "ListItem", "position": 3, "name": "2048", "item": "https://gamenestworld.com/games/2048/"}]}</script>
 </head>
 <body>
@@ -33,11 +33,12 @@
 <main class="gp-main">
   <div class="gp-breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/classic-games/">Classic Games</a> &rsaquo; 2048</div>
   <div class="gp-hero">
-    <img class="gp-shot" src="/game-images/g2048.webp" alt="Screenshot of 2048 being played on GameNest World -- merge to 2048" width="220" loading="eager">
+    <iframe class="gp-frame" src="/?play=g2048" loading="lazy" title="Play 2048 -- full working game, embedded live from GameNest World" allow="autoplay"></iframe>
     <div class="gp-hero-text">
       <h1>Play 2048 Online Free</h1>
       <p class="gp-lead">Swipe tiles together to combine matching numbers, aiming to reach the elusive 2048 tile.</p>
-      <a class="gp-play-btn" href="https://gamenestworld.com/?play=g2048">&#9654; Play 2048 Now</a>
+      <p class="gp-meta">&#9650; The real, full game is playable directly above -- no separate tab needed.</p>
+      <a class="gp-play-btn" href="https://gamenestworld.com/?play=g2048">&#9654; Open 2048 in Full Screen</a>
       <p class="gp-meta">No download &middot; No signup &middot; 100% free &middot; Works on desktop &amp; mobile</p>
     </div>
   </div>
@@ -58,6 +59,36 @@
   </section>
 
   <section class="gp-section">
+    <h2>Scoring &amp; Merging</h2>
+    <p>Two tiles with the same number merge into one worth their sum whenever they collide during a slide -- merge two 4s and you get an 8, merge two 1024s and you get the 2048 tile. This version tracks progress a little differently from the original: instead of a running point total, the number shown as your "Best" is simply the value of the highest tile currently on the board, so it updates the instant you create a bigger tile rather than only at the end of a round.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Board &amp; Tile Spawns</h2>
+    <p>Every move that shifts at least one tile spawns a new one in an empty square afterward -- 90% of the time it's a 2, and 10% of the time it's a 4. With the 4&times;4 board full, the game ends once no two adjacent tiles (left-right or up-down) share the same number, since at that point no legal move remains.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Your Board Is Saved</h2>
+    <p>2048 is one of the few games on the site with save-and-continue built in: close the tab mid-game and your exact board is restored automatically next time you open it, clearing only once you truly run out of moves.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Strategy</h2>
+    <p>Keep your highest tile anchored in one corner and build a descending gradient out from it, rather than chasing merges in the center of the board -- a scrambled middle is the most common way a board gets stuck.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Common Mistakes</h2>
+    <p>Swiping in whatever direction has an open merge, without a consistent corner strategy, is the fastest way to fragment the board into unmergeable pairs. Moving away from your anchor corner "just to see" is usually what breaks a good position.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>History</h2>
+    <p>2048 was created by Italian developer Gabriele Cirulli in 2014, released for free as an open-source project inspired by the game Threes!, and became a viral internet hit within days of launch.</p>
+  </section>
+
+  <section class="gp-section">
     <h2>Tips for 2048</h2>
     <ul>
       <li>2048 tends to reward a steady, controlled pace more than raw speed -- rushing early is usually what ends a run.</li>
@@ -69,10 +100,10 @@
   <section class="gp-section">
     <h2>Frequently Asked Questions About 2048</h2>
     <div class="gp-faq">
+      <details><summary>Does 2048 track a running score, or just my highest tile?</summary><p>This version shows the value of your highest tile on the board as "Best" rather than a cumulative point total, so it updates in real time as you merge bigger tiles.</p></details>
+      <details><summary>Is my 2048 board saved if I close the tab?</summary><p>Yes -- 2048 is one of the few games here with save-and-continue, so leaving and coming back picks up your exact board again, not a fresh one.</p></details>
       <details><summary>Is 2048 free to play?</summary><p>Yes. 2048 is 100% free on GameNest World, with no premium tier, paywall, or in-game purchases.</p></details>
-      <details><summary>Do I need to download 2048?</summary><p>No download is required. 2048 runs directly in your browser using HTML5 and JavaScript -- just open the page and start playing.</p></details>
-      <details><summary>Can I play 2048 on my phone or tablet?</summary><p>Yes, 2048 works on desktop, tablet, and mobile browsers. The layout adjusts automatically to your screen size.</p></details>
-      <details><summary>Do I need to create an account to play 2048?</summary><p>No account is needed. Your progress for 2048 is saved locally in your browser, so you can jump straight in.</p></details>
+      <details><summary>Can I play 2048 on my phone?</summary><p>Yes -- swipe in any direction on touch devices, or use the arrow keys on desktop. The board resizes automatically to fit your screen.</p></details>
     </div>
   </section>
 

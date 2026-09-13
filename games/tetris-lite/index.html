@@ -22,7 +22,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/seo-pages.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "VideoGame", "name": "Tetris Lite", "description": "Rotate and position falling blocks to complete horizontal lines before the stack reaches the top.", "genre": "Arcade", "url": "https://gamenestworld.com/games/tetris-lite/", "image": "https://gamenestworld.com/game-images/tetris.webp", "applicationCategory": "Game", "operatingSystem": "Any", "gamePlatform": "Web Browser", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is Tetris Lite free to play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Tetris Lite is 100% free on GameNest World, with no premium tier, paywall, or in-game purchases."}}, {"@type": "Question", "name": "Do I need to download Tetris Lite?", "acceptedAnswer": {"@type": "Answer", "text": "No download is required. Tetris Lite runs directly in your browser using HTML5 and JavaScript -- just open the page and start playing."}}, {"@type": "Question", "name": "Can I play Tetris Lite on my phone or tablet?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, Tetris Lite works on desktop, tablet, and mobile browsers. The layout adjusts automatically to your screen size."}}, {"@type": "Question", "name": "Do I need to create an account to play Tetris Lite?", "acceptedAnswer": {"@type": "Answer", "text": "No account is needed. Your progress for Tetris Lite is saved locally in your browser, so you can jump straight in."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does Tetris Lite use the official SRS rotation system?", "acceptedAnswer": {"@type": "Answer", "text": "Not the full system -- rotating near a wall or block nudges the piece one column over if that makes it fit, which covers most cases but isn't the complete Super Rotation System competitive Tetris uses."}}, {"@type": "Question", "name": "Is there a hold-piece slot in Tetris Lite?", "acceptedAnswer": {"@type": "Answer", "text": "Not currently -- there's a Next piece preview, but no hold-piece slot to store a piece for later."}}, {"@type": "Question", "name": "Is Tetris Lite free to play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Tetris Lite is 100% free on GameNest World, with no download required."}}, {"@type": "Question", "name": "Can I play Tetris Lite on mobile?", "acceptedAnswer": {"@type": "Answer", "text": "Yes -- on-screen move, rotate, and hard-drop buttons are built in alongside full keyboard support on desktop."}}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gamenestworld.com/"}, {"@type": "ListItem", "position": 2, "name": "Classic Games", "item": "https://gamenestworld.com/classic-games/"}, {"@type": "ListItem", "position": 3, "name": "Tetris Lite", "item": "https://gamenestworld.com/games/tetris-lite/"}]}</script>
 </head>
 <body>
@@ -33,11 +33,12 @@
 <main class="gp-main">
   <div class="gp-breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/classic-games/">Classic Games</a> &rsaquo; Tetris Lite</div>
   <div class="gp-hero">
-    <img class="gp-shot" src="/game-images/tetris.webp" alt="Screenshot of Tetris Lite being played on GameNest World -- falling blocks" width="220" loading="eager">
+    <iframe class="gp-frame" src="/?play=tetris" loading="lazy" title="Play Tetris Lite -- full working game, embedded live from GameNest World" allow="autoplay"></iframe>
     <div class="gp-hero-text">
       <h1>Play Tetris Lite Online Free</h1>
       <p class="gp-lead">Rotate and position falling blocks to complete horizontal lines before the stack reaches the top.</p>
-      <a class="gp-play-btn" href="https://gamenestworld.com/?play=tetris">&#9654; Play Tetris Lite Now</a>
+      <p class="gp-meta">&#9650; The real, full game is playable directly above -- no separate tab needed.</p>
+      <a class="gp-play-btn" href="https://gamenestworld.com/?play=tetris">&#9654; Open Tetris Lite in Full Screen</a>
       <p class="gp-meta">No download &middot; No signup &middot; 100% free &middot; Works on desktop &amp; mobile</p>
     </div>
   </div>
@@ -58,6 +59,41 @@
   </section>
 
   <section class="gp-section">
+    <h2>Scoring</h2>
+    <p>Clearing lines is worth disproportionately more the more you clear at once: 100 points for a single line, 300 for two, 500 for three, and 800 for a full four-line Tetris -- each multiplied by your current level. A hard drop also adds 2 points for every row it falls through.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Pieces &amp; Rotation</h2>
+    <p>All 7 classic tetromino shapes are dealt randomly -- there's no 7-bag randomizer here, so in principle the same piece can come up several times in a row. Rotating near a wall or another block nudges the piece one column over automatically if that makes the rotation fit, a simplified version of modern Tetris's wall-kick system rather than the full SRS ruleset.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Speed &amp; Levels</h2>
+    <p>Your level rises every 10 lines cleared, and each level shortens the drop timer (500ms minus 40ms per level, down to a 50ms floor) -- by around level 11, pieces are already falling as fast as the game allows.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Controls</h2>
+    <p>Arrow keys to move and soft-drop, up to rotate, X for an instant hard drop, P to pause -- plus on-screen buttons for touch.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Strategy</h2>
+    <p>Keep the stack flat and leave one column open for the straight 4-long piece, since a saved-up four-line clear is worth far more (level &times; 800) than four separate single-line clears at the same level.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Common Mistakes</h2>
+    <p>Assuming every rotation near a wall will succeed -- without full SRS kicks, some rotations that would work in other Tetris games simply won't fit here. Waiting too long to decide once the drop timer bottoms out at 50ms is the other common way a stack tops out.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>History</h2>
+    <p>Tetris was created in 1984 by Soviet software engineer Alexey Pajitnov and went on to become one of the best-selling video games ever made -- the entire falling-block genre is still named after it.</p>
+  </section>
+
+  <section class="gp-section">
     <h2>Tips for Tetris Lite</h2>
     <ul>
       <li>Tetris Lite tends to reward a steady, controlled pace more than raw speed -- rushing early is usually what ends a run.</li>
@@ -69,10 +105,10 @@
   <section class="gp-section">
     <h2>Frequently Asked Questions About Tetris Lite</h2>
     <div class="gp-faq">
-      <details><summary>Is Tetris Lite free to play?</summary><p>Yes. Tetris Lite is 100% free on GameNest World, with no premium tier, paywall, or in-game purchases.</p></details>
-      <details><summary>Do I need to download Tetris Lite?</summary><p>No download is required. Tetris Lite runs directly in your browser using HTML5 and JavaScript -- just open the page and start playing.</p></details>
-      <details><summary>Can I play Tetris Lite on my phone or tablet?</summary><p>Yes, Tetris Lite works on desktop, tablet, and mobile browsers. The layout adjusts automatically to your screen size.</p></details>
-      <details><summary>Do I need to create an account to play Tetris Lite?</summary><p>No account is needed. Your progress for Tetris Lite is saved locally in your browser, so you can jump straight in.</p></details>
+      <details><summary>Does Tetris Lite use the official SRS rotation system?</summary><p>Not the full system -- rotating near a wall or block nudges the piece one column over if that makes it fit, which covers most cases but isn't the complete Super Rotation System competitive Tetris uses.</p></details>
+      <details><summary>Is there a hold-piece slot in Tetris Lite?</summary><p>Not currently -- there's a Next piece preview, but no hold-piece slot to store a piece for later.</p></details>
+      <details><summary>Is Tetris Lite free to play?</summary><p>Yes. Tetris Lite is 100% free on GameNest World, with no download required.</p></details>
+      <details><summary>Can I play Tetris Lite on mobile?</summary><p>Yes -- on-screen move, rotate, and hard-drop buttons are built in alongside full keyboard support on desktop.</p></details>
     </div>
   </section>
 

@@ -22,7 +22,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/seo-pages.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "VideoGame", "name": "Snake", "description": "Guide a growing snake around the board to eat food while avoiding the walls and your own tail.", "genre": "Arcade", "url": "https://gamenestworld.com/games/snake/", "image": "https://gamenestworld.com/game-images/snake.webp", "applicationCategory": "Game", "operatingSystem": "Any", "gamePlatform": "Web Browser", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is Snake free to play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Snake is 100% free on GameNest World, with no premium tier, paywall, or in-game purchases."}}, {"@type": "Question", "name": "Do I need to download Snake?", "acceptedAnswer": {"@type": "Answer", "text": "No download is required. Snake runs directly in your browser using HTML5 and JavaScript -- just open the page and start playing."}}, {"@type": "Question", "name": "Can I play Snake on my phone or tablet?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, Snake works on desktop, tablet, and mobile browsers. The layout adjusts automatically to your screen size."}}, {"@type": "Question", "name": "Do I need to create an account to play Snake?", "acceptedAnswer": {"@type": "Answer", "text": "No account is needed. Your progress for Snake is saved locally in your browser, so you can jump straight in."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Do the walls kill you in this version of Snake?", "acceptedAnswer": {"@type": "Answer", "text": "No -- walls wrap around: your snake reappears on the opposite edge instead of dying. Only running into your own tail ends the game."}}, {"@type": "Question", "name": "Does Snake get harder as you play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, continuously -- there's no level select, but the movement speed increases a little with every piece of food you eat, down to a fast floor speed."}}, {"@type": "Question", "name": "Is Snake free to play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Snake is 100% free on GameNest World, with no download and no account needed."}}, {"@type": "Question", "name": "Can I play Snake on mobile?", "acceptedAnswer": {"@type": "Answer", "text": "Yes -- on-screen directional buttons are built in for touch devices, alongside arrow key and WASD support on desktop."}}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gamenestworld.com/"}, {"@type": "ListItem", "position": 2, "name": "Classic Games", "item": "https://gamenestworld.com/classic-games/"}, {"@type": "ListItem", "position": 3, "name": "Snake", "item": "https://gamenestworld.com/games/snake/"}]}</script>
 </head>
 <body>
@@ -33,28 +33,69 @@
 <main class="gp-main">
   <div class="gp-breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/classic-games/">Classic Games</a> &rsaquo; Snake</div>
   <div class="gp-hero">
-    <img class="gp-shot" src="/game-images/snake.webp" alt="Screenshot of Snake being played on GameNest World -- nokia classic" width="220" loading="eager">
+    <iframe class="gp-frame" src="/?play=snake" loading="lazy" title="Play Snake -- full working game, embedded live from GameNest World" allow="autoplay"></iframe>
     <div class="gp-hero-text">
       <h1>Play Snake Online Free</h1>
       <p class="gp-lead">Guide a growing snake around the board to eat food while avoiding the walls and your own tail.</p>
-      <a class="gp-play-btn" href="https://gamenestworld.com/?play=snake">&#9654; Play Snake Now</a>
+      <p class="gp-meta">&#9650; The real, full game is playable directly above -- no separate tab needed.</p>
+      <a class="gp-play-btn" href="https://gamenestworld.com/?play=snake">&#9654; Open Snake in Full Screen</a>
       <p class="gp-meta">No download &middot; No signup &middot; 100% free &middot; Works on desktop &amp; mobile</p>
     </div>
   </div>
 
   <section class="gp-section">
     <h2>About Snake</h2>
-    <p>Snake revives the game that came pre-installed on old Nokia phones: guide your snake to eat food, grow longer, and avoid crashing into the walls or your own tail. It's endlessly replayable and gets harder the longer you survive.</p>
+    <p>Snake revives the classic that came pre-installed on old Nokia phones: guide your snake to eat food and grow longer. This version wraps the walls instead of killing you on them -- slide off one edge of the grid and you reappear on the opposite side. The only real hazard is your own tail: steer your head into it and the run ends. It's endlessly replayable, and it keeps getting faster the longer you survive.</p>
   </section>
 
   <section class="gp-section">
     <h2>How to Play Snake</h2>
-    <p>Eat food to grow longer — avoid walls and your own tail!.</p>
+    <p>Eat food to grow longer -- the walls wrap around, so only running into your own tail ends the game.</p>
   </section>
 
   <section class="gp-section">
     <h2>Snake Controls</h2>
     <p>← → ↑ ↓ Arrow keys or on-screen buttons</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Scoring</h2>
+    <p>Each piece of food is worth 10 points, plus a 5-point bonus once your snake is longer than 10 segments -- so the exact same apple is worth more the longer you've already survived.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Walls Wrap -- Only Your Tail Is Dangerous</h2>
+    <p>This version wraps the walls instead of ending your run on them: slide off the right edge of the 20&times;20 grid and your snake reappears on the left edge (and the same top-to-bottom). The only way to actually end the game is steering your own head into your own tail.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Speed Increases Continuously</h2>
+    <p>There's no separate level selector -- the game speeds up on its own. Every piece of food shaves a little off the move timer (starting at 140ms and tightening toward a 60ms floor), so the longer you survive, the faster you have to react.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Controls</h2>
+    <p>Arrow keys, WASD, the on-screen directional buttons, or Space to pause and resume -- whichever is easiest on your device.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Strategy</h2>
+    <p>Since walls are actually safe here, use them on purpose to escape a tight spot instead of avoiding the edges out of old habit. The real hazard is your own body, so as your snake gets long and fast, leave yourself room to turn well before you need to.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Common Mistakes</h2>
+    <p>Players used to classic wall-collision Snake often panic and swerve away from an edge that was never going to kill them -- and that panic turn is what runs them into their own tail instead.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>High-Score Tips</h2>
+    <p>Loop around the outer edge of the grid as your body gets long. A wide, predictable loop is far easier to steer at high speed than weaving back and forth through the middle.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>History</h2>
+    <p>Snake-style games trace back to the 1976 arcade title Blockade, but the version most people remember is the one pre-installed on Nokia phones starting with the Nokia 6110 in 1997 -- the version this one is modeled after.</p>
   </section>
 
   <section class="gp-section">
@@ -69,10 +110,10 @@
   <section class="gp-section">
     <h2>Frequently Asked Questions About Snake</h2>
     <div class="gp-faq">
-      <details><summary>Is Snake free to play?</summary><p>Yes. Snake is 100% free on GameNest World, with no premium tier, paywall, or in-game purchases.</p></details>
-      <details><summary>Do I need to download Snake?</summary><p>No download is required. Snake runs directly in your browser using HTML5 and JavaScript -- just open the page and start playing.</p></details>
-      <details><summary>Can I play Snake on my phone or tablet?</summary><p>Yes, Snake works on desktop, tablet, and mobile browsers. The layout adjusts automatically to your screen size.</p></details>
-      <details><summary>Do I need to create an account to play Snake?</summary><p>No account is needed. Your progress for Snake is saved locally in your browser, so you can jump straight in.</p></details>
+      <details><summary>Do the walls kill you in this version of Snake?</summary><p>No -- walls wrap around: your snake reappears on the opposite edge instead of dying. Only running into your own tail ends the game.</p></details>
+      <details><summary>Does Snake get harder as you play?</summary><p>Yes, continuously -- there's no level select, but the movement speed increases a little with every piece of food you eat, down to a fast floor speed.</p></details>
+      <details><summary>Is Snake free to play?</summary><p>Yes. Snake is 100% free on GameNest World, with no download and no account needed.</p></details>
+      <details><summary>Can I play Snake on mobile?</summary><p>Yes -- on-screen directional buttons are built in for touch devices, alongside arrow key and WASD support on desktop.</p></details>
     </div>
   </section>
 

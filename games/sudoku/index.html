@@ -22,7 +22,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/seo-pages.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "VideoGame", "name": "Sudoku", "description": "Fill a 9×9 grid with numbers 1–9 so that every row, column, and 3×3 box contains each digit exactly once.", "genre": "Educational Puzzle", "url": "https://gamenestworld.com/games/sudoku/", "image": "https://gamenestworld.com/game-images/sudoku.webp", "applicationCategory": "Game", "operatingSystem": "Any", "gamePlatform": "Web Browser", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is Sudoku free to play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Sudoku is 100% free on GameNest World, with no premium tier, paywall, or in-game purchases."}}, {"@type": "Question", "name": "Do I need to download Sudoku?", "acceptedAnswer": {"@type": "Answer", "text": "No download is required. Sudoku runs directly in your browser using HTML5 and JavaScript -- just open the page and start playing."}}, {"@type": "Question", "name": "Can I play Sudoku on my phone or tablet?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, Sudoku works on desktop, tablet, and mobile browsers. The layout adjusts automatically to your screen size."}}, {"@type": "Question", "name": "Do I need to create an account to play Sudoku?", "acceptedAnswer": {"@type": "Answer", "text": "No account is needed. Your progress for Sudoku is saved locally in your browser, so you can jump straight in."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does Sudoku tell me if a number is wrong as soon as I enter it?", "acceptedAnswer": {"@type": "Answer", "text": "No -- this version doesn't flag mistakes in real time. Fill in as much of the grid as you like, then press Check to see whether the whole board matches the solution."}}, {"@type": "Question", "name": "Is my Sudoku progress saved?", "acceptedAnswer": {"@type": "Answer", "text": "Yes -- your grid saves automatically as you play, so closing the tab and coming back resumes the same puzzle where you left off."}}, {"@type": "Question", "name": "Is Sudoku free to play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Sudoku is 100% free on GameNest World, with no download or account required."}}, {"@type": "Question", "name": "Can I play Sudoku on my phone?", "acceptedAnswer": {"@type": "Answer", "text": "Yes -- tap a cell, then tap a number on the on-screen pad. It works on desktop, tablet, and mobile browsers."}}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gamenestworld.com/"}, {"@type": "ListItem", "position": 2, "name": "Math Games", "item": "https://gamenestworld.com/math-games/"}, {"@type": "ListItem", "position": 3, "name": "Sudoku", "item": "https://gamenestworld.com/games/sudoku/"}]}</script>
 </head>
 <body>
@@ -33,11 +33,12 @@
 <main class="gp-main">
   <div class="gp-breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/math-games/">Math Games</a> &rsaquo; Sudoku</div>
   <div class="gp-hero">
-    <img class="gp-shot" src="/game-images/sudoku.webp" alt="Screenshot of Sudoku being played on GameNest World -- classic 9×9" width="220" loading="eager">
+    <iframe class="gp-frame" src="/?play=sudoku" loading="lazy" title="Play Sudoku -- full working game, embedded live from GameNest World" allow="autoplay"></iframe>
     <div class="gp-hero-text">
       <h1>Play Sudoku Online Free</h1>
       <p class="gp-lead">Fill a 9×9 grid with numbers 1–9 so that every row, column, and 3×3 box contains each digit exactly once.</p>
-      <a class="gp-play-btn" href="https://gamenestworld.com/?play=sudoku">&#9654; Play Sudoku Now</a>
+      <p class="gp-meta">&#9650; The real, full game is playable directly above -- no separate tab needed.</p>
+      <a class="gp-play-btn" href="https://gamenestworld.com/?play=sudoku">&#9654; Open Sudoku in Full Screen</a>
       <p class="gp-meta">No download &middot; No signup &middot; 100% free &middot; Works on desktop &amp; mobile</p>
     </div>
   </div>
@@ -58,6 +59,41 @@
   </section>
 
   <section class="gp-section">
+    <h2>Rules</h2>
+    <p>Classic 9&times;9 Sudoku: fill every row, column, and 3&times;3 box with the digits 1 through 9, with no repeats in any of the three. Every solvable puzzle here can be worked out through pure logic -- no guessing required.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Puzzle Pool</h2>
+    <p>This implementation ships with a small curated set of easy starter puzzles rather than an endless generator, so you may see a puzzle repeat if you play many rounds back to back.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Checking Your Work</h2>
+    <p>There's no live error-highlighting as you type. You fill in the grid at your own pace and press Check when you're ready, which compares your entire board against the solution at once and tells you whether it's fully correct.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Controls</h2>
+    <p>Click or tap a cell to select it, then click a number 1-9 to fill it in, or the &#10005; button to clear it. Your progress saves automatically, so you can close the tab and pick the same puzzle back up later.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Strategy</h2>
+    <p>Scan for a box, row, or column that's missing only one digit first -- those are guaranteed fills. From there, look for cells where only one digit is possible given everything already visible in its row, column, and box.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Common Mistakes</h2>
+    <p>Entering a number without cross-checking it against the row, column, AND box it belongs to -- a placement can look fine in its row while already conflicting in its box. Forgetting that the pre-filled clue cells can't be edited is another common early mix-up.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>History</h2>
+    <p>Sudoku's numeral grid traces to Howard Garns's "Number Place," published in the US in 1979. It was popularized in Japan during the 1980s under the name Sudoku ("single number") and became a worldwide puzzle phenomenon in the mid-2000s.</p>
+  </section>
+
+  <section class="gp-section">
     <h2>Tips for Sudoku</h2>
     <ul>
       <li>If you're new to the operations in Sudoku, try a few problems on paper first -- speed comes with repetition, not shortcuts.</li>
@@ -69,10 +105,10 @@
   <section class="gp-section">
     <h2>Frequently Asked Questions About Sudoku</h2>
     <div class="gp-faq">
-      <details><summary>Is Sudoku free to play?</summary><p>Yes. Sudoku is 100% free on GameNest World, with no premium tier, paywall, or in-game purchases.</p></details>
-      <details><summary>Do I need to download Sudoku?</summary><p>No download is required. Sudoku runs directly in your browser using HTML5 and JavaScript -- just open the page and start playing.</p></details>
-      <details><summary>Can I play Sudoku on my phone or tablet?</summary><p>Yes, Sudoku works on desktop, tablet, and mobile browsers. The layout adjusts automatically to your screen size.</p></details>
-      <details><summary>Do I need to create an account to play Sudoku?</summary><p>No account is needed. Your progress for Sudoku is saved locally in your browser, so you can jump straight in.</p></details>
+      <details><summary>Does Sudoku tell me if a number is wrong as soon as I enter it?</summary><p>No -- this version doesn't flag mistakes in real time. Fill in as much of the grid as you like, then press Check to see whether the whole board matches the solution.</p></details>
+      <details><summary>Is my Sudoku progress saved?</summary><p>Yes -- your grid saves automatically as you play, so closing the tab and coming back resumes the same puzzle where you left off.</p></details>
+      <details><summary>Is Sudoku free to play?</summary><p>Yes. Sudoku is 100% free on GameNest World, with no download or account required.</p></details>
+      <details><summary>Can I play Sudoku on my phone?</summary><p>Yes -- tap a cell, then tap a number on the on-screen pad. It works on desktop, tablet, and mobile browsers.</p></details>
     </div>
   </section>
 

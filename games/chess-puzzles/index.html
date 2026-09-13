@@ -22,7 +22,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/seo-pages.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "VideoGame", "name": "Chess Puzzles", "description": "Study a real chess position and find the winning move that delivers checkmate in one or two moves.", "genre": "Arcade", "url": "https://gamenestworld.com/games/chess-puzzles/", "image": "https://gamenestworld.com/game-images/chess.webp", "applicationCategory": "Game", "operatingSystem": "Any", "gamePlatform": "Web Browser", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is Chess Puzzles free to play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Chess Puzzles is 100% free on GameNest World, with no premium tier, paywall, or in-game purchases."}}, {"@type": "Question", "name": "Do I need to download Chess Puzzles?", "acceptedAnswer": {"@type": "Answer", "text": "No download is required. Chess Puzzles runs directly in your browser using HTML5 and JavaScript -- just open the page and start playing."}}, {"@type": "Question", "name": "Can I play Chess Puzzles on my phone or tablet?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, Chess Puzzles works on desktop, tablet, and mobile browsers. The layout adjusts automatically to your screen size."}}, {"@type": "Question", "name": "Do I need to create an account to play Chess Puzzles?", "acceptedAnswer": {"@type": "Answer", "text": "No account is needed. Your progress for Chess Puzzles is saved locally in your browser, so you can jump straight in."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is Chess Puzzles actually a puzzle, or a full game?", "acceptedAnswer": {"@type": "Answer", "text": "It's a full chess game against a computer opponent, not a set of pre-built puzzle positions -- you play an entire game from the starting position, with the computer playing Black."}}, {"@type": "Question", "name": "Can I castle in Chess Puzzles?", "acceptedAnswer": {"@type": "Answer", "text": "Not currently -- castling and en passant aren't implemented in this version, so standard piece moves and automatic queen promotion are what you have to work with."}}, {"@type": "Question", "name": "How strong is the Chess Puzzles AI?", "acceptedAnswer": {"@type": "Answer", "text": "It looks two moves ahead using a standard piece-value and position evaluation, which makes it a fair, genuinely tactical opponent without being unbeatable."}}, {"@type": "Question", "name": "Is Chess Puzzles free to play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Chess Puzzles is 100% free on GameNest World, with no download or account required."}}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gamenestworld.com/"}, {"@type": "ListItem", "position": 2, "name": "Classic Games", "item": "https://gamenestworld.com/classic-games/"}, {"@type": "ListItem", "position": 3, "name": "Chess Puzzles", "item": "https://gamenestworld.com/games/chess-puzzles/"}]}</script>
 </head>
 <body>
@@ -33,28 +33,54 @@
 <main class="gp-main">
   <div class="gp-breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/classic-games/">Classic Games</a> &rsaquo; Chess Puzzles</div>
   <div class="gp-hero">
-    <img class="gp-shot" src="/game-images/chess.webp" alt="Screenshot of Chess Puzzles being played on GameNest World -- mate in 1-2" width="220" loading="eager">
+    <iframe class="gp-frame" src="/?play=chess" loading="lazy" title="Play Chess Puzzles -- full working game, embedded live from GameNest World" allow="autoplay"></iframe>
     <div class="gp-hero-text">
       <h1>Play Chess Puzzles Online Free</h1>
       <p class="gp-lead">Study a real chess position and find the winning move that delivers checkmate in one or two moves.</p>
-      <a class="gp-play-btn" href="https://gamenestworld.com/?play=chess">&#9654; Play Chess Puzzles Now</a>
+      <p class="gp-meta">&#9650; The real, full game is playable directly above -- no separate tab needed.</p>
+      <a class="gp-play-btn" href="https://gamenestworld.com/?play=chess">&#9654; Open Chess Puzzles in Full Screen</a>
       <p class="gp-meta">No download &middot; No signup &middot; 100% free &middot; Works on desktop &amp; mobile</p>
     </div>
   </div>
 
   <section class="gp-section">
     <h2>About Chess Puzzles</h2>
-    <p>Chess Puzzles presents real tactical positions and asks you to find the move that forces checkmate in one or two moves. It's a great way for chess players of any level to sharpen tactical vision without needing a full opponent.</p>
+    <p>Despite "Puzzles" in the name on the menu, Chess Puzzles on GameNest World is a full chess game, not a curated set of find-the-checkmate positions: you play a complete game from the standard starting position against the computer, which plays Black. (We're noting this plainly rather than describing a puzzle mode that doesn't exist here -- it's a genuine full game, which is arguably more replay value anyway.)</p>
   </section>
 
   <section class="gp-section">
     <h2>How to Play Chess Puzzles</h2>
-    <p>Find the best chess move (mate in 1-2). Click your answer.</p>
+    <p>Click or tap a piece to select it, then click or tap a highlighted square to move it there. You always play White; the computer replies as Black.</p>
   </section>
 
   <section class="gp-section">
     <h2>Chess Puzzles Controls</h2>
-    <p>🖱️ Click</p>
+    <p>🖱️ Click to select a piece, click again to move it</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>How the AI Thinks</h2>
+    <p>The computer opponent evaluates its replies by looking two moves ahead (a minimax search with alpha-beta pruning) and by weighing piece values and board position -- pawns are worth 1 point, knights and bishops 3, rooks 5, and queens 9, with a small positional bonus for well-placed pawns.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Rules Coverage</h2>
+    <p>Standard piece movement is fully supported, and a pawn reaching the last rank automatically promotes to a queen. Castling and en passant capture aren't implemented in this version, so plan your king's safety and pawn play without relying on either.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Strategy</h2>
+    <p>Because the AI only looks two moves ahead and doesn't need to account for castling, tactics that pay off three or more moves later slip past it more easily than they would against a stronger engine -- look for concrete two-move tactics like forks, pins, and back-rank threats rather than long positional plans.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Common Mistakes</h2>
+    <p>Leaving a piece defended by only one unit is risky -- the AI's evaluation reliably spots and takes an undefended piece. Assuming you can castle to safety is the other common miscalculation, since it isn't available in this version.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>History</h2>
+    <p>Chess's rules trace back over a thousand years to a game called chaturanga in India, evolving through Persia and medieval Europe into essentially its modern form by around 1475 -- it remains one of the most studied and computer-analyzed games ever created.</p>
   </section>
 
   <section class="gp-section">
@@ -69,10 +95,10 @@
   <section class="gp-section">
     <h2>Frequently Asked Questions About Chess Puzzles</h2>
     <div class="gp-faq">
-      <details><summary>Is Chess Puzzles free to play?</summary><p>Yes. Chess Puzzles is 100% free on GameNest World, with no premium tier, paywall, or in-game purchases.</p></details>
-      <details><summary>Do I need to download Chess Puzzles?</summary><p>No download is required. Chess Puzzles runs directly in your browser using HTML5 and JavaScript -- just open the page and start playing.</p></details>
-      <details><summary>Can I play Chess Puzzles on my phone or tablet?</summary><p>Yes, Chess Puzzles works on desktop, tablet, and mobile browsers. The layout adjusts automatically to your screen size.</p></details>
-      <details><summary>Do I need to create an account to play Chess Puzzles?</summary><p>No account is needed. Your progress for Chess Puzzles is saved locally in your browser, so you can jump straight in.</p></details>
+      <details><summary>Is Chess Puzzles actually a puzzle, or a full game?</summary><p>It's a full chess game against a computer opponent, not a set of pre-built puzzle positions -- you play an entire game from the starting position, with the computer playing Black.</p></details>
+      <details><summary>Can I castle in Chess Puzzles?</summary><p>Not currently -- castling and en passant aren't implemented in this version, so standard piece moves and automatic queen promotion are what you have to work with.</p></details>
+      <details><summary>How strong is the Chess Puzzles AI?</summary><p>It looks two moves ahead using a standard piece-value and position evaluation, which makes it a fair, genuinely tactical opponent without being unbeatable.</p></details>
+      <details><summary>Is Chess Puzzles free to play?</summary><p>Yes. Chess Puzzles is 100% free on GameNest World, with no download or account required.</p></details>
     </div>
   </section>
 

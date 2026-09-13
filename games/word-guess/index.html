@@ -22,7 +22,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/seo-pages.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "VideoGame", "name": "Word Guess", "description": "Guess a secret five-letter word within six tries, using color clues to narrow down each letter.", "genre": "Word Game", "url": "https://gamenestworld.com/games/word-guess/", "image": "https://gamenestworld.com/game-images/wordle.webp", "applicationCategory": "Game", "operatingSystem": "Any", "gamePlatform": "Web Browser", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is Word Guess free to play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Word Guess is 100% free on GameNest World, with no premium tier, paywall, or in-game purchases."}}, {"@type": "Question", "name": "Do I need to download Word Guess?", "acceptedAnswer": {"@type": "Answer", "text": "No download is required. Word Guess runs directly in your browser using HTML5 and JavaScript -- just open the page and start playing."}}, {"@type": "Question", "name": "Can I play Word Guess on my phone or tablet?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, Word Guess works on desktop, tablet, and mobile browsers. The layout adjusts automatically to your screen size."}}, {"@type": "Question", "name": "Do I need to create an account to play Word Guess?", "acceptedAnswer": {"@type": "Answer", "text": "No account is needed. Your progress for Word Guess is saved locally in your browser, so you can jump straight in."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does solving Word Guess in fewer tries give a bigger score bonus?", "acceptedAnswer": {"@type": "Answer", "text": "No -- this version awards a flat 100 points for solving the word at all, regardless of how many of your guesses you used, so there's no extra reward for speed-solving."}}, {"@type": "Question", "name": "Does Word Guess get harder the more I play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, on two fronts -- the word list shifts toward trickier words as your level rises, and your guess limit also shrinks from the classic 6 tries toward a 3-guess minimum."}}, {"@type": "Question", "name": "Is Word Guess free to play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Word Guess is 100% free on GameNest World, with no download or account required."}}, {"@type": "Question", "name": "Can I use my keyboard to play Word Guess?", "acceptedAnswer": {"@type": "Answer", "text": "Yes -- your physical keyboard works alongside the on-screen one, including Enter to submit and Backspace to delete."}}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gamenestworld.com/"}, {"@type": "ListItem", "position": 2, "name": "Word Games", "item": "https://gamenestworld.com/word-games/"}, {"@type": "ListItem", "position": 3, "name": "Word Guess", "item": "https://gamenestworld.com/games/word-guess/"}]}</script>
 </head>
 <body>
@@ -33,28 +33,64 @@
 <main class="gp-main">
   <div class="gp-breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/word-games/">Word Games</a> &rsaquo; Word Guess</div>
   <div class="gp-hero">
-    <img class="gp-shot" src="/game-images/wordle.webp" alt="Screenshot of Word Guess being played on GameNest World -- 5-letter wordle" width="220" loading="eager">
+    <iframe class="gp-frame" src="/?play=wordle" loading="lazy" title="Play Word Guess -- full working game, embedded live from GameNest World" allow="autoplay"></iframe>
     <div class="gp-hero-text">
       <h1>Play Word Guess Online Free</h1>
       <p class="gp-lead">Guess a secret five-letter word within six tries, using color clues to narrow down each letter.</p>
-      <a class="gp-play-btn" href="https://gamenestworld.com/?play=wordle">&#9654; Play Word Guess Now</a>
+      <p class="gp-meta">&#9650; The real, full game is playable directly above -- no separate tab needed.</p>
+      <a class="gp-play-btn" href="https://gamenestworld.com/?play=wordle">&#9654; Open Word Guess in Full Screen</a>
       <p class="gp-meta">No download &middot; No signup &middot; 100% free &middot; Works on desktop &amp; mobile</p>
     </div>
   </div>
 
   <section class="gp-section">
     <h2>About Word Guess</h2>
-    <p>Word Guess is our take on the daily word-guessing format that made Wordle a household name: figure out a secret five-letter word in six tries, using green and yellow clues to narrow things down. Unlike the original, you can play as many rounds as you like.</p>
+    <p>Word Guess is our take on the daily word-guessing format that made Wordle a household name: figure out a secret five-letter word using green and yellow clues to narrow things down. Unlike the original, you can play as many rounds as you like -- and unlike a fixed six-try format, your guess limit here actually shifts with your level, tightening from 6 tries down toward a 3-guess minimum as you climb higher.</p>
   </section>
 
   <section class="gp-section">
     <h2>How to Play Word Guess</h2>
-    <p>Guess the 5-letter word in 6 tries. Green=correct, Yellow=wrong place.</p>
+    <p>Guess the 5-letter word before you run out of tries (6 at low levels, fewer at higher ones). Green = correct letter, correct spot. Yellow = correct letter, wrong spot.</p>
   </section>
 
   <section class="gp-section">
     <h2>Word Guess Controls</h2>
     <p>🖱️ Click letters or ⌨️ Keyboard</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Rules &amp; Feedback</h2>
+    <p>Guess the hidden 5-letter word. After each guess, letters turn green (correct letter, correct spot), yellow (correct letter, wrong spot), or gray (not in the word) -- the same feedback system Wordle popularized.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Difficulty Scales Two Ways At Once</h2>
+    <p>The word list gets harder as your level rises -- levels 1-10 draw from common, everyday words, 11-20 mix in trickier ones, and past level 20 it's trickier words only. At the same time your guess limit shrinks: you start with the classic 6 tries, dropping toward a 3-guess minimum at higher levels, so it's not just the words getting harder, it's your margin for error getting smaller too.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Controls</h2>
+    <p>Type on the on-screen keyboard or your physical one -- Enter to submit a guess, Backspace to delete a letter.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Strategy</h2>
+    <p>Open with a word using common, distinct letters to gather the most information from a single guess. When a letter turns yellow, try it in a different position next guess rather than leaving it where it was -- it's confirmed to be in the word, just not there.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Common Mistakes</h2>
+    <p>Repeating a gray (already-ruled-out) letter in a later guess wastes a try. Ignoring a yellow tile instead of relocating that letter is the other common way a solvable word slips away.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Scoring</h2>
+    <p>Solving the word is worth a flat 100 points toward your level here, regardless of how many of your guesses it took -- there's no bonus for solving it faster, so use every guess you're given if you need to.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>History</h2>
+    <p>This format is modeled on Wordle, created by Josh Wardle and released publicly in October 2021, which was acquired by The New York Times in 2022 after becoming a global daily-puzzle phenomenon.</p>
   </section>
 
   <section class="gp-section">
@@ -69,10 +105,10 @@
   <section class="gp-section">
     <h2>Frequently Asked Questions About Word Guess</h2>
     <div class="gp-faq">
-      <details><summary>Is Word Guess free to play?</summary><p>Yes. Word Guess is 100% free on GameNest World, with no premium tier, paywall, or in-game purchases.</p></details>
-      <details><summary>Do I need to download Word Guess?</summary><p>No download is required. Word Guess runs directly in your browser using HTML5 and JavaScript -- just open the page and start playing.</p></details>
-      <details><summary>Can I play Word Guess on my phone or tablet?</summary><p>Yes, Word Guess works on desktop, tablet, and mobile browsers. The layout adjusts automatically to your screen size.</p></details>
-      <details><summary>Do I need to create an account to play Word Guess?</summary><p>No account is needed. Your progress for Word Guess is saved locally in your browser, so you can jump straight in.</p></details>
+      <details><summary>Does solving Word Guess in fewer tries give a bigger score bonus?</summary><p>No -- this version awards a flat 100 points for solving the word at all, regardless of how many of your guesses you used, so there's no extra reward for speed-solving.</p></details>
+      <details><summary>Does Word Guess get harder the more I play?</summary><p>Yes, on two fronts -- the word list shifts toward trickier words as your level rises, and your guess limit also shrinks from the classic 6 tries toward a 3-guess minimum.</p></details>
+      <details><summary>Is Word Guess free to play?</summary><p>Yes. Word Guess is 100% free on GameNest World, with no download or account required.</p></details>
+      <details><summary>Can I use my keyboard to play Word Guess?</summary><p>Yes -- your physical keyboard works alongside the on-screen one, including Enter to submit and Backspace to delete.</p></details>
     </div>
   </section>
 

@@ -22,7 +22,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/seo-pages.css">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "VideoGame", "name": "Minesweeper", "description": "Clear a 6×6 grid without detonating any hidden mines, using number clues to play it safe.", "genre": "Arcade", "url": "https://gamenestworld.com/games/minesweeper/", "image": "https://gamenestworld.com/game-images/mines.webp", "applicationCategory": "Game", "operatingSystem": "Any", "gamePlatform": "Web Browser", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is Minesweeper free to play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Minesweeper is 100% free on GameNest World, with no premium tier, paywall, or in-game purchases."}}, {"@type": "Question", "name": "Do I need to download Minesweeper?", "acceptedAnswer": {"@type": "Answer", "text": "No download is required. Minesweeper runs directly in your browser using HTML5 and JavaScript -- just open the page and start playing."}}, {"@type": "Question", "name": "Can I play Minesweeper on my phone or tablet?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, Minesweeper works on desktop, tablet, and mobile browsers. The layout adjusts automatically to your screen size."}}, {"@type": "Question", "name": "Do I need to create an account to play Minesweeper?", "acceptedAnswer": {"@type": "Answer", "text": "No account is needed. Your progress for Minesweeper is saved locally in your browser, so you can jump straight in."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is the first click in Minesweeper guaranteed to be safe?", "acceptedAnswer": {"@type": "Answer", "text": "No -- mines are placed randomly across the grid before you click anything, so, like the original Windows version, your first click carries the same odds as any other."}}, {"@type": "Question", "name": "How do I flag a mine on mobile?", "acceptedAnswer": {"@type": "Answer", "text": "Right-click flags a cell on desktop; on most touchscreen browsers, a long press triggers the same context-menu action."}}, {"@type": "Question", "name": "Is Minesweeper free to play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Minesweeper is 100% free on GameNest World, with no download needed."}}, {"@type": "Question", "name": "Is there a harder version of Minesweeper?", "acceptedAnswer": {"@type": "Answer", "text": "Yes -- Minesweeper Hard uses a 10×10 grid with 20 mines for a longer, tougher round."}}]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gamenestworld.com/"}, {"@type": "ListItem", "position": 2, "name": "Classic Games", "item": "https://gamenestworld.com/classic-games/"}, {"@type": "ListItem", "position": 3, "name": "Minesweeper", "item": "https://gamenestworld.com/games/minesweeper/"}]}</script>
 </head>
 <body>
@@ -33,11 +33,12 @@
 <main class="gp-main">
   <div class="gp-breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/classic-games/">Classic Games</a> &rsaquo; Minesweeper</div>
   <div class="gp-hero">
-    <img class="gp-shot" src="/game-images/mines.webp" alt="Screenshot of Minesweeper being played on GameNest World -- 6×6 classic" width="220" loading="eager">
+    <iframe class="gp-frame" src="/?play=mines" loading="lazy" title="Play Minesweeper -- full working game, embedded live from GameNest World" allow="autoplay"></iframe>
     <div class="gp-hero-text">
       <h1>Play Minesweeper Online Free</h1>
       <p class="gp-lead">Clear a 6×6 grid without detonating any hidden mines, using number clues to play it safe.</p>
-      <a class="gp-play-btn" href="https://gamenestworld.com/?play=mines">&#9654; Play Minesweeper Now</a>
+      <p class="gp-meta">&#9650; The real, full game is playable directly above -- no separate tab needed.</p>
+      <a class="gp-play-btn" href="https://gamenestworld.com/?play=mines">&#9654; Open Minesweeper in Full Screen</a>
       <p class="gp-meta">No download &middot; No signup &middot; 100% free &middot; Works on desktop &amp; mobile</p>
     </div>
   </div>
@@ -58,6 +59,41 @@
   </section>
 
   <section class="gp-section">
+    <h2>Rules</h2>
+    <p>A 6&times;6 grid hides 8 mines. Revealing a safe cell shows a number counting its mine-adjacent neighbors (or nothing, if it has none, which auto-reveals the connected empty area around it). Flag any cell you suspect is a mine to keep track of it.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>The First Click Isn't Guaranteed Safe</h2>
+    <p>Mines are placed across the board before you click anything, so -- like the original 1990s Minesweeper -- there's no "guaranteed safe" first move built in here. The odds simply favor you early on, since only 8 of the 36 cells are mines.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Controls</h2>
+    <p>Left-click or tap to reveal a cell; right-click to flag a suspected mine (on touchscreens, this generally maps to your browser's long-press context-menu gesture).</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Strategy</h2>
+    <p>Use the number clues to deduce, not guess: if a numbered cell already has exactly that many flagged neighbors, every other neighbor of that cell is guaranteed safe to reveal.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Common Mistakes</h2>
+    <p>Clicking a cell you're only 50/50 on when a safer deduction was available elsewhere on the board. Not flagging cells you've already reasoned are mines makes it easy to lose track and misjudge a nearby number later.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Also On the Site</h2>
+    <p>A tougher 10&times;10, 20-mine "Minesweeper Hard" version is also available if this 6&times;6 grid starts feeling too easy.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>History</h2>
+    <p>The version most people know is the one Microsoft bundled with Windows starting in 1990, which popularized the reveal-and-flag, number-clue format this 6&times;6 mini take is modeled after.</p>
+  </section>
+
+  <section class="gp-section">
     <h2>Tips for Minesweeper</h2>
     <ul>
       <li>Minesweeper tends to reward a steady, controlled pace more than raw speed -- rushing early is usually what ends a run.</li>
@@ -69,10 +105,10 @@
   <section class="gp-section">
     <h2>Frequently Asked Questions About Minesweeper</h2>
     <div class="gp-faq">
-      <details><summary>Is Minesweeper free to play?</summary><p>Yes. Minesweeper is 100% free on GameNest World, with no premium tier, paywall, or in-game purchases.</p></details>
-      <details><summary>Do I need to download Minesweeper?</summary><p>No download is required. Minesweeper runs directly in your browser using HTML5 and JavaScript -- just open the page and start playing.</p></details>
-      <details><summary>Can I play Minesweeper on my phone or tablet?</summary><p>Yes, Minesweeper works on desktop, tablet, and mobile browsers. The layout adjusts automatically to your screen size.</p></details>
-      <details><summary>Do I need to create an account to play Minesweeper?</summary><p>No account is needed. Your progress for Minesweeper is saved locally in your browser, so you can jump straight in.</p></details>
+      <details><summary>Is the first click in Minesweeper guaranteed to be safe?</summary><p>No -- mines are placed randomly across the grid before you click anything, so, like the original Windows version, your first click carries the same odds as any other.</p></details>
+      <details><summary>How do I flag a mine on mobile?</summary><p>Right-click flags a cell on desktop; on most touchscreen browsers, a long press triggers the same context-menu action.</p></details>
+      <details><summary>Is Minesweeper free to play?</summary><p>Yes. Minesweeper is 100% free on GameNest World, with no download needed.</p></details>
+      <details><summary>Is there a harder version of Minesweeper?</summary><p>Yes -- Minesweeper Hard uses a 10×10 grid with 20 mines for a longer, tougher round.</p></details>
     </div>
   </section>
 
