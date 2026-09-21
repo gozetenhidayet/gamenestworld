@@ -10679,11 +10679,26 @@ document.addEventListener('DOMContentLoaded', function(){
 <script>
 // Deep-link support: /games/{slug}/ pages send visitors here with ?play=ID
 // so the right game opens automatically instead of dropping them on the homepage.
+//
+// FIX (found via real Google Search Console crawl data, not just code review):
+// this used to call history.replaceState(null,'','/') immediately after
+// opening the game, wiping the ?play=ID query string from the address bar.
+// That's harmless for a human (they already see the game), but it is exactly
+// what breaks indexing for Googlebot: when Google's renderer loads
+// https://gamenestworld.com/?play=snake and finishes running this page's JS,
+// it checks the FINAL url in the tab to decide what got served there. Since
+// the final url had become "/" (the replaceState above), Search Console
+// classified all 62 of the game deep-link URLs listed in this page's own
+// JSON-LD (?play=snake, ?play=tetris, ?play=g2048, ...) as "Page with
+// redirect" -- meaning none of them were ever indexed as their own distinct
+// page, even though the JSON-LD promises they exist as separate entities.
+// Leaving the ?play=ID query string in place after opening the game (as
+// this script now does) lets Google -- and anyone sharing/bookmarking a
+// direct link to a specific game -- see the same URL that was requested.
 (function(){
   var id = new URLSearchParams(location.search).get('play');
   if(!id) return;
   openGame(id); // the lazy loader above queues this and loads the engine
-  if(history.replaceState) history.replaceState(null,'','/');
 })();
 </script>
 </body>
