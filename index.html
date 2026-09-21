@@ -2452,52 +2452,78 @@ h1,h2,h3,h4{color:#fff;}
   // (adBreak/type:'reward'). Whether an ad actually fills depends on your
   // AdSense account's eligibility for this inventory — verify in your AdSense
   // dashboard under Ads > By ad unit before relying on it for revenue.
-  window.requestRewardedAd = function(){
-    var btn = document.getElementById('watch-ad-btn');
-    var statusEl = document.getElementById('watch-ad-status');
+  //
+  // FIX (Round 21, response to a policy-risk report): this is now the ONE
+  // real ad path on the whole site. Every reward trigger (the header "Watch
+  // Ad" button, the "No Lives Left" modal, hints, answer-reveals) must call
+  // THIS -- not roll its own fake countdown. See the removed
+  // showRewardedAd()/rewardedModalHTML() below for what used to exist: a
+  // 5-second setTimeout with a static "📺 (AdSense Video Ad)" placeholder
+  // graphic that never contacted Google at all and unconditionally handed
+  // out the reward after the countdown. That was reachable from the live
+  // "No Lives Left" screen (gnw's single most common monetization moment)
+  // and would have been a severe policy violation if it had ever shipped:
+  // not just "rewarding a non-rewarded ad unit", but simulating an ad
+  // impression that was never actually served.
+  window._gnwPendingAd = null; // {showFn, key} -- an ad that finished loading and is waiting for the confirming user click
+  function gnwWatchRewardedAd(opts){
+    // opts: {key, btn, statusEl, onRewarded, onDismissed, onUnavailable}
+    var btn = opts.btn, statusEl = opts.statusEl;
     var dict = I18N[document.documentElement.lang] || I18N.en;
-    function setStatus(key, fallback){
-      if(statusEl) statusEl.textContent = (dict[key] || I18N.en[key] || fallback || '');
+    function setStatus(key2, fallback){
+      var msg = (dict[key2] || I18N.en[key2] || fallback || '');
+      if(statusEl) statusEl.textContent = msg;
     }
-
-    // Step 2: an ad was already loaded by a previous click (beforeReward fired) —
-    // this click IS the required direct user gesture, so show it now.
-    if(window._gnwShowAd){
-      var fn = window._gnwShowAd; window._gnwShowAd = null;
+    // Step 2: an ad was already loaded by a previous click on THIS trigger --
+    // this click is the required direct user gesture, so show it now.
+    if(window._gnwPendingAd && window._gnwPendingAd.key === opts.key){
+      var fn = window._gnwPendingAd.showFn; window._gnwPendingAd = null;
       fn();
       return;
     }
-
     // Step 1: request a rewarded ad.
     if(btn){ btn.disabled = true; }
     setStatus('adLoading', 'Loading ad…');
     if(typeof _gnwLoadAdsAnalytics === 'function'){ _gnwLoadAdsAnalytics(); }
-
     window.adBreak({
       type: 'reward',
-      name: 'watch-ad-bonus',
+      name: opts.key,
       beforeReward: function(showAdFn){
-        window._gnwShowAd = showAdFn;
+        window._gnwPendingAd = { showFn: showAdFn, key: opts.key };
         setStatus('adReady', 'Ad ready — tap Watch again to view it');
         if(btn){ btn.disabled = false; }
       },
       adDismissed: function(){
         setStatus('adDismissed', 'Ad closed early — no reward given');
         if(btn){ btn.disabled = false; }
+        if(opts.onDismissed) opts.onDismissed();
       },
       adViewed: function(){
-        // Reward granted here and only here — after real ad completion.
-        if(typeof earnXP === 'function') earnXP(30, 'Watch Ad');
-        if(typeof gainLive === 'function') gainLive(3);
+        // Reward granted here and only here -- after real ad completion.
         setStatus('adRewarded', 'Reward granted — thanks for watching!');
         if(btn){ btn.disabled = false; }
+        if(opts.onRewarded) opts.onRewarded();
       },
       adBreakDone: function(placementInfo){
         var status = placementInfo && placementInfo.breakStatus;
         if(status && status !== 'viewed' && status !== 'dismissed'){
           setStatus('adUnavailable', 'No ad available right now — try again later');
           if(btn){ btn.disabled = false; }
+          if(opts.onUnavailable) opts.onUnavailable();
         }
+      }
+    });
+  }
+  window.gnwWatchRewardedAd = gnwWatchRewardedAd;
+
+  window.requestRewardedAd = function(){
+    gnwWatchRewardedAd({
+      key: 'watch-ad-bonus',
+      btn: document.getElementById('watch-ad-btn'),
+      statusEl: document.getElementById('watch-ad-status'),
+      onRewarded: function(){
+        if(typeof earnXP === 'function') earnXP(30, 'Watch Ad');
+        if(typeof gainLive === 'function') gainLive(3);
       }
     });
   };
@@ -7823,10 +7849,14 @@ function gameFlappy(){
    Revenue streams: Rewarded Video, Interstitial, Affiliate
    ══════════════════════════════════════════════════════════ */
 
-/* ── AD CONFIG (Replace with real AdSense after approval) ──
+/* ── AD CONFIG ──
    AdSense pub-id: ca-pub-3359266836868361
-   For rewarded ads: use AdSense Rewarded API when approved
-   For now: simulated 5s countdown = same UX as real rewarded ads */
+   Rewarded ads: real Google Ad Placement API (adBreak/type:'reward'), see
+   gnwWatchRewardedAd near requestRewardedAd. Whether an ad actually fills
+   depends on this AdSense account's eligibility for that inventory --
+   verify under AdSense > Ads > By ad unit. (Round 21: the old comment here
+   said "simulated 5s countdown = same UX as real rewarded ads" -- that
+   simulated countdown was a real policy risk and has been removed.) */
 
 var AD_CONFIG = {
   pub: 'ca-pub-3359266836868361',
@@ -7840,88 +7870,30 @@ var AD_CONFIG = {
   gamesPlayed: 0
 };
 
-/* ── REWARDED VIDEO AD SYSTEM ── */
+/* ── REWARDED VIDEO AD SYSTEM ──
+   FIX (Round 21): this used to build a fake 5-second-countdown modal with a
+   static "📺 (AdSense Video Ad)" placeholder that never called any real ad
+   API and unconditionally handed out the reward once the countdown ended --
+   a real AdSense policy risk since it was reachable from the live "No Lives
+   Left" screen. It has been replaced with a thin delegate to the ONE real
+   rewarded-ad path (gnwWatchRewardedAd, defined near requestRewardedAd,
+   which itself calls Google's Ad Placement API adBreak/type:'reward'). This
+   stub is kept only so that if anything old still calls showRewardedAd(...),
+   it is routed to the real, policy-compliant flow instead of quietly
+   reintroducing a fake ad. All live call sites (header "Watch Ad" button,
+   "No Lives Left" modal, hint/answer-reveal) already call
+   gnwWatchRewardedAd directly and do not use this stub. */
 function showRewardedAd(reason, onComplete) {
-  /* reason: 'hint' | 'extra_life' | 'show_answer' | 'continue' | 'bonus' */
-  var now = Date.now();
-  var cooldownLeft = AD_CONFIG.rewardedCooldown - (now - AD_CONFIG.lastRewardedTime);
-
-  var REWARDS = {
-    hint:        { title: 'Get a Hint!',         reward: 'Hint Unlocked', xp: 0,  icon: '💡' },
-    extra_life:  { title: 'Get an Extra Life!',  reward: '+1 Life',       xp: 5,  icon: '❤️' },
-    show_answer: { title: 'Reveal the Answer!',  reward: 'Answer Shown',  xp: 0,  icon: '🔍' },
-    continue:    { title: 'Continue Playing!',   reward: '+3 Lives',      xp: 10, icon: '▶️' },
-    bonus:       { title: 'Bonus Reward!',       reward: '+50 XP',        xp: 50, icon: '🎁' },
-    skip_level:  { title: 'Skip This Level!',    reward: 'Level Skipped', xp: 5,  icon: '⏭️' }
-  };
-  var r = REWARDS[reason] || REWARDS.bonus;
-
-  /* Create ad modal */
-  var existing = document.getElementById('rewarded-modal');
-  if (existing) existing.remove();
-
-  var modal = document.createElement('div');
-  modal.id = 'rewarded-modal';
-  modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;z-index:99999;backdrop-filter:blur(8px);';
-
-  var countdown = 5;
-  modal.innerHTML = rewardedModalHTML(r, countdown, false);
-  document.body.appendChild(modal);
-
-  var iv = setInterval(function() {
-    countdown--;
-    var cd = document.getElementById('rwrd-countdown');
-    var bar = document.getElementById('rwrd-bar');
-    var btn = document.getElementById('rwrd-claim');
-    if (cd) cd.textContent = countdown > 0 ? countdown + 's' : '✓';
-    if (bar) bar.style.width = ((5-countdown)/5*100) + '%';
-    if (countdown <= 0) {
-      clearInterval(iv);
-      AD_CONFIG.lastRewardedTime = Date.now();
-      if (btn) { btn.disabled = false; btn.style.opacity = '1'; btn.style.cursor = 'pointer'; }
-      var adBox = document.getElementById('rwrd-ad-box');
-      if (adBox) adBox.innerHTML = '<div style="font-size:48px;text-align:center;padding:20px;">✅</div>';
+  var REWARD_XP = { hint: 0, extra_life: 5, show_answer: 0, continue: 10, bonus: 50, skip_level: 5 };
+  var xp = REWARD_XP.hasOwnProperty(reason) ? REWARD_XP[reason] : REWARD_XP.bonus;
+  gnwWatchRewardedAd({
+    key: 'legacy-' + reason,
+    onRewarded: function() {
+      if (reason === 'extra_life' || reason === 'continue') gainLive(reason === 'continue' ? 3 : 1);
+      if (xp > 0) earnXP(xp, 'Rewarded Ad');
+      if (onComplete) onComplete();
     }
-  }, 1000);
-
-  window._claimReward = function() {
-    if (countdown > 0) return;
-    modal.remove();
-    /* Give reward */
-    if (reason === 'extra_life' || reason === 'continue') gainLive(reason === 'continue' ? 3 : 1);
-    if (r.xp > 0) earnXP(r.xp, 'Rewarded Ad');
-    playSound('win');
-    showToast(r.reward, r.xp);
-    if (onComplete) onComplete();
-  };
-
-  window._skipReward = function() {
-    clearInterval(iv);
-    modal.remove();
-  };
-}
-
-function rewardedModalHTML(r, cd, done) {
-  return '<div style="background:linear-gradient(145deg,#1e1b4b,#312e81);border-radius:24px;padding:28px 24px;text-align:center;max-width:320px;width:90%;border:1px solid rgba(129,140,248,.3);">'
-    + '<div style="font-size:48px;margin-bottom:8px;">'+r.icon+'</div>'
-    + '<div style="color:#e0e7ff;font-size:20px;font-weight:900;margin-bottom:4px;">'+r.title+'</div>'
-    + '<div style="color:rgba(255,255,255,.5);font-size:13px;margin-bottom:16px;">Watch a short ad to earn: <strong style="color:#818cf8;">'+r.reward+'</strong></div>'
-    /* Simulated ad area */
-    + '<div id="rwrd-ad-box" style="background:#000;border-radius:12px;height:140px;margin-bottom:14px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;">'
-    + '<div style="color:#374151;font-size:12px;text-align:center;padding:20px;">'
-    + '<div style="font-size:32px;margin-bottom:8px;">📺</div>'
-    + '<div>Advertisement</div>'
-    + '<div style="font-size:10px;margin-top:4px;color:#6b7280;">(AdSense Video Ad)</div>'
-    + '</div>'
-    + '<div style="position:absolute;top:8px;right:8px;background:rgba(0,0,0,.7);color:#fff;font-size:11px;padding:3px 8px;border-radius:4px;" id="rwrd-countdown">'+cd+'s</div>'
-    + '</div>'
-    /* Progress bar */
-    + '<div style="background:rgba(255,255,255,.1);border-radius:99px;height:6px;margin-bottom:14px;overflow:hidden;">'
-    + '<div id="rwrd-bar" style="background:#818cf8;height:6px;border-radius:99px;width:0%;transition:width 1s linear;"></div>'
-    + '</div>'
-    + '<button id="rwrd-claim" onclick="_claimReward()" disabled style="width:100%;padding:14px;border-radius:12px;background:#4338ca;border:none;color:#fff;font-size:15px;font-weight:700;cursor:not-allowed;margin-bottom:10px;opacity:.4;transition:all .3s;">Claim '+r.reward+'</button>'
-    + '<button onclick="_skipReward()" style="background:none;border:none;color:rgba(255,255,255,.3);font-size:12px;cursor:pointer;">Skip</button>'
-    + '</div>';
+  });
 }
 
 /* ── INTERSTITIAL AD (shown between games) ── */
@@ -8123,8 +8095,14 @@ function showNoLivesModal() {
   overlay.innerHTML = '<div style="font-size:52px;margin-bottom:12px;animation:pulse 1s infinite;">💔</div>'
     + '<div style="color:#fff;font-size:22px;font-weight:900;margin-bottom:6px;text-align:center;">No Lives Left!</div>'
     + '<div style="color:rgba(255,255,255,.6);font-size:14px;margin-bottom:24px;text-align:center;">Watch a short ad to restore lives and keep your progress!</div>'
-    /* Option 1: Watch ad */
-    + '<button onclick="rewardedForLives()" style="width:100%;max-width:240px;padding:15px;border-radius:14px;background:linear-gradient(135deg,#f59e0b,#d97706);border:none;color:#fff;font-size:16px;font-weight:700;cursor:pointer;margin-bottom:10px;box-shadow:0 4px 20px rgba(245,158,11,.4);">📺 Watch Ad → +3 Lives</button>'
+    /* Option 1: Watch ad -- routes through the ONE real rewarded-ad call
+       (gnwWatchRewardedAd/adBreak), see the note above requestRewardedAd.
+       The overlay deliberately stays open until adViewed actually fires;
+       nolives-ad-status carries the "ad ready, tap again" / "closed early"
+       feedback so nothing here can look like a reward was granted before
+       Google's SDK confirms the ad was really watched. */
+    + '<button id="nolives-watch-btn" onclick="rewardedForLives()" style="width:100%;max-width:240px;padding:15px;border-radius:14px;background:linear-gradient(135deg,#f59e0b,#d97706);border:none;color:#fff;font-size:16px;font-weight:700;cursor:pointer;margin-bottom:6px;box-shadow:0 4px 20px rgba(245,158,11,.4);">📺 Watch Ad → +3 Lives</button>'
+    + '<div id="nolives-ad-status" style="min-height:15px;font-size:11.5px;color:rgba(255,255,255,.55);margin-bottom:8px;text-align:center;"></div>'
     /* Option 2: Use XP */
     + '<button onclick="xpForLives()" style="width:100%;max-width:240px;padding:13px;border-radius:14px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:14px;font-weight:600;cursor:pointer;margin-bottom:10px;">⭐ Spend 50 XP → +1 Life (You have '+getXP()+'XP)</button>'
     /* Option 3: Exit */
@@ -8135,11 +8113,17 @@ function showNoLivesModal() {
 }
 
 window.rewardedForLives = function() {
-  var overlay = document.getElementById('no-lives-overlay');
-  if (overlay) overlay.remove();
-  showRewardedAd('continue', function() {
-    gainLive(3);
-    _revenue.rewardedCompleted++;
+  gnwWatchRewardedAd({
+    key: 'no-lives-continue',
+    btn: document.getElementById('nolives-watch-btn'),
+    statusEl: document.getElementById('nolives-ad-status'),
+    onRewarded: function() {
+      gainLive(3);
+      _revenue.rewardedCompleted++;
+      var overlay = document.getElementById('no-lives-overlay');
+      if (overlay) overlay.remove();
+      showToast('+3 Lives!', 0);
+    }
   });
 };
 
@@ -8156,14 +8140,18 @@ window.xpForLives = function() {
   }
 };
 
-/* ── HINT BUTTON (rewarded) ── */
+/* ── HINT BUTTON (rewarded) ──
+   Currently no UI element calls this (checked: zero call sites), but it's
+   fixed anyway so nothing in the codebase can ever wire a future "Hint"
+   button to the fake ad system -- same real gnwWatchRewardedAd path as
+   everything else. onHint only fires after a genuine ad view. */
 function getHintRewarded(onHint) {
-  showRewardedAd('hint', onHint);
+  gnwWatchRewardedAd({ key: 'hint', onRewarded: onHint });
 }
 
-/* ── ANSWER REVEAL (rewarded) ── */
+/* ── ANSWER REVEAL (rewarded) ── same precaution as getHintRewarded above. */
 function revealAnswerRewarded(onReveal) {
-  showRewardedAd('show_answer', onReveal);
+  gnwWatchRewardedAd({ key: 'show-answer', onRewarded: onReveal });
 }
 
 /* ── SUPPORT FLOATING BUTTON ── */
