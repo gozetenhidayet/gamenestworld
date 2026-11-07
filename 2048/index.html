@@ -1,130 +1,129 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<meta name="robots" content="index,follow,max-image-preview:large">
-<title>2048 - Play Free Online | GameNest World</title>
-<meta name="description" content="Play 2048 free online at GameNest World. Merge to 2048. No download, no signup — classic arcade fun that works on any device.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Play 2048 Online Free - Merge to 2048 | GameNest World</title>
+<meta name="description" content="Play 2048 online free -- no download or signup required. Merge to 2048. 100% free on GameNest World, works on desktop and mobile.">
 <link rel="canonical" href="https://gamenestworld.com/games/2048/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="2048 - Play Free Online | GameNest World">
-<meta property="og:description" content="Play 2048 free online at GameNest World. Merge to 2048. No download, no signup — classic arcade fun that works on any device.">
+<link rel="icon" type="image/png" href="/icon-192.png">
+<meta name="theme-color" content="#7c3aed">
+<meta property="og:title" content="Play 2048 Online Free | GameNest World">
+<meta property="og:description" content="Play 2048 online free -- no download or signup required. Merge to 2048. 100% free on GameNest World, works on desktop and mobile.">
 <meta property="og:url" content="https://gamenestworld.com/games/2048/">
-<meta name="twitter:card" content="summary">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://gamenestworld.com/game-images/g2048.webp">
+<meta property="og:site_name" content="GameNest World">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Play 2048 Online Free | GameNest World">
+<meta name="twitter:description" content="Play 2048 online free -- no download or signup required. Merge to 2048. 100% free on GameNest World, works on desktop and mobile.">
+<meta name="twitter:image" content="https://gamenestworld.com/game-images/g2048.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://gamenestworld.com/"},{"@type":"ListItem","position":2,"name":"Games","item":"https://gamenestworld.com/games/"},{"@type":"ListItem","position":3,"name":"2048","item":"https://gamenestworld.com/games/2048/"}]}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"2048","description":"Play 2048 free online at GameNest World. Merge to 2048. No download, no signup — classic arcade fun that works on any device.","url":"https://gamenestworld.com/games/2048/","genre":"Classic Arcade","gamePlatform":"Web Browser","applicationCategory":"Game","isAccessibleForFree":true,"operatingSystem":"Any"}</script>
-<style>
-*{box-sizing:border-box;margin:0;padding:0;}
-:root{--bg:#07050f;--text:#fff;--muted:rgba(255,255,255,.6);--border:rgba(255,255,255,.09);}
-body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.7;}
-body::before{content:'';position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 60% 50% at 10% 20%,rgba(124,58,237,.18) 0%,transparent 70%),radial-gradient(ellipse 50% 60% at 90% 80%,rgba(236,72,153,.12) 0%,transparent 70%);pointer-events:none;}
-.nav{position:sticky;top:0;z-index:200;background:rgba(7,5,15,.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);padding:0 16px;}
-.nav-inner{max-width:1240px;margin:0 auto;height:54px;display:flex;align-items:center;gap:16px;position:relative;z-index:1;}
-.logo{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:21px;font-weight:900;color:#fff;text-decoration:none;letter-spacing:-.3px;}
-.logo span{color:#a78bfa;}
-.back-link{margin-left:auto;color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:700;padding:7px 14px;border:1px solid var(--border);border-radius:99px;transition:all .2s;}
-.back-link:hover{border-color:#a78bfa;color:#fff;}
-main{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:32px 20px 64px;}
-.crumb{font-size:12px;color:var(--muted);margin-bottom:18px;}
-.crumb a{color:var(--muted);text-decoration:none;}
-.crumb a:hover{color:#c084fc;}
-.hero{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:22px;padding:32px 28px;margin-bottom:28px;text-align:center;}
-.hero-icon{width:88px;height:88px;border-radius:22px;background:rgba(124,58,237,.15);display:flex;align-items:center;justify-content:center;font-size:48px;margin:0 auto 16px;}
-h1{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:clamp(24px,4.5vw,34px);font-weight:900;letter-spacing:-.5px;margin-bottom:10px;}
-.badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:18px;}
-.badge{font-size:11px;font-weight:800;padding:5px 12px;border-radius:99px;background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--muted);}
-.badge.diff-Easy{color:#86efac;border-color:rgba(74,222,128,.3);}
-.badge.diff-Medium{color:#fdba74;border-color:rgba(251,146,60,.3);}
-.badge.diff-Hard{color:#fca5a5;border-color:rgba(248,113,113,.3);}
-.play-btn{display:inline-flex;align-items:center;gap:10px;padding:16px 36px;border:none;border-radius:14px;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;font-size:17px;font-weight:800;cursor:pointer;text-decoration:none;box-shadow:0 8px 24px rgba(124,58,237,.4);transition:transform .15s;}
-.play-btn:hover{transform:translateY(-2px);}
-h2{font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:19px;font-weight:800;margin:30px 0 12px;color:#e9d5ff;}
-p{color:rgba(255,255,255,.82);font-size:15px;margin-bottom:12px;}
-ol,ul{color:rgba(255,255,255,.82);font-size:15px;margin:0 0 12px 20px;}
-li{margin-bottom:8px;}
-.faq-item{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:10px;}
-.faq-q{font-weight:800;font-size:14px;color:#e9d5ff;margin-bottom:5px;}
-.faq-a{font-size:13px;color:rgba(255,255,255,.65);}
-.related{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;margin-top:14px;}
-.rel-card{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:14px;padding:14px 8px;text-align:center;text-decoration:none;color:#fff;transition:all .2s;}
-.rel-card:hover{background:rgba(255,255,255,.08);transform:translateY(-3px);}
-.rel-em{font-size:26px;margin-bottom:6px;}
-.rel-name{font-size:11px;font-weight:700;}
-footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:28px 20px;text-align:center;color:var(--muted);font-size:13px;}
-footer a{color:var(--muted);text-decoration:none;margin:0 8px;}
-footer a:hover{color:#c084fc;}
-@media(max-width:600px){.hero{padding:24px 18px;}}
-</style>
+<link rel="stylesheet" href="/seo-pages.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "VideoGame", "name": "2048", "description": "Swipe tiles together to combine matching numbers, aiming to reach the elusive 2048 tile.", "genre": "Arcade", "url": "https://gamenestworld.com/games/2048/", "image": "https://gamenestworld.com/game-images/g2048.webp", "applicationCategory": "Game", "operatingSystem": "Any", "gamePlatform": "Web Browser", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does 2048 track a running score, or just my highest tile?", "acceptedAnswer": {"@type": "Answer", "text": "This version shows the value of your highest tile on the board as \"Best\" rather than a cumulative point total, so it updates in real time as you merge bigger tiles."}}, {"@type": "Question", "name": "Is my 2048 board saved if I close the tab?", "acceptedAnswer": {"@type": "Answer", "text": "Yes -- 2048 is one of the few games here with save-and-continue, so leaving and coming back picks up your exact board again, not a fresh one."}}, {"@type": "Question", "name": "Is 2048 free to play?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. 2048 is 100% free on GameNest World, with no premium tier, paywall, or in-game purchases."}}, {"@type": "Question", "name": "Can I play 2048 on my phone?", "acceptedAnswer": {"@type": "Answer", "text": "Yes -- swipe in any direction on touch devices, or use the arrow keys on desktop. The board resizes automatically to fit your screen."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://gamenestworld.com/"}, {"@type": "ListItem", "position": 2, "name": "Classic Games", "item": "https://gamenestworld.com/classic-games/"}, {"@type": "ListItem", "position": 3, "name": "2048", "item": "https://gamenestworld.com/games/2048/"}]}</script>
 </head>
 <body>
-<nav class="nav">
-  <div class="nav-inner">
-    <a class="logo" href="/"><span>Game</span>Nest<span style="color:#fff;">World</span></a>
-    <a class="back-link" href="/">← Back to Games</a>
-  </div>
+<nav class="gp-nav">
+  <a href="/" class="gp-logo"><span>Game</span>Nest<span class="gp-badge">World</span></a>
+  <a href="/games/" class="gp-navlink">All Games</a>
 </nav>
-
-<main>
-  <div class="crumb"><a href="/">Home</a> / <a href="/#games">Games</a> / 2048</div>
-
-  <div class="hero">
-    <div class="hero-icon">🔢</div>
-    <h1>2048</h1>
-    <div class="badges">
-      <span class="badge">Classic Arcade</span>
-      <span class="badge diff-Medium">Medium</span>
-      <span class="badge">100% Free</span>
-      <span class="badge">No Download</span>
+<main class="gp-main">
+  <div class="gp-breadcrumb"><a href="/">Home</a> &rsaquo; <a href="/classic-games/">Classic Games</a> &rsaquo; 2048</div>
+  <div class="gp-hero">
+    <iframe class="gp-frame" src="/?play=g2048" loading="lazy" title="Play 2048 -- full working game, embedded live from GameNest World" allow="autoplay"></iframe>
+    <div class="gp-hero-text">
+      <h1>Play 2048 Online Free</h1>
+      <p class="gp-lead">Swipe tiles together to combine matching numbers, aiming to reach the elusive 2048 tile.</p>
+      <p class="gp-meta">&#9650; The real, full game is playable directly above -- no separate tab needed.</p>
+      <a class="gp-play-btn" href="https://gamenestworld.com/?play=g2048">&#9654; Open 2048 in Full Screen</a>
+      <p class="gp-meta">No download &middot; No signup &middot; 100% free &middot; Works on desktop &amp; mobile</p>
     </div>
-    <a class="play-btn" href="/?play=g2048">▶ Play 2048 Now</a>
   </div>
 
-  <h2>About 2048</h2>
-  <p>2048 is one of GameNest World's classic arcade games — timeless arcade action rebuilt for the browser — quick to learn, hard to put down. Merge to 2048 in a clean, ad-light browser experience that loads in seconds on any device.</p>
+  <section class="gp-section">
+    <h2>About 2048</h2>
+    <p>2048 is the addictive sliding-tile puzzle where matching numbers merge into their sum, and the goal is to reach the 2048 tile before the board fills up. It's easy to learn and famously hard to put down.</p>
+  </section>
 
-  <h2>How to play 2048</h2>
-  <ol>
-    <li>Click or tap "Play Now" to load the game instantly in your browser.</li>
-    <li>Use your mouse, keyboard, or touchscreen — controls are shown on-screen when the game loads.</li>
-    <li>Try to beat your own best score, then challenge a friend to top it.</li>
-  </ol>
+  <section class="gp-section">
+    <h2>How to Play 2048</h2>
+    <p>Swipe or press arrows to merge tiles — reach the 2048 tile!.</p>
+  </section>
 
-  <h2>Why players love it</h2>
-  <p>2048 is quick to pick up but keeps you coming back — merge to 2048, with no loading screens, no forced tutorials, and no pressure to spend money. It's the kind of game you open for two minutes and stay for twenty.</p>
+  <section class="gp-section">
+    <h2>2048 Controls</h2>
+    <p>← → ↑ ↓ Arrow keys</p>
+  </section>
 
-  <h2>Frequently asked questions</h2>
-  <div class="faq-item">
-    <div class="faq-q">Is 2048 free to play?</div>
-    <div class="faq-a">Yes — 2048 is 100% free on GameNest World, with no download, no account, and no hidden paywall.</div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-q">Can I play 2048 on mobile?</div>
-    <div class="faq-a">Yes, 2048 works on phones, tablets, and desktop browsers with touch or mouse/keyboard controls.</div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-q">Do I need to create an account?</div>
-    <div class="faq-a">No account is needed. Click "Play Now" and 2048 loads instantly in your browser.</div>
-  </div>
+  <section class="gp-section">
+    <h2>Scoring &amp; Merging</h2>
+    <p>Two tiles with the same number merge into one worth their sum whenever they collide during a slide -- merge two 4s and you get an 8, merge two 1024s and you get the 2048 tile. This version tracks progress a little differently from the original: instead of a running point total, the number shown as your "Best" is simply the value of the highest tile currently on the board, so it updates the instant you create a bigger tile rather than only at the end of a round.</p>
+  </section>
 
-  <h2>More Classic Arcade games</h2>
-  <div class="related">
-    <a class="rel-card" href="/games/coin-flip/"><div class="rel-em">🪙</div><div class="rel-name">Coin Flip</div></a>
-    <a class="rel-card" href="/games/dice-roller/"><div class="rel-em">🎲</div><div class="rel-name">Dice Roller</div></a>
-    <a class="rel-card" href="/games/rock-paper-scissors/"><div class="rel-em">✊</div><div class="rel-name">Rock Paper Scissors</div></a>
-    <a class="rel-card" href="/games/number-guess/"><div class="rel-em">🔢</div><div class="rel-name">Number Guess</div></a>
+  <section class="gp-section">
+    <h2>Board &amp; Tile Spawns</h2>
+    <p>Every move that shifts at least one tile spawns a new one in an empty square afterward -- 90% of the time it's a 2, and 10% of the time it's a 4. With the 4&times;4 board full, the game ends once no two adjacent tiles (left-right or up-down) share the same number, since at that point no legal move remains.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Your Board Is Saved</h2>
+    <p>2048 is one of the few games on the site with save-and-continue built in: close the tab mid-game and your exact board is restored automatically next time you open it, clearing only once you truly run out of moves.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Strategy</h2>
+    <p>Keep your highest tile anchored in one corner and build a descending gradient out from it, rather than chasing merges in the center of the board -- a scrambled middle is the most common way a board gets stuck.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Common Mistakes</h2>
+    <p>Swiping in whatever direction has an open merge, without a consistent corner strategy, is the fastest way to fragment the board into unmergeable pairs. Moving away from your anchor corner "just to see" is usually what breaks a good position.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>History</h2>
+    <p>2048 was created by Italian developer Gabriele Cirulli in 2014, released for free as an open-source project inspired by the game Threes!, and became a viral internet hit within days of launch.</p>
+  </section>
+
+  <section class="gp-section">
+    <h2>Tips for 2048</h2>
+    <ul>
+      <li>2048 tends to reward a steady, controlled pace more than raw speed -- rushing early is usually what ends a run.</li>
+      <li>Watch a full round of 2048 play out once before trying to optimize your strategy; the patterns get clearer with a little observation.</li>
+      <li>If 2048 has levels or a difficulty curve, don't skip ahead -- getting the basics solid pays off once things speed up.</li>
+    </ul>
+  </section>
+
+  <section class="gp-section">
+    <h2>Frequently Asked Questions About 2048</h2>
+    <div class="gp-faq">
+      <details><summary>Does 2048 track a running score, or just my highest tile?</summary><p>This version shows the value of your highest tile on the board as "Best" rather than a cumulative point total, so it updates in real time as you merge bigger tiles.</p></details>
+      <details><summary>Is my 2048 board saved if I close the tab?</summary><p>Yes -- 2048 is one of the few games here with save-and-continue, so leaving and coming back picks up your exact board again, not a fresh one.</p></details>
+      <details><summary>Is 2048 free to play?</summary><p>Yes. 2048 is 100% free on GameNest World, with no premium tier, paywall, or in-game purchases.</p></details>
+      <details><summary>Can I play 2048 on my phone?</summary><p>Yes -- swipe in any direction on touch devices, or use the arrow keys on desktop. The board resizes automatically to fit your screen.</p></details>
+    </div>
+  </section>
+
+  <section class="gp-section">
+    <h2>More Classic Games</h2>
+    <div class="gp-related">
+      <a href="/games/coin-flip/">Coin Flip</a>
+      <a href="/games/dice-roller/">Dice Roller</a>
+      <a href="/games/rock-paper-scissors/">Rock Paper Scissors</a>
+      <a href="/games/number-guess/">Number Guess</a>
+      <a href="/classic-games/">See all Classic Games &rarr;</a>
+    </div>
+  </section>
+
+  <div class="gp-cta">
+    <a class="gp-play-btn" href="https://gamenestworld.com/?play=g2048">&#9654; Play 2048 Now -- Free</a>
   </div>
 </main>
-
-<footer>
-  <a href="/">Home</a>
-  <a href="/about.html">About</a>
-  <a href="/privacy.html">Privacy Policy</a>
-  <a href="/terms.html">Terms of Use</a>
-  <a href="/contact.html">Contact</a>
-  <p style="margin-top:14px;">© 2026 GameNest World · All rights reserved</p>
+<footer class="gp-footer">
+  <p>&copy; 2026 GameNest World &middot; <a href="/about.html">About</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/terms.html">Terms</a> &middot; <a href="/contact.html">Contact</a></p>
 </footer>
 </body>
 </html>
