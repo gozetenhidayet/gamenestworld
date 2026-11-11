@@ -509,13 +509,39 @@ function watchAd(){
   var h='<button class="modal-close" onclick="closeGame()">&times;</button><div id="gw" style="text-align:center;padding:20px;">';
   h+='<div style="font-size:48px;margin-bottom:12px;">&#128250;</div><h2>Watch Ad - Earn Rewards!</h2>';
   h+='<p style="color:#64748b;font-size:14px;margin:12px 0 16px">Watch a short ad for +30 XP and +3 lives!</p>';
-  h+='<div style="background:#f1f5f9;border:2px dashed #cbd5e1;border-radius:12px;height:100px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:#94a3b8;">Ad plays here</div>';
-  h+='<div id="ad-cd" style="font-size:28px;font-weight:800;color:#6366f1;margin-bottom:14px;">5</div>';
-  h+='<button class="btn" id="ad-btn" disabled style="opacity:.4;">Claim +30 XP</button></div>';
+  h+='<div id="ad-status" style="background:#f1f5f9;border:2px dashed #cbd5e1;border-radius:12px;min-height:60px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:#94a3b8;font-size:13px;padding:8px;">Tap below to watch a real ad</div>';
+  h+='<button class="btn" id="ad-btn">Watch Ad</button></div>';
   box.innerHTML=h;
   var ov=document.getElementById('overlay');if(ov)ov.classList.add('active');document.body.style.overflow='hidden';
-  var sec=5;var iv=setInterval(function(){sec--;var cd=document.getElementById('ad-cd');if(cd)cd.textContent=sec>0?''+sec:'Done!';
-    if(sec<=0){clearInterval(iv);var btn=document.getElementById('ad-btn');if(btn){btn.disabled=false;btn.style.opacity='1';btn.onclick=function(){earnXP(30,'Watch Ad');closeGame();};}}},1000);
+  var btn=document.getElementById('ad-btn');
+  var st=document.getElementById('ad-status');
+  if(btn)btn.onclick=function(){
+    btn.disabled=true;btn.style.opacity='.5';
+    if(st)st.textContent='Loading ad...';
+    try{
+      window.adBreak=window.adBreak||function(o){if(o&&o.adBreakDone)o.adBreakDone({breakStatus:'noAdPlaceholder'});};
+      window.adBreak({
+        type:'reward',
+        name:'watch_ad_reward',
+        beforeReward:function(showAdFn){ showAdFn(); },
+        adViewed:function(){ earnXP(30,'Watch Ad'); closeGame(); },
+        adDismissed:function(){
+          if(st)st.textContent='Ad skipped - no reward given.';
+          if(btn){btn.disabled=false;btn.style.opacity='1';btn.textContent='Try Again';}
+        },
+        adBreakDone:function(placementInfo){
+          var ok=placementInfo&&(placementInfo.breakStatus==='viewed');
+          if(!ok){
+            if(st)st.textContent='Ad not available right now. No reward given.';
+            if(btn){btn.disabled=false;btn.style.opacity='1';btn.textContent='Try Again';}
+          }
+        }
+      });
+    }catch(e){
+      if(st)st.textContent='Ad not available right now. No reward given.';
+      if(btn){btn.disabled=false;btn.style.opacity='1';btn.textContent='Try Again';}
+    }
+  };
 }
 function joinTournament(){
   openGame('g2048');earnXP(25,'Tournament');
