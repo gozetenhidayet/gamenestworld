@@ -1,58 +1,47 @@
-# GameNestWorld — Round 25 Raporu (GitHub repo üzerinden doğrudan inceleme)
+# GameNestWorld — Round 26 Raporu: çifte-kanonik (duplicate content) düzeltmesi
 
 ## Bu pakette ne var
 
-13 düzeltilmiş oyun dosyası + mevcut sitemap.xml (değişmedi, kontrol edildi, sorunsuz).
-
-Düzeltilen dosyalar: `anagram.html`, `breakout.html`, `c4.html`, `chess.html`, `cipher.html`,
-`coin.html`, `colormatch.html`, `colorquiz.html`, `crossword.html`, `dice.html`,
-`emojiquiz.html`, `expertquiz.html`, `rps.html`
+Aynı 13 dosyanın güncellenmiş hali (daha önce sahte reklam fix'i yapılan dosyalar):
+`anagram.html`, `breakout.html`, `c4.html`, `chess.html`, `cipher.html`, `coin.html`,
+`colormatch.html`, `colorquiz.html`, `crossword.html`, `dice.html`, `emojiquiz.html`,
+`expertquiz.html`, `rps.html`
 
 ## Yüklerken ne yapmalısınız
 
-GitHub reponuzda bu 13 dosya **zaten aynı isimlerle kök dizinde** mevcut. Bu pakettekiler
-onların yerine geçecek — yani bu 13 dosyayı reponuzda aynı isimle, aynı konuma (kök dizin,
-`/` altına) yükleyip üzerine yazmanız yeterli. `sitemap.xml` de kök dizinde zaten var;
-bu pakettekiyle aynı, değişiklik yok, sadece referans olarak ekledim.
+Reponuzda kök dizinde aynı isimlerle duran bu 13 dosyanın üzerine yazın. Önceki paketteki
+reklam fix'i bu dosyalarda hâlâ duruyor (kontrol ettim), üstüne bu turda kanonik/robots
+düzeltmesi eklendi — yani tek seferde hem reklam hem kanonik sorunu çözülmüş oluyor.
 
-## 1) Düzeltilen asıl sorun: sahte ödüllü reklam (AdSense politika ihlali)
+## Ne düzeltildi
 
-Bu 13 dosyanın hepsinde aynı `watchAd()` fonksiyonu vardı: ekranda "Ad plays here" yazan boş
-bir kutu, 5 saniyelik sahte bir geri sayım, sayaç bitince **hiçbir gerçek reklam API'si
-çağrılmadan** direkt +30 XP veriliyordu. Bu, en başta bana bildirdiğiniz "Watch Ad → +30 XP"
-sorununun ta kendisiydi — ben 21. turda kendi dosyamda düzeltmiştim ama bu 13 dosya ayrı bir
-kod tabanında olduğu için o fix buralara hiç ulaşmamış.
+Geçen turda tespit ettiğim "aynı oyun için birden fazla indekslenebilir URL" sorununu bu
+13 dosya için çözdüm. Reponuzdaki diğer ~38 benzer oyun dosyasını (flagquiz.html,
+snake.html, tetris.html, wordle.html, vb.) kontrol ettiğimde, bu dosyaların zaten doğru
+ayarlandığını gördüm: kanonik etiketleri kendilerine değil, gerçek sayfaya
+(`/games/{oyun}/`) işaret ediyor, ve `robots` meta'ları `noindex,follow`. Yani başka bir
+yerde (muhtemelen sizin bahsettiğiniz başka AI/araç tarafından) bu site genelinde zaten
+uygulanmış doğru bir standart var — sadece bu 13 dosya o standarda hiç alınmamış, muhtemelen
+en son eklenen/güncellenen dosyalar oldukları için.
 
-Yaptığım düzeltme: sahte sayaç tamamen kaldırıldı, yerine Google'ın gerçek **H5 Games Ad
-Placement API**'si (`window.adBreak`) konuldu. Artık XP/can ödülü **sadece** Google'ın
-`adViewed` olayı gerçekten tetiklendiğinde veriliyor — yani kullanıcı gerçek bir reklamı
-sonuna kadar izlerse. Reklam yüklenemezse veya kullanıcı atlarsa ödül verilmiyor, "No reward
-given" mesajı gösteriliyor. Playwright ile test ettim: reklam SDK'sı yokken (test ortamında
-ağ erişimi kısıtlı olduğu için) sistem doğru şekilde ödül vermeden "Ad not available" diyor —
-yani artık fail-safe, eskisi gibi her durumda otomatik ödül vermiyor.
+Bu 13 dosyada iki şeyi diğer ~38 dosyayla aynı standarda getirdim:
 
-Bu sayfalarda zaten normal AdSense display reklamları (`pub-3359266836868361`) yüklü
-olduğundan ek bir reklam birimi eklemenize gerek yok, aynı AdSense hesabı reward reklamları
-için de kullanılacak — ama reward reklam envanterinin gösterilip gösterilmeyeceği (doldurulup
-doldurulmayacağı) tamamen Google'ın o anki envanterine bağlı; hiç reklam yoksa kullanıcı
-sadece "Ad not available" görür, bu normal ve politika açısından güvenli bir davranış.
+1. **Kanonik etiket** — önceden `https://gamenestworld.com/chess.html` gibi kendine
+   işaret ediyordu, şimdi `https://gamenestworld.com/games/chess/` gibi gerçek/kalıcı
+   sayfaya işaret ediyor (her dosya için kendi karşılığına).
+2. **Robots meta** — önceden `index,follow` idi (yani "beni ayrı bir sayfa olarak
+   indeksle" diyordu), şimdi `noindex,follow` (yani "beni indeksleme ama üzerimdeki
+   linkleri takip et" — link değerini kaybetmeden çifte-içerik sinyalini ortadan kaldırıyor).
 
-## 2) sitemap.xml — kontrol ettim, sorun yok
+Önemli: bu dosyalar hâlâ çalışıyor, oyun hâlâ doğrudan bu URL'den oynanabiliyor
+(örn. `gamenestworld.com/chess.html` hâlâ açılır ve oyun çalışır) — sadece Google artık bu
+sayfayı ayrı bir arama sonucu olarak göstermeyecek, bunun yerine `/games/chess/` sayfasını
+gösterecek. Eski linkler/yer imleri kırılmıyor, sadece arama motoruna doğru sinyal
+gönderiliyor.
 
-Mevcut sitemap.xml'i inceledim: 97 URL var, hepsi `/games/{slug}/` yapısındaki kanonik
-sayfalara işaret ediyor (düz `.html` dosyalarına veya `/chess-puzzles/` gibi alternatif
-klasörlere değil). Bu doğru ve iyi — Google'a hangi URL'lerin "asıl" sayfa olduğunu doğru
-şekilde söylüyor. Bu dosyada herhangi bir değişiklik yapmadım, referans için pakete ekledim.
+## Sonuç
 
-## 3) Henüz çözülmemiş, sizin kararınızı gerektiren konu (bu pakette dokunmadım)
-
-İncelerken şunu da gördüm: bu 13 düz `.html` dosyası (ve reponuzdaki benzer diğer düz oyun
-dosyaları) kendi kendilerini "canonical" ilan ediyor ve `robots: index,follow` diyor —
-yani Google'a "beni de ayrı bir sayfa olarak indeksle" diyorlar. Ama aynı oyunun içeriği
-`/games/{slug}/` altında da (muhtemelen gerçek kanonik hedef) var. Bu, "Low value content"
-uyarısının muhtemel asıl nedeni: aynı oyun için birden fazla indekslenebilir URL.
-
-Bunu düzeltmek mimari bir karar gerektiriyor (ya bu düz dosyaları `/games/{slug}/`'a 301
-yönlendirmek, ya da `noindex` + canonical'ı `/games/{slug}/`'a çevirmek) ve reponuzda benden
-habersiz çalışan başka bir AI/araç olduğu için bunu sormadan tek taraflı yapmak istemedim.
-Hazır olduğunuzda bu konuyu da netleştirip ikinci bir pakette çözebilirim.
+Bu düzeltmeyle artık reponuzdaki TÜM tekli-oyun dosyaları (13'ü de dahil, toplam ~51 dosya)
+aynı standartta: her oyun için tek bir "gerçek" indekslenebilir sayfa (`/games/{oyun}/`),
+geri kalan her şey ona işaret ediyor. "Low value content" uyarısının en büyük olası
+nedenlerinden biri olan bu çifte-içerik sorunu artık bu dosyalar için kapandı.
